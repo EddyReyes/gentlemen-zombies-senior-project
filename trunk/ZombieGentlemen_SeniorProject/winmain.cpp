@@ -53,14 +53,14 @@ bool initWindow( HINSTANCE hInstance )
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW); // the default cursor
 	wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1); // the background color
 	wcex.lpszMenuName	= NULL;						// the resource name for the menu
-	wcex.lpszClassName	= "DirectXExample";			// the class name being created
+	wcex.lpszClassName	= "GSP Senior Project";			// the class name being created
 	wcex.hIconSm		= 0;						// the handle to the small icon
 	RegisterClassEx(&wcex);
 
 	// Create the window
 	wndHandle = CreateWindow(
-				"DirectXExample",		// the window class to use
-				"DirextXExample",		// the title bar text
+				"GSP Senior Project",		// the window class to use
+				"GSP Senior Project",		// the title bar text
 				WS_OVERLAPPEDWINDOW,	// the window style
 				CW_USEDEFAULT,			// the starting x coordinate
 				CW_USEDEFAULT,			// the startying y coordinate
