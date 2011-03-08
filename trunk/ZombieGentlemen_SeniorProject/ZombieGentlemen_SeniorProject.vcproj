@@ -166,10 +166,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dxManager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\winmain.cpp"
 				>
 			</File>
@@ -179,6 +175,22 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\dxManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\object.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
