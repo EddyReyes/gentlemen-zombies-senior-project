@@ -162,7 +162,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\dxManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dxManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\winmain.cpp"
 				>
 			</File>
 		</Filter>
