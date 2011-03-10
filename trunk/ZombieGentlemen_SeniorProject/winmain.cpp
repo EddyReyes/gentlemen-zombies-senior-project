@@ -10,6 +10,7 @@
 HINSTANCE hInst; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
 
+
 // forward declarations
 bool initWindow( HINSTANCE hInstance) ;
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
@@ -25,7 +26,12 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//main message loop
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
+
+	// DirectX Manager
+	dxManager *dxMgr = new dxManager();
 	
+
+	// Game/Windows loop
 	while (GetMessage(&msg, NULL, 0, 0) )
 	{
 		TranslateMessage ( &msg );

@@ -1,5 +1,6 @@
 #pragma once
-#define debug
+
+//#define debug
 #ifndef debug
 #include <d3d9.h>
 #include <d3dx9tex.h>
