@@ -7,4 +7,7 @@ status: skeleton
 
 class object
 {
+private:
+	XY location;
+public:
 };

@@ -184,11 +184,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includeFiles.h"
+				>
+			</File>
+			<File
 				RelativePath=".\map.h"
 				>
 			</File>
 			<File
 				RelativePath=".\object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XY.h"
 				>
 			</File>
 		</Filter>
