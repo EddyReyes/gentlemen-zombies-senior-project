@@ -1,6 +1,5 @@
-#include <stdio.h>
-// include Windows header file thats needed for all Windows applications
-#include <Windows.h>
+// includeFiles.h holds all other include headers nessary for this game
+#include "includeFiles.h"
 
 /*******************************************************************************************************
 * Windows
@@ -35,7 +34,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 }
 
 /*********************************************************************
-* gool initWindow( HINSTANCE hInstance )
+* bool initWindow( HINSTANCE hInstance )
 * initWindow registers the window calss for the application. creates the window
 **********************************************************************/
 bool initWindow( HINSTANCE hInstance )
