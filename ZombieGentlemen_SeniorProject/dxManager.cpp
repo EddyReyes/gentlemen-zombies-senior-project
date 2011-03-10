@@ -1,6 +1,6 @@
 #include ".\dxmanager.h"
 
-#define debug
+//#define debug
 #ifndef debug
 dxManager::dxManager(void)
 {
