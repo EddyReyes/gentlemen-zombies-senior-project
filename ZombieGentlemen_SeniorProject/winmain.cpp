@@ -35,9 +35,12 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//main message loop
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
-	
+
 	//Sound Manager
 	sound soundMgr(&wndHandle);
+	DSBuffer = soundMgr.LoadWaveToSoundBuffer("background_music.wav");
+	//soundMgr.playSound(DSBuffer);
+
 	// DirectX Manager
 	dxManager *dxMgr = new dxManager();
 	
