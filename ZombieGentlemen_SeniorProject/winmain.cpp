@@ -31,26 +31,50 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//Initialize the window
 	if (!initWindow( hInstance ) )
 		return false;
+	
+	// Create DirectX Manager
+	dxManager *dxMgr = new dxManager();
+
+	// Initialzie DirectX Manager
+	if(!dxMgr->initDirect3D(wndHandle))
+		return false;
 
 	//main message loop
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
 
 	//Sound Manager
+	LPDIRECTSOUNDBUFFER DSBuffer;
 	sound soundMgr(&wndHandle);
+	soundMgr.initDirectSound(wndHandle);
 	DSBuffer = soundMgr.LoadWaveToSoundBuffer("background_music.wav");
-	//soundMgr.playSound(DSBuffer);
+	soundMgr.playSound(DSBuffer);
 
-	// DirectX Manager
-	dxManager *dxMgr = new dxManager();
 	
 
 	// Game/Windows loop
+	
+	
 	while (GetMessage(&msg, NULL, 0, 0) )
 	{
 		TranslateMessage ( &msg );
 		DispatchMessage( &msg );
 	}
+	
+	
+	
+	/*
+	
+	if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE))
+	{
+		TranslateMessage ( &msg );
+		DispatchMessage( &msg );
+	}
+	{
+		//g.draw	
+	}
+
+	*/
 }
 
 /*********************************************************************

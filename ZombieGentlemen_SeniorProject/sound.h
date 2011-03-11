@@ -8,13 +8,18 @@ class sound
 {
 private:
 	LPDIRECTSOUND8        g_pDS;	// The DirectSound Device: Dont really know what this is for but it is important.
-	HWND * wndHandle;
+	HWND * wndHandle;   // a pointer to the windows handle
+	//LPDIRECTSOUNDBUFFER * SoundChannel[];
 
 public:
 
 	sound(HWND * a_wndHandle)
 	{
 		wndHandle = a_wndHandle;
+		/*for(int i = 0; i < 10; i++)
+		{
+			SoundChannel[i] = new LPDIRECTSOUNDBUFFER;
+		}*/
 	};
 
 		/*******************************************************************
