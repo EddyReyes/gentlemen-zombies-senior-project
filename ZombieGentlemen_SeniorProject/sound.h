@@ -7,22 +7,34 @@ using namespace std;
 class sound
 {
 private:
-	LPDIRECTSOUND8        g_pDS;	// The DirectSound Device: Dont really know what this is for but it is important.
+	LPDIRECTSOUND8        g_pDS;	// The DirectSound Device
 	HWND * wndHandle;   // a pointer to the windows handle
-	//LPDIRECTSOUNDBUFFER * SoundChannel[];
+	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to a an array of ten buffers for sound.
+	int * ChannelVolume;
 
 public:
 
 	sound(HWND * a_wndHandle)
 	{
+		// initialize windows handle for use with sound class
 		wndHandle = a_wndHandle;
-		/*for(int i = 0; i < 10; i++)
-		{
-			SoundChannel[i] = new LPDIRECTSOUNDBUFFER;
-		}*/
+		
+		// initialize array of 10 buffers
+		SoundChannel = new LPDIRECTSOUNDBUFFER[10];
+		ChannelVolume = new int [10];
+		initializeChannelVolume(-5000);
 	};
 
-		/*******************************************************************
+	// Initialize ChannelVolume array
+	void initializeChannelVolume(int initVolume)
+	{
+		for(int i = 0; i < 10; i++)
+		{
+			ChannelVolume[i] = initVolume;
+		}
+	}
+
+	/*******************************************************************
 	* LoadWaveToSoundBuffer
 	* Loads a wave file into a DirectSound Buffer
 	*******************************************************************/
@@ -100,31 +112,95 @@ public:
 
 		return apDSBuffer;
 	}
+
+	/*******************************************************************
+	* LoadSound(string, int)
+	* Loads a wave file into a specific DirectSound Buffer
+	*******************************************************************/
+	bool LoadSound(std::string wavFilename, int bufferID)
+	{
+		// Check if bufferID is a valid (between 0 and 10)
+		if(bufferID >= 10 || bufferID < 0) return false;
+
+		SoundChannel[bufferID] = LoadWaveToSoundBuffer(wavFilename);
+		return true;
+	}
+
+	/*******************************************************************
+	* SetVolume(bufferID, Volume)
+	* Sets the volume for a specific DirectSound Buffer
+	* Volume must be a level between -10000 and 0
+	* -10000 being the lowest, 0 being the highest
+	*******************************************************************/
+	void SetVolume(int bufferID, int Volume)
+	{
+		if(Volume < 0 || Volume >= -1000)
+		SoundChannel[bufferID]->SetVolume(Volume);
+	}
+
+	/*******************************************************************
+	* incrimentVolume(int bufferID)
+	* incriment any buffer channel by 100 to max value of 0
+	*******************************************************************/
+	void incrimentVolume(int bufferID)
+	{
+		if(ChannelVolume[bufferID] < 0)
+			ChannelVolume[bufferID] += 100;
+		if(ChannelVolume[bufferID] > 0)
+			ChannelVolume[bufferID] = 0;
+		SoundChannel[bufferID]->SetVolume(ChannelVolume[bufferID]);
+	}
+
+	/*******************************************************************
+	* decrimentVolume(int bufferID)
+	* decriment any buffer channel by 100 to min value of -10000
+	*******************************************************************/
+	void decrimentVolume(int bufferID)
+	{
+		if(ChannelVolume[bufferID] > -10000)
+			ChannelVolume[bufferID] -= 100;
+		if(ChannelVolume[bufferID] < -10000)
+			ChannelVolume[bufferID] = -10000;
+		SoundChannel[bufferID]->SetVolume(ChannelVolume[bufferID]);
+	}
+
 	/*******************************************************************
 	* playSound
 	* plays a sound currently in a buffer only once
 	*******************************************************************/
-	void playSound(LPDIRECTSOUNDBUFFER whichBuffer)
+	bool playSound(int bufferID)
 	{
-		whichBuffer->Play( 0, 0, 0);
+		// Check if bufferID is a valid (between 0 and 10)
+		if(bufferID >= 10 || bufferID < 0) return false;
+
+		SoundChannel[bufferID]->Play( 0, 0, 0);
+		return true;
 	}
 
 	/*******************************************************************
 	* playSoundLoop
 	* plays a sound in a buffer repeatedly
 	*******************************************************************/
-	void playSoundLoop(LPDIRECTSOUNDBUFFER whichBuffer)
+	bool playSoundLoop(int bufferID)
 	{
-		whichBuffer->Play( 0, 0, DSBPLAY_LOOPING );
+		// Check if bufferID is a valid (between 0 and 10)
+		if(bufferID >= 10 || bufferID < 0) return false;
+
+		SoundChannel[bufferID]->Play( 0, 0, DSBPLAY_LOOPING);
+		return true;
 	}
 
 	/*******************************************************************
 	* stopSound
 	* stops the sound in this buffer from playing
 	*******************************************************************/
-	void stopSound(LPDIRECTSOUNDBUFFER whichBuffer)
+	bool stopSound(int bufferID)
 	{
-		whichBuffer->Stop();
+		// Check if bufferID is a valid (between 0 and 10)
+		if(bufferID >= 10 || bufferID < 0) return false;
+
+		SoundChannel[bufferID]->Stop();
+		return true;
 	}
 	/*******************************************************************
 	* initDirectSound
@@ -145,6 +221,17 @@ public:
 
 		return true;
 	}
-	void shutdownDirectSound(void);
 
+	/*******************************************************************
+	* shutdownDirectSound
+	* Releases the DirecSound device
+	*******************************************************************/
+	void shutdownDirectSound(void)
+	{
+		if (g_pDS)
+		{
+			g_pDS->Release();
+			g_pDS = NULL;
+		}
+	}
 };

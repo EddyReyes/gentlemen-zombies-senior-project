@@ -44,11 +44,20 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ZeroMemory( &msg, sizeof( msg ) );
 
 	//Sound Manager
-	LPDIRECTSOUNDBUFFER DSBuffer;
+	//LPDIRECTSOUNDBUFFER DSBuffer;
 	sound soundMgr(&wndHandle);
 	soundMgr.initDirectSound(wndHandle);
-	DSBuffer = soundMgr.LoadWaveToSoundBuffer("background_music.wav");
-	soundMgr.playSound(DSBuffer);
+	//Load sound (filename, bufferID) in this case the first buffer is 0
+	soundMgr.LoadSound("background_music.wav", 0);
+	//SetVolume(bufferID, Volume)
+	soundMgr.SetVolume(0, -5000);
+
+	// incriment the volume by 100, 50 times
+	for(int i = 0; i < 50; i++)
+	soundMgr.incrimentVolume(0);
+
+	//play sound playSound(bufferID) in this case the first buffer is 0
+	soundMgr.playSound(0);
 
 	
 
