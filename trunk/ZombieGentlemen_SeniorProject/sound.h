@@ -1,16 +1,32 @@
+/**
+* sound is a class which handles Direct Sound
+* a sound object holds a total of 10 sound buffers
+* or you could think of them as 10 channels on a mixer
+* each one of these channels has its own corresponding volume and pan
+* each one of these is manipulated individualy through class methods
+* and each channel is identified by a number between 0 and 9
+
+status: running
+wish list: mute toggle method for each indidual channel
+		   mute toggle method for entire sound mixer
+*/
+
+
 #pragma once
 #include <dsound.h>
 #include "dsutil.h"
 #include <iostream>
 using namespace std;
 
+
 class sound
 {
 private:
 	LPDIRECTSOUND8        g_pDS;	// The DirectSound Device
 	HWND * wndHandle;   // a pointer to the windows handle
-	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to a an array of ten buffers for sound.
-	int * ChannelVolume;
+	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to an array of ten buffers for sound.
+	int * ChannelVolume; // pointer to an array of 10 volume values
+	int * ChannelPan; // pointer to an array of 10 Pan Values
 
 public:
 
@@ -22,7 +38,9 @@ public:
 		// initialize array of 10 buffers
 		SoundChannel = new LPDIRECTSOUNDBUFFER[10];
 		ChannelVolume = new int [10];
+		ChannelPan = new int [10];
 		initializeChannelVolume(-5000);
+		initializeChannelPan(0);
 	};
 
 	// Initialize ChannelVolume array
@@ -31,6 +49,15 @@ public:
 		for(int i = 0; i < 10; i++)
 		{
 			ChannelVolume[i] = initVolume;
+		}
+	}
+
+	// Initialize ChannelPan array
+	void initializeChannelPan(int initPan)
+	{
+		for(int i = 0; i < 10; i++)
+		{
+			ChannelPan[i] = initPan;
 		}
 	}
 
@@ -140,7 +167,7 @@ public:
 
 	/*******************************************************************
 	* incrimentVolume(int bufferID)
-	* incriment any buffer channel by 100 to max value of 0
+	* incriment any buffer channel volume by 100 to max value of 0
 	*******************************************************************/
 	void incrimentVolume(int bufferID)
 	{
@@ -153,7 +180,7 @@ public:
 
 	/*******************************************************************
 	* decrimentVolume(int bufferID)
-	* decriment any buffer channel by 100 to min value of -10000
+	* decriment any buffer channel volume by 100 to min value of -10000
 	*******************************************************************/
 	void decrimentVolume(int bufferID)
 	{
@@ -163,6 +190,45 @@ public:
 			ChannelVolume[bufferID] = -10000;
 		SoundChannel[bufferID]->SetVolume(ChannelVolume[bufferID]);
 	}
+
+	/*******************************************************************
+	* SetPan(bufferID, Pan)
+	* Sets the pan for a specific DirectSound Buffer
+	* Pan must be a level between -10000 and 10000
+	* -10000 being the lowest, 10000 being the highest
+	*******************************************************************/
+	void SetPan(int bufferID, int Pan)
+	{
+		if(Pan <= 10000 || Pan >= -1000)
+			SoundChannel[bufferID]->SetPan(Pan);
+	}
+
+	/*******************************************************************
+	* incrimentPan(int bufferID)
+	* incriment any buffer channel pan by 100 to max value of 10000
+	*******************************************************************/
+	void incrimentPan(int bufferID)
+	{
+		if(ChannelPan[bufferID] < 10000)
+			ChannelPan[bufferID] += 100;
+		if(ChannelPan[bufferID] > 10000)
+			ChannelPan[bufferID] = 10000;
+		SoundChannel[bufferID]->SetPan(ChannelPan[bufferID]);
+	}
+
+	/*******************************************************************
+	* decrimentPan(int bufferID)
+	* decriment any buffer channel pan by 100 to min value of -1000
+	*******************************************************************/
+	void decrimentPan(int bufferID)
+	{
+		if(ChannelPan[bufferID] > -10000)
+			ChannelPan[bufferID] -= 100;
+		if(ChannelPan[bufferID] < -10000)
+			ChannelPan[bufferID] = -10000;
+		SoundChannel[bufferID]->SetPan(ChannelPan[bufferID]);
+	}
+
 
 	/*******************************************************************
 	* playSound
