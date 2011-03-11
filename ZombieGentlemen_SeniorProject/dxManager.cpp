@@ -1,6 +1,6 @@
 #include ".\dxmanager.h"
 
-#define debug
+//#define debug
 
 
 dxManager::dxManager(void)
@@ -13,7 +13,7 @@ dxManager::~dxManager(void)
 {
 }
 
-bool dxManager::initDirect3D(HWND hwnd, HINSTANCE hInst)
+bool dxManager::initDirect3D(HWND hwnd, HINSTANCE * hInst)
 {
 
 	/*******************************************************************
@@ -49,7 +49,7 @@ bool dxManager::initDirect3D(HWND hwnd, HINSTANCE hInst)
 	*******************************************************************/
 
 	// Create the DirectInput object. 
-    hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, 
+    hr = DirectInput8Create(*hInst, DIRECTINPUT_VERSION, 
                             IID_IDirectInput8, (void**)&g_lpDI, NULL); 
 
 	if FAILED(hr) return FALSE; 

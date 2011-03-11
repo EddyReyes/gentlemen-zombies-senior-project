@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="d3d9.lib d3dx9.lib dxerr.lib winmm.lib dsound.lib dxguid.lib"
+				AdditionalDependencies="d3d9.lib d3dx9.lib dxerr.lib winmm.lib dsound.lib dxguid.lib dinput8.lib"
 				AdditionalLibraryDirectories="&quot;$(WindowsSdkDir)\Lib\x86\&quot;;&quot;$(DXSDK_DIR)\Lib\x86\&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"

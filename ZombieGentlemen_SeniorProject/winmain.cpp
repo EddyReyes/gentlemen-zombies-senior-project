@@ -39,7 +39,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	dxManager *dxMgr = new dxManager();
 
 	// Initialzie DirectX Manager
-	if(!dxMgr->initDirect3D(wndHandle, hInst))
+	if(!dxMgr->initDirect3D(wndHandle, &hInst))
 	{
 		MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
 		return false;
@@ -54,7 +54,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	sound soundMgr(&wndHandle);
 	soundMgr.initDirectSound(wndHandle);
 	//Load sound (filename, bufferID) in this case the first buffer is 0
-	soundMgr.LoadSound("background_music.wav", 0);
+	soundMgr.LoadSound("Combat music.wav", 0);
 	//SetVolume(bufferID, Volume)
 	soundMgr.SetVolume(0, -5000);
 
@@ -64,6 +64,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	//play sound playSound(bufferID) in this case the first buffer is 0
 	soundMgr.playSound(0);
+
 
 	
 
@@ -157,10 +158,3 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	// procedure for further processing
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
-
-/*******************************************************************************************************
-* Direct X
-* The following code initializes Direct X
-********************************************************************************************************/
-
-//IDirect3D9 *Direct3DCreate9( D3D_SDK_VERSION );
