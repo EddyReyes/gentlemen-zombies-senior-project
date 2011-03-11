@@ -161,8 +161,11 @@ public:
 	*******************************************************************/
 	void SetVolume(int bufferID, int Volume)
 	{
-		if(Volume < 0 || Volume >= -1000)
-		SoundChannel[bufferID]->SetVolume(Volume);
+		if(Volume < 0 || Volume >= -1000){
+
+			ChannelVolume[bufferID] = Volume;
+			SoundChannel[bufferID]->SetVolume(ChannelVolume[bufferID]);
+		}
 	}
 
 	/*******************************************************************
