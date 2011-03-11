@@ -29,15 +29,21 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPTSTR lpCmdLine, int nCmdShow )
 {
 	//Initialize the window
-	if (!initWindow( hInstance ) )
+	if (!initWindow(hInstance))
+	{
+		MessageBox(NULL, "Unable to create window", "ERROR", MB_OK);
 		return false;
+	}
 	
 	// Create DirectX Manager
 	dxManager *dxMgr = new dxManager();
 
 	// Initialzie DirectX Manager
-	if(!dxMgr->initDirect3D(wndHandle))
+	if(!dxMgr->initDirect3D(wndHandle, hInst))
+	{
+		MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
 		return false;
+	}
 
 	//main message loop
 	MSG msg;
@@ -53,7 +59,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	soundMgr.SetVolume(0, -5000);
 
 	// incriment the volume by 100, 50 times
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 100; i++)
 	soundMgr.incrimentVolume(0);
 
 	//play sound playSound(bufferID) in this case the first buffer is 0

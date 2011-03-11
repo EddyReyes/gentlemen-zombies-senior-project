@@ -1,5 +1,6 @@
 #pragma once
 
+#define DIRECTINPUT_VERSION 0x0800
 //#define debug
 #ifndef debug
 #include <d3d9.h>
@@ -12,7 +13,7 @@ class dxManager
 public:
 	dxManager(void);
 	~dxManager(void);
-	bool initDirect3D(HWND hwnd);
+	bool initDirect3D(HWND hwnd, HINSTANCE hInst);
 	void shutdown(void);
 	void beginRender(void);
 	void endRender(void);
@@ -27,7 +28,8 @@ private:
 	LPDIRECT3DDEVICE9       pd3dDevice;
 
 	// input stuff
-	LPDIRECTINPUT8        g_lpDI; 
+	LPDIRECTINPUT8        g_lpDI;
 	LPDIRECTINPUTDEVICE8  g_lpDIDevice; 
+	HRESULT hr;
 };
 #endif
