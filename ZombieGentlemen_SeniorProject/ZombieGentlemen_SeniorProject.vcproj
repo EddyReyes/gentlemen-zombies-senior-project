@@ -211,11 +211,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Music.h"
+				RelativePath=".\object.h"
 				>
 			</File>
 			<File
-				RelativePath=".\object.h"
+				RelativePath=".\sound.h"
 				>
 			</File>
 			<File
