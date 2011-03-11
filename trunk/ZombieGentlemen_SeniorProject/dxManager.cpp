@@ -12,7 +12,7 @@ dxManager::~dxManager(void)
 {
 }
 
-bool dxManager::init(HWND hwnd)
+bool dxManager::initDirect3D(HWND hwnd)
 {
 	if( NULL == ( pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
 	{

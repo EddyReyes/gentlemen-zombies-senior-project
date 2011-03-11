@@ -12,7 +12,7 @@ class dxManager
 public:
 	dxManager(void);
 	~dxManager(void);
-	bool init(HWND hwnd);
+	bool initDirect3D(HWND hwnd);
 	void shutdown(void);
 	void beginRender(void);
 	void endRender(void);
