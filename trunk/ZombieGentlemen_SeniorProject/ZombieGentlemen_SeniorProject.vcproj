@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(WindowsSdkDir)\Include&quot;;&quot;$(DXSDK_DIR)\Include&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -57,7 +58,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="dxguid.lib d3d9.lib d3dx9.lib dinput8.lib dxerr.lib"
+				AdditionalDependencies="d3d9.lib d3dx9.lib dxerr.lib winmm.lib dsound.lib dxguid.lib"
+				AdditionalLibraryDirectories="&quot;$(WindowsSdkDir)\Lib\x86\&quot;;&quot;$(DXSDK_DIR)\Lib\x86\&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -163,7 +165,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\dsutil.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dxManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dxutil.cpp"
 				>
 			</File>
 			<File
@@ -177,7 +187,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\dsutil.h"
+				>
+			</File>
+			<File
 				RelativePath=".\dxManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\dxutil.h"
 				>
 			</File>
 			<File
@@ -190,6 +208,10 @@
 			</File>
 			<File
 				RelativePath=".\map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Music.h"
 				>
 			</File>
 			<File

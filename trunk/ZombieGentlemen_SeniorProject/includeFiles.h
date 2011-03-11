@@ -15,3 +15,4 @@
 // DirectX files
 //#include "dsutil.h"
 #include "dxManager.h"
+#include "Music.h"
