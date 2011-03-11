@@ -1,5 +1,9 @@
 // includeFiles.h holds all other include headers nessary for this game
 #include "includeFiles.h"
+#include <d3d9.h>
+#include <d3dx9tex.h>
+
+
 
 /*******************************************************************************************************
 * Windows
@@ -11,10 +15,15 @@ HINSTANCE hInst; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
 
 
+Music m;
 // forward declarations
-bool initWindow( HINSTANCE hInstance) ;
+bool initWindow( HINSTANCE hInstance);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 
+//Leseamus Code/////////////////////////////////////////////////////////////////////////
+LPDIRECTSOUNDBUFFER DSBuffer; // This storeds the music file.
+
+////////////////////////////////////////////////////////////////////////////////////////
 // This is winmain, the main entry point for Windows applications
 int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, 
 					LPTSTR lpCmdLine, int nCmdShow )
@@ -26,6 +35,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//main message loop
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
+	
 
 	// DirectX Manager
 	dxManager *dxMgr = new dxManager();
