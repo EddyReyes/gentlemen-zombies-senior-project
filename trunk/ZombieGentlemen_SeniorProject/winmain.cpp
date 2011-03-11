@@ -15,7 +15,7 @@ HINSTANCE hInst; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
 
 
-Music m;
+
 // forward declarations
 bool initWindow( HINSTANCE hInstance);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
@@ -36,7 +36,8 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
 	
-
+	//Sound Manager
+	sound soundMgr(&wndHandle);
 	// DirectX Manager
 	dxManager *dxMgr = new dxManager();
 	
