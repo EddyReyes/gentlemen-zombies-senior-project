@@ -107,6 +107,22 @@ DIMOUSESTATE * directInput::getMouseState()
 	return &mouseState;
 }
 
+void directInput::reAcquireDevices()
+{
+	// try and reacquire the input device
+	hr = g_lpDIKeyboard->Acquire();
+	// do a continuous loop until the device is reacquired
+	while( hr == DIERR_INPUTLOST ) 
+			hr = g_lpDIKeyboard->Acquire();
+
+	// try and reacquire the input device
+	hr = g_lpDIMouse->Acquire();
+	// do a continuous loop until the device is reacquired
+	while( hr == DIERR_INPUTLOST ) 
+			hr = g_lpDIMouse->Acquire();
+
+}
+
 void directInput::shutdownDirectInput(void)
 {
 	if (g_lpDI) 

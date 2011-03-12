@@ -114,6 +114,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
+			inputMgr->reAcquireDevices();
 			inputMgr->updateKeyboardState(); 
 			buffer = inputMgr->getKeyboardState();
 			inputMgr->updateMouseState();
@@ -124,6 +125,12 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 			// keyboard
 				
+
+			if(buffer[DIK_ESCAPE] & 0x80)
+			{
+				PostQuitMessage(0);
+			}
+
 			if (KEYDOWN(buffer, DIK_LEFT))
 			{
 				src.left = (48 * K_LEFT_ARROW);
