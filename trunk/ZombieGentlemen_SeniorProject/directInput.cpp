@@ -7,7 +7,8 @@
 directInput::directInput(void)
 {
 	g_lpDI = NULL;
-	g_lpDIDevice = NULL;
+	g_lpDIKeyboard = NULL;
+	g_lpDIMouse =NULL;
 	hr = NULL;
 }
 
@@ -37,24 +38,33 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
 	if FAILED(hr) return FALSE; 
 
     // Retrieve a pointer to an IDirectInputDevice8 interface 
-    hr = g_lpDI->CreateDevice(GUID_SysMouse, &g_lpDIDevice, NULL); 
+    hr = g_lpDI->CreateDevice(GUID_SysMouse, &g_lpDIMouse, NULL); 
+	hr = g_lpDIMouse->SetDataFormat(&c_dfDIMouse); 
 
-	hr = g_lpDIDevice->SetDataFormat(&c_dfDIMouse); 
+	hr = g_lpDI->CreateDevice(GUID_SysKeyboard, &g_lpDIKeyboard, NULL); 
+	hr = g_lpDIKeyboard->SetDataFormat(&c_dfDIKeyboard); 
+
 
 	if FAILED(hr) { 
 		return FALSE; 
 	} 
 
 	// Set the cooperative level 
-    hr = g_lpDIDevice->SetCooperativeLevel(wndHandle, 
+    hr = g_lpDIMouse->SetCooperativeLevel(wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
+	// Set the cooperative level 
+    hr = g_lpDIKeyboard->SetCooperativeLevel(wndHandle, 
+                             DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
+
     if FAILED(hr) 
     { 
         return FALSE; 
     } 
 
     // Get access to the input device. 
-    hr = g_lpDIDevice->Acquire(); 
+    hr = g_lpDIKeyboard->Acquire(); 
+	hr = g_lpDIMouse->Acquire();
+	
     if FAILED(hr) 
     { 
         return FALSE; 
@@ -65,12 +75,19 @@ void directInput::shutdownDirectInput(void)
 {
 	if (g_lpDI) 
     { 
-        if (g_lpDIDevice) 
+		if (g_lpDIMouse) 
         { 
         // Always unacquire device before calling Release(). 
-            g_lpDIDevice->Unacquire(); 
-            g_lpDIDevice->Release();
-            g_lpDIDevice = NULL; 
+            g_lpDIMouse->Unacquire(); 
+            g_lpDIMouse->Release();
+            g_lpDIMouse = NULL; 
+        } 
+        if (g_lpDIKeyboard) 
+        { 
+        // Always unacquire device before calling Release(). 
+            g_lpDIKeyboard->Unacquire(); 
+            g_lpDIKeyboard->Release();
+            g_lpDIKeyboard = NULL; 
         } 
         g_lpDI->Release();
         g_lpDI = NULL; 

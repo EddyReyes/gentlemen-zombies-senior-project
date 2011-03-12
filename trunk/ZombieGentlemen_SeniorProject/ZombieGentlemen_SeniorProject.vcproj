@@ -165,51 +165,39 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\directInput.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dsutil.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dxManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dxutil.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sound.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\winmain.cpp"
 				>
 			</File>
+			<Filter
+				Name="DirectX"
+				>
+				<File
+					RelativePath=".\directInput.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\dsutil.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\dxManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\dxutil.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sound.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\directInput.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dsutil.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dxManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dxutil.h"
-				>
-			</File>
 			<File
 				RelativePath=".\game.h"
 				>
@@ -227,13 +215,33 @@
 				>
 			</File>
 			<File
-				RelativePath=".\sound.h"
-				>
-			</File>
-			<File
 				RelativePath=".\XY.h"
 				>
 			</File>
+			<Filter
+				Name="DirectX"
+				>
+				<File
+					RelativePath=".\directInput.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dsutil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dxManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dxutil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sound.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

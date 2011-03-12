@@ -47,7 +47,6 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 
 	//Sound Manager
-	//LPDIRECTSOUNDBUFFER DSBuffer;
 	sound soundMgr(&wndHandle);
 	soundMgr.initDirectSound(wndHandle);
 	//Load sound (filename, bufferID) in this case the first buffer is 0
