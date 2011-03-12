@@ -9,11 +9,11 @@ class directInput
 public:
 	directInput(void);
 	~directInput(void);
-	bool initDirectInput(HWND hwnd, HINSTANCE * hInst);
+	bool initDirectInput(HWND * hwnd, HINSTANCE * hInst);
 	void shutdownDirectInput(void);
 
 private:
-	LPDIRECTINPUT8        g_lpDI;
-	LPDIRECTINPUTDEVICE8  g_lpDIDevice; 
+	LPDIRECTINPUT8        g_lpDI;	// the direct input object
+	LPDIRECTINPUTDEVICE8  g_lpDIDevice; // the direct input device
 	HRESULT hr;
 };
