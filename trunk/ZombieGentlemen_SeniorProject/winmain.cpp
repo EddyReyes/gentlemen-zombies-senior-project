@@ -52,12 +52,30 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//Load sound (filename, bufferID) in this case the first buffer is 0
 	soundMgr.LoadSound("Combat music.wav", 0);
 	//SetVolume(bufferID, Volume)
-	soundMgr.SetVolume(0, -5000);
+	soundMgr.SetVolume(0, 0);
 	// incriment the volume by 100, 50 times
-	for(int i = 0; i < 100; i++)
-	soundMgr.incrimentVolume(0);
+	/*for(int i = 0; i < 100; i++)
+		soundMgr.incrimentVolume(0);*/
 	//play sound playSound(bufferID) in this case the first buffer is 0
 	soundMgr.playSound(0);
+	BYTE * buffer; 
+
+#define KEYDOWN(name, key) (name[key] & 0x80) 
+
+	enum { LEFT_ARROW = 0,
+		UP_ARROW,
+		DOWN_ARROW,
+		RIGHT_ARROW };
+	IDirect3DSurface9* arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
+	RECT src;
+	src.left = src.right = src.top =0; src.bottom = 48;
+	src.right = src.left + 48;
+
+	RECT screen;
+	screen.left = 0;
+	screen.right = 48;
+	screen.top = 0;
+	screen.bottom = 48;
 
 
 	//main message loop
@@ -65,24 +83,77 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ZeroMemory( &msg, sizeof( msg ) );
 
 	// Game/Windows loop
-	while (GetMessage(&msg, NULL, 0, 0) )
+	/*while (GetMessage(&msg, NULL, 0, 0) )
 	{
 		TranslateMessage ( &msg );
 		DispatchMessage( &msg );
-	}
+	}*/
 	
-	/*
+	while( msg.message!=WM_QUIT )
+	{
 	
-	if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE))
-	{
-		TranslateMessage ( &msg );
-		DispatchMessage( &msg );
-	}
-	{
-		//g.draw	
-	}
+		if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE))
+		{
+			TranslateMessage ( &msg );
+			DispatchMessage( &msg );
+		}
+		else
+		{
+			inputMgr->updateKeyboardState(); 
+			buffer = inputMgr->getKeyboardState();
 
-	*/
+			src.top = 0;
+			src.bottom = 48;
+				
+			if (KEYDOWN(buffer, DIK_LEFT))
+			{
+				src.left = (48 * LEFT_ARROW);
+				if(screen.left>0 && screen.right>48)
+				{
+					screen.left -=5;
+					screen.right -=5;
+				}
+			}
+			else if (KEYDOWN(buffer, DIK_UP))
+			{
+				src.left = (48 * UP_ARROW);
+				if(screen.top>0 && screen.bottom>48)
+				{
+					screen.top-=5;
+					screen.bottom-=5;
+				}
+			}
+			else if (KEYDOWN(buffer, DIK_DOWN))
+			{
+				src.left = (48 * DOWN_ARROW);
+				if(screen.bottom < 480 && screen.top < (480-50))
+				{
+					screen.bottom +=5;
+					screen.top+=5;
+				}
+			}
+			else if (KEYDOWN(buffer, DIK_RIGHT))
+			{
+				src.left = (48 * RIGHT_ARROW);
+				if(screen.right < 650 && screen.left < (670-60))
+				{
+					screen.right +=5;
+					screen.left +=5;
+				}
+			}
+
+			src.right = src.left + 48;
+			//g.draw	
+			// call our render function
+			dxMgr->beginRender();
+
+			// blit this letter to the back buffer
+			dxMgr->blitToSurface(arrows, &src, &screen);
+
+			dxMgr->endRender();
+		}
+
+	}
 }
 
 /*********************************************************************
