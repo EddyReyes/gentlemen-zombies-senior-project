@@ -20,6 +20,7 @@ public:
 
 private:
 	LPDIRECTINPUT8        g_lpDI;	// the direct input object
-	LPDIRECTINPUTDEVICE8  g_lpDIDevice; // the direct input device
+	LPDIRECTINPUTDEVICE8  g_lpDIKeyboard; // the direct input Keybaord
+	LPDIRECTINPUTDEVICE8  g_lpDIMouse; // the direct input Keybaord
 	HRESULT hr;
 };
