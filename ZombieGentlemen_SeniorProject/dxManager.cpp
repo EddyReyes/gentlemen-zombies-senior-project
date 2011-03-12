@@ -1,6 +1,6 @@
 #include ".\dxmanager.h"
 
-//#define debug
+#define debug
 
 
 dxManager::dxManager(void)
@@ -43,42 +43,6 @@ bool dxManager::initDirect3D(HWND hwnd, HINSTANCE * hInst)
         return false;
     }
 
-	#ifndef debug
-	/*******************************************************************
-	* Initialize Direct Input
-	*******************************************************************/
-
-	// Create the DirectInput object. 
-    hr = DirectInput8Create(*hInst, DIRECTINPUT_VERSION, 
-                            IID_IDirectInput8, (void**)&g_lpDI, NULL); 
-
-	if FAILED(hr) return FALSE; 
-
-    // Retrieve a pointer to an IDirectInputDevice8 interface 
-    hr = g_lpDI->CreateDevice(GUID_SysKeyboard, &g_lpDIDevice, NULL); 
-
-	hr = g_lpDIDevice->SetDataFormat(&c_dfDIKeyboard); 
-
-	if FAILED(hr) { 
-		return FALSE; 
-	} 
-
-	// Set the cooperative level 
-    hr = g_lpDIDevice->SetCooperativeLevel(hwnd, 
-                             DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
-    if FAILED(hr) 
-    { 
-        return FALSE; 
-    } 
-
-    // Get access to the input device. 
-    hr = g_lpDIDevice->Acquire(); 
-    if FAILED(hr) 
-    { 
-        return FALSE; 
-    } 
-	#endif
-
 	// return true if everything inititalized correctly
 	return true;
 }
@@ -95,19 +59,6 @@ void dxManager::shutdown(void)
         pD3D->Release();
 		pD3D = NULL;
 	}
-
-	if (g_lpDI) 
-    { 
-        if (g_lpDIDevice) 
-        { 
-        // Always unacquire device before calling Release(). 
-            g_lpDIDevice->Unacquire(); 
-            g_lpDIDevice->Release();
-            g_lpDIDevice = NULL; 
-        } 
-        g_lpDI->Release();
-        g_lpDI = NULL; 
-    }
 }
 
 void dxManager::beginRender()
