@@ -27,9 +27,9 @@ private:
 	LPDIRECT3D9             pD3D;
 	LPDIRECT3DDEVICE9       pd3dDevice;
 
-	// input stuff
-	LPDIRECTINPUT8        g_lpDI;
-	LPDIRECTINPUTDEVICE8  g_lpDIDevice; 
-	HRESULT hr;
+	//// input stuff
+	//LPDIRECTINPUT8        g_lpDI;
+	//LPDIRECTINPUTDEVICE8  g_lpDIDevice; 
+	//HRESULT hr;
 };
 #endif

@@ -45,6 +45,14 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return false;
 	}
 
+	directInput * inputMgr = new directInput();
+
+	if(!inputMgr->initDirectInput(wndHandle, &hInst))
+	{
+		MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
+		return false;
+	}
+
 	//main message loop
 	MSG msg;
 	ZeroMemory( &msg, sizeof( msg ) );
