@@ -20,6 +20,7 @@ public:
 	BYTE * getKeyboardState();
 	DIMOUSESTATE * getMouseState();
 	void shutdownDirectInput(void);
+	void reAcquireDevices();
 
 private:
 	LPDIRECTINPUT8        g_lpDI;	// the pointer to our DirectInput interface
