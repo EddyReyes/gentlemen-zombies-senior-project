@@ -1,5 +1,6 @@
 /**
 * see directInput.h for details
+* TO-DO: make mouse exclusive at some point
 */
 
 #include "directInput.h"

@@ -59,15 +59,30 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//play sound playSound(bufferID) in this case the first buffer is 0
 	soundMgr.playSound(0);
 	BYTE * buffer; 
+	DIMOUSESTATE mouseState;
 
 #define KEYDOWN(name, key) (name[key] & 0x80) 
+#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80) 
 
-	enum { LEFT_ARROW = 0,
-		UP_ARROW,
-		DOWN_ARROW,
-		RIGHT_ARROW };
+	enum { K_LEFT_ARROW = 0,
+		K_UP_ARROW,
+		K_DOWN_ARROW,
+		K_RIGHT_ARROW };
+	enum { NONE=0,
+	   M_LEFT_ARROW,
+	   M_RIGHT_ARROW,
+	   CIRCLE};
 	IDirect3DSurface9* arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
+	IDirect3DSurface9* mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
 	RECT src;
+	RECT spriteSrc;
+	RECT spriteDest;
+	LONG curX;
+	LONG curY;
+	// set the starting point for the circle sprite
+	curX = 320;
+	curY = 240;
+
 	src.left = src.right = src.top =0; src.bottom = 48;
 	src.right = src.left + 48;
 
@@ -101,13 +116,17 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			inputMgr->updateKeyboardState(); 
 			buffer = inputMgr->getKeyboardState();
+			inputMgr->updateMouseState();
+			mouseState = *(inputMgr->getMouseState());
 
 			src.top = 0;
 			src.bottom = 48;
+
+			// keyboard
 				
 			if (KEYDOWN(buffer, DIK_LEFT))
 			{
-				src.left = (48 * LEFT_ARROW);
+				src.left = (48 * K_LEFT_ARROW);
 				if(screen.left>0 && screen.right>48)
 				{
 					screen.left -=5;
@@ -116,7 +135,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 			else if (KEYDOWN(buffer, DIK_UP))
 			{
-				src.left = (48 * UP_ARROW);
+				src.left = (48 * K_UP_ARROW);
 				if(screen.top>0 && screen.bottom>48)
 				{
 					screen.top-=5;
@@ -125,7 +144,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 			else if (KEYDOWN(buffer, DIK_DOWN))
 			{
-				src.left = (48 * DOWN_ARROW);
+				src.left = (48 * K_DOWN_ARROW);
 				if(screen.bottom < 480 && screen.top < (480-50))
 				{
 					screen.bottom +=5;
@@ -134,7 +153,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 			else if (KEYDOWN(buffer, DIK_RIGHT))
 			{
-				src.left = (48 * RIGHT_ARROW);
+				src.left = (48 * K_RIGHT_ARROW);
 				if(screen.right < 650 && screen.left < (670-60))
 				{
 					screen.right +=5;
@@ -143,9 +162,40 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			}
 
 			src.right = src.left + 48;
+
+
+			// mouse
+
+			if (BUTTONDOWN(mouseState, 0))
+				src.left = (48 * M_LEFT_ARROW);
+			if (BUTTONDOWN(mouseState, 1))
+				src.left = (48 * M_RIGHT_ARROW);
+
+			src.right = src.left + 48;
+
+			// CIRCLE SPRITE
+			// set the source rectangle
+			spriteSrc.top = 0;
+			spriteSrc.bottom = spriteSrc.top + 48;
+			spriteSrc.left = (48 * CIRCLE);
+			spriteSrc.right = spriteSrc.left + 48;
+			// set the destination rectangle
+			spriteDest.top = curY;
+			spriteDest.left = curX;
+			spriteDest.right = spriteDest.left + 48;
+			spriteDest.bottom = spriteDest.top + 48;
+
+			curX += mouseState.lX;
+			curY += mouseState.lY;
+
 			//g.draw	
 			// call our render function
 			dxMgr->beginRender();
+
+			dxMgr->blitToSurface(mouseArrow, &src, NULL);
+
+			// blit the sprite to the back buffer
+			dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
 
 			// blit this letter to the back buffer
 			dxMgr->blitToSurface(arrows, &src, &screen);

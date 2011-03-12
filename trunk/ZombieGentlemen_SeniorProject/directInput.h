@@ -22,10 +22,10 @@ public:
 	void shutdownDirectInput(void);
 
 private:
-	LPDIRECTINPUT8        g_lpDI;	// the direct input object
-	LPDIRECTINPUTDEVICE8  g_lpDIKeyboard; // the direct input Keybaord
-	LPDIRECTINPUTDEVICE8  g_lpDIMouse; // the direct input Keybaord
+	LPDIRECTINPUT8        g_lpDI;	// the pointer to our DirectInput interface
+	LPDIRECTINPUTDEVICE8  g_lpDIKeyboard; // the pointer to the keyboard device
+	LPDIRECTINPUTDEVICE8  g_lpDIMouse; // the pointer to the mouse device
 	HRESULT hr;
-	BYTE keyState[256]; // all keystates will be held in this array
-	DIMOUSESTATE mouseState; // mouse state
+	BYTE keyState[256]; // the storage for the key-information
+	DIMOUSESTATE mouseState; // the storage for the mouse-information
 };
