@@ -15,7 +15,10 @@ public:
 	directInput(void);
 	~directInput(void);
 	bool initDirectInput(HWND hwnd, HINSTANCE hInst);
-
+	bool updateMouseState();
+	bool updateKeyboardState();
+	BYTE * getKeyboardState();
+	DIMOUSESTATE * getMouseState();
 	void shutdownDirectInput(void);
 
 private:
@@ -23,4 +26,6 @@ private:
 	LPDIRECTINPUTDEVICE8  g_lpDIKeyboard; // the direct input Keybaord
 	LPDIRECTINPUTDEVICE8  g_lpDIMouse; // the direct input Keybaord
 	HRESULT hr;
+	BYTE keyState[256]; // all keystates will be held in this array
+	DIMOUSESTATE mouseState; // mouse state
 };

@@ -40,6 +40,10 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
     // Retrieve a pointer to an IDirectInputDevice8 interface 
     hr = g_lpDI->CreateDevice(GUID_SysMouse, &g_lpDIMouse, NULL); 
 	hr = g_lpDIMouse->SetDataFormat(&c_dfDIMouse); 
+	
+	if FAILED(hr) { 
+		return FALSE; 
+	} 
 
 	hr = g_lpDI->CreateDevice(GUID_SysKeyboard, &g_lpDIKeyboard, NULL); 
 	hr = g_lpDIKeyboard->SetDataFormat(&c_dfDIKeyboard); 
@@ -52,6 +56,11 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
 	// Set the cooperative level 
     hr = g_lpDIMouse->SetCooperativeLevel(wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
+	
+	if FAILED(hr) { 
+		return FALSE; 
+	} 
+
 	// Set the cooperative level 
     hr = g_lpDIKeyboard->SetCooperativeLevel(wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
@@ -69,6 +78,32 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
     { 
         return FALSE; 
     } 
+}
+
+bool directInput::updateMouseState()
+{
+	hr = g_lpDIMouse->GetDeviceState(sizeof(mouseState),(LPVOID)&mouseState);
+	 if FAILED(hr) 
+    { 
+        return FALSE; 
+    } 
+}
+bool directInput::updateKeyboardState()
+{
+	hr = g_lpDIKeyboard->GetDeviceState(sizeof(keyState),(LPVOID)&keyState);
+	if FAILED(hr) 
+    { 
+        return FALSE; 
+    } 
+}
+
+BYTE * directInput::getKeyboardState()
+{
+	return keyState;
+}
+DIMOUSESTATE * directInput::getMouseState()
+{
+	return &mouseState;
 }
 
 void directInput::shutdownDirectInput(void)
