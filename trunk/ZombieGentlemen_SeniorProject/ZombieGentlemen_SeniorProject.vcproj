@@ -181,6 +181,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\sound.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\winmain.cpp"
 				>
 			</File>

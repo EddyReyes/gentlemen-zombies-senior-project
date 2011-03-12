@@ -1,3 +1,7 @@
+/**
+* see dxManager.h for details
+*/
+
 #include ".\dxmanager.h"
 
 #define debug
@@ -13,7 +17,7 @@ dxManager::~dxManager(void)
 {
 }
 
-bool dxManager::initDirect3D(HWND hwnd, HINSTANCE * hInst)
+bool dxManager::initDirect3D(HWND wndHandle, HINSTANCE * hInst)
 {
 
 	/*******************************************************************
@@ -33,9 +37,9 @@ bool dxManager::initDirect3D(HWND hwnd, HINSTANCE * hInst)
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = 480;
 	d3dpp.BackBufferWidth  = 640;
-	d3dpp.hDeviceWindow    = hwnd;
+	d3dpp.hDeviceWindow    = wndHandle;
 
-    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, hwnd,
+    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, wndHandle,
                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING,
                                       &d3dpp, &pd3dDevice ) ) )
     {

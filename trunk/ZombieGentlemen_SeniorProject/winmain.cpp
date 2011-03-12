@@ -3,27 +3,18 @@
 #include <d3d9.h>
 #include <d3dx9tex.h>
 
-
-
 /*******************************************************************************************************
 * Windows
 * The following code creates a window
 ********************************************************************************************************/
 
-
-HINSTANCE hInst; // global handle to hold the application instance
+HINSTANCE hInstance; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
-
-
 
 // forward declarations
 bool initWindow( HINSTANCE hInstance);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 
-//Leseamus Code/////////////////////////////////////////////////////////////////////////
-LPDIRECTSOUNDBUFFER DSBuffer; // This storeds the music file.
-
-////////////////////////////////////////////////////////////////////////////////////////
 // This is winmain, the main entry point for Windows applications
 int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance, 
 					LPTSTR lpCmdLine, int nCmdShow )
@@ -39,23 +30,21 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	dxManager *dxMgr = new dxManager();
 
 	// Initialzie DirectX Manager
-	if(!dxMgr->initDirect3D(wndHandle, &hInst))
+	if(!dxMgr->initDirect3D(wndHandle, &hInstance))
 	{
 		MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
 		return false;
 	}
 
+	// Direct Input
 	directInput * inputMgr = new directInput();
 
-	if(!inputMgr->initDirectInput(&wndHandle, &hInst))
+	// initialize Direct Input
+	if(!inputMgr->initDirectInput(wndHandle, hInstance))
 	{
 		MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
 		return false;
 	}
-
-	//main message loop
-	MSG msg;
-	ZeroMemory( &msg, sizeof( msg ) );
 
 	//Sound Manager
 	//LPDIRECTSOUNDBUFFER DSBuffer;
@@ -65,27 +54,23 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	soundMgr.LoadSound("Combat music.wav", 0);
 	//SetVolume(bufferID, Volume)
 	soundMgr.SetVolume(0, -5000);
-
 	// incriment the volume by 100, 50 times
 	for(int i = 0; i < 100; i++)
 	soundMgr.incrimentVolume(0);
-
 	//play sound playSound(bufferID) in this case the first buffer is 0
 	soundMgr.playSound(0);
 
 
-	
+	//main message loop
+	MSG msg;
+	ZeroMemory( &msg, sizeof( msg ) );
 
 	// Game/Windows loop
-	
-	
 	while (GetMessage(&msg, NULL, 0, 0) )
 	{
 		TranslateMessage ( &msg );
 		DispatchMessage( &msg );
 	}
-	
-	
 	
 	/*
 	

@@ -1,7 +1,8 @@
-#include "directInput.h"
+/**
+* see directInput.h for details
+*/
 
-#define debug
-//#ifndef debug
+#include "directInput.h"
 
 directInput::directInput(void)
 {
@@ -17,44 +18,14 @@ directInput::~directInput(void)
 /*******************************************************************
 * Initialize Direct Input
 *******************************************************************/
-bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInstance)
+bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
 {
-#ifndef debug
 	// Create the DirectInput object. 
-    hr = DirectInput8Create(*hInstance, DIRECTINPUT_VERSION, 
+    hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, 
                             IID_IDirectInput8, (void**)&g_lpDI, NULL); 
 
+	// Debuging
 	if FAILED(hr) return FALSE; 
-
-    // Retrieve a pointer to an IDirectInputDevice8 interface 
-    hr = g_lpDI->CreateDevice(GUID_SysKeyboard, &g_lpDIDevice, NULL); 
-
-	hr = g_lpDIDevice->SetDataFormat(&c_dfDIKeyboard); 
-
-	if FAILED(hr) { 
-		return FALSE; 
-	} 
-
-	// Set the cooperative level 
-    hr = g_lpDIDevice->SetCooperativeLevel(*wndHandle, 
-                             DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
-    if FAILED(hr) 
-    { 
-        return FALSE; 
-    } 
-
-    // Get access to the input device. 
-    hr = g_lpDIDevice->Acquire(); 
-    if FAILED(hr) 
-    { 
-        return FALSE; 
-    } 
-#endif
-	// Create the DirectInput object. 
-    hr = DirectInput8Create(*hInstance, DIRECTINPUT_VERSION, 
-                            IID_IDirectInput8, (void**)&g_lpDI, NULL); 
-
-	//if FAILED(hr) return FALSE; 
 	if(hr == DIERR_INVALIDPARAM)
 		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Invalid Params", "ERROR", MB_OK);
 		else if(hr == DIERR_BETADIRECTINPUTVERSION)
@@ -63,7 +34,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInstance)
 		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Old Direct Input Version", "ERROR", MB_OK);
 		else if(hr == DIERR_OUTOFMEMORY)
 		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Out of Memory", "ERROR", MB_OK);
-		return false;
+	if FAILED(hr) return FALSE; 
 
     // Retrieve a pointer to an IDirectInputDevice8 interface 
     hr = g_lpDI->CreateDevice(GUID_SysMouse, &g_lpDIDevice, NULL); 
@@ -75,7 +46,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInstance)
 	} 
 
 	// Set the cooperative level 
-    hr = g_lpDIDevice->SetCooperativeLevel(*wndHandle, 
+    hr = g_lpDIDevice->SetCooperativeLevel(wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
     if FAILED(hr) 
     { 
@@ -105,4 +76,3 @@ void directInput::shutdownDirectInput(void)
         g_lpDI = NULL; 
     }
 }
-//#endif 

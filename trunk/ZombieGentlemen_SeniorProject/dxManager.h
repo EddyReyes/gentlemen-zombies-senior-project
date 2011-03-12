@@ -1,3 +1,8 @@
+/**
+* dxManager handles the 2D graphics for our game
+* status: running
+*/
+
 #pragma once
 
 #define DIRECTINPUT_VERSION 0x0800
@@ -13,7 +18,7 @@ class dxManager
 public:
 	dxManager(void);
 	~dxManager(void);
-	bool initDirect3D(HWND hwnd, HINSTANCE * hInst);
+	bool initDirect3D(HWND wndHandle, HINSTANCE * hInst);
 	void shutdown(void);
 	void beginRender(void);
 	void endRender(void);
@@ -26,10 +31,5 @@ private:
 	HRESULT                 lastResult;
 	LPDIRECT3D9             pD3D;
 	LPDIRECT3DDEVICE9       pd3dDevice;
-
-	//// input stuff
-	//LPDIRECTINPUT8        g_lpDI;
-	//LPDIRECTINPUTDEVICE8  g_lpDIDevice; 
-	//HRESULT hr;
 };
 #endif
