@@ -112,7 +112,7 @@ bool initWindow( HINSTANCE hInstance )
 				CW_USEDEFAULT,			// the startying y coordinate
 				WINDOW_WIDTH,					// the pixel width of the window
 				WINODW_HEIGHT,					// the pixel height of the window
-				NULL,					// the parent windo; NULL for desktop
+				NULL,					// the parent window NULL for desktop
 				NULL,					// The menu for the application; NULL for none
 				hInstance,				// the handle to the applicatilon instance
 				NULL);					// no values passed to the window

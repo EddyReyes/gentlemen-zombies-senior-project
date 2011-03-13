@@ -12,23 +12,34 @@ sound::sound()
 	SoundChannel = new LPDIRECTSOUNDBUFFER[10];
 	ChannelVolume = new int [10];
 	ChannelPan = new int [10];
-	initializeChannelVolume(-5000);
-	initializeChannelPan(0);
+	initializeChannelVolume(-5000, 10);
+	initializeChannelPan(0, 10);
+};
+
+// Create a sound object with a custom number of channels
+sound::sound(int numChannels)
+{
+	// initialize array of 10 buffers
+	SoundChannel = new LPDIRECTSOUNDBUFFER[numChannels];
+	ChannelVolume = new int [numChannels];
+	ChannelPan = new int [numChannels];
+	initializeChannelVolume(-5000, numChannels);
+	initializeChannelPan(0, numChannels);
 };
 
 // Initialize ChannelVolume array
-void sound::initializeChannelVolume(int initVolume)
+void sound::initializeChannelVolume(int initVolume, int numChannels)
 {
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < numChannels; i++)
 	{
 		ChannelVolume[i] = initVolume;
 	}
 }
 
 // Initialize ChannelPan array
-void sound::initializeChannelPan(int initPan)
+void sound::initializeChannelPan(int initPan, int numChannels)
 {
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < numChannels; i++)
 	{
 		ChannelPan[i] = initPan;
 	}
@@ -276,4 +287,7 @@ void sound::shutdownDirectSound(void)
 		g_pDS->Release();
 		g_pDS = NULL;
 	}
+	delete [] SoundChannel; // delete channels
+	delete [] ChannelVolume; // delete all volume variables
+	delete [] ChannelPan; // delete all pan vairables
 }

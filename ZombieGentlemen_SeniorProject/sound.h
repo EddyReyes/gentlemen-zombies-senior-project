@@ -28,11 +28,14 @@ private:
 	int * ChannelVolume; // pointer to an array of 10 volume values
 	int * ChannelPan; // pointer to an array of 10 Pan Values
 
+	// private methods
+	void initializeChannelVolume(int initVolume, int numChannels);
+	void initializeChannelPan(int initPan, int numChannels);
+
 public:
 
 	sound();
-	void initializeChannelVolume(int initVolume);
-	void initializeChannelPan(int initPan);
+	sound(int numChannels);
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
 	bool LoadSound(std::string wavFilename, int bufferID);
 	void SetVolume(int bufferID, int Volume);
