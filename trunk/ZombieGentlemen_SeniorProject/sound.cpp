@@ -6,11 +6,8 @@
 #pragma once
 #include "sound.h"
 
-sound::sound(HWND * a_wndHandle)
+sound::sound()
 {
-	// initialize windows handle for use with sound class
-	wndHandle = a_wndHandle;
-
 	// initialize array of 10 buffers
 	SoundChannel = new LPDIRECTSOUNDBUFFER[10];
 	ChannelVolume = new int [10];
@@ -251,16 +248,17 @@ bool sound::stopSound(int bufferID)
 * initDirectSound
 * Initializes DirectSound
 *******************************************************************/
-bool sound::initDirectSound(HWND hwnd)
+bool sound::initDirectSound(HWND * a_wndHandle)
 {
 	HRESULT hr;
+	wndHandle = a_wndHandle;
 
 	hr = DirectSoundCreate8( NULL, &g_pDS, NULL );
 	if FAILED (hr)
 		return false;
 
 	// Set DirectSound cooperative level 
-	hr = g_pDS->SetCooperativeLevel( hwnd, DSSCL_PRIORITY );
+	hr = g_pDS->SetCooperativeLevel( *wndHandle, DSSCL_PRIORITY );
 	if FAILED ( hr )
 		return false;
 

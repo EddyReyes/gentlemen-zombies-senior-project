@@ -4,25 +4,24 @@
 
 #include ".\dxmanager.h"
 
-#define debug
-
 
 dxManager::dxManager(void)
 {
 	pD3D = NULL;
  	pd3dDevice = NULL;
+	lastResult = NULL;
 }
 
 dxManager::~dxManager(void)
 {
 }
 
-bool dxManager::initDirect3D(HWND wndHandle, HINSTANCE * hInst)
-{
 
-	/*******************************************************************
-	* Initialize Direct3D
-	*******************************************************************/
+/*******************************************************************
+* Initialize Direct3D
+*******************************************************************/
+bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
+{
 	if( NULL == ( pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
 	{
 		lastResult = E_FAIL;
@@ -37,9 +36,9 @@ bool dxManager::initDirect3D(HWND wndHandle, HINSTANCE * hInst)
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = 480;
 	d3dpp.BackBufferWidth  = 640;
-	d3dpp.hDeviceWindow    = wndHandle;
+	d3dpp.hDeviceWindow    = *wndHandle;
 
-    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, wndHandle,
+    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, *wndHandle,
                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING,
                                       &d3dpp, &pd3dDevice ) ) )
     {

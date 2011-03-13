@@ -30,7 +30,7 @@ private:
 
 public:
 
-	sound(HWND * a_wndHandle);
+	sound();
 	void initializeChannelVolume(int initVolume);
 	void initializeChannelPan(int initPan);
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
@@ -44,6 +44,6 @@ public:
 	bool playSound(int bufferID);
 	bool playSoundLoop(int bufferID);
 	bool stopSound(int bufferID);
-	bool initDirectSound(HWND hwnd);
+	bool initDirectSound(HWND * a_wndHandle);
 	void shutdownDirectSound(void);
 };

@@ -20,10 +20,10 @@ directInput::~directInput(void)
 /*******************************************************************
 * Initialize Direct Input
 *******************************************************************/
-bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
+bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 {
 	// Create the DirectInput object. 
-    hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, 
+    hr = DirectInput8Create(*hInst, DIRECTINPUT_VERSION, 
                             IID_IDirectInput8, (void**)&g_lpDI, NULL); 
 
 	// Debuging
@@ -55,7 +55,7 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
 	} 
 
 	// Set the cooperative level 
-    hr = g_lpDIMouse->SetCooperativeLevel(wndHandle, 
+    hr = g_lpDIMouse->SetCooperativeLevel(*wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
 	
 	if FAILED(hr) { 
@@ -63,7 +63,7 @@ bool directInput::initDirectInput(HWND wndHandle, HINSTANCE hInst)
 	} 
 
 	// Set the cooperative level 
-    hr = g_lpDIKeyboard->SetCooperativeLevel(wndHandle, 
+    hr = g_lpDIKeyboard->SetCooperativeLevel(*wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
 
     if FAILED(hr) 

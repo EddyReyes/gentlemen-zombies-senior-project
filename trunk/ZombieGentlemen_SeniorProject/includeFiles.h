@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 // these files are created by us
-#include "game.h"
+
 #include "map.h"
 #include "XY.h"
 #include "object.h"
@@ -16,3 +16,5 @@
 #include "dxManager.h"
 #include "directInput.h"
 #include "sound.h"
+#include <d3d9.h>
+#include <d3dx9tex.h>
