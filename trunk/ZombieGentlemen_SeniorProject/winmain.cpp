@@ -10,6 +10,9 @@
 HINSTANCE hInstance; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
 
+#define WINDOW_WIDTH 800
+#define WINODW_HEIGHT 600
+
 // forward declarations
 bool initWindow( HINSTANCE hInstance);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
@@ -107,8 +110,8 @@ bool initWindow( HINSTANCE hInstance )
 				WS_OVERLAPPEDWINDOW,	// the window style
 				CW_USEDEFAULT,			// the starting x coordinate
 				CW_USEDEFAULT,			// the startying y coordinate
-				640,					// the pixel width of the window
-				480,					// the pizel height of the window
+				WINDOW_WIDTH,					// the pixel width of the window
+				WINODW_HEIGHT,					// the pixel height of the window
 				NULL,					// the parent windo; NULL for desktop
 				NULL,					// The menu for the application; NULL for none
 				hInstance,				// the handle to the applicatilon instance
