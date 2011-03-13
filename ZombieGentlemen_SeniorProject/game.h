@@ -5,7 +5,7 @@ etc.
 
 status: skeleton
 */
-#define debug
+//#define debug
 
 #pragma once
 #include "includeFiles.h"
@@ -32,16 +32,17 @@ private:
 	DIMOUSESTATE mouseState;
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
+
+	        // Unit test parameters
+        IDirect3DSurface9* arrows;
+        IDirect3DSurface9* mouseArrow;
+        RECT src;
+        RECT spriteSrc;
+        RECT spriteDest;
+        LONG curX;
+        LONG curY;
+        RECT screen;
 	
-	// Unit test parameters
-	IDirect3DSurface9* arrows;
-	IDirect3DSurface9* mouseArrow;
-	RECT src;
-	RECT spriteSrc;
-	RECT spriteDest;
-	LONG curX;
-	LONG curY;
-	RECT screen;
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
 	{
@@ -55,39 +56,9 @@ public:
 		inputMgr = a_inputMgr;
 		soundMgr = a_soundMgr;
 
-#ifndef debug
-		// Initialzie DirectX Manager
-		if(!dxMgr->initDirect3D(m_wndHandle, m_hInstance))
-		{
-			MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
-			return false;
-		}
+		setMusic();
 
-
-		// initialize Direct Input
-		if(!inputMgr->initDirectInput(m_wndHandle, m_hInstance))
-		{
-			MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
-			return false;
-		}
-
-		// initialize Direct Sound
-		if(!soundMgr->initDirectSound(m_wndHandle))
-		{
-			MessageBox(NULL, "Unable to initialize Direct Sound", "ERROR", MB_OK);
-			return false;
-		}
-#endif
-
-		//Load sound (filename, bufferID) in this case the first buffer is 0
-		soundMgr->LoadSound("Combat music.wav", 0);
-		//SetVolume(bufferID, Volume)
-		soundMgr->SetVolume(0, 0);
-		//play sound playSound(bufferID) in this case the first buffer is 0
-		soundMgr->playSound(0);
-
-		IDirect3DSurface9* arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
-		IDirect3DSurface9* mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
+		SetBMP();
 		// set the starting point for the circle sprite
 		curX = 320;
 		curY = 240;
@@ -103,6 +74,20 @@ public:
 		src.bottom = 48;
 		return true;
 	}
+	void setMusic()
+	{
+		//Load sound (filename, bufferID) in this case the first buffer is 0
+		soundMgr->LoadSound("Combat music.wav", 0);
+		//SetVolume(bufferID, Volume)
+		soundMgr->SetVolume(0, 0);
+		//play sound playSound(bufferID) in this case the first buffer is 0
+		soundMgr->playSound(0);
+	}
+	void SetBMP()
+	{
+		arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
+		mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
+	}
 	void update()
 	{
 
@@ -111,7 +96,6 @@ public:
 		keystate = inputMgr->getKeyboardState();
 		inputMgr->updateMouseState();
 		mouseState = *(inputMgr->getMouseState());
-#ifndef debug
 		
 
 		// keyboard
@@ -186,11 +170,11 @@ public:
 		curX += mouseState.lX;
 		curY += mouseState.lY;
 
-#endif
+
 		// call our render function
 		dxMgr->beginRender();
 
-#ifndef debug 
+
 
 		dxMgr->blitToSurface(mouseArrow, &src, NULL);
 
@@ -199,7 +183,6 @@ public:
 
 		// blit this letter to the back buffer
 		dxMgr->blitToSurface(arrows, &src, &screen);
-#endif
 
 		dxMgr->endRender();
 		

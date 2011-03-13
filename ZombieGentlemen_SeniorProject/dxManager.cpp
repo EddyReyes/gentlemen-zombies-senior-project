@@ -34,8 +34,8 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.BackBufferCount  = 1;
-	d3dpp.BackBufferHeight = 480;
-	d3dpp.BackBufferWidth  = 640;
+	d3dpp.BackBufferHeight = WINODW_HEIGHT;
+	d3dpp.BackBufferWidth  = WINDOW_WIDTH;
 	d3dpp.hDeviceWindow    = *wndHandle;
 
     if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, *wndHandle,
