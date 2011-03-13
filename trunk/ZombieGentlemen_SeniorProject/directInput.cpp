@@ -5,6 +5,8 @@
 
 #include "directInput.h"
 
+//#define MOUSE_EXCLUSIVE
+
 directInput::directInput(void)
 {
 	g_lpDI = NULL;
@@ -54,9 +56,16 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 		return FALSE; 
 	} 
 
+
+#ifdef MOUSE_EXCLUSIVE
+	// Set the cooperative level 
+    hr = g_lpDIMouse->SetCooperativeLevel(*wndHandle, 
+                             DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+#else
 	// Set the cooperative level 
     hr = g_lpDIMouse->SetCooperativeLevel(*wndHandle, 
                              DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
+#endif
 	
 	if FAILED(hr) { 
 		return FALSE; 
