@@ -5,8 +5,207 @@ etc.
 
 status: skeleton
 */
+#define debug
+
+#pragma once
+#include "includeFiles.h"
+
+	#define KEYDOWN(name, key) (name[key] & 0x80) 
+	#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80) 
+
+	enum { K_LEFT_ARROW = 0,
+		K_UP_ARROW,
+		K_DOWN_ARROW,
+		K_RIGHT_ARROW };
+	enum { NONE=0,
+	   M_LEFT_ARROW,
+	   M_RIGHT_ARROW,
+	   CIRCLE};
 
 class game
 {
-	 
+private:
+	dxManager * dxMgr;
+	directInput * inputMgr;
+	sound * soundMgr;
+	BYTE * keystate;
+	DIMOUSESTATE mouseState;
+	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
+	HWND * m_wndHandle; //pointer to global variable to hold the window handle
+	
+	// Unit test parameters
+	IDirect3DSurface9* arrows;
+	IDirect3DSurface9* mouseArrow;
+	RECT src;
+	RECT spriteSrc;
+	RECT spriteDest;
+	LONG curX;
+	LONG curY;
+	RECT screen;
+public: 
+	game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
+	{
+		m_hInstance = a_hInstance;
+		m_wndHandle = a_wndHandle;
+
+		// Create DirectX Manager
+		dxMgr = new dxManager();
+		// Direct Input
+		inputMgr = new directInput();
+		//Sound Manager
+		soundMgr = new sound();
+	}
+	bool initGame()
+	{
+
+		// Initialzie DirectX Manager
+		if(!dxMgr->initDirect3D(m_wndHandle, m_hInstance))
+		{
+			MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
+			return false;
+		}
+
+#ifndef debug
+		// initialize Direct Input
+		if(!inputMgr->initDirectInput(m_wndHandle, m_hInstance))
+		{
+			MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
+			return false;
+		}
+#endif
+
+		// initialize Direct Sound
+		if(!soundMgr->initDirectSound(m_wndHandle))
+		{
+			MessageBox(NULL, "Unable to initialize Direct Sound", "ERROR", MB_OK);
+			return false;
+		}
+		//Load sound (filename, bufferID) in this case the first buffer is 0
+		soundMgr->LoadSound("Combat music.wav", 0);
+		//SetVolume(bufferID, Volume)
+		soundMgr->SetVolume(0, 0);
+		//play sound playSound(bufferID) in this case the first buffer is 0
+		soundMgr->playSound(0);
+
+		IDirect3DSurface9* arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
+		IDirect3DSurface9* mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
+		// set the starting point for the circle sprite
+		curX = 320;
+		curY = 240;
+
+		screen.left = 0;
+		screen.right = 48;
+		screen.top = 0;
+		screen.bottom = 48;
+
+		src.left = 0;
+		src.right = 48;
+		src.top = 0;
+		src.bottom = 48;
+	}
+	void update()
+	{
+#ifndef debug
+		inputMgr->reAcquireDevices();
+		inputMgr->updateKeyboardState(); 
+		keystate = inputMgr->getKeyboardState();
+		inputMgr->updateMouseState();
+		mouseState = *(inputMgr->getMouseState());
+
+		
+
+		// keyboard
+
+
+		if(keystate[DIK_ESCAPE] & 0x80)
+		{
+			PostQuitMessage(0);
+		}
+
+		if (KEYDOWN(keystate, DIK_LEFT))
+		{
+			src.left = (48 * K_LEFT_ARROW);
+			if(screen.left>0 && screen.right>48)
+			{
+				screen.left -=5;
+				screen.right -=5;
+			}
+		}
+		else if (KEYDOWN(keystate, DIK_UP))
+		{
+			src.left = (48 * K_UP_ARROW);
+			if(screen.top>0 && screen.bottom>48)
+			{
+				screen.top-=5;
+				screen.bottom-=5;
+			}
+		}
+		else if (KEYDOWN(keystate, DIK_DOWN))
+		{
+			src.left = (48 * K_DOWN_ARROW);
+			if(screen.bottom < 480 && screen.top < (480-50))
+			{
+				screen.bottom +=5;
+				screen.top+=5;
+			}
+		}
+		else if (KEYDOWN(keystate, DIK_RIGHT))
+		{
+			src.left = (48 * K_RIGHT_ARROW);
+			if(screen.right < 650 && screen.left < (670-60))
+			{
+				screen.right +=5;
+				screen.left +=5;
+			}
+		}
+
+		src.right = src.left + 48;
+
+
+		// mouse
+
+		if (BUTTONDOWN(mouseState, 0))
+			src.left = (48 * M_LEFT_ARROW);
+		if (BUTTONDOWN(mouseState, 1))
+			src.left = (48 * M_RIGHT_ARROW);
+
+		src.right = src.left + 48;
+
+		// CIRCLE SPRITE
+		// set the source rectangle
+		spriteSrc.top = 0;
+		spriteSrc.bottom = spriteSrc.top + 48;
+		spriteSrc.left = (48 * CIRCLE);
+		spriteSrc.right = spriteSrc.left + 48;
+		// set the destination rectangle
+		spriteDest.top = curY;
+		spriteDest.left = curX;
+		spriteDest.right = spriteDest.left + 48;
+		spriteDest.bottom = spriteDest.top + 48;
+
+		curX += mouseState.lX;
+		curY += mouseState.lY;
+
+#endif
+		// call our render function
+		dxMgr->beginRender();
+
+		//dxMgr->blitToSurface(mouseArrow, &src, NULL);
+
+		//// blit the sprite to the back buffer
+		//dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
+
+		// blit this letter to the back buffer
+		dxMgr->blitToSurface(arrows, &src, &screen);
+
+		dxMgr->endRender();
+		
+	}
+
+	~game()
+	{
+		dxMgr->shutdown();
+		inputMgr->shutdownDirectInput();
+		soundMgr->shutdownDirectSound();
+	};
 };
