@@ -48,16 +48,14 @@ public:
 		m_hInstance = a_hInstance;
 		m_wndHandle = a_wndHandle;
 
-		// Create DirectX Manager
-		dxMgr = new dxManager();
-		// Direct Input
-		inputMgr = new directInput();
-		//Sound Manager
-		soundMgr = new sound();
 	}
-	bool initGame()
+	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr)
 	{
+		dxMgr = a_dxMgr;
+		inputMgr = a_inputMgr;
+		soundMgr = a_soundMgr;
 
+#ifndef debug
 		// Initialzie DirectX Manager
 		if(!dxMgr->initDirect3D(m_wndHandle, m_hInstance))
 		{
@@ -65,14 +63,13 @@ public:
 			return false;
 		}
 
-#ifndef debug
+
 		// initialize Direct Input
 		if(!inputMgr->initDirectInput(m_wndHandle, m_hInstance))
 		{
 			MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
 			return false;
 		}
-#endif
 
 		// initialize Direct Sound
 		if(!soundMgr->initDirectSound(m_wndHandle))
@@ -80,6 +77,8 @@ public:
 			MessageBox(NULL, "Unable to initialize Direct Sound", "ERROR", MB_OK);
 			return false;
 		}
+#endif
+
 		//Load sound (filename, bufferID) in this case the first buffer is 0
 		soundMgr->LoadSound("Combat music.wav", 0);
 		//SetVolume(bufferID, Volume)
@@ -102,16 +101,17 @@ public:
 		src.right = 48;
 		src.top = 0;
 		src.bottom = 48;
+		return true;
 	}
 	void update()
 	{
-#ifndef debug
+
 		inputMgr->reAcquireDevices();
 		inputMgr->updateKeyboardState(); 
 		keystate = inputMgr->getKeyboardState();
 		inputMgr->updateMouseState();
 		mouseState = *(inputMgr->getMouseState());
-
+#ifndef debug
 		
 
 		// keyboard
@@ -190,13 +190,16 @@ public:
 		// call our render function
 		dxMgr->beginRender();
 
-		//dxMgr->blitToSurface(mouseArrow, &src, NULL);
+#ifndef debug 
+
+		dxMgr->blitToSurface(mouseArrow, &src, NULL);
 
 		//// blit the sprite to the back buffer
-		//dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
+		dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
 
 		// blit this letter to the back buffer
 		dxMgr->blitToSurface(arrows, &src, &screen);
+#endif
 
 		dxMgr->endRender();
 		

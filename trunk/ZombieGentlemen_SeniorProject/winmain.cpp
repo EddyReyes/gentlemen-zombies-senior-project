@@ -24,9 +24,33 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		MessageBox(NULL, "Unable to create window", "ERROR", MB_OK);
 		return false;
 	}
-	game * g = new game(&wndHandle, &hInstance);
 
-	if(!g->initGame())
+	dxManager * dxMgr = new dxManager();
+	// Initialzie DirectX Manager
+	if(!dxMgr->initDirect3D(&wndHandle, &hInstance))
+	{
+		MessageBox(NULL, "Unable to initialize Direct3D", "ERROR", MB_OK);
+		return false;
+	}
+
+	directInput * inputMgr = new directInput();
+	// initialize Direct Input
+	if(!inputMgr->initDirectInput(&wndHandle, &hInstance))
+	{
+		MessageBox(NULL, "Unable to initialize Direct Input", "ERROR", MB_OK);
+		return false;
+	}
+
+	sound * soundMgr = new sound();
+	// initialize Direct Sound
+	if(!soundMgr->initDirectSound(&wndHandle))
+	{
+		MessageBox(NULL, "Unable to initialize Direct Sound", "ERROR", MB_OK);
+		return false;
+	}
+
+	game * g = new game(&wndHandle, &hInstance);
+	if(!g->initGame(dxMgr, inputMgr, soundMgr))
 	{
 		MessageBox(NULL, "Unable to initialize game", "ERROR", MB_OK);
 		return false;
@@ -47,7 +71,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-			//g->update();	
+			g->update();	
 		}
 	}
 	g->~game();
