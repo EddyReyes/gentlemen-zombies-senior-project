@@ -37,6 +37,7 @@ private:
         IDirect3DSurface9* arrows;
         IDirect3DSurface9* mouseArrow;
         RECT src;
+		RECT msrc;
         RECT spriteSrc;
         RECT spriteDest;
         LONG curX;
@@ -72,6 +73,7 @@ public:
 		src.right = 48;
 		src.top = 0;
 		src.bottom = 48;
+		msrc = src;
 		return true;
 	}
 	void setMusic()
@@ -149,11 +151,13 @@ public:
 		// mouse
 
 		if (BUTTONDOWN(mouseState, 0))
-			src.left = (48 * M_LEFT_ARROW);
+			msrc.left = (48 * M_LEFT_ARROW);
 		if (BUTTONDOWN(mouseState, 1))
-			src.left = (48 * M_RIGHT_ARROW);
-
-		src.right = src.left + 48;
+			msrc.left = (48 * M_RIGHT_ARROW);
+		msrc.right = msrc.left + 48;
+		if (BUTTONDOWN(mouseState, 2))
+			msrc.left = (48 * NONE);
+		msrc.right = msrc.left + 48;
 
 		// CIRCLE SPRITE
 		// set the source rectangle
@@ -176,7 +180,7 @@ public:
 
 
 
-		dxMgr->blitToSurface(mouseArrow, &src, NULL);
+		dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
 
 		//// blit the sprite to the back buffer
 		dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
