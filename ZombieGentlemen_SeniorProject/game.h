@@ -3,7 +3,7 @@ The game class will handle the bulk of the game logic
 This class will contian the game states, the map, the players, the characters
 etc.
 
-status: skeleton
+status: unit test
 */
 //#define debug
 
@@ -106,7 +106,7 @@ public:
 			PostQuitMessage(0);
 		}
 
-		if (KEYDOWN(keystate, DIK_LEFT))
+		if (KEYDOWN(keystate, DIK_LEFT) || KEYDOWN(keystate, DIK_A))
 		{
 			src.left = (48 * K_LEFT_ARROW);
 			if(screen.left>0 && screen.right>48)
@@ -115,7 +115,7 @@ public:
 				screen.right -=5;
 			}
 		}
-		else if (KEYDOWN(keystate, DIK_UP))
+		else if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))
 		{
 			src.left = (48 * K_UP_ARROW);
 			if(screen.top>0 && screen.bottom>48)
@@ -124,7 +124,7 @@ public:
 				screen.bottom-=5;
 			}
 		}
-		else if (KEYDOWN(keystate, DIK_DOWN))
+		else if (KEYDOWN(keystate, DIK_DOWN)|| KEYDOWN(keystate, DIK_S))
 		{
 			src.left = (48 * K_DOWN_ARROW);
 			if(screen.bottom < 480 && screen.top < (480-50))
@@ -133,7 +133,7 @@ public:
 				screen.top+=5;
 			}
 		}
-		else if (KEYDOWN(keystate, DIK_RIGHT))
+		else if (KEYDOWN(keystate, DIK_RIGHT) || KEYDOWN(keystate, DIK_D))
 		{
 			src.left = (48 * K_RIGHT_ARROW);
 			if(screen.right < 650 && screen.left < (670-60))
