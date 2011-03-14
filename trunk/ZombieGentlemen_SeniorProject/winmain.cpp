@@ -1,4 +1,5 @@
 // includeFiles.h holds all other include headers nessary for this game
+#include <Windows.h>
 #include "game.h"
 
 

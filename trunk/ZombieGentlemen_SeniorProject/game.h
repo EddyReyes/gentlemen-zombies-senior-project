@@ -6,9 +6,24 @@ etc.
 status: unit test
 */
 //#define debug
+// DirectX files
+#include "dxManager.h"
+#include "directInput.h"
+#include "sound.h"
+
+#include "object.h"
+#include "physicsObject.h"
+
+#include "map.h"
+#include "entity.h"
+
+#include "playerCharacter.h"
+#include "playerItem.h"
+#include "weapon.h"
+#include "helmet.h"
+#include "armor.h"
 
 #pragma once
-#include "includeFiles.h"
 
 	#define KEYDOWN(name, key) (name[key] & 0x80) 
 	#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80) 
