@@ -192,6 +192,46 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Game Assets"
+				>
+				<File
+					RelativePath=".\armor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\entity.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\game.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\helmet.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\object.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\physicsObject.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\playerCharacter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\playerItem.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\weapon.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -199,23 +239,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\game.h"
-				>
-			</File>
-			<File
 				RelativePath=".\includeFiles.h"
 				>
 			</File>
 			<File
 				RelativePath=".\map.h"
-				>
-			</File>
-			<File
-				RelativePath=".\object.h"
-				>
-			</File>
-			<File
-				RelativePath=".\XY.h"
 				>
 			</File>
 			<Filter
@@ -239,6 +267,46 @@
 				</File>
 				<File
 					RelativePath=".\sound.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Game Assets"
+				>
+				<File
+					RelativePath=".\armor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\entity.h"
+					>
+				</File>
+				<File
+					RelativePath=".\game.h"
+					>
+				</File>
+				<File
+					RelativePath=".\helmet.h"
+					>
+				</File>
+				<File
+					RelativePath=".\object.h"
+					>
+				</File>
+				<File
+					RelativePath=".\physicsObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\playerCharacter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\playerItem.h"
+					>
+				</File>
+				<File
+					RelativePath=".\weapon.h"
 					>
 				</File>
 			</Filter>

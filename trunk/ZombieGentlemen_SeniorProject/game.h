@@ -108,6 +108,25 @@ public:
 			PostQuitMessage(0);
 		}
 
+		
+		if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))
+		{
+			src.left = (48 * K_UP_ARROW);
+			if(screen.top>0 && screen.bottom>48)
+			{
+				screen.top-=5;
+				screen.bottom-=5;
+			}
+		}
+		if (KEYDOWN(keystate, DIK_DOWN)|| KEYDOWN(keystate, DIK_S))
+		{
+			src.left = (48 * K_DOWN_ARROW);
+			if(screen.bottom < 480 && screen.top < (480-50))
+			{
+				screen.bottom +=5;
+				screen.top+=5;
+			}
+		}
 		if (KEYDOWN(keystate, DIK_LEFT) || KEYDOWN(keystate, DIK_A))
 		{
 			src.left = (48 * K_LEFT_ARROW);
@@ -117,25 +136,7 @@ public:
 				screen.right -=5;
 			}
 		}
-		else if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))
-		{
-			src.left = (48 * K_UP_ARROW);
-			if(screen.top>0 && screen.bottom>48)
-			{
-				screen.top-=5;
-				screen.bottom-=5;
-			}
-		}
-		else if (KEYDOWN(keystate, DIK_DOWN)|| KEYDOWN(keystate, DIK_S))
-		{
-			src.left = (48 * K_DOWN_ARROW);
-			if(screen.bottom < 480 && screen.top < (480-50))
-			{
-				screen.bottom +=5;
-				screen.top+=5;
-			}
-		}
-		else if (KEYDOWN(keystate, DIK_RIGHT) || KEYDOWN(keystate, DIK_D))
+		if (KEYDOWN(keystate, DIK_RIGHT) || KEYDOWN(keystate, DIK_D))
 		{
 			src.left = (48 * K_RIGHT_ARROW);
 			if(screen.right < 650 && screen.left < (670-60))

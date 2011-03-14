@@ -9,7 +9,6 @@
 // these files are created by us
 
 #include "map.h"
-#include "XY.h"
 #include "object.h"
 
 // DirectX files
