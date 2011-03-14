@@ -5,6 +5,7 @@ as well ass virtual draw and update functions
 status: skeleton
 */
 
+struct XY{int x, y;};
 class object
 {
 private:
