@@ -141,6 +141,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case 'M':
+			break;
+		}
+		break;
 	}
 	// Always return the message to the default window
 	// procedure for further processing
