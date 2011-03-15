@@ -208,6 +208,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\grid.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\helmet.cpp"
 					>
 				</File>
@@ -279,6 +283,10 @@
 				</File>
 				<File
 					RelativePath=".\game.h"
+					>
+				</File>
+				<File
+					RelativePath=".\grid.h"
 					>
 				</File>
 				<File

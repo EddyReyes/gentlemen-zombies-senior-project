@@ -11,6 +11,7 @@ status: unit test
 #include "directInput.h"
 #include "sound.h"
 
+#include "grid.h"
 #include "object.h"
 #include "physicsObject.h"
 
@@ -47,6 +48,10 @@ private:
 	DIMOUSESTATE mouseState;
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
+	int now, then, passed, soon;
+	
+	grid * Grid;
+	int gameScreenLength, gameScreenWidth;
 
 	        // Unit test parameters
         IDirect3DSurface9* arrows;
@@ -64,7 +69,6 @@ public:
 	{
 		m_hInstance = a_hInstance;
 		m_wndHandle = a_wndHandle;
-
 	}
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr)
 	{
@@ -72,7 +76,20 @@ public:
 		inputMgr = a_inputMgr;
 		soundMgr = a_soundMgr;
 
-		setMusic();
+		now = GetTickCount();
+		then = now;
+		passed = now-then;
+		soon = now +100;
+		
+		gameScreenLength = 600;
+		gameScreenWidth = 800;
+
+
+		Grid = new grid(50,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
+		Grid->initGrid();
+		Grid->toggleGrid();
+
+		//setMusic();
 
 		SetBMP();
 		// set the starting point for the circle sprite
@@ -96,7 +113,7 @@ public:
 		//Load sound (filename, bufferID) in this case the first buffer is 0
 		soundMgr->LoadSound("Combat music.wav", 0);
 		//SetVolume(bufferID, Volume)
-		soundMgr->SetVolume(0, 0);
+		soundMgr->SetVolume(0, -2000);
 		//play sound playSound(bufferID) in this case the first buffer is 0
 		soundMgr->playSound(0);
 	}
@@ -107,6 +124,13 @@ public:
 	}
 	void update()
 	{
+
+		//update time
+		now = GetTickCount();
+		then = now;
+		passed = now-then;
+		soon = now +100;
+
 
 		inputMgr->reAcquireDevices();
 		inputMgr->updateKeyboardState(); 
@@ -123,6 +147,10 @@ public:
 			PostQuitMessage(0);
 		}
 
+		if ((keystate[DIK_G] & 0x80))
+		{
+			Grid->toggleGrid();
+		}
 		
 		if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))
 		{
@@ -190,10 +218,7 @@ public:
 		curX += mouseState.lX;
 		curY += mouseState.lY;
 
-
-		// call our render function
 		dxMgr->beginRender();
-
 
 
 		dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
@@ -203,13 +228,17 @@ public:
 
 		// blit this letter to the back buffer
 		dxMgr->blitToSurface(arrows, &src, &screen);
+		
+		// Draw grid
+		Grid->drawGrid();
 
 		dxMgr->endRender();
 		
 	}
 
 	~game()
-	{
+	{		
+		Grid->~grid();
 		dxMgr->shutdown();
 		inputMgr->shutdownDirectInput();
 		soundMgr->shutdownDirectSound();

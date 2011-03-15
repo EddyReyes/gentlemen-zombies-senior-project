@@ -71,10 +71,12 @@ void dxManager::beginRender()
 
     // Clear the backbuffer to a black color
     pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
+	pd3dDevice->BeginScene();
 }
 
 void dxManager::endRender(void)
 {
+	pd3dDevice->EndScene();
 	// Present the backbuffer contents to the display
     pd3dDevice->Present( NULL, NULL, NULL, NULL );
 }
@@ -114,3 +116,7 @@ void dxManager::blitToSurface(IDirect3DSurface9* srcSurface, const RECT *srcRect
 	pd3dDevice->StretchRect(srcSurface, srcRect, getBackBuffer(), destRect, D3DTEXF_NONE);
 }
 
+LPDIRECT3DDEVICE9 * dxManager::getDevice(void)
+{
+	return &pd3dDevice;
+}
