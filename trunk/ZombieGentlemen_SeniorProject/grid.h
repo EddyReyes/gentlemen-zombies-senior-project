@@ -14,6 +14,9 @@ private:
 	int YLength, XLength;
 	void releaseLines();
 	void releaseVertexLists();
+	
+	//Axis Parameters
+	float XAxis, YAxis;
 
 public:
 	grid();
