@@ -1,12 +1,12 @@
 #pragma once
-class Player_Ch
+class PlayerCharacter
 {
 private:
 	int health;
 	int damageResistance;
 public:
 	
-	Player_Ch();
+	PlayerCharacter();
 	int getHealth();
 	void setHealth(int );
 	void attack(int & , int );
