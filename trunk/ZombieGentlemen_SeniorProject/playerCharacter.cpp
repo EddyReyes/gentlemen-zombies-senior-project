@@ -6,6 +6,7 @@ PlayerCharacter::PlayerCharacter()
 {
 	//Player life points is set to 100;
 	health = 100;
+	damage = 25;
 };
 int PlayerCharacter::getHealth()
 {
@@ -35,9 +36,10 @@ void PlayerCharacter::defend()
 	
 };
 
-void PlayerCharacter::takeDamage()
+int PlayerCharacter::takeDamage()
 {
-	
+	health - damage;
+	return health;
 };
 
 

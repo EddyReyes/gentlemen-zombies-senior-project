@@ -4,6 +4,7 @@ class PlayerCharacter
 private:
 	int health;
 	int damageResistance;
+	int damage;
 public:
 	
 	PlayerCharacter();
@@ -11,7 +12,7 @@ public:
 	void setHealth(int );
 	void attack(int & , int );
 	void defend();
-	void takeDamage();
+	int takeDamage();
 	//addItem()
 	//removeItem()
 	//addMoney()
