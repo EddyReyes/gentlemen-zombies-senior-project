@@ -10,6 +10,7 @@ dxManager::dxManager(void)
 	pD3D = NULL;
  	pd3dDevice = NULL;
 	lastResult = NULL;
+	g_pVB = NULL;
 }
 
 dxManager::~dxManager(void)
@@ -119,4 +120,52 @@ void dxManager::blitToSurface(IDirect3DSurface9* srcSurface, const RECT *srcRect
 LPDIRECT3DDEVICE9 * dxManager::getDevice(void)
 {
 	return &pd3dDevice;
+}
+
+LPDIRECT3DVERTEXBUFFER9 dxManager::createVertexBuffer(int size, DWORD usage)
+{
+	HRESULT hr;
+	LPDIRECT3DVERTEXBUFFER9 buffer;
+
+    // Create the vertex buffer.
+    hr = pd3dDevice->CreateVertexBuffer( size,
+                                         0, 
+										 usage,
+                                         D3DPOOL_DEFAULT, 
+										 &buffer, 
+										 NULL );
+	if FAILED ( hr)
+        return NULL;
+    
+	return buffer;
+}
+
+void dxManager::drawLine(int vertexIndex, int lineNum)
+{
+	pd3dDevice->SetStreamSource( 0, g_pVB, 0, sizeof(CUSTOMVERTEX) );
+    pd3dDevice->SetFVF(D3DFVF_XYZRHW|D3DFVF_DIFFUSE);
+	pd3dDevice->DrawPrimitive( D3DPT_LINESTRIP, vertexIndex, lineNum);
+}
+
+HRESULT  dxManager::SetupVB(CUSTOMVERTEX * g_Vertices)
+{
+	HRESULT hr;
+
+	// Create the vertex buffer
+	g_pVB = createVertexBuffer(sizeof(g_Vertices), D3DFVF_XYZRHW|D3DFVF_DIFFUSE);
+
+    // Fill the vertex buffer.
+    VOID* pVertices;
+	
+	hr = g_pVB->Lock( 0, sizeof(g_Vertices), (void**)&pVertices, 0 );
+	if FAILED (hr)
+        return E_FAIL;
+
+	// copy the vertices into the buffer
+    memcpy( pVertices, g_Vertices, sizeof(g_Vertices) );
+
+	// unlock the vertex buffer
+    g_pVB->Unlock();
+
+    return hr;
 }
