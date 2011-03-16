@@ -2,23 +2,23 @@
 #include "playerCharacter.h"
 
 
-Player_Ch::Player_Ch()
+PlayerCharacter::PlayerCharacter()
 {
 	//Player life points is set to 100;
 	health = 100;
 };
-int Player_Ch::getHealth()
+int PlayerCharacter::getHealth()
 {
 	// Geting players life points
 	return health;
 };
-void Player_Ch::setHealth(int hp)
+void PlayerCharacter::setHealth(int hp)
 {
 	// Setting players life.
 	health = hp;
 };
 
-void Player_Ch::attack(int &enemie, int weapon )
+void PlayerCharacter::attack(int &enemie, int weapon )
 {
 	int remainHealth;
 	
@@ -30,12 +30,12 @@ void Player_Ch::attack(int &enemie, int weapon )
 	
 };
 
-void Player_Ch::defend()
+void PlayerCharacter::defend()
 {
 	
 };
 
-void Player_Ch::takeDamage()
+void PlayerCharacter::takeDamage()
 {
 	
 };

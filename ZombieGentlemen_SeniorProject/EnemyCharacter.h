@@ -8,5 +8,4 @@ public:
 	EnemyCharacter();
 	int getEasyenemie();
 	void setEasyenemie(int );
-
 };
