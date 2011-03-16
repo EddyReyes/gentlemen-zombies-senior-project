@@ -13,13 +13,13 @@ int PlayerCharacter::getHealth()
 	// Geting players life points
 	return health;
 };
-void PlayerCharacter::setHealth(int hp)
+void PlayerCharacter::setHealth(int a_health)
 {
 	// Setting players life.
-	health = hp;
+	health = a_health;
 };
 
-void PlayerCharacter::attack(int &enemie, int weapon )
+void PlayerCharacter::attack(int &enemie, int weapon)
 {
 	int remainHealth;
 	
