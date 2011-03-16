@@ -2,10 +2,14 @@
 class Player_Ch
 {
 private:
-
+	int health;
+	int damageResistance;
 public:
-	//getHealth()
-	void attack();
+	
+	Player_Ch();
+	int getHealth();
+	void setHealth(int );
+	void attack(int & , int );
 	void defend();
 	void takeDamage();
 	//addItem()
