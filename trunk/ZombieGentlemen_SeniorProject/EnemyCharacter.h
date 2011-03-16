@@ -1,11 +1,11 @@
 #pragma once
 
-class Enemie_Ch
+class EnemyCharacter
 {
 private:
 	int health;
 public:
-	Enemie_Ch();
+	EnemyCharacter();
 	int getEasyenemie();
 	void setEasyenemie(int );
 

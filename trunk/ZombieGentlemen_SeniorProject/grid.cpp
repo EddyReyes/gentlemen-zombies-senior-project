@@ -90,15 +90,18 @@ bool grid::isGridOn(){return gridOn;}
 
 void grid::changeGridScale(float a_gridScale)
 {
-	releaseLines();
-	gridScale += a_gridScale;
-	XLength = YAxisLimit/gridScale;
-	YLength = XAxisLimit/gridScale;
-	XLines = new LPD3DXLINE[XLength];
-	YLines = new LPD3DXLINE[YLength];
-	XlinesVertexList = new D3DXVECTOR2 * [XLength];
-	YlinesVertexList = new D3DXVECTOR2 * [YLength];
-	initGrid();
+	if(gridScale + a_gridScale > 1)
+	{
+		releaseLines();
+		gridScale += a_gridScale;
+		XLength = YAxisLimit/gridScale;
+		YLength = XAxisLimit/gridScale;
+		XLines = new LPD3DXLINE[XLength];
+		YLines = new LPD3DXLINE[YLength];
+		XlinesVertexList = new D3DXVECTOR2 * [XLength];
+		YlinesVertexList = new D3DXVECTOR2 * [YLength];
+		initGrid();
+	}
 }
 
 void grid::releaseLines()

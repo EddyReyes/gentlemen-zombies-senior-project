@@ -51,6 +51,7 @@ private:
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
 	int now, then, passed, soon;
+
 	
 	grid * Grid;
 	int gameScreenLength, gameScreenWidth;
@@ -177,7 +178,8 @@ public:
 			}
 		}
 		
-		if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))
+		if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
+			&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 		{
 			src.left = (48 * K_UP_ARROW);
 			if(screen.top>0 && screen.bottom>48)
@@ -186,7 +188,8 @@ public:
 				screen.bottom-=5;
 			}
 		}
-		if (KEYDOWN(keystate, DIK_DOWN)|| KEYDOWN(keystate, DIK_S))
+		if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
+			&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 		{
 			src.left = (48 * K_DOWN_ARROW);
 			if(screen.bottom < 480 && screen.top < (480-50))
@@ -248,12 +251,13 @@ public:
 
 		dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
 
-		//// blit the sprite to the back buffer
+		// blit the sprite to the back buffer
 		dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
 
 		// blit this letter to the back buffer
 		dxMgr->blitToSurface(arrows, &src, &screen);
 		
+
 		// Draw grid
 		Grid->drawGrid();
 

@@ -200,7 +200,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\EnemieCharacter.cpp"
+					RelativePath=".\EnemyCharacter.cpp"
 					>
 				</File>
 				<File
@@ -282,7 +282,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\EnemieCharacter.h"
+					RelativePath=".\EnemyCharacter.h"
 					>
 				</File>
 				<File

@@ -1,11 +1,11 @@
-#include "EnemieCharacter.h"
+#include "EnemyCharacter.h"
 
-Enemie_Ch::Enemie_Ch()
+EnemyCharacter::EnemyCharacter()
 {
 	health = 0;
 };
 
-int Enemie_Ch::getEasyenemie()
+int EnemyCharacter::getEasyenemie()
 {
 	// the  weak enemie only has 15 life points.
 	int life = 15;
@@ -14,7 +14,7 @@ int Enemie_Ch::getEasyenemie()
 	return health;
 };
 
-void Enemie_Ch::setEasyenemie(int hp)
+void EnemyCharacter::setEasyenemie(int hp)
 {
 	///setting the enemies life. 
 	health = hp;
