@@ -10,6 +10,7 @@ status: unit test
 #include "dxManager.h"
 #include "directInput.h"
 #include "sound.h"
+#include <time.h>
 
 #include "grid.h"
 #include "object.h"
@@ -45,6 +46,7 @@ private:
 	directInput * inputMgr;
 	sound * soundMgr;
 	BYTE * keystate;
+	int * keyLag;
 	DIMOUSESTATE mouseState;
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
@@ -76,20 +78,21 @@ public:
 		inputMgr = a_inputMgr;
 		soundMgr = a_soundMgr;
 
-		now = GetTickCount();
+		now = clock();
 		then = now;
 		passed = now-then;
 		soon = now +100;
+		keyLag = new int [256];
+		for(int i = 0; i < 256; i++){keyLag[i] = 0;}
 		
 		gameScreenLength = 600;
 		gameScreenWidth = 800;
 
 
-		Grid = new grid(50,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
+		Grid = new grid(100,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
 		Grid->initGrid();
-		Grid->toggleGrid();
 
-		//setMusic();
+		setMusic();
 
 		SetBMP();
 		// set the starting point for the circle sprite
@@ -126,7 +129,7 @@ public:
 	{
 
 		//update time
-		now = GetTickCount();
+		now = clock();
 		then = now;
 		passed = now-then;
 		soon = now +100;
@@ -149,7 +152,29 @@ public:
 
 		if ((keystate[DIK_G] & 0x80))
 		{
-			Grid->toggleGrid();
+			if(now - keyLag[DIK_G] > 150)
+			{
+				Grid->toggleGrid();
+				keyLag[DIK_G] = now;
+			}
+		}
+
+		if ((keystate[DIK_SUBTRACT] & 0x80))
+		{
+			if(now - keyLag[DIK_MINUS] > 150)
+			{
+				Grid->changeGridScale(-10);
+				keyLag[DIK_MINUS] = now;
+			}
+		}
+
+		if ((keystate[DIK_ADD] & 0x80))
+		{
+			if(now - keyLag[DIK_ADD] > 150)
+			{
+				Grid->changeGridScale(10);
+				keyLag[DIK_ADD] = now;
+			}
 		}
 		
 		if (KEYDOWN(keystate, DIK_UP) || KEYDOWN(keystate, DIK_W))

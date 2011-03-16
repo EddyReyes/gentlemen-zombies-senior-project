@@ -12,6 +12,8 @@ private:
 	dxManager * dxMgr;
 	float gridScale;
 	int YLength, XLength;
+	void releaseLines();
+	void releaseVertexLists();
 
 public:
 	grid();
@@ -21,4 +23,5 @@ public:
 	void toggleGrid();
 	void drawGrid();
 	bool isGridOn();
+	void changeGridScale(float a_gridScale);
 };

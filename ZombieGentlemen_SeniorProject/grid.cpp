@@ -20,18 +20,8 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 }
 grid::~grid()
 {
-	for(int i = 0; i < XLength; i++)
-	{
-		XLines[i]->Release();
-	}
-	for(int i = 0; i < YLength; i++)
-	{
-		YLines[i]->Release();
-	}
-	delete [] XLines;
-	delete [] YLines;
-	delete [] XlinesVertexList;
-	delete [] YlinesVertexList;
+	releaseLines();
+	releaseVertexLists();
 }
 void grid::toggleGrid()
 {
@@ -97,3 +87,36 @@ void grid::drawGrid()
 #endif
 }
 bool grid::isGridOn(){return gridOn;}
+
+void grid::changeGridScale(float a_gridScale)
+{
+	releaseLines();
+	gridScale += a_gridScale;
+	XLength = YAxisLimit/gridScale;
+	YLength = XAxisLimit/gridScale;
+	XLines = new LPD3DXLINE[XLength];
+	YLines = new LPD3DXLINE[YLength];
+	XlinesVertexList = new D3DXVECTOR2 * [XLength];
+	YlinesVertexList = new D3DXVECTOR2 * [YLength];
+	initGrid();
+}
+
+void grid::releaseLines()
+{
+	for(int i = 0; i < XLength; i++)
+	{
+		XLines[i]->Release();
+	}
+	for(int i = 0; i < YLength; i++)
+	{
+		YLines[i]->Release();
+	}
+	delete [] XLines;
+	delete [] YLines;
+}
+
+void grid::releaseVertexLists()
+{
+	delete [] XlinesVertexList;
+	delete [] YlinesVertexList;
+}
