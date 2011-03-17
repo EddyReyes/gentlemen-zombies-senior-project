@@ -108,6 +108,9 @@ void grid::initGrid()
 	{
 		D3DXCreateLine(*dxMgr->getDevice(), &YLines[i]);
 	}
+	
+	XLines[0]->SetWidth(1.5);
+	YLines[0]->SetWidth(1.5f);
 
 }
 void grid::drawGrid()
@@ -116,17 +119,17 @@ void grid::drawGrid()
 	if(gridOn)
 	{
 		// Draw the X axis
-		const D3DXVECTOR2 lineVectorX[2] = 
-			{XlinesVertexList[0][0], XlinesVertexList[0][1]};
+		/*const D3DXVECTOR2 lineVectorX[2] = 
+			{XlinesVertexList[0][0], XlinesVertexList[0][1]};*/
 		XLines[0]->Begin();
-		XLines[0]->Draw(lineVectorX, 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
+		XLines[0]->Draw(XlinesVertexList[0], 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
 		XLines[0]->End();
 
 		// Draw the Y axis
-		const D3DXVECTOR2 lineVectorY[2] = 
-			{YlinesVertexList[0][0], YlinesVertexList[0][1]};
+		/*const D3DXVECTOR2 lineVectorY[2] = 
+			{YlinesVertexList[0][0], YlinesVertexList[0][1]};*/
 		YLines[0]->Begin();
-		YLines[0]->Draw(lineVectorY, 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
+		YLines[0]->Draw(YlinesVertexList[0], 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
 		YLines[0]->End();
 
 
@@ -134,19 +137,19 @@ void grid::drawGrid()
 		// draw the X lines
 		for(int i = 1; i < XLength; i++)
 		{
-			const D3DXVECTOR2 lineVector[2] = 
-			{XlinesVertexList[i][0], XlinesVertexList[i][1]};
+			/*const D3DXVECTOR2 lineVector[2] = 
+			{XlinesVertexList[i][0], XlinesVertexList[i][1]};*/
 			XLines[i]->Begin();
-			XLines[i]->Draw(lineVector, 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
+			XLines[i]->Draw(XlinesVertexList[i], 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
 			XLines[i]->End();
 		}
 		// draw the Y lines
 		for(int i = 1; i < YLength; i++)
 		{
-			const D3DXVECTOR2 lineVector[2] = 
-			{YlinesVertexList[i][0], YlinesVertexList[i][1]};
+			/*const D3DXVECTOR2 lineVector[2] = 
+			{YlinesVertexList[i][0], YlinesVertexList[i][1]};*/
 			YLines[i]->Begin();
-			YLines[i]->Draw(lineVector, 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
+			YLines[i]->Draw(YlinesVertexList[i], 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
 			YLines[i]->End();
 		}
 	}
