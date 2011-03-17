@@ -23,9 +23,6 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 	XlinesVertexList = new D3DXVECTOR2 * [XLength];
 	YlinesVertexList = new D3DXVECTOR2 * [YLength];
 
-	NodesXCoord = new int[XLength];
-	NodesYCoord = new int[YLength];
-
 	gridOn = false;
 	dxMgr = a_dxMgr;
 }
@@ -111,17 +108,6 @@ void grid::initGrid()
 	
 	XLines[0]->SetWidth(1.5);
 	YLines[0]->SetWidth(1.5f);
-
-void grid::initNodes()
-{
-	for(int i = 0; i < YLength; i++)
-	{
-		NodesYCoord[i] = i * gridScale;
-	}
-	for(int i = 0; i < YLength; i++)
-	{
-		NodesXCoord[i] = i * gridScale;
-	}
 }
 
 void grid::drawGrid()
