@@ -22,6 +22,10 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 
 	XlinesVertexList = new D3DXVECTOR2 * [XLength];
 	YlinesVertexList = new D3DXVECTOR2 * [YLength];
+
+	NodesXCoord = new int[XLength];
+	NodesYCoord = new int[YLength];
+
 	gridOn = false;
 	dxMgr = a_dxMgr;
 }
@@ -52,7 +56,6 @@ void grid::initGrid()
 	{
 		if(i < XLength/2)
 		{
-			//tempIndex = (float)i;
 			XlinesVertexList[i] = new D3DXVECTOR2[2];
 			XlinesVertexList[i][0] = D3DXVECTOR2(0.0f, XAxis+(gridScale*tempIndex1));
 			XlinesVertexList[i][1] = D3DXVECTOR2(XAxisLimit, XAxis+(gridScale*tempIndex1));
@@ -60,7 +63,6 @@ void grid::initGrid()
 		}
 		else
 		{
-			//tempIndex = (float)i;
 			XlinesVertexList[i] = new D3DXVECTOR2[2];
 			XlinesVertexList[i][0] = D3DXVECTOR2(0.0f, XAxis-(gridScale*tempIndex2));
 			XlinesVertexList[i][1] = D3DXVECTOR2(XAxisLimit, XAxis-(gridScale*tempIndex2));
@@ -83,7 +85,6 @@ void grid::initGrid()
 	{
 		if(i < YLength/2)
 		{
-			//tempIndex = (float)i;
 			YlinesVertexList[i] = new D3DXVECTOR2[2];
 			YlinesVertexList[i][0] = D3DXVECTOR2(YAxis+(gridScale*tempIndex1), 0.0f);
 			YlinesVertexList[i][1] = D3DXVECTOR2(YAxis+(gridScale*tempIndex1), YAxisLimit);
@@ -91,7 +92,6 @@ void grid::initGrid()
 		}
 		else
 		{
-			//tempIndex = (float)i;
 			YlinesVertexList[i] = new D3DXVECTOR2[2];
 			YlinesVertexList[i][0] = D3DXVECTOR2(YAxis-(gridScale*tempIndex2), 0.0f);
 			YlinesVertexList[i][1] = D3DXVECTOR2(YAxis-(gridScale*tempIndex2), YAxisLimit);
@@ -112,7 +112,18 @@ void grid::initGrid()
 	XLines[0]->SetWidth(1.5);
 	YLines[0]->SetWidth(1.5f);
 
+void grid::initNodes()
+{
+	for(int i = 0; i < YLength; i++)
+	{
+		NodesYCoord[i] = i * gridScale;
+	}
+	for(int i = 0; i < YLength; i++)
+	{
+		NodesXCoord[i] = i * gridScale;
+	}
 }
+
 void grid::drawGrid()
 {
 #ifndef debug

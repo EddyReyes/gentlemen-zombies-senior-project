@@ -1,6 +1,7 @@
 #include "dxManager.h"
 #include "object.h"
 
+
 class grid
 {
 private:
@@ -30,4 +31,5 @@ public:
 	void drawGrid();
 	bool isGridOn();
 	void changeGridScale(float a_gridScale);
+	void initNodes();
 };
