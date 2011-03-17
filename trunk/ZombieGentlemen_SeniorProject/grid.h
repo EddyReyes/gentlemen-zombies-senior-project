@@ -1,4 +1,5 @@
 #include "dxManager.h"
+#include "object.h"
 
 class grid
 {
@@ -17,6 +18,8 @@ private:
 	
 	//Axis Parameters
 	float XAxis, YAxis;
+
+	XY ** nodes;
 
 public:
 	grid();
