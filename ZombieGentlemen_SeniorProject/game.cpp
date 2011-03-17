@@ -42,6 +42,16 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	src.top = 0;
 	src.bottom = 48;
 	msrc = src;
+
+	lineRect.left = 0;
+	lineRect.right = 800;
+	lineRect.top = 0;
+	lineRect.bottom = 1;
+
+	lineRectScreen.left = 0;
+	lineRectScreen.right = 800;
+	lineRectScreen.top = 50;
+	lineRectScreen.bottom = 51;
 	return true;
 }
 void game::setMusic()
@@ -57,6 +67,7 @@ void game::SetBMP()
 {
 	arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
 	mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
+	line = dxMgr->getSurfaceFromBitmap("greyPixel.bmp",800, 1);
 }
 void game::update()
 {
@@ -100,7 +111,7 @@ inputMgr->reAcquireDevices();
 		}
 	}
 
-	if ((keystate[DIK_SUBTRACT] & 0x80))
+	if ((keystate[DIK_SUBTRACT] & 0x80) || (keystate[DIK_MINUS] & 0x80))
 	{
 		if(now - keyLag[DIK_MINUS] > 150)
 		{
@@ -109,7 +120,7 @@ inputMgr->reAcquireDevices();
 		}
 	}
 
-	if ((keystate[DIK_ADD] & 0x80))
+	if ((keystate[DIK_ADD] & 0x80) || (keystate[DIK_EQUALS] & 0x80))
 	{
 		if(now - keyLag[DIK_ADD] > 150)
 		{
@@ -198,6 +209,39 @@ void game::draw()
 
 	// blit this letter to the back buffer
 	dxMgr->blitToSurface(arrows, &src, &screen);
+
+	// blit this letter to the back buffer
+	for(int i =  0; i < 12; i++)
+	{
+		dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
+		lineRectScreen.top += 50;
+		lineRectScreen.bottom += 50;
+	}
+
+
+	lineRectScreen.left = 0;
+	lineRectScreen.right = 1;
+	lineRectScreen.top = 0;
+	lineRectScreen.bottom = 600;
+
+	for(int i =  0; i < 16; i++)
+	{
+		dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
+		lineRectScreen.left += 50;
+		lineRectScreen.right += 50;
+	}
+
+
+	/*lineRect.left = 0;
+	lineRect.right = 800;
+	lineRect.top = 0;
+	lineRect.bottom = 1;*/
+
+
+	lineRectScreen.left = 0;
+	lineRectScreen.right = 800;
+	lineRectScreen.top = 50;
+	lineRectScreen.bottom = 51;
 
 
 	// Draw grid

@@ -12,8 +12,8 @@ status: unit test
 #include "sound.h"
 #include <time.h>
 
-#include "grid.h"
 #include "object.h"
+#include "grid.h"
 #include "physicsObject.h"
 
 #include "map.h"
@@ -57,6 +57,9 @@ private:
 	// Unit test parameters
 	IDirect3DSurface9* arrows;
 	IDirect3DSurface9* mouseArrow;
+	IDirect3DSurface9* line;
+	RECT lineRect;
+	RECT lineRectScreen;
 	RECT src;
 	RECT msrc;
 	RECT spriteSrc;
