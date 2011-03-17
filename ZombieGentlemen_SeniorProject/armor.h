@@ -9,7 +9,6 @@ class PlayerArmor
 		int armorPoints;
 		int armorDamage;
 		int damageResistance;
-		int cost;
 	public:
 		int damagedArmor(void);
 		int armorRegenerated(void);
