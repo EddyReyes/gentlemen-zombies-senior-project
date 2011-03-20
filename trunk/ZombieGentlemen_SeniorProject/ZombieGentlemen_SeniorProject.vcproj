@@ -191,6 +191,10 @@
 					RelativePath=".\sound.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\Sprite.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Game Assets"
@@ -271,6 +275,10 @@
 				</File>
 				<File
 					RelativePath=".\sound.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprite.h"
 					>
 				</File>
 			</Filter>

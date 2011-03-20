@@ -1,5 +1,5 @@
 #include "grid.h"
-//#define debug
+#define debug
 //default constructor
 
 
@@ -8,6 +8,9 @@ grid::grid(){};
 grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit, 
 		   dxManager * a_dxMgr)
 {
+	dxMgr = a_dxMgr;
+	line = dxMgr->getSurfaceFromBitmap("greyPixel.bmp",800, 1);
+#ifndef debug
 	// initialize grid data
 	gridScale = a_gridScale;
 	XAxisLimit = a_XAxisLimit;
@@ -24,12 +27,16 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 	YlinesVertexList = new D3DXVECTOR2 * [YLength];
 
 	gridOn = false;
-	dxMgr = a_dxMgr;
+	
+#endif
+
 }
 grid::~grid()
 {
+	#ifndef debug
 	releaseLines();
 	releaseVertexLists();
+#endif
 }
 void grid::toggleGrid()
 {
@@ -38,6 +45,16 @@ void grid::toggleGrid()
 }
 void grid::initGrid()
 {
+	lineRect.left = 0;
+	lineRect.right = 800;
+	lineRect.top = 0;
+	lineRect.bottom = 1;
+
+	lineRectScreen.left = 0;
+	lineRectScreen.right = 800;
+	lineRectScreen.top = 50;
+	lineRectScreen.bottom = 51;
+#ifndef debug
 
 	//Set X axis
 	XlinesVertexList[0] =  new D3DXVECTOR2[2];
@@ -108,10 +125,39 @@ void grid::initGrid()
 	
 	XLines[0]->SetWidth(1.5);
 	YLines[0]->SetWidth(1.5f);
+#endif
 }
 
 void grid::drawGrid()
 {
+	if(gridOn)
+	{
+		// blit this letter to the back buffer
+		for(int i =  0; i < 12; i++)
+		{
+			dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
+			lineRectScreen.top += 50;
+			lineRectScreen.bottom += 50;
+		}
+
+		lineRectScreen.left = 0;
+		lineRectScreen.right = 1;
+		lineRectScreen.top = 0;
+		lineRectScreen.bottom = 600;
+
+		for(int i =  0; i < 16; i++)
+		{
+			dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
+			lineRectScreen.left += 50;
+			lineRectScreen.right += 50;
+		}
+
+		lineRectScreen.left = 0;
+		lineRectScreen.right = 800;
+		lineRectScreen.top = 50;
+		lineRectScreen.bottom = 51;
+	}
+
 #ifndef debug
 	if(gridOn)
 	{
@@ -156,6 +202,8 @@ bool grid::isGridOn(){return gridOn;}
 
 void grid::changeGridScale(float a_gridScale)
 {
+	#ifndef debug
+
 	if(gridScale + a_gridScale > 1)
 	{
 		releaseLines();
@@ -168,10 +216,13 @@ void grid::changeGridScale(float a_gridScale)
 		YlinesVertexList = new D3DXVECTOR2 * [YLength];
 		initGrid();
 	}
+#endif
 }
 
 void grid::releaseLines()
 {
+#ifndef debug
+
 	for(int i = 0; i < XLength; i++)
 	{
 		XLines[i]->Release();
@@ -182,10 +233,14 @@ void grid::releaseLines()
 	}
 	delete [] XLines;
 	delete [] YLines;
+#endif
 }
 
 void grid::releaseVertexLists()
 {
+	#ifndef debug
+
 	delete [] XlinesVertexList;
 	delete [] YlinesVertexList;
+#endif
 }
