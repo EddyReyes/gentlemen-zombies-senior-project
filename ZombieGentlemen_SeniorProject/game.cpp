@@ -1,5 +1,7 @@
 #include "game.h"
 
+#define debug
+
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
 {
 	m_hInstance = a_hInstance;
@@ -7,6 +9,7 @@ game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
 }
 bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr)
 {
+
 	dxMgr = a_dxMgr;
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
@@ -27,31 +30,20 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	setMusic();
 
-	SetBMP();
+	SetSprites();
 	// set the starting point for the circle sprite
 	curX = 320;
 	curY = 240;
+	msrc.left = 0;
+	msrc.right = 48;
+	msrc.top = 0;
+	msrc.bottom = 48;
+	
+	position.x = 700;
+	position.y = 500;
 
-	screen.left = 0;
-	screen.right = 48;
-	screen.top = 0;
-	screen.bottom = 48;
+	
 
-	src.left = 0;
-	src.right = 48;
-	src.top = 0;
-	src.bottom = 48;
-	msrc = src;
-
-	lineRect.left = 0;
-	lineRect.right = 800;
-	lineRect.top = 0;
-	lineRect.bottom = 1;
-
-	lineRectScreen.left = 0;
-	lineRectScreen.right = 800;
-	lineRectScreen.top = 50;
-	lineRectScreen.bottom = 51;
 	return true;
 }
 void game::setMusic()
@@ -63,11 +55,12 @@ void game::setMusic()
 	//play sound playSound(bufferID) in this case the first buffer is 0
 	soundMgr->playSound(0);
 }
-void game::SetBMP()
+void game::SetSprites()
 {
-	arrows = dxMgr->getSurfaceFromBitmap("arrows.bmp",192, 48);
+	arrowSprite = new Sprite(dxMgr,"arrows.bmp",192, 48);
+	arrowSprite->initSprite(4, gameScreenWidth, gameScreenLength);
+	/*arrowSprite->setScreenLocation(100,0);*/
 	mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
-	line = dxMgr->getSurfaceFromBitmap("greyPixel.bmp",800, 1);
 }
 void game::update()
 {
@@ -87,7 +80,7 @@ void game::update()
 
 void game::handleInput()
 {
-inputMgr->reAcquireDevices();
+	inputMgr->reAcquireDevices();
 	inputMgr->updateKeyboardState(); 
 	keystate = inputMgr->getKeyboardState();
 	inputMgr->updateMouseState();
@@ -129,49 +122,35 @@ inputMgr->reAcquireDevices();
 		}
 	}
 
+	// sprite movement
+
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		src.left = (48 * K_UP_ARROW);
-		if(screen.top>0 && screen.bottom>48)
-		{
-			screen.top-=5;
-			screen.bottom-=5;
-		}
+		position.y -= 5;
+		arrowSprite->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		src.left = (48 * K_DOWN_ARROW);
-		if(screen.bottom < 480 && screen.top < (480-50))
-		{
-			screen.bottom +=5;
-			screen.top+=5;
-		}
+		position.y += 5;
+		arrowSprite->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		src.left = (48 * K_LEFT_ARROW);
-		if(screen.left>0 && screen.right>48)
-		{
-			screen.left -=5;
-			screen.right -=5;
-		}
+		position.x -= 5;
+		arrowSprite->selectSpriteSource(0);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		src.left = (48 * K_RIGHT_ARROW);
-		if(screen.right < 650 && screen.left < (670-60))
-		{
-			screen.right +=5;
-			screen.left +=5;
-		}
+		position.x += 5;
+		arrowSprite->selectSpriteSource(3);
 	}
-
-	src.right = src.left + 48;
-
-
-	// mouse
+	arrowSprite->setLocation(position.x,position.y);
+	//arrowSprite->setScreenLocation(position.x,position.y);
+	arrowSprite->updateRect();
+	
+	// mouse movement
 
 	if (mouseState.rgbButtons[0] & 0x80)
 		msrc.left = (48 * M_LEFT_ARROW);
@@ -201,48 +180,14 @@ void game::draw()
 {
 	dxMgr->beginRender();
 
-
 	dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
 
 	// blit the sprite to the back buffer
 	dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
 
 	// blit this letter to the back buffer
-	dxMgr->blitToSurface(arrows, &src, &screen);
-
-	// blit this letter to the back buffer
-	for(int i =  0; i < 12; i++)
-	{
-		dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
-		lineRectScreen.top += 50;
-		lineRectScreen.bottom += 50;
-	}
-
-
-	lineRectScreen.left = 0;
-	lineRectScreen.right = 1;
-	lineRectScreen.top = 0;
-	lineRectScreen.bottom = 600;
-
-	for(int i =  0; i < 16; i++)
-	{
-		dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
-		lineRectScreen.left += 50;
-		lineRectScreen.right += 50;
-	}
-
-
-	/*lineRect.left = 0;
-	lineRect.right = 800;
-	lineRect.top = 0;
-	lineRect.bottom = 1;*/
-
-
-	lineRectScreen.left = 0;
-	lineRectScreen.right = 800;
-	lineRectScreen.top = 50;
-	lineRectScreen.bottom = 51;
-
+	//dxMgr->blitToSurface(arrows, arrowSprite->getSpriteSource(), arrowSprite->getSpriteScreen());
+	arrowSprite->draw();
 
 	// Draw grid
 	Grid->drawGrid();

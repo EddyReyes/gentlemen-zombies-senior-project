@@ -12,6 +12,8 @@ status: unit test
 #include "sound.h"
 #include <time.h>
 
+#include "Sprite.h"
+
 #include "object.h"
 #include "grid.h"
 #include "physicsObject.h"
@@ -28,10 +30,6 @@ status: unit test
 #pragma once
 
 // for unit testing
-	enum { K_LEFT_ARROW = 0,
-		K_UP_ARROW,
-		K_DOWN_ARROW,
-		K_RIGHT_ARROW };
 	enum { NONE=0,
 	   M_LEFT_ARROW,
 	   M_RIGHT_ARROW,
@@ -55,24 +53,20 @@ private:
 	int gameScreenLength, gameScreenWidth;
 
 	// Unit test parameters
-	IDirect3DSurface9* arrows;
 	IDirect3DSurface9* mouseArrow;
-	IDirect3DSurface9* line;
-	RECT lineRect;
-	RECT lineRectScreen;
-	RECT src;
 	RECT msrc;
 	RECT spriteSrc;
 	RECT spriteDest;
 	LONG curX;
 	LONG curY;
-	RECT screen;
+	XY position;
+	Sprite * arrowSprite;
 	
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
 	void setMusic();
-	void SetBMP();
+	void SetSprites();
 	void update();
 	void handleInput();
 	void draw();

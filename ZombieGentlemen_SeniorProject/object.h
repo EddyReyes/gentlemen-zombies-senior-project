@@ -7,8 +7,7 @@ will also hold image data
 
 status: skeleton
 */
-#include "dxManager.h"
-struct XY{int x, y;};
+#include "Sprite.h"
 
 class object
 {
