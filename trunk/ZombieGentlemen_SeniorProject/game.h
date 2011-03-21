@@ -12,7 +12,9 @@ status: unit test
 #include "sound.h"
 #include <time.h>
 
-#include "Sprite.h"
+#include "rectangle.h"
+#include "dxSprite.h"
+
 
 #include "object.h"
 #include "grid.h"
@@ -60,7 +62,9 @@ private:
 	LONG curX;
 	LONG curY;
 	XY position;
-	Sprite * arrowSprite;
+	dxSprite * arrowSprite;
+	rectangle * arrow;
+
 	
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);

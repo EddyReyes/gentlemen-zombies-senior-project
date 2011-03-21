@@ -7,7 +7,7 @@ will also hold image data
 
 status: skeleton
 */
-#include "Sprite.h"
+#include "rectangle.h"
 
 class object
 {

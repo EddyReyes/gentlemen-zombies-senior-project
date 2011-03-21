@@ -39,11 +39,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	msrc.top = 0;
 	msrc.bottom = 48;
 	
-	position.x = 700;
-	position.y = 500;
-
-	
-
+	position.x = 0;
+	position.y = 0;
+	arrowSprite->setPosition(position.x,position.y);
+	arrow->setLocation(position.x,position.y);
 	return true;
 }
 void game::setMusic()
@@ -57,8 +56,12 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-	arrowSprite = new Sprite(dxMgr,"arrows.bmp",192, 48);
-	arrowSprite->initSprite(4, gameScreenWidth, gameScreenLength);
+	arrowSprite = new dxSprite(dxMgr,"arrows2.bmp");
+	arrowSprite->scaleSize(0.2f);
+	arrow = new rectangle(dxMgr,"arrows.bmp");
+	//arrowSprite->initializeDXSprite("arrows.bmp");
+	//arrowSprite->initSprite(4, gameScreenWidth, gameScreenLength);
+	
 	/*arrowSprite->setScreenLocation(100,0);*/
 	mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
 }
@@ -123,32 +126,38 @@ void game::handleInput()
 	}
 
 	// sprite movement
+	int moveDistance = 20;
 
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		position.y -= 5;
+		position.y -= moveDistance;
 		arrowSprite->selectSpriteSource(1);
+		arrow->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		position.y += 5;
+		position.y += moveDistance;
 		arrowSprite->selectSpriteSource(2);
+		arrow->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		position.x -= 5;
+		position.x -= moveDistance;
 		arrowSprite->selectSpriteSource(0);
+		arrow->selectSpriteSource(0);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		position.x += 5;
+		position.x += moveDistance;
 		arrowSprite->selectSpriteSource(3);
+		arrow->selectSpriteSource(3);
 	}
-	arrowSprite->setLocation(position.x,position.y);
+	//arrowSprite->setLocation(position.x,position.y);
+	arrowSprite->setPosition(position.x,position.y);
 	//arrowSprite->setScreenLocation(position.x,position.y);
-	arrowSprite->updateRect();
+	//arrowSprite->updateRect();
 	
 	// mouse movement
 
@@ -187,8 +196,9 @@ void game::draw()
 
 	// blit this letter to the back buffer
 	//dxMgr->blitToSurface(arrows, arrowSprite->getSpriteSource(), arrowSprite->getSpriteScreen());
-	arrowSprite->draw();
+	arrow->draw();
 
+	arrowSprite->drawSprite();
 	// Draw grid
 	Grid->drawGrid();
 
