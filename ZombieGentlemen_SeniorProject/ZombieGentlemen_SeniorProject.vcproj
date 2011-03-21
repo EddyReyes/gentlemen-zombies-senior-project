@@ -188,11 +188,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\sound.cpp"
+					RelativePath=".\rectangle.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Sprite.cpp"
+					RelativePath=".\sound.cpp"
 					>
 				</File>
 			</Filter>
@@ -270,15 +270,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\dxSprite.h"
+					>
+				</File>
+				<File
 					RelativePath=".\dxutil.h"
 					>
 				</File>
 				<File
-					RelativePath=".\sound.h"
+					RelativePath=".\rectangle.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Sprite.h"
+					RelativePath=".\sound.h"
 					>
 				</File>
 			</Filter>
