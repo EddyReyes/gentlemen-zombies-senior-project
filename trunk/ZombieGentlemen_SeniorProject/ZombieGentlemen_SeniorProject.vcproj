@@ -184,6 +184,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\dxSprite.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\dxutil.cpp"
 					>
 				</File>
@@ -263,6 +267,10 @@
 				</File>
 				<File
 					RelativePath=".\dsutil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dxCamera.h"
 					>
 				</File>
 				<File
