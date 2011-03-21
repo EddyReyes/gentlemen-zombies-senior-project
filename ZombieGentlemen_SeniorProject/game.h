@@ -11,7 +11,7 @@ status: unit test
 #include "directInput.h"
 #include "sound.h"
 #include <time.h>
-
+#include "dxCamera.h"
 #include "rectangle.h"
 #include "dxSprite.h"
 
@@ -64,6 +64,7 @@ private:
 	XY position;
 	dxSprite * arrowSprite;
 	rectangle * arrow;
+	dxCamera * camera;
 
 	
 public: 

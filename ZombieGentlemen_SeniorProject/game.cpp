@@ -24,6 +24,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	gameScreenLength = 600;
 	gameScreenWidth = 800;
 
+	camera = new dxCamera(dxMgr);
 
 	Grid = new grid(100,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
 	Grid->initGrid();
