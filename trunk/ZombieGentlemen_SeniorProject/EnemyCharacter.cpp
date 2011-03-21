@@ -2,14 +2,12 @@
 
 EnemyCharacter::EnemyCharacter()
 {
-	health = 0;
+	health = 100;
 };
 
 int EnemyCharacter::getEasyenemie()
 {
 	// the  weak enemie only has 15 life points.
-	int life = 15;
-	health = life;
 
 	return health;
 };
