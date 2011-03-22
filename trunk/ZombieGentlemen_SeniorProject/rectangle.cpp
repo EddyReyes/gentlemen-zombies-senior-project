@@ -21,7 +21,8 @@ rectangle::rectangle(dxManager * a_dxMgr, std::string filename, int a_numSprites
 // destructor
 rectangle::~rectangle()
 {
-	image->Release();
+	if(image != NULL)
+		image->Release();
 }
 // initialize sprite variables
 void rectangle::initRectangle()

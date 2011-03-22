@@ -63,6 +63,7 @@ private:
 	LONG curY;
 	XY position;
 	dxSprite * arrowSprite;
+	dxSprite * arrowSprite2;
 	rectangle * arrow;
 	dxCamera * camera;
 
