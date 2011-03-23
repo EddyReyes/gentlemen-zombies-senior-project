@@ -19,8 +19,8 @@ public:
 	// defualt constructor
 	rectangle();
 	// constructors
-	rectangle(dxManager * a_dxMgr, std::string filename);
-	rectangle(dxManager * a_dxMgr, std::string filename, int a_numSprites);
+	rectangle(dxManager * a_dxMgr, std::string filename, D3DCOLOR a_ColorKey);
+	rectangle(dxManager * a_dxMgr, std::string filename, int a_numSprites, D3DCOLOR a_ColorKey);
 	// destructor
 	~rectangle();
 	// initialize sprite variables
@@ -28,6 +28,8 @@ public:
 	// set image of sprite
 	void setImage(std::string filename);
 	void setImage(std::string filename, int a_width, int a_height);
+	void setImageWithColorKey(std::string filename, D3DCOLOR  a_ColorKey);
+	void setImageWithColorKey(std::string filename, D3DCOLOR  a_ColorKey, int a_width, int a_height);
 	void setNumSprites(int a_numSprites);
 	// guess number of sprites based on file dimensions
 	void guessNumSprites();

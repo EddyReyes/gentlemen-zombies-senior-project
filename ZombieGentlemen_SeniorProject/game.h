@@ -3,9 +3,13 @@ The game class will handle the bulk of the game logic
 This class will contian the game states, the map, the players, the characters
 etc.
 
+
 status: unit test
 */
 //#define debug
+#define WINDOW_WIDTH 800.0f
+#define WINDOW_HEIGHT 600.0f
+
 // DirectX files
 #include "dxManager.h"
 #include "directInput.h"
@@ -31,12 +35,6 @@ status: unit test
 
 #pragma once
 
-// for unit testing
-	enum { NONE=0,
-	   M_LEFT_ARROW,
-	   M_RIGHT_ARROW,
-	   CIRCLE};
-
 class game
 {
 private:
@@ -48,25 +46,21 @@ private:
 	DIMOUSESTATE mouseState;
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
-	int now, then, passed, soon;
+	int now, then, passed, soon; // low resolution timers for keylag
+	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
+	float animationRate;
 
-	// grid and parameters
+	// grid
 	grid * Grid;
-	int gameScreenLength, gameScreenWidth;
 
 	// Unit test parameters
-	IDirect3DSurface9* mouseArrow;
-	RECT msrc;
-	RECT spriteSrc;
-	RECT spriteDest;
 	LONG curX;
 	LONG curY;
 	XY position;
 	dxSprite * arrowSprite;
-	dxSprite * arrowSprite2;
+	dxSprite * cursor;
 	dxSprite * background;
-	rectangle * arrow;
-	dxCamera * camera;
+	//dxCamera * camera;
 	float cameraX, cameraY;
 
 	

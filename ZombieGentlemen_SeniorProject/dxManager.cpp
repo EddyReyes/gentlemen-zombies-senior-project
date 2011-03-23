@@ -37,9 +37,10 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = WINODW_HEIGHT;
 	d3dpp.BackBufferWidth  = WINDOW_WIDTH;
+	d3dpp.hDeviceWindow    = *wndHandle;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-	d3dpp.hDeviceWindow    = *wndHandle;
+	d3dpp.PresentationInterval   = D3DPRESENT_INTERVAL_IMMEDIATE;
 
     if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, *wndHandle,
                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING,
@@ -48,9 +49,6 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
 		lastResult = E_FAIL;
         return false;
     }
-
-	// Turn on the zbuffer
-	pd3dDevice->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );
 
 	// return true if everything inititalized correctly
 	return true;
@@ -76,7 +74,7 @@ void dxManager::beginRender()
         return;
 
     // Clear the backbuffer to a black color
-    pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
+    pd3dDevice->Clear( 0, NULL,D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
 	pd3dDevice->BeginScene();
 }
 
@@ -97,6 +95,21 @@ IDirect3DSurface9* dxManager::getSurfaceFromBitmap(std::string filename, int wid
 		return NULL;
 
 	hResult = D3DXLoadSurfaceFromFile(surface, NULL, NULL, filename.c_str(), NULL, D3DX_DEFAULT, 0, NULL);
+	if (FAILED(hResult))
+		return NULL;
+
+	return surface;
+}
+IDirect3DSurface9* dxManager::getAlphaSurfaceFromBitmap(std::string filename, int width, int height, D3DCOLOR ColorKey)
+{
+	HRESULT hResult;
+	IDirect3DSurface9* surface = NULL;
+
+	hResult = pd3dDevice->CreateOffscreenPlainSurface(width, height, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &surface, NULL);
+	if (FAILED(hResult))
+		return NULL;
+
+	hResult = D3DXLoadSurfaceFromFile(surface, NULL, NULL, filename.c_str(), NULL, D3DX_DEFAULT, ColorKey, NULL);
 	if (FAILED(hResult))
 		return NULL;
 

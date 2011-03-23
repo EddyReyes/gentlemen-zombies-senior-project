@@ -149,6 +149,12 @@ public:
 		position.x = (float)a_x;
 		position.y = (float)a_y;
 	}
+	void setPosition(int a_x, int a_y, int a_z)
+	{
+		position.x = (float)a_x;
+		position.y = (float)a_y;
+		position.z = (float)a_z;
+	}
 	void setCenter(int a_x, int a_y)
 	{
 		center.x = (float)a_x;

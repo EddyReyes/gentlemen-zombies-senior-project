@@ -81,8 +81,17 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
     } 
 
     // Get access to the input device. 
-    hr = g_lpDIKeyboard->Acquire(); 
-	hr = g_lpDIMouse->Acquire();
+	do
+	{
+		hr = g_lpDIKeyboard->Acquire();
+	}
+	while FAILED(hr);
+
+	do
+	{
+		hr = g_lpDIMouse->Acquire();
+	}
+	while FAILED(hr);
 	
     if FAILED(hr) 
     { 

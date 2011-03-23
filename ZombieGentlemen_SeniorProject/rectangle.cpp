@@ -2,20 +2,34 @@
 // defualt constructor
 rectangle::rectangle(){}
 // constructor
-rectangle::rectangle(dxManager * a_dxMgr, std::string filename)
+rectangle::rectangle(dxManager * a_dxMgr, std::string filename, D3DCOLOR a_ColorKey)
 {
 	dxMgr = a_dxMgr;
 	D3DXGetImageInfoFromFile(filename.c_str(), &imageInfo);
-	setImage(filename);
+	if(a_ColorKey != NULL)
+	{
+		setImageWithColorKey(filename, a_ColorKey);
+	}
+	else
+	{
+		setImage(filename);
+	}
 	guessNumSprites();
 	initRectangle();
 }
-rectangle::rectangle(dxManager * a_dxMgr, std::string filename, int a_numSprites)
+rectangle::rectangle(dxManager * a_dxMgr, std::string filename, int a_numSprites, D3DCOLOR a_ColorKey)
 {
 	dxMgr = a_dxMgr;
 	numSprites = a_numSprites;
 	D3DXGetImageInfoFromFile(filename.c_str(), &imageInfo);
-	setImage(filename);
+	if(a_ColorKey != NULL)
+	{
+		setImageWithColorKey(filename, a_ColorKey);
+	}
+	else
+	{
+		setImage(filename);
+	}
 	initRectangle();
 }
 // destructor
@@ -40,6 +54,16 @@ void rectangle::setImage(std::string filename, int a_width, int a_height)
 {
 	image = dxMgr->getSurfaceFromBitmap(filename,a_width, a_height);
 }
+
+void rectangle::setImageWithColorKey(std::string filename, D3DCOLOR  a_ColorKey)
+{
+	image = dxMgr->getAlphaSurfaceFromBitmap(filename, imageInfo.Width, imageInfo.Height, a_ColorKey);
+}
+void rectangle::setImageWithColorKey(std::string filename, D3DCOLOR  a_ColorKey, int a_width, int a_height)
+{
+	image = dxMgr->getAlphaSurfaceFromBitmap(filename, a_width, a_height, a_ColorKey);
+}
+
 void rectangle::setNumSprites(int a_numSprites)
 {
 	numSprites = a_numSprites;
