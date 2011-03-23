@@ -18,43 +18,39 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	then = now;
 	passed = now-then;
 	soon = now +100;
+
+	QueryPerformanceFrequency(&timerFreq);
+
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
 
-	gameScreenLength = 600;
-	gameScreenWidth = 800;
-
-	camera = new dxCamera(dxMgr);
+	//camera = new dxCamera(dxMgr);
 	cameraX = 0.0f;
 	cameraY = 0.0f;
 
-	Grid = new grid(100,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
+
+
+
+	Grid = new grid(100,WINDOW_WIDTH,WINDOW_HEIGHT,dxMgr);
 	Grid->initGrid();
 
 	setMusic();
 
 	SetSprites();
-	// set the starting point for the circle sprite
-	curX = 320;
-	curY = 240;
-	msrc.left = 0;
-	msrc.right = 48;
-	msrc.top = 0;
-	msrc.bottom = 48;
-	
+	// set the starting point for the cursor
+	curX = WINDOW_WIDTH/2;
+	curY = WINDOW_HEIGHT/2;
+	cursor->setPosition(curX, curY);
 	position.x = 0;
 	position.y = 0;
 	arrowSprite->setPosition(position.x,position.y);
-	arrow->setLocation(position.x,position.y);
-
-	arrowSprite2->setPosition(500,500);
-	//background->setPosition(200,0);
+	background->setPosition(0,0, 0);
 	return true;
 }
 void game::setMusic()
 {
 	//Load sound (filename, bufferID) in this case the first buffer is 0
-	soundMgr->LoadSound("Combat music.wav", 0);
+	soundMgr->LoadSound("sound/Combat music.wav", 0);
 	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
 	//play sound playSound(bufferID) in this case the first buffer is 0
@@ -62,14 +58,18 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-	arrowSprite = new dxSprite(dxMgr,"arrows2.bmp");
+	arrowSprite = new dxSprite(dxMgr,"images/arrows2.bmp");
 	arrowSprite->scaleSize(0.2f);
-	arrowSprite2 = new dxSprite(dxMgr, arrowSprite->getTexture(), arrowSprite->getImageInfo());
-	arrowSprite2->scaleSize(0.2f);
-	background = new dxSprite(dxMgr, "River_Concept.dds");
-	background->scaleSize(0.6f);
-	arrow = new rectangle(dxMgr,"arrows.bmp");
-	mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
+	cursor = new dxSprite(dxMgr,"images/cursor.dds");
+	cursor->scaleSize(0.5f);
+	background = new dxSprite(dxMgr, "images/Lake level.dds");
+	background->scaleSize(2.0f);
+
+	// set the starting point for the circle sprite
+	position.x = 0;
+	position.y = 0;
+	arrowSprite->setPosition(position.x,position.y);
+	background->setPosition(0,0, 0);
 }
 void game::update()
 {
@@ -79,14 +79,18 @@ void game::update()
 	then = now;
 	passed = now-then;
 	soon = now +100;
+
+	QueryPerformanceCounter(&timeStart);
 	
 	// Handle Input using Direct Input
 	handleInput();
-
-	
-	
 	// draw to the screen using Direct3D
 	draw();
+
+	// update high resolution timer
+	QueryPerformanceCounter(&timeEnd);
+	animationRate = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
+		timerFreq.QuadPart;
 }
 
 void game::handleInput()
@@ -117,7 +121,7 @@ void game::handleInput()
 
 	if ((keystate[DIK_SUBTRACT] & 0x80) || (keystate[DIK_MINUS] & 0x80))
 	{
-		if(now - keyLag[DIK_MINUS] > 150)
+		if(timeStart.QuadPart - keyLag[DIK_MINUS] > 150)
 		{
 			Grid->changeGridScale(-10);
 			keyLag[DIK_MINUS] = now;
@@ -134,43 +138,35 @@ void game::handleInput()
 	}
 
 	// sprite movement
-	int moveDistance = 20;
+	float moveDistance = 5.0f;
 
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
 		position.y -= moveDistance;
 		arrowSprite->selectSpriteSource(1);
-		arrow->selectSpriteSource(1);
-		arrowSprite2->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
 		position.y += moveDistance;
 		arrowSprite->selectSpriteSource(2);
-		arrow->selectSpriteSource(2);
-		arrowSprite2->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= moveDistance;
 		arrowSprite->selectSpriteSource(0);
-		arrow->selectSpriteSource(0);
-		arrowSprite2->selectSpriteSource(0);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += moveDistance;
 		arrowSprite->selectSpriteSource(3);
-		arrow->selectSpriteSource(3);
-		arrowSprite2->selectSpriteSource(3);
 	}
 	arrowSprite->setPosition(position.x,position.y);
 
 	if ((keystate[DIK_B] & 0x80))
 	{
-		if(now - keyLag[DIK_B] > 1000)
+		if(now - keyLag[DIK_B] > 150)
 		{
 			background->toggleSprite();
 			keyLag[DIK_B] = now;
@@ -179,69 +175,53 @@ void game::handleInput()
 
 	if ((keystate[DIK_NUMPAD4] & 0x80))
 	{
-		cameraX--;
+		if(now - keyLag[DIK_NUMPAD4] > 300)
+		{
+			cameraX--;
+			keyLag[DIK_NUMPAD4] = now;
+		}
 	}
 	if ((keystate[DIK_NUMPAD6] & 0x80))
 	{
-		cameraX++;
+		if(now - keyLag[DIK_NUMPAD6] > 300)
+		{
+			cameraX++;
+			keyLag[DIK_NUMPAD6] = now;
+		}
 	}
 	if ((keystate[DIK_NUMPAD2] & 0x80))
 	{
-		cameraY--;
+		if(now - keyLag[DIK_NUMPAD2] > 300)
+		{
+			cameraY--;
+			keyLag[DIK_NUMPAD2] = now;
+		}
 	}
 	if ((keystate[DIK_NUMPAD8] & 0x80))
 	{
-		cameraY++;
+		if(now - keyLag[DIK_NUMPAD8] > 300)
+		{
+			cameraY++;
+			keyLag[DIK_NUMPAD8] = now;
+		}
 	}
 	
 	// mouse movement
-
-	if (mouseState.rgbButtons[0] & 0x80)
-		msrc.left = (48 * M_LEFT_ARROW);
-	if (mouseState.rgbButtons[1] & 0x80)
-		msrc.left = (48 * M_RIGHT_ARROW);
-	msrc.right = msrc.left + 48;
-	if (mouseState.rgbButtons[2] & 0x80)
-		msrc.left = (48 * NONE);
-	msrc.right = msrc.left + 48;
-
-	// CIRCLE SPRITE
-	// set the source rectangle
-	spriteSrc.top = 0;
-	spriteSrc.bottom = spriteSrc.top + 48;
-	spriteSrc.left = (48 * CIRCLE);
-	spriteSrc.right = spriteSrc.left + 48;
-	// set the destination rectangle
-	spriteDest.top = curY;
-	spriteDest.left = curX;
-	spriteDest.right = spriteDest.left + 48;
-	spriteDest.bottom = spriteDest.top + 48;
-
-	curX += mouseState.lX;
-	curY += mouseState.lY;
+	curX += mouseState.lX*1.5;
+	curY += mouseState.lY*1.5;
+	cursor->setPosition(curX, curY);
 }
 void game::draw()
 {
 	dxMgr->beginRender();
-	
-	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, 0.0f), D3DXVECTOR3(cameraX, cameraY, 0.0f));
-
 
 	background->drawSprite();
+	
+	Grid->drawGrid();
 
-	//dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
-
-	// blit the sprite to the back buffer
-	//dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
-
-	// blit this letter to the back buffer
-	//arrow->draw();
+	cursor->drawSprite();
 
 	arrowSprite->drawSprite();
-	//arrowSprite2->drawSprite();
-	
-	// Draw grid
-	//Grid->drawGrid();
 
 	dxMgr->endRender();
 }
@@ -256,6 +236,6 @@ game::~game()
 	// release sprites
 	arrowSprite->releaseImage();
 	arrowSprite->~dxSprite();
-	arrowSprite2->~dxSprite();
-	arrow->~rectangle();
+	cursor->releaseImage();
+	cursor->~dxSprite();
 }

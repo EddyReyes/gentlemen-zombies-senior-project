@@ -1,7 +1,5 @@
 #pragma once
 #include "dxManager.h"
-#define WINDOW_WIDTH 800
-#define WINODW_HEIGHT 600
 
 class dxCamera
 {
@@ -35,7 +33,7 @@ public:
 void createCamera(float nearClip, float farClip)
 {
 	//Here we specify the field of view, aspect ratio and near and far clipping planes.
-    D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, WINDOW_WIDTH/WINODW_HEIGHT, nearClip, farClip);
+    D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, WINDOW_WIDTH/WINDOW_HEIGHT, nearClip, farClip);
     (*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
@@ -76,6 +74,19 @@ void updateCamera(D3DXVECTOR3 cameraMove, D3DXVECTOR3 cameraPoint)
 	moveCamera(cameraPosition);
 	pointCamera(cameraLook);
 	(*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &matProj);
+}
+
+void SetHudCamera ()
+{
+	D3DXMATRIX Ortho2D;
+	D3DXMATRIX Identity;
+
+	D3DXMatrixOrthoLH(&Ortho2D, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 1.0f);
+	D3DXMatrixIdentity(&Identity);
+
+	(*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &Ortho2D);
+	(*dxMgr->getDevice())->SetTransform(D3DTS_WORLD, &Identity);
+	(*dxMgr->getDevice())->SetTransform(D3DTS_VIEW, &Identity);
 }
 
 };
