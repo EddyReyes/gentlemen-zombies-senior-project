@@ -25,6 +25,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	gameScreenWidth = 800;
 
 	camera = new dxCamera(dxMgr);
+	cameraX = 0.0f;
+	cameraY = 0.0f;
 
 	Grid = new grid(100,(float)gameScreenWidth,(float)gameScreenLength,dxMgr);
 	Grid->initGrid();
@@ -46,6 +48,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	arrow->setLocation(position.x,position.y);
 
 	arrowSprite2->setPosition(500,500);
+	//background->setPosition(200,0);
 	return true;
 }
 void game::setMusic()
@@ -63,6 +66,8 @@ void game::SetSprites()
 	arrowSprite->scaleSize(0.2f);
 	arrowSprite2 = new dxSprite(dxMgr, arrowSprite->getTexture(), arrowSprite->getImageInfo());
 	arrowSprite2->scaleSize(0.2f);
+	background = new dxSprite(dxMgr, "River_Concept.dds");
+	background->scaleSize(0.6f);
 	arrow = new rectangle(dxMgr,"arrows.bmp");
 	mouseArrow = dxMgr->getSurfaceFromBitmap("mousearrows.bmp",192, 48);
 }
@@ -77,6 +82,8 @@ void game::update()
 	
 	// Handle Input using Direct Input
 	handleInput();
+
+	
 	
 	// draw to the screen using Direct3D
 	draw();
@@ -160,6 +167,32 @@ void game::handleInput()
 		arrowSprite2->selectSpriteSource(3);
 	}
 	arrowSprite->setPosition(position.x,position.y);
+
+	if ((keystate[DIK_B] & 0x80))
+	{
+		if(now - keyLag[DIK_B] > 1000)
+		{
+			background->toggleSprite();
+			keyLag[DIK_B] = now;
+		}
+	}
+
+	if ((keystate[DIK_NUMPAD4] & 0x80))
+	{
+		cameraX--;
+	}
+	if ((keystate[DIK_NUMPAD6] & 0x80))
+	{
+		cameraX++;
+	}
+	if ((keystate[DIK_NUMPAD2] & 0x80))
+	{
+		cameraY--;
+	}
+	if ((keystate[DIK_NUMPAD8] & 0x80))
+	{
+		cameraY++;
+	}
 	
 	// mouse movement
 
@@ -190,19 +223,25 @@ void game::handleInput()
 void game::draw()
 {
 	dxMgr->beginRender();
+	
+	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, 0.0f), D3DXVECTOR3(cameraX, cameraY, 0.0f));
 
-	dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
+
+	background->drawSprite();
+
+	//dxMgr->blitToSurface(mouseArrow, &msrc, NULL);
 
 	// blit the sprite to the back buffer
-	dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
+	//dxMgr->blitToSurface(mouseArrow, &spriteSrc, &spriteDest);
 
 	// blit this letter to the back buffer
-	arrow->draw();
+	//arrow->draw();
 
 	arrowSprite->drawSprite();
-	arrowSprite2->drawSprite();
+	//arrowSprite2->drawSprite();
+	
 	// Draw grid
-	Grid->drawGrid();
+	//Grid->drawGrid();
 
 	dxMgr->endRender();
 }

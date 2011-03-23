@@ -37,15 +37,20 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = WINODW_HEIGHT;
 	d3dpp.BackBufferWidth  = WINDOW_WIDTH;
+	d3dpp.EnableAutoDepthStencil = TRUE;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 	d3dpp.hDeviceWindow    = *wndHandle;
 
-    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, *wndHandle,
+    if( FAILED( pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, *wndHandle,
                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING,
                                       &d3dpp, &pd3dDevice ) ) )
     {
 		lastResult = E_FAIL;
         return false;
     }
+
+	// Turn on the zbuffer
+	pd3dDevice->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );
 
 	// return true if everything inititalized correctly
 	return true;

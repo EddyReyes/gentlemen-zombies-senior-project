@@ -64,8 +64,10 @@ private:
 	XY position;
 	dxSprite * arrowSprite;
 	dxSprite * arrowSprite2;
+	dxSprite * background;
 	rectangle * arrow;
 	dxCamera * camera;
+	float cameraX, cameraY;
 
 	
 public: 
