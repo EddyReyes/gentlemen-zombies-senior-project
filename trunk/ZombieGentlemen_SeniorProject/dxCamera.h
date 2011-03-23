@@ -20,8 +20,10 @@ public:
 		dxMgr = a_dxMgr;
 		// functions to create the camera
 		createCamera(1.0f, 750.0f); // near clip plane, far clip plane
-		moveCamera(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		pointCamera(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		cameraPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		cameraLook = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		moveCamera(cameraPosition);
+		pointCamera(cameraLook);
 	}
 	// destructor
 	~dxCamera(){};
@@ -55,10 +57,25 @@ void pointCamera(D3DXVECTOR3 vec)
 {
 	cameraLook = vec;
 
-	D3DXMatrixLookAtLH(&matView, &cameraPosition,		//Camera Position
+	D3DXMatrixLookAtLH(&matView, &cameraPosition,	//Camera Position
                                  &cameraLook,		//Look At Position
                                  &D3DXVECTOR3(0.0f, 1.0f, 0.0f));		//Up Direction
 
 	(*dxMgr->getDevice())->SetTransform(D3DTS_VIEW, &matView);
 }
+
+/*************************************************************************
+* updateCamera
+* sets new parameters for teh camera
+*************************************************************************/
+void updateCamera(D3DXVECTOR3 cameraMove, D3DXVECTOR3 cameraPoint)
+{
+	cameraPosition = cameraMove;
+	cameraLook = cameraPoint;
+	createCamera(1.0f, 750.0f);
+	moveCamera(cameraPosition);
+	pointCamera(cameraLook);
+	(*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &matProj);
+}
+
 };

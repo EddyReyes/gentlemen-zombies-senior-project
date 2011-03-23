@@ -15,6 +15,7 @@ private:
 	//int numSprites; // number of sprites in image
 	int spriteColumns;
 	int spriteRows;
+	bool spriteOn;
 
 public:
 	dxSprite(){};
@@ -29,6 +30,7 @@ public:
 		guessSpriteColumns();
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 	dxSprite(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 	{
@@ -40,6 +42,7 @@ public:
 		guessSpriteColumns();
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 	dxSprite(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
 	{
@@ -51,6 +54,7 @@ public:
 		spriteColumns = a_spriteColumns;
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 
 	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
@@ -63,6 +67,7 @@ public:
 		guessSpriteColumns();
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
 	{
@@ -74,6 +79,7 @@ public:
 		guessSpriteColumns();
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
 	{
@@ -85,6 +91,7 @@ public:
 		spriteColumns = a_spriteColumns;
 		selectSpriteSource(0);
 		initTrasform();
+		spriteOn = true;
 	}
 
 	~dxSprite()
@@ -99,6 +106,8 @@ public:
 	void initializeSprite(std::string filename)
 	{
 		D3DXCreateTextureFromFile(*dxMgr->getDevice(),filename.c_str(),&image);
+		(*dxMgr->getDevice())->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
+		(*dxMgr->getDevice())->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		position.x=0.0f;
 		position.y=0.0f;
 		position.z=0.0f;
@@ -118,16 +127,22 @@ public:
 		D3DXCreateSprite(*dxMgr->getDevice(),&sprite);
 	}
 	void drawSprite()
-	{
-		sprite->Begin(D3DXSPRITE_ALPHABLEND);
-		sprite->Draw(image,&spriteSource,NULL,&position,D3DCOLOR_XRGB(255,255,255));
-		sprite->End();
+	{ 
+		if(spriteOn)
+		{
+			sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DUSAGE_RENDERTARGET | D3DPOOL_DEFAULT);
+			sprite->Draw(image,&spriteSource,NULL,&position,D3DCOLOR_XRGB(255,255,255));
+			sprite->End();
+		}
 	}
 	void drawCenteredSprite()
 	{
-		sprite->Begin(D3DXSPRITE_ALPHABLEND);
-		sprite->Draw(image,&spriteSource,&center,&position,D3DCOLOR_XRGB(255,255,255));
-		sprite->End();
+		if(spriteOn)
+		{
+			sprite->Begin(D3DXSPRITE_ALPHABLEND);
+			sprite->Draw(image,&spriteSource,&center,&position,D3DCOLOR_XRGB(255,255,255));
+			sprite->End();
+		}
 	}
 	void setPosition(int a_x, int a_y)
 	{
@@ -170,7 +185,7 @@ public:
 
 	LPDIRECT3DTEXTURE9 * getTexture(){return &image;}
 	D3DXIMAGE_INFO * getImageInfo(){return imageInfo;}
-
+	void toggleSprite(){spriteOn = (spriteOn?false:true);}
 
 	void initTrasform()
 	{
