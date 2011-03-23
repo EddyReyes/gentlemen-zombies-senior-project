@@ -9,7 +9,7 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 		   dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
-	line = dxMgr->getSurfaceFromBitmap("greyPixel.bmp",800, 1);
+	line = dxMgr->getSurfaceFromBitmap("images/greyPixel.bmp",800, 1);
 #ifndef debug
 	// initialize grid data
 	gridScale = a_gridScale;
