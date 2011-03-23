@@ -31,7 +31,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 
 
-	Grid = new grid(100,WINDOW_WIDTH,WINDOW_HEIGHT,dxMgr);
+	Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
 	Grid->initGrid();
 
 	setMusic();
