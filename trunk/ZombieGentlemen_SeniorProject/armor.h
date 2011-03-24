@@ -5,7 +5,11 @@
 class PlayerArmor
 {
 	private:
+		int player;
+		bool isPlayerHit;
+		int updateArmor;
 		int playerArmor;
+		int hitPoints;
 		int armorPoints;
 		int armorDamage;
 		int damageResistance;
