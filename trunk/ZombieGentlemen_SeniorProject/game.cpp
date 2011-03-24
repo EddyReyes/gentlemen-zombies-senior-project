@@ -58,7 +58,7 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-	arrowSprite = new dxSprite(dxMgr,"images/arrows2.bmp");
+	arrowSprite = new dxSprite(dxMgr,"images/lambo.bmp");
 	arrowSprite->scaleSize(0.2f);
 	cursor = new dxSprite(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
