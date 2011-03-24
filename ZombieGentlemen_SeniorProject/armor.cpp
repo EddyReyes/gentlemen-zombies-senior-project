@@ -2,7 +2,20 @@
 
 int PlayerArmor::damagedArmor(void)
 {
-	return 0;
+	hitPoints = 100;
+	armorDamage = 25;
+	bool isPlayerHit = true;
+	//if player takes damage with armor present,  damage takes away hitPoints
+	if (player == isPlayerHit)
+	{
+		updateArmor = hitPoints - armorDamage;
+		return updateArmor;
+	}
+
+	//if 
+
+
+	return armorDamage;
 }
 int PlayerArmor::armorRegenerated(void)
 {

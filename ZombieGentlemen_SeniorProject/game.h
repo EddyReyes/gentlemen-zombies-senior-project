@@ -57,6 +57,7 @@ private:
 	LONG curX;
 	LONG curY;
 	XY position;
+	dxSprite * armorSprite1;
 	dxSprite * arrowSprite;
 	dxSprite * cursor;
 	dxSprite * background;
