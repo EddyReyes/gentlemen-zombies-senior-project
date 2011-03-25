@@ -64,9 +64,6 @@ void game::SetSprites()
 	cursor->scaleSize(0.5f);
 	background = new dxSprite(dxMgr, "images/Lake level.dds");
 	background->scaleSize(2.0f);
-	armorSprite1 = new dxSprite(dxMgr, "images/iron_armor.bmp");
-	armorSprite1->scaleSize(0.2f);
-	armorSprite1->setPosition(2048, 2048);
 
 	// set the starting point for the circle sprite
 	position.x = 0;
@@ -225,8 +222,6 @@ void game::draw()
 	arrowSprite->drawSprite();
 
 	cursor->drawSprite();
-
-	
 
 	dxMgr->endRender();
 }
