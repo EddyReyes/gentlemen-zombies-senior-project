@@ -1,39 +1,24 @@
 #pragma once
 
-//work in progress, typical classes started here
+//Armor class, handles player armor
 
-class PlayerArmor
+class Armor
 {
-	private:
-		int player;
-		bool isPlayerHit;
-		int updateArmor;
-		int playerArmor;
-		int hitPoints;
-		int armorPoints;
-		int armorDamage;
-		int damageResistance;
-	public:
-		int damagedArmor(void);
-		int armorRegenerated(void);
-		int armorDepleted(void);
-		int armorPickup(void);
-		PlayerArmor();
-		~PlayerArmor();
-};
-
-class NPCArmor
-{
-	private:
-		int npcArmor;
-		int npcArmorPoints;
-		int npcArmorDamage;
-		int npcDamageResistance;
-	public:
-		int npcDamagedArmor(void);
-		int npcArmorRegenerated(void);
-		int npcArmorDepleted(void);
-		int npcArmorPickup(void);
-		NPCArmor();
-		~NPCArmor();
+private:
+	int armorType;
+	float armorHealth;
+	float damageResistance;
+public:
+	Armor();
+	bool initPlayerArmor(int a_armorType);
+	~Armor();
+	void damagedArmor(int damage);
+	void armorRegenerate(void);
+	bool armorDepleted(void);
+	float getArmorHealth();
+	float getDamageResistance();
+	void setArmorHealth(int a_armorHealth);
+	void setArmorType(int a_armorType);
+	int getArmorType();
+	void setDamageResistance(int a_damageResistance);
 };

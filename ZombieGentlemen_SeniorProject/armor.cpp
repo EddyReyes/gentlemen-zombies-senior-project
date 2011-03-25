@@ -1,63 +1,38 @@
 #include "armor.h"
 
-int PlayerArmor::damagedArmor(void)
+Armor::Armor(){}
+bool Armor::initPlayerArmor(int a_armorType)
 {
-	hitPoints = 100;
-	armorDamage = 25;
-	bool isPlayerHit = true;
-	//if player takes damage with armor present,  damage takes away hitPoints
-	if (player == isPlayerHit)
-	{
-		updateArmor = hitPoints - armorDamage;
-		return updateArmor;
-	}
-
-	//if 
-
-
-	return armorDamage;
+	if (a_armorType < 1 || a_armorType > 3) return false;
+	armorHealth = 100;
+	setArmorType(a_armorType);
+	return true;
 }
-int PlayerArmor::armorRegenerated(void)
+Armor::~Armor(){}
+void Armor::damagedArmor(int damage)
 {
-	return 0;
+	armorHealth -= (1- damageResistance) * damage;
+	if(armorHealth<0) armorHealth =0; 
 }
-int PlayerArmor::armorDepleted(void)
+void Armor::armorRegenerate(void)
 {
-	return 0;
+	armorHealth = 100;
 }
-int PlayerArmor::armorPickup(void)
+bool Armor::armorDepleted(void)
 {
-	return 0;
+	if(armorHealth <= 0) return true;
+	else return false;
 }
-PlayerArmor::PlayerArmor()
+float Armor::getArmorHealth(){return armorHealth;}
+float Armor::getDamageResistance(){return damageResistance;}
+void Armor::setArmorHealth(int a_armorHealth)
 {
-	int playerArmor = 100;
+	armorHealth = a_armorHealth;
 }
-PlayerArmor::~PlayerArmor()
+void Armor::setArmorType(int a_armorType)
 {
-
+	armorType = a_armorType;
+	damageResistance = 0.25 * armorType;
 }
-int NPCArmor::npcDamagedArmor(void)
-{
-	return 0;
-}
-int NPCArmor::npcArmorRegenerated(void)
-{
-	return 0;
-}
-int NPCArmor::npcArmorDepleted(void)
-{
-	return 0;
-}
-int NPCArmor::npcArmorPickup(void)
-{
-	return 0;
-}
-NPCArmor::NPCArmor()
-{
-	int npcArmor = 100;
-}
-NPCArmor::~NPCArmor()
-{
-
-}
+int Armor::getArmorType(){return armorType;}
+void Armor::setDamageResistance(int a_damageResistance){damageResistance = a_damageResistance;}
