@@ -44,7 +44,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	position.x = 0;
 	position.y = 0;
 	arrowSprite->setPosition(position.x,position.y);
-	background->setPosition(0,0, 0);
+	background->setPosition(0,0);
 	return true;
 }
 void game::setMusic()
@@ -58,9 +58,8 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-		
-	arrowSprite = new dxSprite(dxMgr,"images/lambo.bmp");
-	arrowSprite->scaleSize(0.2f);
+	arrowSprite = new dxSprite(dxMgr,"images/Character.bmp");
+	arrowSprite->scaleSize(100.0f/256.0f);
 	cursor = new dxSprite(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
 	background = new dxSprite(dxMgr, "images/Lake level.dds");
@@ -148,23 +147,23 @@ void game::handleInput()
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
 		position.y -= moveDistance;
-		arrowSprite->selectSpriteSource(1);
+		//arrowSprite->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
 		position.y += moveDistance;
-		arrowSprite->selectSpriteSource(2);
+		//arrowSprite->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= moveDistance;
-		arrowSprite->selectSpriteSource(0);
+		//arrowSprite->selectSpriteSource(0);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += moveDistance;
-		arrowSprite->selectSpriteSource(3);
+		//arrowSprite->selectSpriteSource(3);
 	}
 	arrowSprite->setPosition(position.x,position.y);
 
@@ -223,10 +222,9 @@ void game::draw()
 	
 	Grid->drawGrid();
 
-	cursor->drawSprite();
-
 	arrowSprite->drawSprite();
-	armorSprite1->drawSprite();
+
+	cursor->drawSprite();
 
 	
 
