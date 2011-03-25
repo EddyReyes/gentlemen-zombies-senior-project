@@ -88,6 +88,10 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 bool initWindow( HINSTANCE hInstance )
 {
 	WNDCLASSEX wcex;
+	string icon = "gameIcon.ico";
+	SHFILEINFO shfi;
+	SHGetFileInfo( icon.c_str(), 0, &shfi, sizeof( SHFILEINFO ), 
+               SHGFI_ICON | SHGFI_LARGEICON);
 
 	// Fill the WNDCLASSEX structure. This describes how the window ill look to the system
 	wcex.cbSize			= sizeof(WNDCLASSEX);		// the sixe of the structure
@@ -96,7 +100,8 @@ bool initWindow( HINSTANCE hInstance )
 	wcex.cbClsExtra		= 0;						// extra bytes to allocate for this class
 	wcex.cbWndExtra		= 0;						// extra bytes to allocate for this instance
 	wcex.hInstance		= hInstance;				// handle to the application instance
-	wcex.hIcon			= 0;
+	wcex.hIcon			= shfi.hIcon;
+	wcex.hIconSm	    = shfi.hIcon;
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW); // the default cursor
 	wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1); // the background color
 	wcex.lpszMenuName	= NULL;						// the resource name for the menu
