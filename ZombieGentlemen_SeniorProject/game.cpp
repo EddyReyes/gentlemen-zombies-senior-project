@@ -50,7 +50,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 void game::setMusic()
 {
 	//Load sound (filename, bufferID) in this case the first buffer is 0
-	soundMgr->LoadSound("sound/Combat music.wav", 0);
+	soundMgr->LoadSound("sound/Peaceful.wav", 0);
 	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
 	//play sound playSound(bufferID) in this case the first buffer is 0
@@ -62,8 +62,8 @@ void game::SetSprites()
 	arrowSprite->scaleSize(100.0f/256.0f);
 	cursor = new dxSprite(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
-	background = new dxSprite(dxMgr, "images/Lake level.dds");
-	background->scaleSize(2.0f);
+	background = new dxSprite(dxMgr, "images/River_Concept.dds");
+	background->scaleSize(1.0f);
 
 	// set the starting point for the circle sprite
 	position.x = 0;
