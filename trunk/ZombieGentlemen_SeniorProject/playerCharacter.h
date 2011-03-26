@@ -2,24 +2,27 @@
 class PlayerCharacter
 {
 private:
-	int health;
-	int damageResistance;
-	int damage;
+	float playerHealth;
+	float damageResistance;
+
 public:
 	
 	PlayerCharacter();
-	int getHealth();
+	float getHealth();
 	void setHealth(int );
-	void attack(int & , int );
-	void defend();
-	int takeDamage();
+	void healthRegenerate(int  );
+	void playerDamage(int damage);
+
+	//void attack(int & weapon );
+	//void defend();
 	//addItem()
 	//removeItem()
 	//addMoney()
 	//removeMoney()
 	//updateHelmet()
 	//updateArmor()
-	//calculateDamageResistance()
+	//void calculateDamageResistance()
 	//calculateMovementSpeed()
 	//calculateMaxJumpHeight()
+
 };

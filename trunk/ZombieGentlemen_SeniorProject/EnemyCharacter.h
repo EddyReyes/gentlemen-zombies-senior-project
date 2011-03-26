@@ -3,9 +3,16 @@
 class EnemyCharacter
 {
 private:
-	int health;
+	float enemieHealth;
+	float damageResistance;
+	int enemieType;
 public:
 	EnemyCharacter();
-	int getEasyenemie();
-	void setEasyenemie(int );
+	~EnemyCharacter();
+	float getEnemieHealth();
+	void setEnemieHealth(int);
+	int getEnemieType();
+	void setEnemieType(int a_armorType);
+	bool initEnemie(int a_enmeieType);
+	void Enemiedamage(int damage);
 };

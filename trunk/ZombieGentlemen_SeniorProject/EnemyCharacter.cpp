@@ -1,19 +1,34 @@
 #include "EnemyCharacter.h"
 
-EnemyCharacter::EnemyCharacter()
-{
-	health = 100;
-};
+EnemyCharacter::EnemyCharacter(){};
+EnemyCharacter::~EnemyCharacter(){};
 
-int EnemyCharacter::getEasyenemie()
+bool EnemyCharacter::initEnemie(int a_enemieType)
 {
-	// the  weak enemie only has 15 life points.
+	if(a_enemieType < 1 || a_enemieType > 3) return false;
+	enemieHealth = 100;
+	setEnemieType( a_enemieType);
+	return true;
+}
 
-	return health;
-};
 
-void EnemyCharacter::setEasyenemie(int hp)
+float EnemyCharacter::getEnemieHealth()
 {
-	///setting the enemies life. 
-	health = hp;
-};
+	return enemieHealth;
+}
+
+void EnemyCharacter::setEnemieHealth(int enemie_hp)
+{
+	enemie_hp = enemieHealth;
+}
+void EnemyCharacter::Enemiedamage(int damage)
+{
+	enemieHealth -= (1 - damageResistance) * damage;
+	if(enemieHealth <= 0) enemieHealth = 0;
+}
+
+void EnemyCharacter::setEnemieType(int a_enemieType)
+{
+	enemieType  = a_enemieType ;
+	damageResistance = 0.25 * enemieType;
+}
