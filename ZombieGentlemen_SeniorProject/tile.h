@@ -96,9 +96,10 @@ LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage)
 }
 void setRenderStates()
 {
+	pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE);
 	pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
-	pd3dDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	pd3dDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
+	pd3dDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pd3dDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 }
 
 void draw()
