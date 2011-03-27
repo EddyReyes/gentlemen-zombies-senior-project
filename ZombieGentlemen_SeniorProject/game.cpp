@@ -2,6 +2,148 @@
 
 #define debug
 
+#ifdef debug
+
+game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
+{
+	m_hInstance = a_hInstance;
+	m_wndHandle = a_wndHandle;
+}
+bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr)
+{
+
+	dxMgr = a_dxMgr;
+	inputMgr = a_inputMgr;
+	soundMgr = a_soundMgr;
+
+	now = clock();
+	then = now;
+	passed = now-then;
+	soon = now +100;
+
+	QueryPerformanceFrequency(&timerFreq);
+
+	keyLag = new int [256];
+	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
+
+	//camera = new dxCamera(dxMgr);
+	cameraX = 0.0f;
+	cameraY = 0.0f;
+
+	testTile = new tile(dxMgr, "images/Character.bmp");
+	camera = new dxCamera(dxMgr);
+
+	// set the starting point for the cursor
+	curX = WINDOW_WIDTH/2;
+	curY = WINDOW_HEIGHT/2;
+	return true;
+}
+void game::update()
+{
+
+	//update time
+	now = clock();
+	then = now;
+	passed = now-then;
+	soon = now +100;
+
+	QueryPerformanceCounter(&timeStart);
+	
+	// Handle Input using Direct Input
+	handleInput();
+	// draw to the screen using Direct3D
+	draw();
+
+	// update high resolution timer
+	QueryPerformanceCounter(&timeEnd);
+	animationRate = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
+		timerFreq.QuadPart;
+}
+
+void game::handleInput()
+{
+	inputMgr->reAcquireDevices();
+	inputMgr->updateKeyboardState(); 
+	keystate = inputMgr->getKeyboardState();
+	inputMgr->updateMouseState();
+	mouseState = *(inputMgr->getMouseState());
+
+
+	// keyboard
+
+
+	if(keystate[DIK_ESCAPE] & 0x80)
+	{
+		PostQuitMessage(0);
+	}
+
+	// camera movement
+	if ((keystate[DIK_NUMPAD4] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD4] > 300)
+		{
+			cameraX--;
+			keyLag[DIK_NUMPAD4] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD6] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD6] > 300)
+		{
+			cameraX++;
+			keyLag[DIK_NUMPAD6] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD2] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD2] > 300)
+		{
+			cameraY--;
+			keyLag[DIK_NUMPAD2] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD8] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD8] > 300)
+		{
+			cameraY++;
+			keyLag[DIK_NUMPAD8] = now;
+		}
+	}
+	
+	// mouse movement
+	curX += mouseState.lX*1.5f;
+	curY += mouseState.lY*1.5f;
+}
+void game::draw()
+{
+	dxMgr->beginRender();
+	
+	camera->updateCamera(D3DXVECTOR3(0.0f, 0.0f, 3.0f), 
+		D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	
+	testTile->setRenderStates();
+	testTile->draw();
+
+	camera->SetHudCamera();
+
+	dxMgr->endRender();
+}
+
+game::~game()
+{
+	dxMgr->shutdown();
+	inputMgr->shutdownDirectInput();
+	soundMgr->shutdownDirectSound();
+
+	// release test tile
+	testTile->~tile();
+}
+
+#endif
+
+#ifndef debug 
+
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
 {
 	m_hInstance = a_hInstance;
@@ -248,3 +390,4 @@ game::~game()
 	cursor->releaseImage();
 	cursor->~dxSprite();
 }
+#endif
