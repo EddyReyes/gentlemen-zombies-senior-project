@@ -18,6 +18,7 @@ status: unit test
 #include "dxCamera.h"
 #include "rectangle.h"
 #include "dxSprite.h"
+#include "tile.h"
 
 
 #include "object.h"
@@ -60,7 +61,8 @@ private:
 	dxSprite * arrowSprite;
 	dxSprite * cursor;
 	dxSprite * background;
-	//dxCamera * camera;
+	tile * testTile;
+	dxCamera * camera;
 	float cameraX, cameraY;
 
 	

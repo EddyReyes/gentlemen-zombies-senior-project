@@ -1,6 +1,8 @@
 #pragma once
 #include "dxManager.h"
 
+#define pd3dDevice (*dxMgr->getDevice())
+
 class dxCamera
 {
 private:
@@ -34,7 +36,7 @@ void createCamera(float nearClip, float farClip)
 {
 	//Here we specify the field of view, aspect ratio and near and far clipping planes.
     D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, WINDOW_WIDTH/WINDOW_HEIGHT, nearClip, farClip);
-    (*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &matProj);
+    pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
 /*************************************************************************
@@ -59,7 +61,7 @@ void pointCamera(D3DXVECTOR3 vec)
                                  &cameraLook,		//Look At Position
                                  &D3DXVECTOR3(0.0f, 1.0f, 0.0f));		//Up Direction
 
-	(*dxMgr->getDevice())->SetTransform(D3DTS_VIEW, &matView);
+	pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
 }
 
 /*************************************************************************
@@ -73,7 +75,7 @@ void updateCamera(D3DXVECTOR3 cameraMove, D3DXVECTOR3 cameraPoint)
 	createCamera(1.0f, 750.0f);
 	moveCamera(cameraPosition);
 	pointCamera(cameraLook);
-	(*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &matProj);
+	pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
 void SetHudCamera ()
@@ -84,9 +86,9 @@ void SetHudCamera ()
 	D3DXMatrixOrthoLH(&Ortho2D, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 1.0f);
 	D3DXMatrixIdentity(&Identity);
 
-	(*dxMgr->getDevice())->SetTransform(D3DTS_PROJECTION, &Ortho2D);
-	(*dxMgr->getDevice())->SetTransform(D3DTS_WORLD, &Identity);
-	(*dxMgr->getDevice())->SetTransform(D3DTS_VIEW, &Identity);
+	pd3dDevice->SetTransform(D3DTS_PROJECTION, &Ortho2D);
+	pd3dDevice->SetTransform(D3DTS_WORLD, &Identity);
+	pd3dDevice->SetTransform(D3DTS_VIEW, &Identity);
 }
 
 };

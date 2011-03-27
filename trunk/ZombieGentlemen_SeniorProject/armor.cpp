@@ -25,14 +25,14 @@ bool Armor::armorDepleted(void)
 }
 float Armor::getArmorHealth(){return armorHealth;}
 float Armor::getDamageResistance(){return damageResistance;}
-void Armor::setArmorHealth(int a_armorHealth)
+void Armor::setArmorHealth(float a_armorHealth)
 {
 	armorHealth = a_armorHealth;
 }
 void Armor::setArmorType(int a_armorType)
 {
 	armorType = a_armorType;
-	damageResistance = 0.25 * armorType;
+	damageResistance = 0.25f * armorType;
 }
 int Armor::getArmorType(){return armorType;}
-void Armor::setDamageResistance(int a_damageResistance){damageResistance = a_damageResistance;}
+void Armor::setDamageResistance(float a_damageResistance){damageResistance = a_damageResistance;}

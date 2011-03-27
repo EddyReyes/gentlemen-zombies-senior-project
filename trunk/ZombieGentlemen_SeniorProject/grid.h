@@ -1,7 +1,7 @@
 #include "dxManager.h"
 #include "object.h"
 
-#define debug
+//#define debug
 class grid
 {
 private:
@@ -25,17 +25,12 @@ private:
 
 	
 	#endif
-	// pixel to represent line
-	IDirect3DSurface9* line;
-	// rectangles to represent locations for drawing
-	RECT lineRect;
-	RECT lineRectScreen;
 	
 	bool gridOn;
 	
 	// nodes
-	XY ** nodes;
-	XY * center;
+	D3DXVECTOR2 ** nodes;
+	D3DXVECTOR2 * center;
 
 	void releaseLines();
 	void releaseVertexLists();
