@@ -30,7 +30,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraX = 0.0f;
 	cameraY = 0.0f;
 
-	testTile = new tile(dxMgr, "images/letters.bmp");
+	testTile = new tile(dxMgr, "images/Character.bmp");
 	camera = new dxCamera(dxMgr);
 
 	// set the starting point for the cursor
@@ -78,10 +78,11 @@ void game::handleInput()
 	}
 
 	float cameraMove = 0.05;
+	int cameraLag = 0;
 	// camera movement
 	if ((keystate[DIK_NUMPAD4] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD4] > 300)
+		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
 		{
 			cameraX-= cameraMove;
 			keyLag[DIK_NUMPAD4] = now;
@@ -89,7 +90,7 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_NUMPAD6] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD6] > 300)
+		if(now - keyLag[DIK_NUMPAD6] > cameraLag)
 		{
 			cameraX += cameraMove;
 			keyLag[DIK_NUMPAD6] = now;
@@ -97,7 +98,7 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_NUMPAD2] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD2] > 300)
+		if(now - keyLag[DIK_NUMPAD2] > cameraLag)
 		{
 			cameraY -= cameraMove;
 			keyLag[DIK_NUMPAD2] = now;
@@ -105,7 +106,7 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_NUMPAD8] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD8] > 300)
+		if(now - keyLag[DIK_NUMPAD8] > cameraLag)
 		{
 			cameraY+= cameraMove;
 			keyLag[DIK_NUMPAD8] = now;
@@ -120,7 +121,7 @@ void game::draw()
 {
 	dxMgr->beginRender();
 	
-	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, 3.0f), 
+	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, -20.0f), 
 		D3DXVECTOR3(cameraX, cameraY, 0.0f));
 	
 	testTile->setRenderStates();

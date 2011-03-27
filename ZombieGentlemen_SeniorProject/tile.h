@@ -9,7 +9,7 @@
 struct CUSTOMVERTEX
 {
     FLOAT x, y, z, rhw;      // The untransformed, 3D position for the vertex
-    DWORD color;        // The vertex color
+    float tu, tv;        // The vertex color
 };
 
 class tile
@@ -96,7 +96,7 @@ LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage)
 }
 void setRenderStates()
 {
-	pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE);
+	//pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE);
 	pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
 	pd3dDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pd3dDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
