@@ -12,7 +12,6 @@ private:
 	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
 	RECT spriteSource;	// sprite section
 	D3DXMATRIX transform;
-	//int numSprites; // number of sprites in image
 	int spriteColumns;
 	int spriteRows;
 	bool spriteOn;
@@ -106,8 +105,6 @@ public:
 	void initializeSprite(std::string filename)
 	{
 		D3DXCreateTextureFromFile(*dxMgr->getDevice(),filename.c_str(),&image);
-		(*dxMgr->getDevice())->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
-		(*dxMgr->getDevice())->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		position.x=0.0f;
 		position.y=0.0f;
 		position.z=0.0f;

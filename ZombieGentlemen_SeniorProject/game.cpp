@@ -28,10 +28,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraX = 0.0f;
 	cameraY = 0.0f;
 
+	testTile = new tile(dxMgr, "images/Character.bmp");
+	camera = new dxCamera(dxMgr);
 
-
-
-	Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
+	//Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
+	Grid = new grid(100,1000,1000,dxMgr);
 	Grid->initGrid();
 
 	setMusic();
@@ -58,11 +59,11 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-	arrowSprite = new dxSprite(dxMgr,"images/Character.bmp");
+	arrowSprite = new dxSprite(dxMgr,"images/lambo.bmp");
 	arrowSprite->scaleSize(100.0f/256.0f);
 	cursor = new dxSprite(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
-	background = new dxSprite(dxMgr, "images/River_Concept.dds");
+	background = new dxSprite(dxMgr, "images/Lake level.dds");
 	background->scaleSize(1.0f);
 
 	// set the starting point for the circle sprite
@@ -121,7 +122,7 @@ void game::handleInput()
 
 	if ((keystate[DIK_SUBTRACT] & 0x80) || (keystate[DIK_MINUS] & 0x80))
 	{
-		if(timeStart.QuadPart - keyLag[DIK_MINUS] > 150)
+		if(now - keyLag[DIK_MINUS] > 150)
 		{
 			Grid->changeGridScale(-10);
 			keyLag[DIK_MINUS] = now;
@@ -144,23 +145,23 @@ void game::handleInput()
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
 		position.y -= moveDistance;
-		//arrowSprite->selectSpriteSource(1);
+		arrowSprite->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
 		position.y += moveDistance;
-		//arrowSprite->selectSpriteSource(2);
+		arrowSprite->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= moveDistance;
-		//arrowSprite->selectSpriteSource(0);
+		arrowSprite->selectSpriteSource(0);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += moveDistance;
-		//arrowSprite->selectSpriteSource(3);
+		arrowSprite->selectSpriteSource(3);
 	}
 	arrowSprite->setPosition(position.x,position.y);
 
@@ -207,13 +208,21 @@ void game::handleInput()
 	}
 	
 	// mouse movement
-	curX += mouseState.lX*1.5;
-	curY += mouseState.lY*1.5;
+	curX += mouseState.lX*1.5f;
+	curY += mouseState.lY*1.5f;
 	cursor->setPosition(curX, curY);
 }
 void game::draw()
 {
 	dxMgr->beginRender();
+	
+	camera->updateCamera(D3DXVECTOR3(0.0f, 0.0f, 3.0f), 
+		D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	
+	testTile->setRenderStates();
+	testTile->draw();
+
+	camera->SetHudCamera();
 
 	background->drawSprite();
 	

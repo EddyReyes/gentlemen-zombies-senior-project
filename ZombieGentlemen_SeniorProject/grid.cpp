@@ -1,5 +1,5 @@
 #include "grid.h"
-#define debug
+//#define debug
 //default constructor
 
 
@@ -9,22 +9,24 @@ grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit,
 		   dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
-	line = dxMgr->getSurfaceFromBitmap("images/greyPixel.bmp",800, 1);
+
 #ifndef debug
 	// initialize grid data
-	gridScale = a_gridScale;
-	XAxisLimit = a_XAxisLimit;
-	YAxisLimit = a_YAxisLimit;
-	XLength = YAxisLimit/gridScale;
-	YLength = XAxisLimit/gridScale;
-	XAxis = YAxisLimit/2;
-	YAxis = XAxisLimit/2;
+	gridScale = a_gridScale; // set grid scale
+	XAxisLimit = a_XAxisLimit; // set horizontal boundaries
+	YAxisLimit = a_YAxisLimit; // set vertical boundaries
+	XLength = (int)YAxisLimit/gridScale; // set the number of horizontal lines
+	YLength = (int)XAxisLimit/gridScale; // set the number of vertical lines
+	XAxis = YAxisLimit/2; // set the x axis
+	YAxis = XAxisLimit/2; // set teh y axis
 
-	XLines = new LPD3DXLINE[XLength];
-	YLines = new LPD3DXLINE[YLength];
+	XLines = new LPD3DXLINE[XLength]; // create the array of horizontal lines
+	YLines = new LPD3DXLINE[YLength]; // create the array of vertical lines
 
-	XlinesVertexList = new D3DXVECTOR2 * [XLength];
-	YlinesVertexList = new D3DXVECTOR2 * [YLength];
+	XlinesVertexList = new D3DXVECTOR2 * [XLength]; // create the array of horizontal D3DXVECTOR2's holding the line ends
+	YlinesVertexList = new D3DXVECTOR2 * [YLength]; // create the array of vertical D3DXVECTOR2's holding the line ends
+
+	nodes = new D3DXVECTOR2 * [YLength]; // create the two dimentional array holding the nodes
 
 	gridOn = false;
 	
@@ -45,15 +47,7 @@ void grid::toggleGrid()
 }
 void grid::initGrid()
 {
-	lineRect.left = 0;
-	lineRect.right = 800;
-	lineRect.top = 0;
-	lineRect.bottom = 1;
 
-	lineRectScreen.left = 0;
-	lineRectScreen.right = 800;
-	lineRectScreen.top = 50;
-	lineRectScreen.bottom = 51;
 #ifndef debug
 
 	//Set X axis
@@ -130,67 +124,30 @@ void grid::initGrid()
 
 void grid::drawGrid()
 {
-	if(gridOn)
-	{
-		// blit this letter to the back buffer
-		for(int i =  0; i < 12; i++)
-		{
-			dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
-			lineRectScreen.top += 50;
-			lineRectScreen.bottom += 50;
-		}
-
-		lineRectScreen.left = 0;
-		lineRectScreen.right = 1;
-		lineRectScreen.top = 0;
-		lineRectScreen.bottom = 600;
-
-		for(int i =  0; i < 16; i++)
-		{
-			dxMgr->blitToSurface(line, &lineRect, &lineRectScreen);
-			lineRectScreen.left += 50;
-			lineRectScreen.right += 50;
-		}
-
-		lineRectScreen.left = 0;
-		lineRectScreen.right = 800;
-		lineRectScreen.top = 50;
-		lineRectScreen.bottom = 51;
-	}
-
 #ifndef debug
 	if(gridOn)
 	{
-		// Draw the X axis
-		/*const D3DXVECTOR2 lineVectorX[2] = 
-			{XlinesVertexList[0][0], XlinesVertexList[0][1]};*/
+		// Draw the X axis (white)
 		XLines[0]->Begin();
 		XLines[0]->Draw(XlinesVertexList[0], 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
 		XLines[0]->End();
 
-		// Draw the Y axis
-		/*const D3DXVECTOR2 lineVectorY[2] = 
-			{YlinesVertexList[0][0], YlinesVertexList[0][1]};*/
+		// Draw the Y axis (white)
 		YLines[0]->Begin();
 		YLines[0]->Draw(YlinesVertexList[0], 2, D3DCOLOR_ARGB(255 , 255, 255, 255));
 		YLines[0]->End();
 
 
-
-		// draw the X lines
+		// draw the X lines (grey)
 		for(int i = 1; i < XLength; i++)
 		{
-			/*const D3DXVECTOR2 lineVector[2] = 
-			{XlinesVertexList[i][0], XlinesVertexList[i][1]};*/
 			XLines[i]->Begin();
 			XLines[i]->Draw(XlinesVertexList[i], 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
 			XLines[i]->End();
 		}
-		// draw the Y lines
+		// draw the Y lines (grey)
 		for(int i = 1; i < YLength; i++)
 		{
-			/*const D3DXVECTOR2 lineVector[2] = 
-			{YlinesVertexList[i][0], YlinesVertexList[i][1]};*/
 			YLines[i]->Begin();
 			YLines[i]->Draw(YlinesVertexList[i], 2, D3DCOLOR_ARGB(255 , 100, 100, 100));
 			YLines[i]->End();
@@ -208,8 +165,8 @@ void grid::changeGridScale(float a_gridScale)
 	{
 		releaseLines();
 		gridScale += a_gridScale;
-		XLength = YAxisLimit/gridScale;
-		YLength = XAxisLimit/gridScale;
+		XLength = (int)YAxisLimit/gridScale;
+		YLength = (int)XAxisLimit/gridScale;
 		XLines = new LPD3DXLINE[XLength];
 		YLines = new LPD3DXLINE[YLength];
 		XlinesVertexList = new D3DXVECTOR2 * [XLength];

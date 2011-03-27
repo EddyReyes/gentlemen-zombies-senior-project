@@ -17,8 +17,8 @@ public:
 	bool armorDepleted(void);
 	float getArmorHealth();
 	float getDamageResistance();
-	void setArmorHealth(int a_armorHealth);
+	void setArmorHealth(float a_armorHealth);
 	void setArmorType(int a_armorType);
 	int getArmorType();
-	void setDamageResistance(int a_damageResistance);
+	void setDamageResistance(float a_damageResistance);
 };

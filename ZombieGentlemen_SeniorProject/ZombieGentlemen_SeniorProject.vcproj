@@ -293,6 +293,10 @@
 					RelativePath=".\sound.h"
 					>
 				</File>
+				<File
+					RelativePath=".\tile.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Game Assets"

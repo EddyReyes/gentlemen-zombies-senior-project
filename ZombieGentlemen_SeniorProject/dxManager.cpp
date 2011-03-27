@@ -10,7 +10,6 @@ dxManager::dxManager(void)
 	pD3D = NULL;
  	pd3dDevice = NULL;
 	lastResult = NULL;
-	g_pVB = NULL;
 }
 
 dxManager::~dxManager(void)
@@ -35,7 +34,7 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.BackBufferCount  = 1;
-	d3dpp.BackBufferHeight = WINODW_HEIGHT;
+	d3dpp.BackBufferHeight = WINDOW_HEIGHT;
 	d3dpp.BackBufferWidth  = WINDOW_WIDTH;
 	d3dpp.hDeviceWindow    = *wndHandle;
 	d3dpp.EnableAutoDepthStencil = TRUE;
@@ -49,6 +48,11 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
 		lastResult = E_FAIL;
         return false;
     }
+
+	pd3dDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
+	pd3dDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
+	pd3dDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
+	pd3dDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 
 	// return true if everything inititalized correctly
 	return true;
@@ -74,7 +78,7 @@ void dxManager::beginRender()
         return;
 
     // Clear the backbuffer to a black color
-    pd3dDevice->Clear( 0, NULL,D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
+    pd3dDevice->Clear( 0, NULL,D3DCLEAR_TARGET|D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
 	pd3dDevice->BeginScene();
 }
 
@@ -138,52 +142,4 @@ void dxManager::blitToSurface(IDirect3DSurface9* srcSurface, const RECT *srcRect
 LPDIRECT3DDEVICE9 * dxManager::getDevice(void)
 {
 	return &pd3dDevice;
-}
-
-LPDIRECT3DVERTEXBUFFER9 dxManager::createVertexBuffer(int size, DWORD usage)
-{
-	HRESULT hr;
-	LPDIRECT3DVERTEXBUFFER9 buffer;
-
-    // Create the vertex buffer.
-    hr = pd3dDevice->CreateVertexBuffer( size,
-                                         0, 
-										 usage,
-                                         D3DPOOL_DEFAULT, 
-										 &buffer, 
-										 NULL );
-	if FAILED ( hr)
-        return NULL;
-    
-	return buffer;
-}
-
-void dxManager::drawLine(int vertexIndex, int lineNum)
-{
-	pd3dDevice->SetStreamSource( 0, g_pVB, 0, sizeof(CUSTOMVERTEX) );
-    pd3dDevice->SetFVF(D3DFVF_XYZRHW|D3DFVF_DIFFUSE);
-	pd3dDevice->DrawPrimitive( D3DPT_LINESTRIP, vertexIndex, lineNum);
-}
-
-HRESULT  dxManager::SetupVB(CUSTOMVERTEX * g_Vertices)
-{
-	HRESULT hr;
-
-	// Create the vertex buffer
-	g_pVB = createVertexBuffer(sizeof(g_Vertices), D3DFVF_XYZRHW|D3DFVF_DIFFUSE);
-
-    // Fill the vertex buffer.
-    VOID* pVertices;
-	
-	hr = g_pVB->Lock( 0, sizeof(g_Vertices), (void**)&pVertices, 0 );
-	if FAILED (hr)
-        return E_FAIL;
-
-	// copy the vertices into the buffer
-    memcpy( pVertices, g_Vertices, sizeof(g_Vertices) );
-
-	// unlock the vertex buffer
-    g_pVB->Unlock();
-
-    return hr;
 }
