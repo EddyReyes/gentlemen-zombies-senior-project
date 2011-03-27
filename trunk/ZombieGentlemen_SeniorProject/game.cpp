@@ -30,7 +30,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraX = 0.0f;
 	cameraY = 0.0f;
 
-	testTile = new tile(dxMgr, "images/Character.bmp");
+	testTile = new tile(dxMgr, "images/letters.bmp");
 	camera = new dxCamera(dxMgr);
 
 	// set the starting point for the cursor
