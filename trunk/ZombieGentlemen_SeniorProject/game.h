@@ -45,6 +45,8 @@ private:
 	BYTE * keystate;
 	int * keyLag;
 	DIMOUSESTATE mouseState;
+	float curX; // mouse X position
+	float curY; // moust Y position
 	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
 	int now, then, passed, soon; // low resolution timers for keylag
@@ -52,15 +54,14 @@ private:
 	float animationRate;
 
 	// grid
-	grid * Grid;
+	//grid * Grid;
 
 	// Unit test parameters
-	LONG curX;
-	LONG curY;
-	XY position;
-	dxSprite * arrowSprite;
-	dxSprite * cursor;
-	dxSprite * background;
+	
+	//XY position;
+	//dxSprite * arrowSprite;
+	//dxSprite * cursor;
+	//dxSprite * background;
 	tile * testTile;
 	dxCamera * camera;
 	float cameraX, cameraY;
