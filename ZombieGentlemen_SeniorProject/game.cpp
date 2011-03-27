@@ -77,12 +77,13 @@ void game::handleInput()
 		PostQuitMessage(0);
 	}
 
+	float cameraMove = 0.05;
 	// camera movement
 	if ((keystate[DIK_NUMPAD4] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD4] > 300)
 		{
-			cameraX--;
+			cameraX-= cameraMove;
 			keyLag[DIK_NUMPAD4] = now;
 		}
 	}
@@ -90,7 +91,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_NUMPAD6] > 300)
 		{
-			cameraX++;
+			cameraX += cameraMove;
 			keyLag[DIK_NUMPAD6] = now;
 		}
 	}
@@ -98,7 +99,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_NUMPAD2] > 300)
 		{
-			cameraY--;
+			cameraY -= cameraMove;
 			keyLag[DIK_NUMPAD2] = now;
 		}
 	}
@@ -106,7 +107,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_NUMPAD8] > 300)
 		{
-			cameraY++;
+			cameraY+= cameraMove;
 			keyLag[DIK_NUMPAD8] = now;
 		}
 	}
@@ -119,8 +120,8 @@ void game::draw()
 {
 	dxMgr->beginRender();
 	
-	camera->updateCamera(D3DXVECTOR3(0.0f, 0.0f, 3.0f), 
-		D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, 3.0f), 
+		D3DXVECTOR3(cameraX, cameraY, 0.0f));
 	
 	testTile->setRenderStates();
 	testTile->draw();
