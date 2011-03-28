@@ -1,6 +1,6 @@
 #include "game.h"
 
-#define debug
+//#define debug
 
 #ifdef debug
 
@@ -29,8 +29,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	//camera = new dxCamera(dxMgr);
 	cameraX = 0.0f;
 	cameraY = 0.0f;
+	cameraZ = -10.0f;
 
 	testTile = new tile(dxMgr, "images/Character.bmp");
+	testTile2 = new tile(dxMgr, "images/letters.bmp");
 	camera = new dxCamera(dxMgr);
 
 	// set the starting point for the cursor
@@ -77,9 +79,9 @@ void game::handleInput()
 		PostQuitMessage(0);
 	}
 
+	// camera movement
 	float cameraMove = 0.05;
 	int cameraLag = 0;
-	// camera movement
 	if ((keystate[DIK_NUMPAD4] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
@@ -112,7 +114,26 @@ void game::handleInput()
 			keyLag[DIK_NUMPAD8] = now;
 		}
 	}
-	
+		
+	if ((keystate[DIK_NUMPAD7] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
+		{
+			if(cameraZ < -1.1)
+			{
+				cameraZ += cameraMove;
+				keyLag[DIK_NUMPAD7] = now;
+			}
+		}
+	}
+	if ((keystate[DIK_NUMPAD9] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD9] > cameraLag)
+		{
+			cameraZ -= cameraMove;
+			keyLag[DIK_NUMPAD9] = now;
+		}
+	}
 	// mouse movement
 	curX += mouseState.lX*1.5f;
 	curY += mouseState.lY*1.5f;
@@ -121,10 +142,11 @@ void game::draw()
 {
 	dxMgr->beginRender();
 	
-	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, -20.0f), 
+	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, cameraZ), 
 		D3DXVECTOR3(cameraX, cameraY, 0.0f));
 	
 	testTile->setRenderStates();
+	testTile2->draw();
 	testTile->draw();
 
 	camera->SetHudCamera();
@@ -171,6 +193,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	//camera = new dxCamera(dxMgr);
 	cameraX = 0.0f;
 	cameraY = 0.0f;
+	cameraZ = -10.0f;
 
 	testTile = new tile(dxMgr, "images/Character.bmp");
 	camera = new dxCamera(dxMgr);
@@ -195,7 +218,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 void game::setMusic()
 {
 	//Load sound (filename, bufferID) in this case the first buffer is 0
-	soundMgr->LoadSound("sound/Peaceful.wav", 0);
+	soundMgr->LoadSound("sound/Combat music.wav", 0);
 	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
 	//play sound playSound(bufferID) in this case the first buffer is 0
@@ -317,39 +340,63 @@ void game::handleInput()
 			keyLag[DIK_B] = now;
 		}
 	}
-
+	
+	// camera movement
+	float cameraMove = 0.05;
+	int cameraLag = 0;
 	if ((keystate[DIK_NUMPAD4] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD4] > 300)
+		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
 		{
-			cameraX--;
+			cameraX-= cameraMove;
 			keyLag[DIK_NUMPAD4] = now;
 		}
 	}
 	if ((keystate[DIK_NUMPAD6] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD6] > 300)
+		if(now - keyLag[DIK_NUMPAD6] > cameraLag)
 		{
-			cameraX++;
+			cameraX += cameraMove;
 			keyLag[DIK_NUMPAD6] = now;
 		}
 	}
 	if ((keystate[DIK_NUMPAD2] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD2] > 300)
+		if(now - keyLag[DIK_NUMPAD2] > cameraLag)
 		{
-			cameraY--;
+			cameraY -= cameraMove;
 			keyLag[DIK_NUMPAD2] = now;
 		}
 	}
 	if ((keystate[DIK_NUMPAD8] & 0x80))
 	{
-		if(now - keyLag[DIK_NUMPAD8] > 300)
+		if(now - keyLag[DIK_NUMPAD8] > cameraLag)
 		{
-			cameraY++;
+			cameraY+= cameraMove;
 			keyLag[DIK_NUMPAD8] = now;
 		}
 	}
+		
+	if ((keystate[DIK_NUMPAD7] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
+		{
+			if(cameraZ < -1.1)
+			{
+				cameraZ += cameraMove;
+				keyLag[DIK_NUMPAD7] = now;
+			}
+		}
+	}
+	if ((keystate[DIK_NUMPAD9] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD9] > cameraLag)
+		{
+			cameraZ -= cameraMove;
+			keyLag[DIK_NUMPAD9] = now;
+		}
+	}
+
 	
 	// mouse movement
 	curX += mouseState.lX*1.5f;
@@ -359,16 +406,16 @@ void game::handleInput()
 void game::draw()
 {
 	dxMgr->beginRender();
-	
-	camera->updateCamera(D3DXVECTOR3(0.0f, 0.0f, 3.0f), 
-		D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	camera->updateCamera(D3DXVECTOR3(cameraX, cameraY, cameraZ), 
+		D3DXVECTOR3(cameraX, cameraY, 0.0f));
 	
 	testTile->setRenderStates();
 	testTile->draw();
 
 	camera->SetHudCamera();
 
-	background->drawSprite();
+	//background->drawSprite();
 	
 	Grid->drawGrid();
 

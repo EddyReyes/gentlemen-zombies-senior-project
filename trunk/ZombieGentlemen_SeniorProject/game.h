@@ -54,17 +54,18 @@ private:
 	float animationRate;
 
 	// grid
-	//grid * Grid;
+	grid * Grid;
 
 	// Unit test parameters
 	
-	//XY position;
-	//dxSprite * arrowSprite;
-	//dxSprite * cursor;
-	//dxSprite * background;
+	XY position;
+	dxSprite * arrowSprite;
+	dxSprite * cursor;
+	dxSprite * background;
 	tile * testTile;
+	tile * testTile2;
 	dxCamera * camera;
-	float cameraX, cameraY;
+	float cameraX, cameraY, cameraZ;
 
 	
 public: 
