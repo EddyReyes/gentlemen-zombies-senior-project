@@ -18,6 +18,9 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 g_pVB; // Buffer to hold vertices 
 	LPDIRECT3DTEXTURE9 image;	// image texture
 	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
+	D3DXVECTOR3 * position;
+	float width, height;
+	float scale;
 	dxManager * dxMgr;
 
 public:
@@ -29,11 +32,51 @@ public:
 		imageInfo = new D3DXIMAGE_INFO();
 		D3DXGetImageInfoFromFile(filename.c_str(), imageInfo);
 		D3DXCreateTextureFromFile(pd3dDevice ,filename.c_str(),&image);
+
+		// set up position
+		position = new D3DXVECTOR3(0,0,0);
+		// set up size
+		width = 1;
+		height = 1;
+		// set up scale
+		scale = 1.0f;
+		// set up vertex buffer
 		SetupVB();
 	}
 	~tile()
 	{
 		g_pVB->Release();
+	}
+	void setParam(float a_x, float a_y, float a_z, float a_width, float a_height)
+	{
+		setPosition(a_x, a_y, a_z);
+		setSize(a_width, a_height);
+	}
+	void setParam(D3DXVECTOR3 a_position, float a_width, float a_height)
+	{
+		setPosition(a_position);
+		setSize(a_width, a_height);
+	}
+	void setPosition(float a_x, float a_y, float a_z)
+	{
+		position->x = a_x;
+		position->y = a_y;
+		position->z = a_z;
+	}
+	void setPosition(D3DXVECTOR3 a_position)
+	{
+		position->x = a_position.x;
+		position->y = a_position.y;
+		position->z = a_position.z;
+	}
+	void setSize(float a_width, float a_height)
+	{
+		width = a_width;
+		height = a_height;
+	}
+	void setScale(float a_scale)
+	{
+		scale = a_scale;
 	}
 
 /*************************************************************************
@@ -47,10 +90,16 @@ HRESULT SetupVB()
     // Initialize three vertices for rendering a triangle
 	CUSTOMVERTEX g_Vertices[] =
 	{
-		{-1.0f, 1.0f,0.0f,  0.0f, 0.0f },
-		{ 1.0f, 1.0f,0.0f,  1.0f, 0.0f },
-		{-1.0f,-1.0f,0.0f,  0.0f, 1.0f },
-		{ 1.0f,-1.0f,0.0f,  1.0f, 1.0f }
+		//Sets up verticies from position and down the y axis
+
+		// upper left corner
+		{ position->x, position->y,							0.0f,  0.0f, 0.0f },
+		//upper right corner
+		{ (position->x + width), position->y,				0.0f, 1.0f, 0.0f },
+		// lower left corner
+		{ position->x, (position->y - height),				0.0f,  0.0f, 1.0f },
+		// lower right corner
+		{ (position->x + width), (position->y - height),	0.0f,  1.0f, 1.0f }
 	};
 
    
@@ -104,9 +153,11 @@ void setRenderStates()
 
 void draw()
 {
-	D3DXMATRIX matScale;//, matTranslate, matWorld, matRotate;
-	D3DXMatrixScaling(&matScale, 1.0f, 1.0f, 1.0f);
-    pd3dDevice->SetTransform( D3DTS_WORLD, &matScale );
+	D3DXMATRIX matScale, matTranslate, matWorld;//, matRotate;
+	D3DXMatrixScaling(&matScale, scale, scale, scale);
+	D3DXMatrixTranslation(&matTranslate, position->x, position->y, position->z);
+	D3DXMatrixMultiply(&matWorld, &matScale, &matTranslate);
+    pd3dDevice->SetTransform( D3DTS_WORLD, &matWorld );
 
 	// Set the current texture to use
 	pd3dDevice->SetTexture( 0, image );

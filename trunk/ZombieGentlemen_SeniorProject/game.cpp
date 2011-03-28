@@ -196,6 +196,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraZ = -10.0f;
 
 	testTile = new tile(dxMgr, "images/Character.bmp");
+	testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
+	testTile->setScale(5.0f);
+
 	camera = new dxCamera(dxMgr);
 
 	//Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
