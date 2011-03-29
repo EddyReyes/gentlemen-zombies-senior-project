@@ -1,7 +1,7 @@
 #pragma once
 #include "dxManager.h"
 
-class dxSprite
+class HudImage
 {
 private:
 	dxManager * dxMgr;
@@ -15,11 +15,12 @@ private:
 	int spriteColumns;
 	int spriteRows;
 	bool spriteOn;
+	bool sharingImage;
 
 public:
-	dxSprite(){};
+	HudImage(){};
 	// constructor
-	dxSprite(dxManager * a_dxMgr, std::string filename)
+	HudImage(dxManager * a_dxMgr, std::string filename)
 	{
 		dxMgr = a_dxMgr;
 		imageInfo = new D3DXIMAGE_INFO();
@@ -30,8 +31,9 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = false;
 	}
-	dxSprite(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
+	HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 	{
 		dxMgr = a_dxMgr;
 		imageInfo = new D3DXIMAGE_INFO();
@@ -42,8 +44,9 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = false;
 	}
-	dxSprite(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
+	HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
 	{
 		dxMgr = a_dxMgr;
 		imageInfo = new D3DXIMAGE_INFO();
@@ -54,9 +57,10 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = false;
 	}
 
-	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
+	HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
 	{
 		dxMgr = a_dxMgr;
 		image = *a_image;
@@ -67,8 +71,9 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = true;
 	}
-	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
+	HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
 	{
 		dxMgr = a_dxMgr;
 		image = *a_image;
@@ -79,8 +84,9 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = true;
 	}
-	dxSprite(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
+	HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
 	{
 		dxMgr = a_dxMgr;
 		image = *a_image;
@@ -91,16 +97,28 @@ public:
 		selectSpriteSource(0);
 		initTrasform();
 		spriteOn = true;
+		sharingImage = true;
 	}
 
-	~dxSprite()
+	~HudImage()
 	{
+		releaseImage();
 		if( sprite != NULL )
 			sprite->Release();
 	}
+/*************************************************************************
+* ~releaseImage
+* checks if image is being shared and then releases image if it is not
+*************************************************************************/
 	void releaseImage()
-	{if( image != NULL )
-			image->Release();
+	{
+		if(!sharingImage)
+		{
+			if(image != NULL)
+			{
+				image->Release(); // release image if not being shared
+			}
+		}
 	}
 	void initializeSprite(std::string filename)
 	{
@@ -180,7 +198,7 @@ public:
 	// for use with sprites with more than one row
 	void selectSpriteSource(int a_spriteRow, int a_spriteColumn)
 	{
-		spriteSource.top = imageInfo->Height * a_spriteRow;
+		spriteSource.top = (imageInfo->Height/spriteRows) * a_spriteRow;
 		spriteSource.bottom = spriteSource.top + imageInfo->Height/spriteRows;
 		spriteSource.left = a_spriteColumn * (imageInfo->Width/spriteColumns);
 		spriteSource.right =  (a_spriteColumn * (imageInfo->Width/spriteColumns)) + (imageInfo->Width/spriteColumns);
