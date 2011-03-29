@@ -54,6 +54,11 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
 	pd3dDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
 	pd3dDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 
+	// set render states for vertex buffers
+	pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
+	pd3dDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pd3dDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
 	// return true if everything inititalized correctly
 	return true;
 }

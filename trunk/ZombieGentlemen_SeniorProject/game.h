@@ -6,9 +6,6 @@ etc.
 
 status: unit test
 */
-//#define debug
-#define WINDOW_WIDTH 800.0f
-#define WINDOW_HEIGHT 600.0f
 
 // DirectX files
 #include "dxManager.h"
@@ -17,8 +14,8 @@ status: unit test
 #include <time.h>
 #include "dxCamera.h"
 #include "rectangle.h"
-#include "dxSprite.h"
-#include "tile.h"
+#include "HudImage.h"
+#include "XYPlane.h"
 
 
 #include "object.h"
@@ -59,11 +56,12 @@ private:
 	// Unit test parameters
 	
 	XY position;
-	dxSprite * arrowSprite;
-	dxSprite * cursor;
-	dxSprite * background;
-	tile * testTile;
-	tile * testTile2;
+	HudImage * arrowSprite;
+	HudImage * cursor;
+	HudImage * background;
+	XYPlane * testTile;
+	XYPlane * testTile2;
+	float scale;
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
 
