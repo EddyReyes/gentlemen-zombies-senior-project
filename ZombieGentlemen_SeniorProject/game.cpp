@@ -72,6 +72,9 @@ void game::SetSprites()
 	cursor->scaleSize(0.5f);
 	background = new HudImage(dxMgr, "images/Lake level.dds");
 	background->scaleSize(1.0f);
+	dialog = new HudImage(dxMgr, "images/Game_Dialog1.bmp");
+	dialog->scaleSize(0.8f);
+	dialog->setPosition(600,540);
 
 	// set the starting point for the circle sprite
 	position.x = 0;
@@ -286,6 +289,8 @@ void game::draw()
 	arrowSprite->drawSprite();
 
 	cursor->drawSprite();
+
+	dialog->drawSprite();
 
 	dxMgr->endRender();
 }

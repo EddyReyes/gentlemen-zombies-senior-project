@@ -30,6 +30,7 @@ status: unit test
 #include "weapon.h"
 #include "helmet.h"
 #include "armor.h"
+#include "dialogue.h"
 
 #pragma once
 
@@ -56,6 +57,7 @@ private:
 	// Unit test parameters
 	
 	XY position;
+	HudImage * dialog;
 	HudImage * arrowSprite;
 	HudImage * cursor;
 	HudImage * background;
