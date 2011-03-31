@@ -42,6 +42,7 @@ private:
 	sound * soundMgr;
 	BYTE * keystate;
 	int * keyLag;
+	PlayerCharacter * player;
 	DIMOUSESTATE mouseState;
 	float curX; // mouse X position
 	float curY; // moust Y position
