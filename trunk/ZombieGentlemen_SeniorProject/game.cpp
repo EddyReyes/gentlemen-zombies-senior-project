@@ -44,8 +44,12 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
 	//testTile->setScale(5.0f);
 	//testTile->setScaleFromCenter(true);
+	
 	scale = 1.0f;
-
+	player = new PlayerCharacter(dxMgr, "images/arrows2.bmp");
+	player->initPlayerSpriteSheet(1,4);
+	player->setPlayerSprite(0,0);
+	player->setPosition(5, 5, 5);
 	camera = new dxCamera(dxMgr);
 
 	//Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
@@ -76,11 +80,12 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
+	
 	arrowSprite = new HudImage(dxMgr,"images/lambo.bmp");
 	arrowSprite->scaleSize(100.0f/256.0f);
 	cursor = new HudImage(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
-	background = new HudImage(dxMgr, "images/Lake level.dds");
+	background = new HudImage(dxMgr,"images/Lake level.dds");
 	background->scaleSize(1.0f);
 	dialog = new HudImage(dxMgr, "images/Game_Dialog1.bmp");
 	dialog->scaleSize(0.8f);
@@ -291,6 +296,7 @@ void game::draw()
 	testTile->draw();
 	testTile2->draw();
 	testTile3->draw();
+	player->Draw();
 
 	camera->SetHudCamera();
 
