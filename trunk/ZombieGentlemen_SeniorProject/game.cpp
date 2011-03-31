@@ -29,7 +29,17 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	testTile = new XYPlane(dxMgr, "images/letters.bmp");
 	testTile->setImageRowsColumns(4, 7);
-	testTile->selectTextureSource(3, 3);
+	testTile->selectTextureSource(2, 3);
+
+	testTile2 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
+	testTile2->setImageRowsColumns(4, 7);
+	testTile2->selectTextureSource(3, 2);
+	testTile2->setPosition(2, 0, -1.5);
+
+	testTile3 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
+	testTile3->setImageRowsColumns(4, 7);
+	testTile3->selectTextureSource(0, 5);
+	testTile3->setPosition(-2, 0, 1.5);
 
 	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
 	//testTile->setScale(5.0f);
@@ -148,30 +158,30 @@ void game::handleInput()
 		}
 	}
 
-	if ((keystate[DIK_J] & 0x80))
-	{
-		if(now - keyLag[DIK_J] > 150)
-		{
-			if( scale > 0.2)
-			{
-				scale -= 0.1f;
-				testTile->setScale(scale);
-				keyLag[DIK_J] = now;
-			}
-		}
-	}
-	if ((keystate[DIK_K] & 0x80))
-	{
-		if(now - keyLag[DIK_K] > 150)
-		{
-			if( scale > 0.2)
-			{
-				scale += 0.1f;
-				testTile->setScale(scale);
-				keyLag[DIK_K] = now;
-			}
-		}
-	}
+	//if ((keystate[DIK_J] & 0x80))
+	//{
+	//	if(now - keyLag[DIK_J] > 150)
+	//	{
+	//		if( scale > 0.2)
+	//		{
+	//			scale -= 0.1f;
+	//			testTile->setScale(scale);
+	//			keyLag[DIK_J] = now;
+	//		}
+	//	}
+	//}
+	//if ((keystate[DIK_K] & 0x80))
+	//{
+	//	if(now - keyLag[DIK_K] > 150)
+	//	{
+	//		if( scale > 0.2)
+	//		{
+	//			scale += 0.1f;
+	//			testTile->setScale(scale);
+	//			keyLag[DIK_K] = now;
+	//		}
+	//	}
+	//}
 
 	// sprite movement
 	float moveDistance = 5.0f;
@@ -212,7 +222,7 @@ void game::handleInput()
 	// camera movement
 	float cameraMove = 0.05f;
 	int cameraLag = 0;
-	if ((keystate[DIK_NUMPAD4] & 0x80))
+	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
 		{
@@ -220,7 +230,7 @@ void game::handleInput()
 			keyLag[DIK_NUMPAD4] = now;
 		}
 	}
-	if ((keystate[DIK_NUMPAD6] & 0x80))
+	if ((keystate[DIK_NUMPAD6] & 0x80) || (keystate[DIK_L] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD6] > cameraLag)
 		{
@@ -228,7 +238,7 @@ void game::handleInput()
 			keyLag[DIK_NUMPAD6] = now;
 		}
 	}
-	if ((keystate[DIK_NUMPAD2] & 0x80))
+	if ((keystate[DIK_NUMPAD2] & 0x80) || (keystate[DIK_K] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD2] > cameraLag)
 		{
@@ -236,7 +246,7 @@ void game::handleInput()
 			keyLag[DIK_NUMPAD2] = now;
 		}
 	}
-	if ((keystate[DIK_NUMPAD8] & 0x80))
+	if ((keystate[DIK_NUMPAD8] & 0x80) || (keystate[DIK_I] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD8] > cameraLag)
 		{
@@ -245,7 +255,7 @@ void game::handleInput()
 		}
 	}
 		
-	if ((keystate[DIK_NUMPAD7] & 0x80))
+	if ((keystate[DIK_NUMPAD7] & 0x80) || (keystate[DIK_U] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
 		{
@@ -256,7 +266,7 @@ void game::handleInput()
 			}
 		}
 	}
-	if ((keystate[DIK_NUMPAD9] & 0x80))
+	if ((keystate[DIK_NUMPAD9] & 0x80) || (keystate[DIK_O] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD9] > cameraLag)
 		{
@@ -275,10 +285,12 @@ void game::draw()
 {
 	dxMgr->beginRender();
 
-	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
-	
+	//camera->SetupCamera2D(cameraX, cameraY, cameraZ);
+	camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
 	testTile->draw();
+	testTile2->draw();
+	testTile3->draw();
 
 	camera->SetHudCamera();
 
@@ -286,9 +298,9 @@ void game::draw()
 	
 	Grid->drawGrid();
 
-	arrowSprite->drawSprite();
+	arrowSprite->draw();
 
-	cursor->drawSprite();
+	cursor->draw();
 
 	dialog->drawSprite();
 

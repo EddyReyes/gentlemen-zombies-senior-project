@@ -187,8 +187,8 @@ public:
 	void setScale(float a_scale)
 	{
 		scale = a_scale;
-		width *= a_scale;
-		height *= a_scale;
+		//width *= a_scale;
+		//height *= a_scale;
 	}
 	/*************************************************************************
 	* setTextureCoordinates

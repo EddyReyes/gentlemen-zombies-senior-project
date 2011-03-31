@@ -1,0 +1,13 @@
+TODO list
+
+Legend
+{
+	- not done yet
+	+ done
+	# in progress
+}
+
+3/31 Eddy
+- In hud image possibly add rotation capability around the Z axis
+- Make the grid, using nodes and edges
+- make a cube class

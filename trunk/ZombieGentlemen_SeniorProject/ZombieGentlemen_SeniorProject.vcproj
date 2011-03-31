@@ -368,6 +368,10 @@
 				RelativePath=".\gameIcon.ico"
 				>
 			</File>
+			<File
+				RelativePath=".\TODO list.txt"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
