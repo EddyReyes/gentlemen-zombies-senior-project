@@ -7,6 +7,10 @@ PlayerCharacter::PlayerCharacter(dxManager * a_dxMgr, std::string filename)
 	damageResistance = 0.50;
 	playerImage = new XYPlane(a_dxMgr, filename);
 };
+PlayerCharacter::~PlayerCharacter()
+{
+	playerImage->~XYPlane();
+}
 float PlayerCharacter::getHealth()
 {
 	return playerHealth;
