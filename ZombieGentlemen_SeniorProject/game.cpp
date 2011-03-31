@@ -302,7 +302,7 @@ void game::draw()
 
 	cursor->draw();
 
-	dialog->drawSprite();
+	dialog->draw();
 
 	dxMgr->endRender();
 }
