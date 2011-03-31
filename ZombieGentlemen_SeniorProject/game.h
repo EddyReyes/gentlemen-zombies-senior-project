@@ -63,6 +63,7 @@ private:
 	HudImage * background;
 	XYPlane * testTile;
 	XYPlane * testTile2;
+	XYPlane * testTile3;
 	float scale;
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
