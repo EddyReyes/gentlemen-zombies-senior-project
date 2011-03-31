@@ -22,13 +22,13 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 g_pVB; // Buffer to hold vertices 
 	LPDIRECT3DTEXTURE9 image;	// image texture
 	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
-	D3DXVECTOR3 * position;
-	float width, height, scale;
-	FloatRect * textureCoord;
-	dxManager * dxMgr;
-	int Columns, Rows;
-	bool imageOn;
-	bool sharingImage;
+	D3DXVECTOR3 * position; // vector holding x, y, and z location parameters
+	float width, height, scale; 
+	FloatRect * textureCoord; // structure containing UV coordinate data
+	dxManager * dxMgr; // pointer to dxMgr
+	int Columns, Rows; // number of columns and rows in sprite sheet
+	bool imageOn; // toogle for drawing XYPlane
+	bool sharingImage; // keeps track of weather the image is being shared with another object
 
 public:
 	/*************************************************************************
@@ -138,6 +138,7 @@ public:
 	{
 		D3DXCreateTextureFromFile(pd3dDevice, filename.c_str(),&image);
 		D3DXGetImageInfoFromFile(filename.c_str(), imageInfo);
+		sharingImage = false;
 	}
 	/*************************************************************************
 	* setParam

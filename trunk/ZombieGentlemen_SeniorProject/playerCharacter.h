@@ -12,6 +12,7 @@ private:
 public:
 	
 	PlayerCharacter(dxManager* a_dxMgr, std::string filename);
+	~PlayerCharacter();
 	float getHealth();
 	void setHealth(int );
 	void healthRegenerate(int  );

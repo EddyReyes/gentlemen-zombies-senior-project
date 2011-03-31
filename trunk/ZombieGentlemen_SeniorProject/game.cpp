@@ -324,4 +324,7 @@ game::~game()
 	arrowSprite->~HudImage();
 	cursor->~HudImage();
 	testTile->~XYPlane();
+	testTile2->~XYPlane();
+	testTile3->~XYPlane();
+	player->~PlayerCharacter();
 }

@@ -12,7 +12,7 @@ Legend
 - Make the grid, using nodes and edges
 - make a cube class
 
-3/31
+3/31 William
 + display a message bubble
 - animate the message bubble sprite
 - have message pop up when town's people sprites are approached(collision detection
