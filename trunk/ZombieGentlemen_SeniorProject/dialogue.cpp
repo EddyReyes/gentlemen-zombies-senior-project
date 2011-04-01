@@ -1,7 +1,5 @@
 #include "dialogue.h"
 
-
-
 // when you need pd3ddevice use *dxMgr->getDevice()
 
 Dialogue::Dialogue(dxManager * a_dxMgr, std::string filename)
@@ -18,6 +16,10 @@ Dialogue::Dialogue(dxManager * a_dxMgr, std::string filename)
 	italic = false;
 	setFontName("Arial");
 	toggle = true;
+	
+}
+Dialogue::~Dialogue()
+{
 	
 }
 void Dialogue::setFont()
@@ -46,5 +48,28 @@ void Dialogue::setFontSize(int a_size)
 	fontSize = a_size;
 	setFont();
 }
-// set font color using D3DCOLOR_ARGB(a, r, g, b)
-//*fontColor = D3DCOLOR_ARGB(a, r, g, b) 
+void Dialogue::setFontColor(int a, int r, int g, int b)
+{
+	*fontColor = D3DCOLOR_ARGB(a, r, g, b);
+	setFont();
+}
+void Dialogue::setDialogue(std::string text)
+{
+	
+}
+void Dialogue::setRect(int top, int bottom, int left, int right)
+{
+	// create a rectangle to indicate where on the screen it should be drawn
+	RECT rct;
+	rct.left = 150;
+	rct.right = rct.left+300;
+	rct.top = 240;
+	rct.bottom = rct.top +120;
+}
+void Dialogue::toggleItalic(){ italic = italic?false:true; }
+void Dialogue::draw()
+{
+	dxMgr->beginRender();
+
+	dxMgr->endRender();
+}
