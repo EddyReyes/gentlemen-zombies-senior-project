@@ -17,7 +17,7 @@ status: unit test
 #include "HudImage.h"
 #include "XYPlane.h"
 #include "dxCube.h"
-
+#include "DXText.h"
 
 #include "object.h"
 #include "grid.h"
@@ -32,7 +32,7 @@ status: unit test
 #include "weapon.h"
 #include "helmet.h"
 #include "armor.h"
-#include "dialogue.h"
+
 
 #pragma once
 
