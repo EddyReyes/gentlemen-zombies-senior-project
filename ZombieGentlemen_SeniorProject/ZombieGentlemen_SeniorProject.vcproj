@@ -274,6 +274,10 @@
 				Name="DirectX"
 				>
 				<File
+					RelativePath=".\CustomVertex.h"
+					>
+				</File>
+				<File
 					RelativePath=".\directInput.h"
 					>
 				</File>

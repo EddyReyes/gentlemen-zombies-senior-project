@@ -1,8 +1,8 @@
 #include "grid.h"
-//#define debug
+#define debug
 //default constructor
 
-
+#ifndef debug
 grid::grid(){};
 
 grid::grid(float a_gridScale , float a_XAxisLimit, float a_YAxisLimit, 
@@ -201,3 +201,5 @@ void grid::releaseVertexLists()
 	delete [] YlinesVertexList;
 #endif
 }
+
+#endif
