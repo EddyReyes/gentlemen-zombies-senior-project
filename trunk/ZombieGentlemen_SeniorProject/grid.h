@@ -1,7 +1,8 @@
 #include "dxManager.h"
 #include "object.h"
 
-//#define debug
+#define debug
+#ifndef debug
 class grid
 {
 private:
@@ -44,4 +45,18 @@ public:
 	void drawGrid();
 	bool isGridOn();
 	void changeGridScale(float a_gridScale);
+};
+#endif
+
+class grid
+{
+private:
+	D3DXVECTOR3 ** nodes;
+	int rows, columns;
+	float gridScale;
+public:
+	grid(){}
+	~grid(){}
+	void setSize(int a_rows, int a_columns){}
+	void setGridScale(float a_scale){}
 };
