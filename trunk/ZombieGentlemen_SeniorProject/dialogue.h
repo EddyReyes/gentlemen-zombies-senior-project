@@ -15,6 +15,7 @@ class Dialogue
 		RECT * textBox;
 		int fontSize;
 		bool italic;
+		bool toggle;
 
 	public:
 		Dialogue(dxManager * a_dxMgr, std::string filename);
@@ -22,7 +23,7 @@ class Dialogue
 		void setFont();
 		void setFontName(std::string a_fontName);
 		void setFontSize(int a_size);
-		void setFontColor(a, r, g, b);
+		void setFontColor(int a, int r, int g, int b);
 		//void setImage(std::string a_fontName);
 		void setDialogue(std::string text);
 		void setRect(int top, int bottom, int left, int right);
