@@ -22,9 +22,10 @@ class Dialogue
 		void setFont();
 		void setFontName(std::string a_fontName);
 		void setFontSize(int a_size);
-		void setFontColor();
-		void setImage();
-		void setDialogue();
+		void setFontColor(a, r, g, b);
+		//void setImage(std::string a_fontName);
+		void setDialogue(std::string text);
 		void setRect(int top, int bottom, int left, int right);
 		void toggleItalic();
+		void draw();
 };
