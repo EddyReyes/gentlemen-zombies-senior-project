@@ -49,6 +49,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	player = new PlayerCharacter(dxMgr, "images/arrows2.bmp");
 	player->initPlayerSpriteSheet(1,4);
 	player->setPlayerSprite(0,0);
+	
 	player->setPosition(5, 5, 5);
 	camera = new dxCamera(dxMgr);
 
