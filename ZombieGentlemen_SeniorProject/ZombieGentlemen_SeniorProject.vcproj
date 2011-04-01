@@ -180,6 +180,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\dxCube.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\dxManager.cpp"
 					>
 				</File>
@@ -279,6 +283,10 @@
 				</File>
 				<File
 					RelativePath=".\dxCamera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dxCube.h"
 					>
 				</File>
 				<File
