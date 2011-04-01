@@ -27,6 +27,7 @@ status: unit test
 
 #include "playerCharacter.h"
 #include "playerItem.h"
+#include "EnemyCharacter.h"
 #include "weapon.h"
 #include "helmet.h"
 #include "armor.h"
@@ -43,6 +44,7 @@ private:
 	BYTE * keystate;
 	int * keyLag;
 	PlayerCharacter * player;
+	EnemyCharacter * enemy;
 	DIMOUSESTATE mouseState;
 	float curX; // mouse X position
 	float curY; // moust Y position

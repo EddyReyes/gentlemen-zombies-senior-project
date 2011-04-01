@@ -17,6 +17,7 @@ public:
 	void setHealth(int );
 	void healthRegenerate(int healthPack);
 	void playerDamage(int damage);
+
 	void setPlayerImage(std::string filename);
 	void setPlayerSprite(int a_row, int a_column);
 	void initPlayerSpriteSheet(int a_rows, int a_columns);
