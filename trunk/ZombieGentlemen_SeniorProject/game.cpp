@@ -47,10 +47,16 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/arrows2.bmp");
+	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
 	player->initPlayerSpriteSheet(1,4);
 	player->setPlayerSprite(0,0);
-	
 	player->setPosition(5, 5, 5);
+
+	enemy->initEnemieSpriteSheet(1,4);
+	enemy->setEnemieSprite(0, 3);
+	enemy->setPosition(1, 5, 5);
+	
+
 	camera = new dxCamera(dxMgr);
 
 	//Grid = new grid(100,WINDOW_WIDTH, WINDOW_HEIGHT,dxMgr);
@@ -207,7 +213,7 @@ void game::handleInput()
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= (int)moveDistance;
-		arrowSprite->selectSpriteSource(0);
+		arrowSprite->selectSpriteSource(0);	
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
@@ -298,6 +304,7 @@ void game::draw()
 	testTile2->draw();
 	testTile3->draw();
 	player->Draw();
+	enemy->Draw();
 
 	camera->SetHudCamera();
 
