@@ -6,29 +6,23 @@
 // pointer to pd3dDevice
 #define pd3dDevice (*dxMgr->getDevice())
 
-struct CUSTOMVERTEX
-{
-    FLOAT x, y, z, rhw;      // The untransformed, 3D position for the vertex
-    float tu, tv;        // The vertex color
-};
-struct FloatRect
-{
-	float right, left, bottom, top;
-};
+// CUSTOMVERTEX FloatRect have been defined within XYPlane.h
 
-class XYPlane
+
+class dxCube
 {
 private:
 	LPDIRECT3DVERTEXBUFFER9 g_pVB; // Buffer to hold vertices 
 	LPDIRECT3DTEXTURE9 image;	// image texture
 	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
 	D3DXVECTOR3 * position; // vector holding x, y, and z location parameters
-	float width, height, scale; 
+	float width, height, depth, scale; 
 	FloatRect * textureCoord; // structure containing UV coordinate data
 	dxManager * dxMgr; // pointer to dxMgr
 	int Columns, Rows; // number of columns and rows in sprite sheet
-	bool imageOn; // toogle for drawing XYPlane
+	bool cubeToggle; // toogle for drawing XYPlane
 	bool sharingImage; // keeps track of weather the image is being shared with another object
+	float origin;
 
 public:
 	/*************************************************************************
@@ -36,14 +30,14 @@ public:
 	* default constructor
 	* does nothing, nothing at all, move along now
 	*************************************************************************/
-	XYPlane(){};
+	dxCube(){};
 	/*************************************************************************
-	* XYPlane
+	* dxCube
 	* constructor
 	* sets up all the variables to a default value
 	* This constructor creates a new image in memory for the passed in file
 	*************************************************************************/
-	XYPlane(dxManager * a_dxMgr, std::string filename)
+	dxCube(dxManager * a_dxMgr, std::string filename)
 	{
 		g_pVB = NULL;
 		dxMgr = a_dxMgr;
@@ -54,6 +48,7 @@ public:
 		// set up size
 		width = 1.0f;
 		height = 1.0f;
+		depth = 1.0f;
 		// set up scale
 		scale = 1.0f;
 		// set up texture coordinates
@@ -66,16 +61,18 @@ public:
 		Columns = 1; 
 		Rows = 1;
 		// set up image toggle
-		imageOn = true;
+		cubeToggle = true;
 		sharingImage = false;
+		// set origin of rendering
+		origin = 0.0f;
 	}
 	/*************************************************************************
-	* XYPlane
+	* dxCube
 	* constructor
 	* sets up all the variables to a default value
 	* This constructor is for use when sharing an image with another object
 	*************************************************************************/
-	XYPlane(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
+	dxCube(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
 	{
 		g_pVB = NULL;
 		dxMgr = a_dxMgr;
@@ -88,6 +85,7 @@ public:
 		// set up size
 		width = 1.0f;
 		height = 1.0f;
+		depth = 1.0f;
 		// set up scale
 		scale = 1.0f;
 		// set up texture coordinates
@@ -100,16 +98,18 @@ public:
 		Columns = 1; 
 		Rows = 1;
 		// set up image toggle
-		imageOn = true;
+		cubeToggle = true;
 		sharingImage = true;
+		// set origin of rendering
+		origin = 0.0f;
 	}
 	/*************************************************************************
-	* ~XYPlane
+	* ~dxCube
 	* destructor
 	* releases vertex buffer from memory
 	* also releases image if it is not being shared
 	*************************************************************************/
-	~XYPlane()
+	~dxCube()
 	{
 		releaseImage();
 		if(g_pVB != NULL)
@@ -140,7 +140,7 @@ public:
 		D3DXGetImageInfoFromFile(filename.c_str(), imageInfo);
 		sharingImage = false;
 	}
-		/*************************************************************************
+	/*************************************************************************
 	* shareImage
 	* sets the image of the sprite and updates the files information
 	*************************************************************************/
@@ -156,15 +156,15 @@ public:
 	* set the position of the vertex buffer (upper left corner) in world space
 	* and set the size of the vertex buffer in world coordinate units
 	*************************************************************************/
-	void setParam(float a_x, float a_y, float a_z, float a_width, float a_height)
+	void setParam(float a_x, float a_y, float a_z, float a_width, float a_height, float a_depth)
 	{
 		setPosition(a_x, a_y, a_z);
-		setSize(a_width, a_height);
+		setSize(a_width, a_height, a_depth);
 	}
-	void setParam(D3DXVECTOR3 a_position, float a_width, float a_height)
+	void setParam(D3DXVECTOR3 a_position, float a_width, float a_height, float a_depth)
 	{
 		setPosition(a_position);
-		setSize(a_width, a_height);
+		setSize(a_width, a_height, a_depth);
 	}
 	/*************************************************************************
 	* setPosition
@@ -186,10 +186,11 @@ public:
 	* setSize
 	* set the size of the image in world coordinate units
 	*************************************************************************/
-	void setSize(float a_width, float a_height)
+	void setSize(float a_width, float a_height, float a_depth)
 	{
 		width = a_width;
 		height = a_height;
+		depth = a_depth;
 		SetupVB();
 	}
 	/*************************************************************************
@@ -199,8 +200,6 @@ public:
 	void setScale(float a_scale)
 	{
 		scale = a_scale;
-		//width *= a_scale;
-		//height *= a_scale;
 	}
 	/*************************************************************************
 	* setTextureCoordinates
@@ -248,7 +247,7 @@ public:
 	LPDIRECT3DTEXTURE9 * getTexture(){return &image;}
 	D3DXIMAGE_INFO * getImageInfo(){return imageInfo;}
 
-	void toggleImage(){imageOn = imageOn?false:true;}
+	void toggleCube(){cubeToggle = cubeToggle?false:true;}
 
 	/*************************************************************************
 	* SetupVB
@@ -262,24 +261,64 @@ public:
 		CUSTOMVERTEX g_Vertices[] =
 		{
 			//Sets up verticies from position and down the y axis
-
-			//// upper left corner
-			//{ position->x, position->y, 0.0f,  textureCoord->left, textureCoord->top},
-			////upper right corner
-			//{ (position->x + width), position->y, 0.0f, textureCoord->right, textureCoord->top},
-			//// lower left corner
-			//{ position->x, (position->y - height), 0.0f,  textureCoord->left, textureCoord->bottom},
-			//// lower right corner
-			//{ (position->x + width), (position->y - height), 0.0f,  textureCoord->right, textureCoord->bottom}
-
+			// * front face
 			// upper left corner
-			{ 0.0f, 0.0f, 0.0f,  textureCoord->left, textureCoord->top},
+			{ origin, origin, -1 * depth/2,  textureCoord->left, textureCoord->top},
 			//upper right corner
-			{ width, 0.0f, 0.0f, textureCoord->right, textureCoord->top},
+			{ width, origin, -1 * depth/2, textureCoord->right, textureCoord->top},
 			// lower left corner
-			{ 0.0f, -1 * height, 0.0f,  textureCoord->left, textureCoord->bottom},
+			{ origin, -1 * height, -1 * depth/2,  textureCoord->left, textureCoord->bottom},
 			// lower right corner
-			{ width, -1 * height, 0.0f,  textureCoord->right, textureCoord->bottom}
+			{ width, -1 * height, -1 * depth/2,  textureCoord->right, textureCoord->bottom},
+
+			// * back face
+			// upper left corner
+			{ origin, origin, depth/2,  textureCoord->left, textureCoord->top},
+			//upper right corner
+			{ width, origin, depth/2, textureCoord->right, textureCoord->top},
+			// lower left corner
+			{ origin, -1 * height, depth/2,  textureCoord->left, textureCoord->bottom},
+			// lower right corner
+			{ width, -1 * height, depth/2,  textureCoord->right, textureCoord->bottom},
+
+			// * top face
+			// upper left corner
+			{ origin, origin, depth/2,  textureCoord->left, textureCoord->top},
+			//upper right corner
+			{ width, origin, depth/2, textureCoord->right, textureCoord->top},
+			// lower left corner
+			{ origin, origin, -1 * depth/2,  textureCoord->left, textureCoord->bottom},
+			// lower right corner
+			{ width, origin, -1 * depth/2,  textureCoord->right, textureCoord->bottom},
+			
+			// * bottom face
+			// upper left corner
+			{ origin, -1 * height, depth/2,  textureCoord->left, textureCoord->top},
+			//upper right corner
+			{ width, -1 * height, depth/2, textureCoord->right, textureCoord->top},
+			// lower left corner
+			{ origin, -1 * height, -1* depth/2,  textureCoord->left, textureCoord->bottom},
+			// lower right corner
+			{ width, -1 * height, -1 * depth/2,  textureCoord->right, textureCoord->bottom},
+			
+			// * left face
+			{ origin, origin, depth/2,  textureCoord->left, textureCoord->top},
+			//upper right corner
+			{ origin, origin, -1 * depth/2,  textureCoord->right, textureCoord->top},
+			// lower left corner
+			{ origin, -1 * height, depth/2,  textureCoord->left, textureCoord->bottom},
+			// lower right corner
+			{ origin, -1 * height, -1* depth/2,  textureCoord->right, textureCoord->bottom},
+			
+			// * right face
+			{ width, origin, -1 * depth/2, textureCoord->left, textureCoord->top},
+			//upper right corner
+			{ width, origin, depth/2, textureCoord->right, textureCoord->top},
+			// lower left corner
+			{ width, -1 * height, -1 * depth/2,  textureCoord->left, textureCoord->bottom},
+			// lower right corner
+			{ width, -1 * height, depth/2,  textureCoord->right, textureCoord->bottom},
+
 		};
 
 
@@ -329,7 +368,7 @@ public:
 	*************************************************************************/
 	void setRenderStates()
 	{
-		//pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE);
+		pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE);
 		pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
 		pd3dDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 		pd3dDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -341,7 +380,7 @@ public:
 	*************************************************************************/
 	void draw()
 	{
-		if(imageOn)
+		if(cubeToggle)
 		{
 			D3DXMATRIX matScale, matTranslate, matWorld;//, matRotate;
 
@@ -356,8 +395,28 @@ public:
 			pd3dDevice->SetStreamSource( 0, g_pVB, 0, sizeof(CUSTOMVERTEX) );
 			pd3dDevice->SetFVF( D3DFVF_CUSTOMVERTEX );
 
-			// draw the plane
+			// Draw the trianglestrips that make up the cube
+			//draw with culling clockwise first
+			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CW );
+
+			//pd3dDevice->SetTexture( 0, g_pTexture );
 			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
+
+			// then draw with culling counter clockwise
+			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
+
+			//pd3dDevice->SetTexture( 0, g_pTexture );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
 		}
 	}
 };

@@ -16,6 +16,7 @@ status: unit test
 #include "rectangle.h"
 #include "HudImage.h"
 #include "XYPlane.h"
+#include "dxCube.h"
 
 
 #include "object.h"
@@ -64,7 +65,7 @@ private:
 	HudImage * arrowSprite;
 	HudImage * cursor;
 	HudImage * background;
-	XYPlane * testTile;
+	dxCube * testTile;
 	XYPlane * testTile2;
 	XYPlane * testTile3;
 	float scale;

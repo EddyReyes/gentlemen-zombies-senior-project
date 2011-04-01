@@ -23,18 +23,18 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
 
 	//camera = new dxCamera(dxMgr);
-	cameraX = 0.0f;
-	cameraY = 0.0f;
+	cameraX = -5.0f;
+	cameraY = 8.0f;
 	cameraZ = -10.0f;
 
-	testTile = new XYPlane(dxMgr, "images/letters.bmp");
+	testTile = new dxCube(dxMgr, "images/letters.bmp");
 	testTile->setImageRowsColumns(4, 7);
 	testTile->selectTextureSource(2, 3);
 
 	testTile2 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
 	testTile2->setImageRowsColumns(4, 7);
 	testTile2->selectTextureSource(3, 2);
-	testTile2->setPosition(2, 0, -1.5);
+	testTile2->setPosition(0, 1, 0);
 
 	testTile3 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
 	testTile3->setImageRowsColumns(4, 7);
@@ -42,8 +42,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testTile3->setPosition(-2, 0, 1.5);
 
 	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
-	//testTile->setScale(5.0f);
-	//testTile->setScaleFromCenter(true);
+	//testTile->setScale(0.5f);
+	
 	
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/arrows2.bmp");
@@ -221,6 +221,7 @@ void game::handleInput()
 		arrowSprite->selectSpriteSource(3);
 	}
 	arrowSprite->setPosition(position.x,position.y);
+	player->setPosition((0.005*position.x),(0.005*position.y), 0.0f);
 
 	if ((keystate[DIK_B] & 0x80))
 	{
@@ -331,7 +332,7 @@ game::~game()
 	// release sprites
 	arrowSprite->~HudImage();
 	cursor->~HudImage();
-	testTile->~XYPlane();
+	testTile->~dxCube();
 	testTile2->~XYPlane();
 	testTile3->~XYPlane();
 	player->~PlayerCharacter();
