@@ -17,6 +17,7 @@ Dialogue::Dialogue(dxManager * a_dxMgr, std::string filename)
 	fontSize = 20;
 	italic = false;
 	setFontName("Arial");
+	toggle = true;
 	
 }
 void Dialogue::setFont()
