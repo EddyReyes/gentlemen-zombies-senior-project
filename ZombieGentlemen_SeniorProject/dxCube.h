@@ -22,12 +22,26 @@ private:
 	bool sharingImage; // keeps track of weather the image is being shared with another object
 	float origin;
 
+	// private member functions
+	HRESULT SetupVB();
+	LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage);
+
 public:
+	// constructors
 	dxCube();
 	dxCube(dxManager * a_dxMgr, std::string filename);
 	dxCube(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
+
+	// destructors
 	~dxCube();
 	void releaseImage();
+
+	// member functions
+	void toggleCube();
+	void setRenderStates();
+	void draw();
+
+	// mutators
 	void setImage(std::string filename);
 	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
 	void setParam(float a_x, float a_y, float a_z, float a_width, float a_height, float a_depth);
@@ -41,11 +55,16 @@ public:
 	void setRows(int a_Rows);
 	void setColumns(int a_Columns);
 	void selectTextureSource(int a_Row, int a_Column);
+
+	// accessors
 	LPDIRECT3DTEXTURE9 * getTexture();
 	D3DXIMAGE_INFO * getImageInfo();
-	void toggleCube();
-	HRESULT SetupVB();
-	LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage);
-	void setRenderStates();
-	void draw();
+	float getXPosition();
+	float getYPosition();
+	float getZPosition();
+	D3DXVECTOR3 * getPosition();
+	float getWidth();
+	float getHeight();
+	float getDepth();
+	float getScale();
 };

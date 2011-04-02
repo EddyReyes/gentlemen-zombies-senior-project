@@ -21,15 +21,26 @@ private:
 	bool imageOn; // toogle for drawing XYPlane
 	bool sharingImage; // keeps track of weather the image is being shared with another object
 
+	// private member functions
+	HRESULT SetupVB();
+	LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage);
+
 public:
 
+	// constructors
 	XYPlane();
 	XYPlane(dxManager * a_dxMgr, std::string filename);
 	XYPlane(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
+	
+	// destructors
 	~XYPlane();
 	void releaseImage();
-	void setImage(std::string filename);
-	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
+	
+	// member functions
+	void setRenderStates();
+	void draw();
+	
+	// mutators
 	void setParam(float a_x, float a_y, float a_z, float a_width, float a_height);
 	void setParam(D3DXVECTOR3 a_position, float a_width, float a_height);
 	void setPosition(float a_x, float a_y, float a_z);
@@ -41,11 +52,20 @@ public:
 	void setRows(int a_Rows);
 	void setColumns(int a_Columns);
 	void selectTextureSource(int a_Row, int a_Column);
+	void setImage(std::string filename);
+	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
+	
+	// toggle
+	void toggleImage();
+
+	// accessors
+	float getXPosition();
+	float getYPosition();
+	float getZPosition();
+	D3DXVECTOR3 * getPosition();
+	float getWidth();
+	float getHeight();
+	float getScale();
 	LPDIRECT3DTEXTURE9 * getTexture();
 	D3DXIMAGE_INFO * getImageInfo();
-	void toggleImage();
-	HRESULT SetupVB();
-	LPDIRECT3DVERTEXBUFFER9 createVertexBuffer(int size, DWORD usage);
-	void setRenderStates();
-	void draw();
 };
