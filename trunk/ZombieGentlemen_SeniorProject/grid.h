@@ -55,8 +55,9 @@ private:
 	int rows, columns;
 	float gridScale;
 public:
-	grid(){}
-	~grid(){}
-	void setSize(int a_rows, int a_columns){}
-	void setGridScale(float a_scale){}
+	grid(int a_rows, int a_columns, int a_scale);
+	~grid();
+	void setSize(int a_rows, int a_columns);
+	void setGridScale(float a_scale);
+	void initNodes(void);
 };

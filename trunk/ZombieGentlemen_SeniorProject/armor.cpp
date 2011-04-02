@@ -9,7 +9,7 @@ bool Armor::initPlayerArmor(int a_armorType)
 	return true;
 }
 Armor::~Armor(){}
-void Armor::damagedArmor(int damage)
+void Armor::damageArmor(int damage)
 {
 	armorHealth -= (1- damageResistance) * damage;
 	if(armorHealth<0) armorHealth =0; 

@@ -27,9 +27,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 8.0f;
 	cameraZ = -10.0f;
 
-	testTile = new dxCube(dxMgr, "images/letters.bmp");
-	testTile->setImageRowsColumns(4, 7);
-	testTile->selectTextureSource(2, 3);
+	testTile = new dxCube(dxMgr, "images/glassPanes2.bmp");
+	testTile->setImageRowsColumns(1, 4);
+	testTile->selectTextureSource(0, 1);
 
 	testTile2 = new XYPlane(dxMgr, "images/Character.bmp");
 	testTile2->setScale(1.1f);
@@ -37,8 +37,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testTile2->setPosition(0, 1, 0);
 
 	testTile3 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
-	testTile3->setImageRowsColumns(4, 7);
-	testTile3->selectTextureSource(0, 5);
+	testTile3->setImageRowsColumns(1, 4);
+	testTile3->selectTextureSource(0, 2);
 	testTile3->setPosition(-2, 0, 1.5);
 
 	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
@@ -59,7 +59,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	camera = new dxCamera(dxMgr);
 
-	Grid = new grid();
+	Grid = new grid(1,1,1);
 
 	setMusic();
 
