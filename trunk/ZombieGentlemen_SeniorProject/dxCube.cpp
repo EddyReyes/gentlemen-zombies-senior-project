@@ -395,3 +395,19 @@ void dxCube::draw()
 		pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
 	}
 }
+/*************************************************************************
+* getPosition functions
+* accessors: return the position of the dxCube
+*************************************************************************/
+float dxCube::getXPosition(){return position->x;}
+float dxCube::getYPosition(){return position->y;}
+float dxCube::getZPosition(){return position->z;}
+D3DXVECTOR3 * dxCube::getPosition(){return position;}
+/*************************************************************************
+* getWidth, getHeight, getScale functions
+* accessors: return the parameters of the dxCube
+*************************************************************************/
+float dxCube::getWidth(){return width;}
+float dxCube::getHeight(){return height;}
+float dxCube::getDepth(){return depth;}
+float dxCube::getScale(){return scale;}

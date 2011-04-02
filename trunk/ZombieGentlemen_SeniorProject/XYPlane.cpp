@@ -329,3 +329,18 @@ void XYPlane::draw()
 		pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
 	}
 }
+/*************************************************************************
+* getPosition functions
+* accessors: return the position of the XYPlane
+*************************************************************************/
+float XYPlane::getXPosition(){return position->x;}
+float XYPlane::getYPosition(){return position->y;}
+float XYPlane::getZPosition(){return position->z;}
+D3DXVECTOR3 * XYPlane::getPosition(){return position;}
+/*************************************************************************
+* getWidth, getHeight, getScale functions
+* accessors: return the parameters of the XYPlane
+*************************************************************************/
+float XYPlane::getWidth(){return width;}
+float XYPlane::getHeight(){return height;}
+float XYPlane::getScale(){return scale;}
