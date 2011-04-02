@@ -19,7 +19,6 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 }
 DXText::~DXText()
 {
-	
 }
 void DXText::setFont()
 {
