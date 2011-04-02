@@ -61,7 +61,8 @@ private:
 	// Unit test parameters
 	
 	XY position;
-	HudImage * dialog;
+
+	DXText * dialog;
 	HudImage * arrowSprite;
 	HudImage * cursor;
 	HudImage * background;
