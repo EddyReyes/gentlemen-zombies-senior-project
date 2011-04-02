@@ -86,7 +86,7 @@ void DXText::setTextToArial()
 {
 	setFontName("Arial");
 	setFontSize(18);
-	setFontColor(255, 255, 0, 0);
+	setFontColor(255, 255, 255, 255);
 	setDialog("Welcome to the store! What do you need?");	
 }
 

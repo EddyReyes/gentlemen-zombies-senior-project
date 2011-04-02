@@ -92,9 +92,16 @@ void game::SetSprites()
 	cursor->scaleSize(0.5f);
 	background = new HudImage(dxMgr,"images/Lake level.dds");
 	background->scaleSize(1.0f);
-	dialog = new HudImage(dxMgr, "images/Game_Dialog1.bmp");
-	dialog->scaleSize(0.8f);
-	dialog->setPosition(600,540);
+	dialog = new DXText(dxMgr, "images/Game_Dialog1.bmp");
+	dialog->setFontName("Charlemagne std");
+	dialog->setFontSize(36);
+	dialog->setFontColor(255, 255, 255, 0);
+	dialog->setRect(50, 200, 20, 400);
+	dialog->setDialog("The text finally works!!");
+
+
+
+	
 
 	// set the starting point for the circle sprite
 	position.x = 0;
@@ -330,4 +337,5 @@ game::~game()
 	testTile3->~XYPlane();
 	player->~PlayerCharacter();
 	enemy->~EnemyCharacter();
+	dialog->~DXText();
 }
