@@ -294,6 +294,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\dxLine.h"
+					>
+				</File>
+				<File
 					RelativePath=".\dxManager.h"
 					>
 				</File>
