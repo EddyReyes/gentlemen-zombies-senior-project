@@ -15,6 +15,7 @@ class DXText
 		RECT * textBox;
 		int fontSize;
 		bool italic;
+		bool bold;
 		bool toggle;
 		
 
@@ -26,9 +27,10 @@ class DXText
 		void setFontSize(int a_size);
 		void setFontColor(int a, int r, int g, int b);
 		//void setImage(std::string a_fontName);
-		void setDialogue(std::string text);
+		void setDialog(std::string text);
 		void setRect(int a_top, int a_bottom, int a_left, int a_right);
 		void setTextToArial();
 		void toggleItalic();
+		void toggleBold();
 		void draw();
 };
