@@ -1,5 +1,4 @@
 #include "DXText.h"
-// when you need pd3ddevice use *dxMgr->getDevice()
 
 DXText::DXText(dxManager * a_dxMgr, std::string filename)
 {
@@ -15,11 +14,21 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 	italic = false;
 	setFontName("Arial");
 	toggle = true;
-	
 }
+
 DXText::~DXText()
 {
+	dialogText->~basic_string();
+	delete dialogText;
+	fontName->~basic_string();
+	delete fontName;
+	font->Release();
+	delete fontColor;
+	box->~HudImage();
+	delete box;
+	delete textBox;
 }
+
 void DXText::setFont()
 {
 	//Create a D3DX font object
@@ -36,25 +45,30 @@ void DXText::setFont()
 					TEXT(fontName->c_str()),
 					&font );
 }
+
 void DXText::setFontName(std::string a_fontName)
 {
 	*fontName = a_fontName;
 	setFont();
 }
+
 void DXText::setFontSize(int a_size)
 {
 	fontSize = a_size;
 	setFont();
 }
+
 void DXText::setFontColor(int a, int r, int g, int b)
 {
 	*fontColor = D3DCOLOR_ARGB(a, r, g, b);
 	setFont();
 }
-void DXText::setDialogue(std::string text)
+
+void DXText::setDialog(std::string a_text)
 {
-	
+	*dialogText = a_text;
 }
+
 void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 {
 	// indicate where on the screen it should be drawn
@@ -63,14 +77,19 @@ void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 	textBox->left = a_left;
 	textBox->right = a_right;
 }
+
 void DXText::toggleItalic(){ italic = italic?false:true; }
+
+void DXText::toggleBold(){ bold = bold?false:true; }
+
 void DXText::setTextToArial()
 {
 	setFontName("Arial");
-	setFontSize(12);
+	setFontSize(18);
 	setFontColor(255, 255, 0, 0);
-	setDialogue("Hello Everyone");	
+	setDialog("Welcome to the store! What do you need?");	
 }
+
 void DXText::draw()
 {
 	font->DrawText(NULL, dialogText->c_str(),
