@@ -23,6 +23,7 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename)
 	initTrasform();
 	spriteOn = true;
 	sharingImage = false;
+	m_scale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 {
@@ -35,6 +36,7 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 	initTrasform();
 	spriteOn = true;
 	sharingImage = false;
+	m_scale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
 {
@@ -47,6 +49,7 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, 
 	initTrasform();
 	spriteOn = true;
 	sharingImage = false;
+	m_scale = 1.0f;
 }
 
 /*************************************************************************
@@ -67,6 +70,7 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	initTrasform();
 	spriteOn = true;
 	sharingImage = true;
+	m_scale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
 {
@@ -80,6 +84,7 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	initTrasform();
 	spriteOn = true;
 	sharingImage = true;
+	m_scale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
 {
@@ -93,6 +98,7 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	initTrasform();
 	spriteOn = true;
 	sharingImage = true;
+	m_scale = 1.0f;
 }
 
 /*************************************************************************
@@ -182,19 +188,13 @@ void HudImage::drawCentered()
 	}
 }
 /*************************************************************************
-* setPosition functions
+* setPosition
 * sets the position if the sprite in screen coordinates
 *************************************************************************/
 void HudImage::setPosition(int a_x, int a_y)
 {
 	position.x = (float)a_x;
 	position.y = (float)a_y;
-}
-void HudImage::setPosition(int a_x, int a_y, int a_z)
-{
-	position.x = (float)a_x;
-	position.y = (float)a_y;
-	position.z = (float)a_z;
 }
 /*************************************************************************
 * setCenter
@@ -303,9 +303,10 @@ void HudImage::initTrasform()
 * uses matrix math to scale the sprite
 *************************************************************************/
 void HudImage::scaleSize(float a_scale)
-{
+{ 
+	m_scale = a_scale;
 	D3DXMATRIX scale;
-	D3DXMatrixScaling(&scale, a_scale, a_scale, a_scale);
+	D3DXMatrixScaling(&scale, m_scale, m_scale, m_scale);
 	D3DXMatrixMultiply(&transform, &transform, &scale);
 	sprite->SetTransform(&transform);
 }
@@ -331,3 +332,12 @@ void HudImage::SetTransform()
 {
 	sprite->SetTransform(&transform);
 }
+/*************************************************************************
+* getHeight, getWidth, getXPosition, getYPosition, getScale
+* accesors: return the HudImage parameters
+*************************************************************************/
+float HudImage::getHeight(){return (imageInfo->Height * m_scale);}
+float HudImage::getWidth(){return (imageInfo->Width * m_scale);}
+float HudImage::getXPosition(){return position.x;}
+float HudImage::getYPosition(){return position.y;}
+float HudImage::getScale(){return m_scale;}

@@ -1,5 +1,8 @@
 #include "grid.h"
 
+// defualt constructor
+grid::grid(){}
+
 grid::grid(int a_rows, int a_columns, float a_scale)
 {
 	setSize(a_rows, a_columns);

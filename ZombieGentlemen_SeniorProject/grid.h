@@ -1,3 +1,4 @@
+#pragma once
 #include "dxManager.h"
 #include "object.h"
 
@@ -9,6 +10,7 @@ private:
 	int rows, columns;
 	float gridScale;
 public:
+	grid();
 	grid(int a_rows, int a_columns, float a_scale);
 	~grid();
 	void setSize(int a_rows, int a_columns);
