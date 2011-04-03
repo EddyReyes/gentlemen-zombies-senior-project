@@ -12,7 +12,7 @@ status: skeleton
 class Map
 {
 private:
-	grid m_grid;
+	grid * m_grid;
 	float scale;
 	char ** m_map;
 	dxCube ** cubes;
@@ -29,6 +29,7 @@ public:
 	{
 		dxMgr = a_dxMgr;
 		loadMap(filename);
+		m_grid = new grid(height, width, scale);
 		useCubes = a_useCubes;
 		initMap();
 	}
