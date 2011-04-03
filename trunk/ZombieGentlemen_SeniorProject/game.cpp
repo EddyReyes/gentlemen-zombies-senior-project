@@ -342,6 +342,9 @@ game::~game()
 	inputMgr->shutdownDirectInput();
 	soundMgr->shutdownDirectSound();
 	
+	// destroy map
+	m_map->~Map();
+	
 	// release sprites
 	arrowSprite->~HudImage();
 	cursor->~HudImage();
