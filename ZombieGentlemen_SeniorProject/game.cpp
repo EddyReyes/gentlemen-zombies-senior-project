@@ -96,7 +96,8 @@ void game::SetSprites()
 	dialog = new DXText(dxMgr, "images/Game_Dialog1.bmp");
 	dialog->textInfo("Charlemagne std", 22,
 					 D3DCOLOR_ARGB(255, 255, 255, 0),
-					 "The text finally works!!");
+					 "That's a new face. Nobody ever comes around"
+					 " after the town was destroyed.  What do you need?");
 	dialog->setRect(50, 200, 20, 400);
 	
 		
