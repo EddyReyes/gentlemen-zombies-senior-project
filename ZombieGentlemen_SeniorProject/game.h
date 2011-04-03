@@ -81,5 +81,8 @@ public:
 	void update();
 	void handleInput();
 	void draw();
+	bool collides(PlayerCharacter*,EnemyCharacter*);//stubbed
+
+
 	~game();
 };

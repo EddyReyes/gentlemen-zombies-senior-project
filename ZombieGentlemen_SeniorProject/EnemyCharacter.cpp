@@ -68,3 +68,7 @@ void EnemyCharacter::Draw()
 	// calls the draw function to draw the image.
 	enemyImage->draw();
 }
+XYPlane* EnemyCharacter::getimg()
+{
+	return enemyImage;
+}

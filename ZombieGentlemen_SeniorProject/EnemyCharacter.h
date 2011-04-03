@@ -27,4 +27,9 @@ public:
 	void setPosition(float a_x, float a_y, float a_z);
 	void Draw();
 
+	//unit test params
+	XYPlane* getimg();
+	float getHeight(){return enemyImage->getHeight();}
+	float getWidth(){return enemyImage->getWidth();}
+	D3DXVECTOR3 getPosition(){return *(enemyImage->getPosition());}
 };
