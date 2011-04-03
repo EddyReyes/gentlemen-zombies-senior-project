@@ -389,6 +389,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testMap.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\TODO list.txt"
 				>
 			</File>

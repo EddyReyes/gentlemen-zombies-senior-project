@@ -43,6 +43,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
 	//testTile->setScale(0.5f);
+
+	m_map = new Map("testMap.txt", dxMgr, true);
 	
 	
 	scale = 1.0f;
@@ -59,7 +61,6 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	camera = new dxCamera(dxMgr);
 
-	Grid = new grid(1,1,1);
 
 	setMusic();
 
@@ -321,7 +322,6 @@ void game::draw()
 
 game::~game()
 {		
-	Grid->~grid();
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
 	soundMgr->shutdownDirectSound();

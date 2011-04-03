@@ -20,7 +20,7 @@ status: unit test
 #include "DXText.h"
 
 #include "object.h"
-#include "grid.h"
+#include "map.h"
 #include "physicsObject.h"
 
 #include "map.h"
@@ -55,10 +55,9 @@ private:
 	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
 	float animationRate;
 
-	// grid
-	grid * Grid;
-
 	// Unit test parameters
+
+	Map * m_map;
 	
 	XY position;
 
