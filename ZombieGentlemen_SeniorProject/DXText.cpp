@@ -25,7 +25,6 @@ DXText::~DXText()
 	font->Release();
 	delete fontColor;
 	box->~HudImage();
-	delete box;
 	delete textBox;
 }
 
