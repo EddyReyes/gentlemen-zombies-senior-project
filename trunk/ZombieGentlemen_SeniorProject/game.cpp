@@ -315,11 +315,13 @@ void game::draw()
 	//camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 	camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
+	m_map->draw();
 	testTile->draw();
 	testTile2->draw();
 	testTile3->draw();
 	player->Draw();
 	enemy->Draw();
+
 
 	camera->SetHudCamera();
 

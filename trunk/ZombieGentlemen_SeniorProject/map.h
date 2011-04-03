@@ -31,7 +31,7 @@ public:
 		loadMap(filename);
 		m_grid = new grid(height, width, scale);
 		useCubes = a_useCubes;
-		//initMap();
+		initMap();
 	}
 	~Map(){}
 
@@ -49,6 +49,7 @@ public:
 			//initialize cubes positions
 			for(int x = 0; x < height; x++)
 			{
+				cubes[y][x] = dxCube(dxMgr, "images/glassPanes2.bmp");
 				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
 				cubes[y][x].setPosition(*pos);
 				cubes[y][x].setScale(scale);
@@ -64,6 +65,7 @@ public:
 			//initialize cubes positions and scale
 			for(int x = 0; x < height; x++)
 			{
+				planes[y][x] = XYPlane(dxMgr, "images/glassPanes2.bmp");
 				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
 				planes[y][x].setPosition(*pos);
 				planes[y][x].setScale(scale);
@@ -89,6 +91,32 @@ public:
 					x--;}
 				else{
 					m_map[y][x] = c;
+				}
+			}
+		}
+	}
+	void draw()
+	{
+		if(toggle)
+		{
+			if(useCubes)
+			{
+				for(int y = 0; y < width; y++)
+				{
+					for(int x = 0; x < height; x++)
+					{
+						cubes[y][x].draw();
+					}
+				}
+			}
+			else
+			{
+				for(int y = 0; y < width; y++)
+				{
+					for(int x = 0; x < height; x++)
+					{
+						planes[y][x].draw();
+					}
 				}
 			}
 		}
