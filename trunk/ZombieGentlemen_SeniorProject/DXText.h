@@ -33,4 +33,5 @@ class DXText
 		void toggleItalic();
 		void toggleBold();
 		void draw();
+		void setTextToImage();
 };

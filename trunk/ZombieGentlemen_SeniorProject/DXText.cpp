@@ -78,7 +78,7 @@ void DXText::textInfo(std::string a_fontName, int a_size, D3DCOLOR a_textColor, 
 
 void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 {
-	// indicate where on the screen it should be drawn
+	// indicate where on the screen it should draw text
 	textBox->bottom = a_bottom;
 	textBox->top = a_top;
 	textBox->left = a_left;
@@ -91,7 +91,16 @@ void DXText::toggleBold(){ bold = bold?false:true;}
 
 void DXText::draw()
 {
+	//box->draw();
+	
 	font->DrawText(NULL, dialogText->c_str(),
 					-1, textBox,
 					DT_WORDBREAK, *fontColor);
+}
+
+void DXText::setTextToImage()
+{
+
+
+
 }
