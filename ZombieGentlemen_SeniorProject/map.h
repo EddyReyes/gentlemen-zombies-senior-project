@@ -33,7 +33,34 @@ public:
 		useCubes = a_useCubes;
 		initMap();
 	}
-	~Map(){}
+	~Map()
+	{
+		// call the grid destructor
+		m_grid->~grid();
+		// delete either the cube or plane 2D array
+		if(useCubes)
+		{
+			for(int i = 0; i < width; i++)
+			{
+				delete [] cubes[i];
+			}
+			delete [] cubes;
+		}
+		else
+		{
+			for(int i = 0; i < width; i++)
+			{
+				delete [] planes[i];
+			}
+			delete [] planes;
+		}
+		// delete the m_map 2D char array
+		for(int i = 0; i < width; i++)
+		{
+			delete [] m_map[i];
+		}
+		delete [] m_map;
+	}
 
 	void initMap()
 	{
