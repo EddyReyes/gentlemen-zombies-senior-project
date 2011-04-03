@@ -68,3 +68,7 @@ void PlayerCharacter::Draw()
 	// calls the draw function to draw the image.
 	playerImage->draw();
 }
+XYPlane* PlayerCharacter::getimg()
+{
+	return playerImage;
+}

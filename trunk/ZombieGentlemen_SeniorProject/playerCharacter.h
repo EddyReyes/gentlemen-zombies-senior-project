@@ -24,6 +24,12 @@ public:
 	void setPosition(float a_x, float a_y, float a_z);
 	void Draw();
 
+	//unit test params
+	XYPlane* getimg();
+	float getHeight(){return playerImage->getHeight();}
+	float getWidth(){return playerImage->getWidth();}
+	D3DXVECTOR3 getPosition(){return *(playerImage->getPosition());}
+
 	//void attack(int & weapon );
 	//void defend();
 	//addItem()

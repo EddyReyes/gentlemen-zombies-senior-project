@@ -52,11 +52,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
 	player->initPlayerSpriteSheet(1,4);
 	player->setPlayerSprite(0,0);
-	player->setPosition(5, 5, 5);
+	player->setPosition(4, 1, 0);
 
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
-	enemy->setPosition(1, 5, 5);
+	enemy->setPosition(4, 4, 0);
 	
 
 	camera = new dxCamera(dxMgr);
@@ -104,9 +104,24 @@ void game::SetSprites()
 	// set the starting point for the circle sprite
 	position.x = 0;
 	position.y = 0;
+
 	arrowSprite->setPosition(position.x,position.y);
 	background->setPosition(0,0);
+
 }
+bool game::collides(PlayerCharacter* a,EnemyCharacter* b)//stub
+{	//nothing works =/	
+	/*float ax = a->getPosition().x;	
+	float ay = a->getPosition().y;	
+	float bx = b->getPosition().x;	
+	float by = b->getPosition().y;	
+	//actually checks if its colliding	
+	if(ax>=bx||		
+	ay>=by||		
+	ax+a->getWidth()==bx||		
+	ax+a->getWidth()==bx+b->getWidth())		
+	return true;*/	
+	return false;}
 void game::update()
 {
 
@@ -197,31 +212,31 @@ void game::handleInput()
 
 	// sprite movement
 	float moveDistance = 5.0f;
-
-	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
+	int prevX, prevY;
+	prevX = position.x;	prevY = position.y;	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		position.y -= (int)moveDistance;
-		arrowSprite->selectSpriteSource(1);
+		position.y += (int)moveDistance;
+		//arrowSprite->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		position.y += (int)moveDistance;
-		arrowSprite->selectSpriteSource(2);
+		position.y -= (int)moveDistance;
+		//arrowSprite->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= (int)moveDistance;
-		arrowSprite->selectSpriteSource(0);	
+		//arrowSprite->selectSpriteSource(0);	
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += (int)moveDistance;
-		arrowSprite->selectSpriteSource(3);
+		//arrowSprite->selectSpriteSource(3);
 	}
-	arrowSprite->setPosition(position.x,position.y);
-
+	//arrowSprite->setPosition(position.x,position.y);
+	if(collides(player,enemy))	{		player->setPosition(prevX*0.005,prevY*0.005,0);	}	else	{		player->setPosition(position.x*0.005,position.y*0.005,0);	}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 150)
@@ -319,7 +334,6 @@ void game::draw()
 
 	dxMgr->endRender();
 }
-
 game::~game()
 {		
 	dxMgr->shutdown();
