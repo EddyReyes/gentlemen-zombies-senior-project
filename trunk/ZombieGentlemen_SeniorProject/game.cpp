@@ -104,7 +104,7 @@ void game::SetSprites()
 	position.x = 0;
 	position.y = 0;
 	arrowSprite->setPosition(position.x,position.y);
-	background->setPosition(0,0, 0);
+	background->setPosition(0,0);
 }
 void game::update()
 {
