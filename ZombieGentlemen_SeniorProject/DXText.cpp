@@ -69,6 +69,14 @@ void DXText::setDialog(std::string a_text)
 	*dialogText = a_text;
 }
 
+void DXText::textInfo(std::string a_fontName, int a_size, D3DCOLOR a_textColor, std::string a_text)
+{
+	setFontName(a_fontName);
+	setFontSize(a_size);
+	*fontColor = a_textColor;
+	setDialog(a_text);
+}
+
 void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 {
 	// indicate where on the screen it should be drawn
@@ -78,17 +86,9 @@ void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 	textBox->right = a_right;
 }
 
-void DXText::toggleItalic(){ italic = italic?false:true; }
+void DXText::toggleItalic(){ italic = italic?false:true;}
 
-void DXText::toggleBold(){ bold = bold?false:true; }
-
-void DXText::setTextToArial()
-{
-	setFontName("Arial");
-	setFontSize(18);
-	setFontColor(255, 255, 255, 255);
-	setDialog("Welcome to the store! What do you need?");	
-}
+void DXText::toggleBold(){ bold = bold?false:true;}
 
 void DXText::draw()
 {

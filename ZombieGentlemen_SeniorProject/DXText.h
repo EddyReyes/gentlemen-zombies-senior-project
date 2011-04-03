@@ -26,10 +26,10 @@ class DXText
 		void setFontName(std::string a_fontName);
 		void setFontSize(int a_size);
 		void setFontColor(int a, int r, int g, int b);
+		void textInfo(std::string a_fontName, int a_size, D3DCOLOR a_textColor, std::string a_text);
 		//void setImage(std::string a_fontName);
 		void setDialog(std::string text);
 		void setRect(int a_top, int a_bottom, int a_left, int a_right);
-		void setTextToArial();
 		void toggleItalic();
 		void toggleBold();
 		void draw();
