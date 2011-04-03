@@ -24,6 +24,8 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename)
 	spriteOn = true;
 	sharingImage = false;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 {
@@ -37,6 +39,8 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
 	spriteOn = true;
 	sharingImage = false;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
 {
@@ -50,6 +54,8 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, 
 	spriteOn = true;
 	sharingImage = false;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 
 /*************************************************************************
@@ -71,6 +77,8 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	spriteOn = true;
 	sharingImage = true;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
 {
@@ -85,6 +93,8 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	spriteOn = true;
 	sharingImage = true;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
 {
@@ -99,6 +109,8 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	spriteOn = true;
 	sharingImage = true;
 	m_scale = 1.0f;
+	xScale = 1.0f;
+	yScale = 1.0f;
 }
 
 /*************************************************************************
@@ -310,7 +322,14 @@ void HudImage::scaleSize(float a_scale)
 	D3DXMatrixMultiply(&transform, &transform, &scale);
 	sprite->SetTransform(&transform);
 }
-
+void HudImage::scaleCustom(float a_scale)
+{ 
+	m_scale = a_scale;
+	D3DXMATRIX scale;
+	D3DXMatrixScaling(&scale, xScale, yScale, m_scale);
+	D3DXMatrixMultiply(&transform, &transform, &scale);
+	sprite->SetTransform(&transform);
+}
 /*************************************************************************
 * rotateSpriteY
 * meant to facilitate rotation around the Y axis, but it appears it wont be possible
@@ -332,6 +351,14 @@ void HudImage::SetTransform()
 {
 	sprite->SetTransform(&transform);
 }
+void HudImage::setWidthScale(float widthScale)
+{
+	xScale = widthScale;
+}
+void HudImage::setHeightScale(float heightScale)
+{
+	yScale = heightScale;
+}
 /*************************************************************************
 * getHeight, getWidth, getXPosition, getYPosition, getScale
 * accesors: return the HudImage parameters
@@ -341,3 +368,5 @@ float HudImage::getWidth(){return (imageInfo->Width * m_scale);}
 float HudImage::getXPosition(){return position.x;}
 float HudImage::getYPosition(){return position.y;}
 float HudImage::getScale(){return m_scale;}
+float HudImage::getWidthScale(){return xScale;}
+float HudImage::getHeightScale(){return yScale;}

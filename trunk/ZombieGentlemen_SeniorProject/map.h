@@ -31,7 +31,7 @@ public:
 		loadMap(filename);
 		m_grid = new grid(height, width, scale);
 		useCubes = a_useCubes;
-		initMap();
+		//initMap();
 	}
 	~Map(){}
 
@@ -40,8 +40,36 @@ public:
 		if(useCubes) initCubes();
 		else initPlanes();
 	}
-	void initCubes(){}
-	void initPlanes(){}
+	void initCubes()
+	{
+		cubes = new dxCube * [width];
+		for(int y = 0; y < width; y++)
+		{
+			cubes[y] = new dxCube[height];
+			//initialize cubes positions
+			for(int x = 0; x < height; x++)
+			{
+				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
+				cubes[y][x].setPosition(*pos);
+				cubes[y][x].setScale(scale);
+			}
+		}
+	}
+	void initPlanes()
+	{
+		planes = new XYPlane * [width];
+		for(int y = 0; y < width; y++)
+		{
+			planes[y] = new XYPlane[height];
+			//initialize cubes positions and scale
+			for(int x = 0; x < height; x++)
+			{
+				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
+				planes[y][x].setPosition(*pos);
+				planes[y][x].setScale(scale);
+			}
+		}
+	}
 	void loadMap(char * filename)
 	{
 		fstream file(filename);

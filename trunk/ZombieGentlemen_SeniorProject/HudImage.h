@@ -16,7 +16,7 @@ private:
 	int spriteRows;
 	bool spriteOn;
 	bool sharingImage;
-	float m_scale;
+	float m_scale, xScale, yScale;
 
 public:
 	HudImage();
@@ -50,10 +50,15 @@ public:
 	void rotateSpriteY(float rotation);
 	void rotateSpriteX(float rotation);
 	void SetTransform();
+	void setWidthScale(float widthScale);
+	void setHeightScale(float heightScale);
+	void scaleCustom(float a_scale);
 
 	float getHeight();
 	float getWidth();
 	float getXPosition();
 	float getYPosition();
 	float getScale();
+	float getWidthScale();
+	float getHeightScale();
 };
