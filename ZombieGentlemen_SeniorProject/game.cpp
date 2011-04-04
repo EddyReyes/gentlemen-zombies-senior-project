@@ -242,8 +242,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_B] > 150)
 		{
-			background->toggleSprite();
-			keyLag[DIK_B] = now;
+			m_map->toggleMap();
 		}
 	}
 	
