@@ -148,5 +148,6 @@ public:
 			}
 		}
 	}
+	void toggleMap(){toggle?false:true;}
 
 };
