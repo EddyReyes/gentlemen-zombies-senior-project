@@ -46,9 +46,9 @@ public:
 		// call the grid destructor
 		m_grid->~grid();
 		// delete either the cube or plane 2D array
-		for(int y = 0; y < width; y++)
+		for(int y = 0; y < height; y++)
 		{
-			for(int x = 0; x < height; x++)
+			for(int x = 0; x < width; x++)
 			{
 				cubes[y][x].cube->~dxCube();
 			}
@@ -56,7 +56,7 @@ public:
 		}
 		delete [] cubes;
 
-		for(int i = 0; i < width; i++)
+		for(int i = 0; i < height; i++)
 		{
 			delete [] m_map[i];
 		}
@@ -72,12 +72,12 @@ public:
 	}
 	void initCubes()
 	{
-		cubes = new dxCubePointer * [width];
-		for(int y = 0; y < width; y++)
+		cubes = new dxCubePointer * [height];
+		for(int y = 0; y < height; y++)
 		{
-			cubes[y] = new dxCubePointer[height];
+			cubes[y] = new dxCubePointer[width];
 			//initialize cubes positions
-			for(int x = 0; x < height; x++)
+			for(int x = 0; x < width; x++)
 			{
 				cubes[y][x].cube = new dxCube(dxMgr, mapTexture);
 			}
@@ -110,9 +110,9 @@ public:
 	{
 		if(toggle)
 		{
-			for(int y = 0; y < width; y++)
+			for(int y = 0; y < height; y++)
 			{
-				for(int x = 0; x < height; x++)
+				for(int x = 0; x < width; x++)
 				{
 					cubes[y][x].cube->draw();
 				}
@@ -122,9 +122,9 @@ public:
 	void toggleMap(){toggle?false:true;}
 	void initMapTextures()
 	{
-		for(int y = 0; y < width; y++)
+		for(int y = 0; y < height; y++)
 		{
-			for(int x = 0; x < height; x++)
+			for(int x = 0; x < width; x++)
 			{
 				cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
 				cubes[y][x].cube->selectTextureSource(0,0);
@@ -137,9 +137,9 @@ public:
 	}
 	void initCubePositions()
 	{
-		for(int y = 0; y < width; y++)
+		for(int y = 0; y < height; y++)
 		{
-			for(int x = 0; x < height; x++)
+			for(int x = 0; x < width; x++)
 			{
 				D3DXVECTOR3 * pos = m_grid->getNode(y, x);
 				cubes[y][x].cube->setPosition(*pos);
@@ -148,9 +148,9 @@ public:
 	}
 	void initCubeScales()
 	{
-		for(int y = 0; y < width; y++)
+		for(int y = 0; y < height; y++)
 		{
-			for(int x = 0; x < height; x++)
+			for(int x = 0; x < width; x++)
 			{
 				cubes[y][x].cube->setScale(scale);
 			}
