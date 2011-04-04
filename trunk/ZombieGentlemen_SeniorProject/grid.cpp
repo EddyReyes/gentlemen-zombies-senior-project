@@ -27,7 +27,7 @@ void grid::initNodes()
 		//initialize node data
 		for(int x = 0; x < columns; x++)
 		{
-			nodes[y][x] = D3DXVECTOR3(x * gridScale, y * gridScale, zAxis);
+			nodes[y][x] = D3DXVECTOR3(x * gridScale, (-1 * y) * gridScale, zAxis);
 		}
 	}
 }

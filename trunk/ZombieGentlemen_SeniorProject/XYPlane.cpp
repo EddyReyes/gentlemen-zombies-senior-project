@@ -218,6 +218,8 @@ LPDIRECT3DTEXTURE9 * XYPlane::getTexture(){return &image;}
 D3DXIMAGE_INFO * XYPlane::getImageInfo(){return imageInfo;}
 
 void XYPlane::toggleImage(){imageOn = imageOn?false:true;}
+void XYPlane::toggleImageOff(){imageOn = false;}
+void XYPlane::toggleImageOn(){imageOn = true;}
 
 /*************************************************************************
 * SetupVB

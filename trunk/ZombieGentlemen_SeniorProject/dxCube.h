@@ -37,7 +37,6 @@ public:
 	void releaseImage();
 
 	// member functions
-	void toggleCube();
 	void setRenderStates();
 	void draw();
 
@@ -55,6 +54,11 @@ public:
 	void setRows(int a_Rows);
 	void setColumns(int a_Columns);
 	void selectTextureSource(int a_Row, int a_Column);
+
+	// toggle
+	void toggleCube();
+	void toggleCubeOff();
+	void toggleCubeOn();
 
 	// accessors
 	LPDIRECT3DTEXTURE9 * getTexture();
