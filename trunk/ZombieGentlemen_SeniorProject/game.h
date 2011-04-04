@@ -65,9 +65,7 @@ private:
 	HudImage * arrowSprite;
 	HudImage * cursor;
 	HudImage * background;
-	dxCube * testTile;
-	XYPlane * testTile2;
-	XYPlane * testTile3;
+	XYPlane * testTile;
 	float scale;
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
