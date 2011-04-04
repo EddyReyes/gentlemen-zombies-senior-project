@@ -27,24 +27,14 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 8.0f;
 	cameraZ = -10.0f;
 
-	testTile = new dxCube(dxMgr, "images/glassPanes2.bmp");
-	testTile->setImageRowsColumns(1, 4);
-	testTile->selectTextureSource(0, 1);
 
-	testTile2 = new XYPlane(dxMgr, "images/Character.bmp");
-	testTile2->setScale(1.1f);
+	testTile = new XYPlane(dxMgr, "images/Character.bmp");
+	testTile->setScale(1.1f);
 	//testTile2->selectTextureSource(3, 2);
-	testTile2->setPosition(0, 1, 0);
+	testTile->setPosition(0, 1, 0);
 
-	testTile3 = new XYPlane(dxMgr, testTile->getTexture(), testTile->getImageInfo());
-	testTile3->setImageRowsColumns(1, 4);
-	testTile3->selectTextureSource(0, 2);
-	testTile3->setPosition(-2, 0, 1.5);
 
-	//testTile->setPosition(D3DXVECTOR3(1.0f, 2.0f, 0.0f));
-	//testTile->setScale(0.5f);
-
-	m_map = new Map("testMap.txt", dxMgr, true);
+	m_map = new Map("testMap.txt", "images/glassPanes2.bmp", dxMgr, true);
 	
 	
 	scale = 1.0f;
@@ -247,7 +237,7 @@ void game::handleInput()
 	}
 	
 	// camera movement
-	float cameraMove = 0.05f;
+	float cameraMove = 0.2f;
 	int cameraLag = 0;
 	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
@@ -315,11 +305,10 @@ void game::draw()
 	//camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 	camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
-	m_map->draw();
 	testTile->draw();
-	testTile2->draw();
-	testTile3->draw();
+	m_map->draw();
 	player->Draw();
+	
 	enemy->Draw();
 
 
@@ -348,9 +337,7 @@ game::~game()
 	// release sprites
 	arrowSprite->~HudImage();
 	cursor->~HudImage();
-	testTile->~dxCube();
-	testTile2->~XYPlane();
-	testTile3->~XYPlane();
+	testTile->~XYPlane();
 	player->~PlayerCharacter();
 	enemy->~EnemyCharacter();
 	dialog->~DXText();

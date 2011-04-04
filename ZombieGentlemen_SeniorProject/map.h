@@ -8,15 +8,22 @@ status: skeleton
 #include <stdio.h>
 #include <fstream>
 #include <ctype.h>
+#include <string.h>
+
+struct dxCubePointer
+{
+	dxCube * cube;
+};
 
 class Map
 {
 private:
 	grid * m_grid;
 	float scale;
+	int textureRows, textureColumns;
+	string mapTexture;
 	char ** m_map;
-	dxCube ** cubes;
-	XYPlane ** planes;
+	dxCubePointer ** cubes;
 	XYPlane * background;
 	dxManager * dxMgr;
 	int width, height;
@@ -25,10 +32,11 @@ private:
 
 public:
 	Map(){}
-	Map(char * filename, dxManager * a_dxMgr, bool a_useCubes)
+	Map(char * textFile, std::string a_textureFile, dxManager * a_dxMgr, bool a_useCubes)
 	{
 		dxMgr = a_dxMgr;
-		loadMap(filename);
+		mapTexture = a_textureFile;
+		loadMap(textFile);
 		m_grid = new grid(height, width, scale);
 		useCubes = a_useCubes;
 		initMap();
@@ -38,23 +46,16 @@ public:
 		// call the grid destructor
 		m_grid->~grid();
 		// delete either the cube or plane 2D array
-		if(useCubes)
+		for(int y = 0; y < width; y++)
 		{
-			for(int i = 0; i < width; i++)
+			for(int x = 0; x < height; x++)
 			{
-				delete [] cubes[i];
+				cubes[y][x].cube->~dxCube();
 			}
-			delete [] cubes;
+			delete [] cubes[y];
 		}
-		else
-		{
-			for(int i = 0; i < width; i++)
-			{
-				delete [] planes[i];
-			}
-			delete [] planes;
-		}
-		// delete the m_map 2D char array
+		delete [] cubes;
+
 		for(int i = 0; i < width; i++)
 		{
 			delete [] m_map[i];
@@ -64,38 +65,21 @@ public:
 
 	void initMap()
 	{
-		if(useCubes) initCubes();
-		else initPlanes();
+		initCubes();
+		initCubePositions();
+		initMapTextures();
+		initCubeScales();
 	}
 	void initCubes()
 	{
-		cubes = new dxCube * [width];
+		cubes = new dxCubePointer * [width];
 		for(int y = 0; y < width; y++)
 		{
-			cubes[y] = new dxCube[height];
+			cubes[y] = new dxCubePointer[height];
 			//initialize cubes positions
 			for(int x = 0; x < height; x++)
 			{
-				cubes[y][x] = dxCube(dxMgr, "images/glassPanes2.bmp");
-				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
-				cubes[y][x].setPosition(*pos);
-				cubes[y][x].setScale(scale);
-			}
-		}
-	}
-	void initPlanes()
-	{
-		planes = new XYPlane * [width];
-		for(int y = 0; y < width; y++)
-		{
-			planes[y] = new XYPlane[height];
-			//initialize cubes positions and scale
-			for(int x = 0; x < height; x++)
-			{
-				planes[y][x] = XYPlane(dxMgr, "images/glassPanes2.bmp");
-				D3DXVECTOR3 * pos = m_grid->getNode(y, x); 
-				planes[y][x].setPosition(*pos);
-				planes[y][x].setScale(scale);
+				cubes[y][x].cube = new dxCube(dxMgr, mapTexture);
 			}
 		}
 	}
@@ -103,7 +87,7 @@ public:
 	{
 		fstream file(filename);
 		// the size of the data we are going to create
-		file >> height >> width >> scale;
+		file >> height >> width >> textureRows >> textureColumns >> scale;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		m_map = new char * [height];
 		for(int c = 0; c < height; c++){
@@ -126,28 +110,50 @@ public:
 	{
 		if(toggle)
 		{
-			if(useCubes)
+			for(int y = 0; y < width; y++)
 			{
-				for(int y = 0; y < width; y++)
+				for(int x = 0; x < height; x++)
 				{
-					for(int x = 0; x < height; x++)
-					{
-						cubes[y][x].draw();
-					}
-				}
-			}
-			else
-			{
-				for(int y = 0; y < width; y++)
-				{
-					for(int x = 0; x < height; x++)
-					{
-						planes[y][x].draw();
-					}
+					cubes[y][x].cube->draw();
 				}
 			}
 		}
 	}
 	void toggleMap(){toggle?false:true;}
+	void initMapTextures()
+	{
+		for(int y = 0; y < width; y++)
+		{
+			for(int x = 0; x < height; x++)
+			{
+				cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
+				cubes[y][x].cube->selectTextureSource(0,0);
+			/*	case(m_map[y][x])
+				{
 
+				}*/
+			}
+		}
+	}
+	void initCubePositions()
+	{
+		for(int y = 0; y < width; y++)
+		{
+			for(int x = 0; x < height; x++)
+			{
+				D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+				cubes[y][x].cube->setPosition(*pos);
+			}
+		}
+	}
+	void initCubeScales()
+	{
+		for(int y = 0; y < width; y++)
+		{
+			for(int x = 0; x < height; x++)
+			{
+				cubes[y][x].cube->setScale(scale);
+			}
+		}
+	}
 };
