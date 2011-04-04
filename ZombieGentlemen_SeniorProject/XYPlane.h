@@ -57,6 +57,8 @@ public:
 	
 	// toggle
 	void toggleImage();
+	void toggleImageOff();
+	void toggleImageOn();
 
 	// accessors
 	float getXPosition();

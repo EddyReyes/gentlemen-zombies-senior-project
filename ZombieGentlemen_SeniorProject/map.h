@@ -128,10 +128,10 @@ public:
 			{
 				cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
 				cubes[y][x].cube->selectTextureSource(0,0);
-			/*	case(m_map[y][x])
+				switch(m_map[y][x])
 				{
-
-				}*/
+				case '.':  cubes[y][x].cube->toggleCubeOff(); break;
+				}
 			}
 		}
 	}

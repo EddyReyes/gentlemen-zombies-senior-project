@@ -224,6 +224,8 @@ LPDIRECT3DTEXTURE9 * dxCube::getTexture(){return &image;}
 D3DXIMAGE_INFO * dxCube::getImageInfo(){return imageInfo;}
 
 void dxCube::toggleCube(){cubeToggle = cubeToggle?false:true;}
+void dxCube::toggleCubeOff(){cubeToggle = false;}
+void dxCube::toggleCubeOn(){cubeToggle = true;}
 
 /*************************************************************************
 * SetupVB
