@@ -220,6 +220,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\cubeMap.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\EnemyCharacter.cpp"
 					>
 				</File>
@@ -237,10 +241,6 @@
 				</File>
 				<File
 					RelativePath=".\helmet.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\map.cpp"
 					>
 				</File>
 				<File
@@ -314,6 +314,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\planeMap.h"
+					>
+				</File>
+				<File
 					RelativePath=".\rectangle.h"
 					>
 				</File>
@@ -334,6 +338,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\cubeMap.h"
+					>
+				</File>
+				<File
 					RelativePath=".\EnemyCharacter.h"
 					>
 				</File>
@@ -351,10 +359,6 @@
 				</File>
 				<File
 					RelativePath=".\helmet.h"
-					>
-				</File>
-				<File
-					RelativePath=".\map.h"
 					>
 				</File>
 				<File
