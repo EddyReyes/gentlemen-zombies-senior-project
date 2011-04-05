@@ -123,7 +123,16 @@ HudImage::~HudImage()
 {
 	releaseImage();
 	if( sprite != NULL )
+	{
 		sprite->Release();
+		sprite = NULL;
+	}
+	if(imageInfo)
+	{
+		delete imageInfo;
+		imageInfo = 0;
+	}
+	dxMgr = NULL;
 }
 /*************************************************************************
 * releaseImage
@@ -136,6 +145,7 @@ void HudImage::releaseImage()
 		if(image != NULL)
 		{
 			image->Release(); // release image if not being shared
+			image = NULL;
 		}
 	}
 }

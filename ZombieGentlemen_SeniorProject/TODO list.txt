@@ -9,8 +9,9 @@ Legend
 
 3/31 Eddy
 - In hud image possibly add rotation capability around the Z axis
-- Make the grid, using nodes and edges
-- make a cube class
++ Make the grid, using nodes and edges
++ make a cube class
+- add more texture mapping functionality to map class
 
 3/31 William
 + display a message bubble

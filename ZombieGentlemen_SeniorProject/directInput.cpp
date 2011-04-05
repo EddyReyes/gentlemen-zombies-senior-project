@@ -17,6 +17,7 @@ directInput::directInput(void)
 
 directInput::~directInput(void)
 {
+	shutdownDirectInput();
 }
 
 /*******************************************************************

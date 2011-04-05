@@ -18,14 +18,29 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 
 DXText::~DXText()
 {
+	// destroy strings
 	dialogText->~basic_string();
 	delete dialogText;
+	dialogText = 0;
 	fontName->~basic_string();
 	delete fontName;
+	fontName = 0;
+
+	// destroy font
 	font->Release();
+	font = NULL;
+
+	//destroy font color
 	delete fontColor;
+	fontColor = NULL;
+
+	// destroy text box image
 	box->~HudImage();
+	box = NULL;
+
+	// destroy text rectangle
 	delete textBox;
+	textBox = 0;
 }
 
 void DXText::setFont()
