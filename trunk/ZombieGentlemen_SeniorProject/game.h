@@ -20,10 +20,10 @@ status: unit test
 #include "DXText.h"
 
 #include "object.h"
-#include "map.h"
 #include "physicsObject.h"
 
-#include "map.h"
+#include "cubeMap.h"
+#include "planeMap.h"
 #include "entity.h"
 
 #include "playerCharacter.h"
@@ -53,11 +53,12 @@ private:
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
 	int now, then, passed, soon; // low resolution timers for keylag
 	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
-	float animationRate;
+	float FPS;
 
 	// Unit test parameters
 
-	Map * m_map;
+	cubeMap * m_map;
+	planeMap * XYMap;
 	
 	XY position;
 

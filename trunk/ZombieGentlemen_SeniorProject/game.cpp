@@ -23,8 +23,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
 
 	//camera = new dxCamera(dxMgr);
-	cameraX = -5.0f;
-	cameraY = 8.0f;
+	cameraX = 0.0f;
+	cameraY = 0.0f;
 	cameraZ = -10.0f;
 
 
@@ -34,7 +34,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testTile->setPosition(0, 1, 0);
 
 
-	m_map = new Map("testMap.txt", "images/glassPanes2.bmp", dxMgr, true);
+	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
+	XYMap = new planeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
+	XYMap->toggleMap();
 	
 	
 	scale = 1.0f;
@@ -135,7 +137,7 @@ void game::update()
 
 	// update high resolution timer
 	QueryPerformanceCounter(&timeEnd);
-	animationRate = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
+	FPS = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
 		timerFreq.QuadPart;
 }
 
@@ -250,12 +252,13 @@ void game::handleInput()
 		if(now - keyLag[DIK_B] > 200)
 		{
 			m_map->toggleMap();
+			XYMap->toggleMap();
 			keyLag[DIK_B] = now;
 		}
 	}
 	
 	// camera movement
-	float cameraMove = 0.2f;
+	float cameraMove = 0.05f;
 	int cameraLag = 0;
 	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
@@ -320,11 +323,12 @@ void game::draw()
 {
 	dxMgr->beginRender();
 
-	//camera->SetupCamera2D(cameraX, cameraY, cameraZ);
-	camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
+	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
+	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
 	testTile->draw();
 	m_map->draw();
+	XYMap->draw();
 	player->Draw();
 	
 	enemy->Draw();
@@ -350,7 +354,7 @@ game::~game()
 	soundMgr->shutdownDirectSound();
 	
 	// destroy map
-	m_map->~Map();
+	m_map->~cubeMap();
 	
 	// release sprites
 	arrowSprite->~HudImage();
