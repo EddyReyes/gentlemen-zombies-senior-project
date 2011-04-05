@@ -179,7 +179,7 @@ public:
 
 				default : char buffer[50];
 					sprintf(buffer, "Invalid map texture character at:  %i, %i", x, y);
-					MessageBox(NULL, buffer, "ERROR", MB_OK);
+					MessageBox(NULL, buffer, "Map Error", MB_OK);
 					break;
 				}
 			}
@@ -198,6 +198,7 @@ public:
 	}
 	void initCubeScales()
 	{
+		if(scale <= 0) MessageBox(NULL, "Map scale is invalid", "Map Error", MB_OK);
 		for(int y = 0; y < height; y++)
 		{
 			for(int x = 0; x < width; x++)

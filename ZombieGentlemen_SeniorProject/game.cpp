@@ -247,9 +247,10 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_B] & 0x80))
 	{
-		if(now - keyLag[DIK_B] > 150)
+		if(now - keyLag[DIK_B] > 200)
 		{
 			m_map->toggleMap();
+			keyLag[DIK_B] = now;
 		}
 	}
 	

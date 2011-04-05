@@ -59,7 +59,7 @@ LPDIRECTSOUNDBUFFER sound::LoadWaveToSoundBuffer(std::string wavFilename)
 	wavFile->Open((char*)wavFilename.c_str(), NULL, WAVEFILE_READ );
 	if( wavFile->GetSize() == 0 )
 	{
-		MessageBox(*wndHandle, "invalid file", "ERROR", MB_OK);
+		MessageBox(*wndHandle, "invalid file", "Direct Sound Error", MB_OK);
 		return false;
 	}
 
@@ -74,7 +74,7 @@ LPDIRECTSOUNDBUFFER sound::LoadWaveToSoundBuffer(std::string wavFilename)
 	hr = g_pDS->CreateSoundBuffer( &dsbd, &apDSBuffer, NULL );
 	if FAILED (hr)
 	{
-		MessageBox(NULL, "unable to create sound buffer", "ERROR", MB_OK);
+		MessageBox(NULL, "unable to create sound buffer", "Direct Sound Error", MB_OK);
 		return NULL;
 	}
 

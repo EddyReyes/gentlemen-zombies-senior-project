@@ -32,13 +32,13 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 	// Debuging
 	if FAILED(hr) return FALSE; 
 	if(hr == DIERR_INVALIDPARAM)
-		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Invalid Params", "ERROR", MB_OK);
+		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Invalid Params", "Direct Input Error", MB_OK);
 		else if(hr == DIERR_BETADIRECTINPUTVERSION)
-		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Beta Direct Input Version", "ERROR", MB_OK);
+		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Beta Direct Input Version", "Direct Input Error", MB_OK);
 		else if(hr == DIERR_OLDDIRECTINPUTVERSION)
-		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Old Direct Input Version", "ERROR", MB_OK);
+		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Old Direct Input Version", "Direct Input Error", MB_OK);
 		else if(hr == DIERR_OUTOFMEMORY)
-		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Out of Memory", "ERROR", MB_OK);
+		MessageBox(NULL, "*** DirectInput8Create() FAILED *** Out of Memory", "Direct Input Error", MB_OK);
 	if FAILED(hr) return FALSE; 
 
     // Retrieve a pointer to an IDirectInputDevice8 interface 
