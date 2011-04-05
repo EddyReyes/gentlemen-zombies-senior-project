@@ -16,6 +16,7 @@ XYPlane::XYPlane(dxManager * a_dxMgr, std::string filename)
 {
 	g_pVB = NULL;
 	dxMgr = a_dxMgr;
+	sharingImage = false;
 	imageInfo = new D3DXIMAGE_INFO();
 	setImage(filename);
 	// set up position
@@ -36,7 +37,6 @@ XYPlane::XYPlane(dxManager * a_dxMgr, std::string filename)
 	Rows = 1;
 	// set up image toggle
 	imageOn = true;
-	sharingImage = false;
 }
 /*************************************************************************
 * XYPlane
@@ -48,6 +48,7 @@ XYPlane::XYPlane(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_IN
 {
 	g_pVB = NULL;
 	dxMgr = a_dxMgr;
+	sharingImage = true;
 	// set pointer to shared image
 	image = *a_image;
 	// set pointer to image info
@@ -70,7 +71,6 @@ XYPlane::XYPlane(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_IN
 	Rows = 1;
 	// set up image toggle
 	imageOn = true;
-	sharingImage = true;
 }
 /*************************************************************************
 * ~XYPlane
@@ -82,7 +82,26 @@ XYPlane::~XYPlane()
 {
 	releaseImage();
 	if(g_pVB != NULL)
+	{
 		g_pVB->Release(); // release vertex buffer
+		g_pVB = NULL;
+	}
+	if(imageInfo)
+	{
+		delete imageInfo;
+		imageInfo = 0;
+	}
+	if(position)
+	{
+		delete position;
+		position = 0;
+	}
+	if(textureCoord)
+	{
+		delete textureCoord;
+		textureCoord =0;
+	}
+	dxMgr = NULL;
 }
 /*************************************************************************
 * ~releaseImage
@@ -95,6 +114,7 @@ void XYPlane::releaseImage()
 		if(image != NULL)
 		{
 			image->Release(); // release image if not being shared
+			image = NULL;
 		}
 	}
 }
@@ -105,6 +125,7 @@ void XYPlane::releaseImage()
 *************************************************************************/
 void XYPlane::setImage(std::string filename)
 {
+	if(sharingImage)image = NULL;
 	D3DXCreateTextureFromFile(pd3dDevice, filename.c_str(),&image);
 	D3DXGetImageInfoFromFile(filename.c_str(), imageInfo);
 	sharingImage = false;

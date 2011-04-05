@@ -26,7 +26,10 @@ public:
 		pointCamera(cameraLook);
 	}
 	// destructor
-	~dxCamera(){};
+	~dxCamera()
+	{
+		dxMgr = NULL;
+	};
 
 	/*************************************************************************
 	* createCamera

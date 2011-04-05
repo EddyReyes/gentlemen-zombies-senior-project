@@ -17,6 +17,7 @@ dxCube::dxCube(dxManager * a_dxMgr, std::string filename)
 {
 	g_pVB = NULL;
 	dxMgr = a_dxMgr;
+	sharingImage = false;
 	imageInfo = new D3DXIMAGE_INFO();
 	setImage(filename);
 	// set up position
@@ -38,7 +39,6 @@ dxCube::dxCube(dxManager * a_dxMgr, std::string filename)
 	Rows = 1;
 	// set up image toggle
 	cubeToggle = true;
-	sharingImage = false;
 	// set origin of rendering
 	origin = 0.0f;
 }
@@ -52,6 +52,7 @@ dxCube::dxCube(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO
 {
 	g_pVB = NULL;
 	dxMgr = a_dxMgr;
+	sharingImage = true;
 	// set pointer to shared image
 	image = *a_image;
 	// set pointer to image info
@@ -75,7 +76,6 @@ dxCube::dxCube(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO
 	Rows = 1;
 	// set up image toggle
 	cubeToggle = true;
-	sharingImage = true;
 	// set origin of rendering
 	origin = 0.0f;
 }
@@ -89,7 +89,26 @@ dxCube::~dxCube()
 {
 	releaseImage();
 	if(g_pVB != NULL)
+	{
 		g_pVB->Release(); // release vertex buffer
+		g_pVB = NULL;
+	}
+	if(imageInfo)
+	{
+		delete imageInfo;
+		imageInfo = 0;
+	}
+	if(position)
+	{
+		delete position;
+		position = 0;
+	}
+	if(textureCoord)
+	{
+		delete textureCoord;
+		textureCoord = 0;
+	}
+	dxMgr = NULL;
 }
 /*************************************************************************
 * ~releaseImage
@@ -102,6 +121,7 @@ void dxCube::releaseImage()
 		if(image != NULL)
 		{
 			image->Release(); // release image if not being shared
+			image = NULL;
 		}
 	}
 }
@@ -112,6 +132,7 @@ void dxCube::releaseImage()
 *************************************************************************/
 void dxCube::setImage(std::string filename)
 {
+	if(sharingImage)image = NULL;
 	D3DXCreateTextureFromFile(pd3dDevice, filename.c_str(),&image);
 	D3DXGetImageInfoFromFile(filename.c_str(), imageInfo);
 	sharingImage = false;
@@ -220,10 +241,19 @@ void dxCube::selectTextureSource(int a_Row, int a_Column)
 	}
 	SetupVB();
 }
+
+/*************************************************************************
+* getTexture and getImageInfo
+* gets pionters of cube image and image info for use with other cubes
+*************************************************************************/
 LPDIRECT3DTEXTURE9 * dxCube::getTexture(){return &image;}
 D3DXIMAGE_INFO * dxCube::getImageInfo(){return imageInfo;}
 
-void dxCube::toggleCube(){cubeToggle = cubeToggle?false:true;}
+/*************************************************************************
+* toggleCube
+* toggles weather the cube draws or not
+*************************************************************************/
+void dxCube::toggleCube(){cubeToggle = !cubeToggle;}
 void dxCube::toggleCubeOff(){cubeToggle = false;}
 void dxCube::toggleCubeOn(){cubeToggle = true;}
 

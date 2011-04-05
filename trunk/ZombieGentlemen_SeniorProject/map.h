@@ -44,23 +44,36 @@ public:
 	~Map()
 	{
 		// call the grid destructor
-		m_grid->~grid();
+		if(m_grid)
+		{
+			m_grid->~grid();
+			m_grid = NULL;
+		}
 		// delete either the cube or plane 2D array
-		for(int y = 0; y < height; y++)
+		if(cubes)
 		{
-			for(int x = 0; x < width; x++)
+			for(int y = 0; y < height; y++)
 			{
-				cubes[y][x].cube->~dxCube();
+				for(int x = 0; x < width; x++)
+				{
+					cubes[y][x].cube->~dxCube();
+					cubes[y][x].cube = NULL;
+				}
+				delete [] cubes[y];
 			}
-			delete [] cubes[y];
+			delete [] cubes;
+			cubes = NULL;
 		}
-		delete [] cubes;
 
-		for(int i = 0; i < height; i++)
+		if(m_map)
 		{
-			delete [] m_map[i];
+			for(int i = 0; i < height; i++)
+			{
+				delete [] m_map[i];
+			}
+			delete [] m_map;
+			m_map = NULL;
 		}
-		delete [] m_map;
 	}
 
 	void initMap()
@@ -119,7 +132,7 @@ public:
 			}
 		}
 	}
-	void toggleMap(){toggle?false:true;}
+	void toggleMap(){toggle = !toggle;}
 	void initMapTextures()
 	{
 		for(int y = 0; y < height; y++)
@@ -128,9 +141,46 @@ public:
 			{
 				cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
 				cubes[y][x].cube->selectTextureSource(0,0);
-				switch(m_map[y][x])
+				switch(tolower(m_map[y][x]))
 				{
 				case '.':  cubes[y][x].cube->toggleCubeOff(); break;
+
+				case 'a':  cubes[y][x].cube->selectTextureSource(0,0); break;
+				case 'b':  cubes[y][x].cube->selectTextureSource(0,1); break;
+				case 'c':  cubes[y][x].cube->selectTextureSource(0,2); break;
+				case 'd':  cubes[y][x].cube->selectTextureSource(0,3); break;
+				case 'e':  cubes[y][x].cube->selectTextureSource(0,4); break;
+
+				case 'f':  cubes[y][x].cube->selectTextureSource(1,0); break;
+				case 'g':  cubes[y][x].cube->selectTextureSource(1,1); break;
+				case 'h':  cubes[y][x].cube->selectTextureSource(1,2); break;
+				case 'i':  cubes[y][x].cube->selectTextureSource(1,3); break;
+				case 'j':  cubes[y][x].cube->selectTextureSource(1,4); break;
+
+				case 'k':  cubes[y][x].cube->selectTextureSource(2,0); break;
+				case 'l':  cubes[y][x].cube->selectTextureSource(2,1); break;
+				case 'm':  cubes[y][x].cube->selectTextureSource(2,2); break;
+				case 'n':  cubes[y][x].cube->selectTextureSource(2,3); break;
+				case 'o':  cubes[y][x].cube->selectTextureSource(2,4); break;
+
+				case 'p':  cubes[y][x].cube->selectTextureSource(3,0); break;
+				case 'q':  cubes[y][x].cube->selectTextureSource(3,1); break;
+				case 'r':  cubes[y][x].cube->selectTextureSource(3,2); break;
+				case 's':  cubes[y][x].cube->selectTextureSource(3,3); break;
+				case 't':  cubes[y][x].cube->selectTextureSource(3,4); break;
+
+				case 'u':  cubes[y][x].cube->selectTextureSource(4,0); break;
+				case 'v':  cubes[y][x].cube->selectTextureSource(4,1); break;
+				case 'w':  cubes[y][x].cube->selectTextureSource(4,2); break;
+				case 'x':  cubes[y][x].cube->selectTextureSource(4,3); break;
+				case 'y':  cubes[y][x].cube->selectTextureSource(4,4); break;
+
+				case 'z':  cubes[y][x].cube->toggleCubeOff(); break;
+
+				default : char buffer[50];
+					sprintf(buffer, "Invalid map texture character at:  %i, %i", x, y);
+					MessageBox(NULL, buffer, "ERROR", MB_OK);
+					break;
 				}
 			}
 		}
