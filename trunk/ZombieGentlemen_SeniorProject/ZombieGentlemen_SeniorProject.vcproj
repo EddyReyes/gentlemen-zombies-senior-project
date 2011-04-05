@@ -252,6 +252,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\planeMap.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\playerCharacter.cpp"
 					>
 				</File>
@@ -314,10 +318,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\planeMap.h"
-					>
-				</File>
-				<File
 					RelativePath=".\rectangle.h"
 					>
 				</File>
@@ -367,6 +367,10 @@
 				</File>
 				<File
 					RelativePath=".\physicsObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\planeMap.h"
 					>
 				</File>
 				<File
