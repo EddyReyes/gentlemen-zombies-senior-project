@@ -88,12 +88,12 @@ void game::SetSprites()
 	cursor->scaleSize(0.5f);
 	background = new HudImage(dxMgr,"images/Lake level.dds");
 	background->scaleSize(1.0f);
-	dialog = new DXText(dxMgr, "images/Game_Dialog1.bmp");
-	dialog->textInfo("Charlemagne std", 22,
-					 D3DCOLOR_ARGB(255, 255, 255, 0),
-					 "That's a new face. Nobody ever comes around"
+	dialog = new DXText(dxMgr, "images/Game_Dialog.bmp");
+	dialog->textInfo("Arial", 24,
+					 D3DCOLOR_ARGB(255, 0, 0, 255),
+					 "That's a new face. Nobody ever comes around here"
 					 " after the town was destroyed.  What do you need?");
-	dialog->setRect(50, 200, 20, 400);
+	dialog->setTextBoxParameters(500, 250, 10, 40, 25);
 	
 		
 
@@ -352,7 +352,7 @@ void game::draw()
 
 	cursor->draw();
 
-	FPSText->draw();
+	dialog->draw();
 
 	dxMgr->endRender();
 }
