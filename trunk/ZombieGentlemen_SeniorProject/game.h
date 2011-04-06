@@ -33,6 +33,8 @@ status: unit test
 #include "helmet.h"
 #include "armor.h"
 
+#include <stdio.h>
+
 
 #pragma once
 
@@ -53,7 +55,9 @@ private:
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
 	int now, then, passed, soon; // low resolution timers for keylag
 	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
-	float FPS;
+	float UpdateSpeed, Elapsed;
+	int FPS;
+	DXText  * FPSText;
 
 	// Unit test parameters
 
@@ -61,9 +65,7 @@ private:
 	planeMap * XYMap;
 	
 	XY position;
-
 	DXText * dialog;
-	HudImage * arrowSprite;
 	HudImage * cursor;
 	HudImage * background;
 	XYPlane * testTile;
@@ -78,6 +80,7 @@ public:
 	void setMusic();
 	void SetSprites();
 	void update();
+	void UpdateFPS();
 	void handleInput();
 	void draw();
 	bool collides(PlayerCharacter*,EnemyCharacter*);//stubbed
