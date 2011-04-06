@@ -324,8 +324,22 @@ void HudImage::setHeightScale(float heightScale)
 * getHeight, getWidth, getXPosition, getYPosition, getScale
 * accesors: return the HudImage parameters
 *************************************************************************/
-float HudImage::getHeight(){return (imageInfo->Height * m_scale);}
-float HudImage::getWidth(){return (imageInfo->Width * m_scale);}
+float HudImage::getHeight()
+{
+	if(yScale != 1)
+	{
+		return (imageInfo->Height * yScale);
+	}
+	else return (imageInfo->Height * m_scale);
+}
+float HudImage::getWidth()
+{
+	if(xScale != 1)
+	{
+		return (imageInfo->Width * xScale);
+	}
+	else return (imageInfo->Width * m_scale);
+}
 // getXPosition & getYPosition return the position in correct screen coordinates
 float HudImage::getXPosition(){return position.x / (1/ xScale);}
 float HudImage::getYPosition(){return position.y / (1/ yScale);}
