@@ -52,12 +52,14 @@ public:
 	void SetTransform();
 	void setWidthScale(float widthScale);
 	void setHeightScale(float heightScale);
-	void scaleCustom(float a_scale);
+	void scaleCustom();
 
 	float getHeight();
 	float getWidth();
 	float getXPosition();
 	float getYPosition();
+	float getNormalizedXPosition();
+	float getNormalizedYPosition();
 	float getScale();
 	float getWidthScale();
 	float getHeightScale();

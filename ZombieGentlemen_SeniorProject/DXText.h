@@ -16,8 +16,9 @@ class DXText
 		int fontSize;
 		bool italic;
 		bool bold;
-		bool toggle;
-		
+		float width, height;
+		bool toggleText;
+		bool imageOn;
 
 	public:
 		DXText(dxManager * a_dxMgr, std::string filename);
@@ -32,6 +33,10 @@ class DXText
 		void setRect(int a_top, int a_bottom, int a_left, int a_right);
 		void toggleItalic();
 		void toggleBold();
+		void toggleImage();
 		void draw();
+		void setSize(float width, float height);
+		void setPosition(int a_x, int a_y);
+		void setTextRectOffset(int offset);
 		void setTextToImage();
 };

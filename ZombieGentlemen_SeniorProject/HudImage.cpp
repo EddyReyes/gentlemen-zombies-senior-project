@@ -217,6 +217,12 @@ void HudImage::setPosition(int a_x, int a_y)
 {
 	position.x = (float)a_x;
 	position.y = (float)a_y;
+	if(xScale != 1.0f || yScale != 1.0f)
+	{
+		// normalize coordinates
+		position.x *= 1/ xScale;
+		position.y *= 1/ yScale;
+	}
 }
 /*************************************************************************
 * setCenter
@@ -332,9 +338,9 @@ void HudImage::scaleSize(float a_scale)
 	D3DXMatrixMultiply(&transform, &transform, &scale);
 	sprite->SetTransform(&transform);
 }
-void HudImage::scaleCustom(float a_scale)
+void HudImage::scaleCustom()
 { 
-	m_scale = a_scale;
+	m_scale = 1.0f;
 	D3DXMATRIX scale;
 	D3DXMatrixScaling(&scale, xScale, yScale, m_scale);
 	D3DXMatrixMultiply(&transform, &transform, &scale);
@@ -375,8 +381,10 @@ void HudImage::setHeightScale(float heightScale)
 *************************************************************************/
 float HudImage::getHeight(){return (imageInfo->Height * m_scale);}
 float HudImage::getWidth(){return (imageInfo->Width * m_scale);}
-float HudImage::getXPosition(){return position.x;}
-float HudImage::getYPosition(){return position.y;}
+float HudImage::getXPosition(){return position.x / (1/ xScale);}
+float HudImage::getYPosition(){return position.y / (1/ yScale);}
+float HudImage::getNormalizedXPosition(){return position.x;}
+float HudImage::getNormalizedYPosition(){return position.y;}
 float HudImage::getScale(){return m_scale;}
 float HudImage::getWidthScale(){return xScale;}
 float HudImage::getHeightScale(){return yScale;}

@@ -18,6 +18,16 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	soon = now +100;
 
 	QueryPerformanceFrequency(&timerFreq);
+	Elapsed  = 0;
+	FPS = 0;
+	FPSText = new DXText(dxMgr, "images/BlackTextBox.bmp");
+	FPSText->textInfo("Arial", 18,
+					 D3DCOLOR_ARGB(255, 255, 255, 255),
+					 " ");
+	//FPSText->setRect(50, 200, 20, 400);
+	FPSText->setSize(200, 50);
+	FPSText->setPosition(20, 500);
+	FPSText->setTextRectOffset(8);
 
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
@@ -63,7 +73,6 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cursor->setPosition((float)curX, (float)curY);
 	position.x = 0;
 	position.y = 0;
-	arrowSprite->setPosition(position.x,position.y);
 	background->setPosition(0,0);
 	return true;
 }
@@ -78,9 +87,6 @@ void game::setMusic()
 }
 void game::SetSprites()
 {
-	
-	arrowSprite = new HudImage(dxMgr,"images/lambo.bmp");
-	arrowSprite->scaleSize(100.0f/256.0f);
 	cursor = new HudImage(dxMgr,"images/cursor.dds");
 	cursor->scaleSize(0.5f);
 	background = new HudImage(dxMgr,"images/Lake level.dds");
@@ -97,8 +103,6 @@ void game::SetSprites()
 	// set the starting point for the circle sprite
 	position.x = 0;
 	position.y = 0;
-
-	arrowSprite->setPosition(position.x,position.y);
 	background->setPosition(0,0);
 
 }
@@ -137,8 +141,24 @@ void game::update()
 
 	// update high resolution timer
 	QueryPerformanceCounter(&timeEnd);
-	FPS = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
+	UpdateSpeed = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
 		timerFreq.QuadPart;
+
+	UpdateFPS();
+}
+void game::UpdateFPS()
+{
+	FPS++;
+	Elapsed += UpdateSpeed;
+
+	if(Elapsed >= 1)
+	{
+		char UpdateBuffer[50];
+		sprintf_s(UpdateBuffer, "FPS: %i \nTime elapsed: %f", FPS, Elapsed);
+		FPSText->setDialog(UpdateBuffer);
+		Elapsed = 0;
+		FPS = 0;
+	}
 }
 
 void game::handleInput()
@@ -214,25 +234,20 @@ void game::handleInput()
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
 		position.y += (int)moveDistance;
-		//arrowSprite->selectSpriteSource(1);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
 		position.y -= (int)moveDistance;
-		//arrowSprite->selectSpriteSource(2);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		position.x -= (int)moveDistance;
-		//arrowSprite->selectSpriteSource(0);	
+		position.x -= (int)moveDistance;	
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += (int)moveDistance;
-		//arrowSprite->selectSpriteSource(3);
 	}
-	//arrowSprite->setPosition(position.x,position.y);
 	
 	prevX = position.x*0.005;	
 	prevY = position.y*0.005;	
@@ -337,13 +352,10 @@ void game::draw()
 	camera->SetHudCamera();
 
 	//background->drawSprite();
-	
-
-	arrowSprite->draw();
 
 	cursor->draw();
 
-	dialog->draw();
+	FPSText->draw();
 
 	dxMgr->endRender();
 }
@@ -355,9 +367,9 @@ game::~game()
 	
 	// destroy map
 	m_map->~cubeMap();
+	XYMap->~planeMap();
 	
 	// release sprites
-	arrowSprite->~HudImage();
 	cursor->~HudImage();
 	testTile->~XYPlane();
 	player->~PlayerCharacter();

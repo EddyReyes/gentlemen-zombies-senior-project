@@ -13,7 +13,10 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 	fontSize = 20;
 	italic = false;
 	setFontName("Arial");
-	toggle = true;
+	toggleText = true;
+	imageOn = true;
+	width = 0;
+	height = 0;
 }
 
 DXText::~DXText()
@@ -100,19 +103,46 @@ void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 	textBox->right = a_right;
 }
 
-void DXText::toggleItalic(){ italic = italic?false:true;}
+void DXText::toggleItalic(){ italic = !italic;}
 
-void DXText::toggleBold(){ bold = bold?false:true;}
+void DXText::toggleBold(){ bold = !bold;}
+
+void DXText::toggleImage(){imageOn = !imageOn;} 
 
 void DXText::draw()
 {
-	//box->draw();
+	if(imageOn)
+	{
+		box->draw();
+	}
 	
-	font->DrawText(NULL, dialogText->c_str(),
-					-1, textBox,
-					DT_WORDBREAK, *fontColor);
+	if(toggleText)
+	{
+		font->DrawText(NULL, dialogText->c_str(),
+			-1, textBox,
+			DT_WORDBREAK, *fontColor);
+	}
 }
-
+void DXText::setPosition(int a_x, int a_y)
+{
+	box->setPosition(a_x, a_y);
+}
+void DXText::setSize(float a_width, float a_height)
+{
+	width = a_width;
+	height = a_height;
+	D3DXIMAGE_INFO * tempInfo = box->getImageInfo();
+	box->setWidthScale(width/(float)tempInfo->Width);
+	box->setHeightScale(height/(float)tempInfo->Height);
+	box->scaleCustom();
+}
+void DXText::setTextRectOffset(int offset)
+{
+	textBox->top = box->getYPosition() + offset;
+	textBox->bottom = (box->getYPosition() + box->getHeight()) - offset;
+	textBox->left = box->getXPosition() + offset;
+	textBox->right = (box->getXPosition() + box->getWidth()) - offset;
+}
 void DXText::setTextToImage()
 {
 
