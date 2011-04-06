@@ -8,9 +8,9 @@ HudImage::HudImage(){};
 
 /*************************************************************************
 * HudImage
-* constructors
+* constructor
 * set up all the variables to a default value
-* These constructors create a new image in memory for the passed in file
+* This constructor creates a new image in memory for the passed in file
 *************************************************************************/
 HudImage::HudImage(dxManager * a_dxMgr, std::string filename)
 {
@@ -27,42 +27,11 @@ HudImage::HudImage(dxManager * a_dxMgr, std::string filename)
 	xScale = 1.0f;
 	yScale = 1.0f;
 }
-HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows)
-{
-	dxMgr = a_dxMgr;
-	imageInfo = new D3DXIMAGE_INFO();
-	initializeSprite(filename);
-	spriteRows = a_spriteRows;
-	guessSpriteColumns();
-	selectSpriteSource(0);
-	initTrasform();
-	spriteOn = true;
-	sharingImage = false;
-	m_scale = 1.0f;
-	xScale = 1.0f;
-	yScale = 1.0f;
-}
-HudImage::HudImage(dxManager * a_dxMgr, std::string filename, int a_spriteRows, int a_spriteColumns)
-{
-	dxMgr = a_dxMgr;
-	imageInfo = new D3DXIMAGE_INFO();
-	initializeSprite(filename);
-	spriteRows = a_spriteRows;
-	spriteColumns = a_spriteColumns;
-	selectSpriteSource(0);
-	initTrasform();
-	spriteOn = true;
-	sharingImage = false;
-	m_scale = 1.0f;
-	xScale = 1.0f;
-	yScale = 1.0f;
-}
-
 /*************************************************************************
 * HudImage
-* constructors
+* constructor
 * set up all the variables to a default value
-* These constructors are for use when sharing an image with another object
+* This constructor is for use when sharing an image with another object
 *************************************************************************/
 HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo)
 {
@@ -80,39 +49,6 @@ HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_
 	xScale = 1.0f;
 	yScale = 1.0f;
 }
-HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows)
-{
-	dxMgr = a_dxMgr;
-	image = *a_image;
-	imageInfo = a_imageInfo;
-	initializeSprite();
-	spriteRows = a_spriteRows;
-	guessSpriteColumns();
-	selectSpriteSource(0);
-	initTrasform();
-	spriteOn = true;
-	sharingImage = true;
-	m_scale = 1.0f;
-	xScale = 1.0f;
-	yScale = 1.0f;
-}
-HudImage::HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo, int a_spriteRows, int a_spriteColumns)
-{
-	dxMgr = a_dxMgr;
-	image = *a_image;
-	imageInfo = a_imageInfo;
-	initializeSprite();
-	spriteRows = a_spriteRows;
-	spriteColumns = a_spriteColumns;
-	selectSpriteSource(0);
-	initTrasform();
-	spriteOn = true;
-	sharingImage = true;
-	m_scale = 1.0f;
-	xScale = 1.0f;
-	yScale = 1.0f;
-}
-
 /*************************************************************************
 * ~HudImage
 * destructor
@@ -266,6 +202,15 @@ void HudImage::setSpriteColumns(int a_spriteColumns){spriteColumns = a_spriteCol
 * sets the number of rows within the sprite sheet
 *************************************************************************/
 void HudImage::setSpriteRows(int a_spriteRows){spriteRows = a_spriteRows;}
+/*************************************************************************
+* setRowsColumns
+* sets the number of rows and columns within the sprite sheet
+*************************************************************************/
+void HudImage::setRowsColumns(int a_spriteRows, int a_spriteColumns)
+{
+	spriteRows = a_spriteRows;
+	spriteColumns = a_spriteColumns;
+}
 
 /*************************************************************************
 * guessSpriteColumns
@@ -381,8 +326,10 @@ void HudImage::setHeightScale(float heightScale)
 *************************************************************************/
 float HudImage::getHeight(){return (imageInfo->Height * m_scale);}
 float HudImage::getWidth(){return (imageInfo->Width * m_scale);}
+// getXPosition & getYPosition return the position in correct screen coordinates
 float HudImage::getXPosition(){return position.x / (1/ xScale);}
 float HudImage::getYPosition(){return position.y / (1/ yScale);}
+// getNormalizedXPosition & getNormalizedYPosition return the true position
 float HudImage::getNormalizedXPosition(){return position.x;}
 float HudImage::getNormalizedYPosition(){return position.y;}
 float HudImage::getScale(){return m_scale;}
