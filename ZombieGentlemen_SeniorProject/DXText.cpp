@@ -143,9 +143,9 @@ void DXText::setTextRectOffset(int offset)
 	textBox->left = box->getXPosition() + offset;
 	textBox->right = (box->getXPosition() + box->getWidth()) - offset;
 }
-void DXText::setTextToImage()
+void DXText::setTextBoxParameters(float width, float height, int a_x, int a_y, int offset)
 {
-
-
-
+	setSize(width, height);
+	setPosition(a_x, a_y);
+	setTextRectOffset(offset);
 }
