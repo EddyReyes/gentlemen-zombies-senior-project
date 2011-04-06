@@ -24,10 +24,6 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	FPSText->textInfo("Arial", 18,
 					 D3DCOLOR_ARGB(255, 255, 255, 255),
 					 "Loading...");
-	//FPSText->setRect(50, 200, 20, 400);
-	/*FPSText->setSize(200, 50);
-	FPSText->setPosition(20, 500);
-	FPSText->setTextRectOffset(8);*/
 	FPSText->setTextBoxParameters(200, 50, 20, 500, 8);
 
 	keyLag = new int [256];
