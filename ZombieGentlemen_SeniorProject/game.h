@@ -13,7 +13,7 @@ status: unit test
 #include "sound.h"
 #include <time.h>
 #include "dxCamera.h"
-#include "rectangle.h"
+#include "collisionRect.h"
 #include "HudImage.h"
 #include "XYPlane.h"
 #include "dxCube.h"

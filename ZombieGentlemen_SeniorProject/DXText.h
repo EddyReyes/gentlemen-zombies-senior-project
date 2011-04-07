@@ -1,4 +1,4 @@
-//DXText class
+#pragma once
 #include <string.h>
 #include "HudImage.h"
 #include "dxManager.h"
@@ -17,7 +17,7 @@ class DXText
 		bool italic;
 		bool bold;
 		float width, height;
-		bool toggleText;
+		bool textToggle;
 		bool imageOn;
 
 	public:
@@ -34,6 +34,7 @@ class DXText
 		void toggleItalic();
 		void toggleBold();
 		void toggleImage();
+		void toggleText();
 		void draw();
 		void setSize(float width, float height);
 		void setPosition(int a_x, int a_y);

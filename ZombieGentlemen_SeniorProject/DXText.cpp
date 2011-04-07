@@ -13,7 +13,7 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 	fontSize = 20;
 	italic = false;
 	setFontName("Arial");
-	toggleText = true;
+	textToggle = true;
 	imageOn = true;
 	width = 0;
 	height = 0;
@@ -109,6 +109,8 @@ void DXText::toggleBold(){ bold = !bold;}
 
 void DXText::toggleImage(){imageOn = !imageOn;} 
 
+void DXText::toggleText(){textToggle = !textToggle;}
+
 void DXText::draw()
 {
 	if(imageOn)
@@ -116,7 +118,7 @@ void DXText::draw()
 		box->draw();
 	}
 	
-	if(toggleText)
+	if(textToggle)
 	{
 		font->DrawText(NULL, dialogText->c_str(),
 			-1, textBox,

@@ -172,6 +172,10 @@
 				Name="DirectX"
 				>
 				<File
+					RelativePath=".\collisionRect.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\directInput.cpp"
 					>
 				</File>
@@ -197,10 +201,6 @@
 				</File>
 				<File
 					RelativePath=".\HudImage.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\rectangle.cpp"
 					>
 				</File>
 				<File
@@ -244,6 +244,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\HUD.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\object.cpp"
 					>
 				</File>
@@ -277,6 +281,10 @@
 			<Filter
 				Name="DirectX"
 				>
+				<File
+					RelativePath=".\collisionRect.h"
+					>
+				</File>
 				<File
 					RelativePath=".\CustomVertex.h"
 					>
@@ -318,10 +326,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\rectangle.h"
-					>
-				</File>
-				<File
 					RelativePath=".\sound.h"
 					>
 				</File>
@@ -359,6 +363,10 @@
 				</File>
 				<File
 					RelativePath=".\helmet.h"
+					>
+				</File>
+				<File
+					RelativePath=".\HUD.h"
 					>
 				</File>
 				<File

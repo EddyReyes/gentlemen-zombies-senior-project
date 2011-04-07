@@ -7,16 +7,12 @@ will also hold image data
 
 status: skeleton
 */
-#include "rectangle.h"
+
 
 class object
 {
 protected:
-	XY location;
-	int i;
-	IDirect3DSurface9 * image;
-	RECT src;
-	RECT screen;
+
 public:
 	object(){};
 };
