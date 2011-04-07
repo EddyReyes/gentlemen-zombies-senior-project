@@ -94,8 +94,7 @@ void game::SetSprites()
 					 "That's a new face. Nobody ever comes around here"
 					 " after the town was destroyed.  What do you need?");
 	dialog->setTextBoxParameters(500, 250, 10, 40, 25);
-	
-		
+			
 
 	// set the starting point for the circle sprite
 	position.x = 0;
@@ -355,6 +354,7 @@ void game::draw()
 	FPSText->draw();
 
 	//dialog->draw();
+	
 
 	dxMgr->endRender();
 }
@@ -374,4 +374,5 @@ game::~game()
 	player->~PlayerCharacter();
 	enemy->~EnemyCharacter();
 	dialog->~DXText();
+	//ui->~HUD();
 }
