@@ -16,7 +16,7 @@ private:
 public:
 	collisionRect();
 	~collisionRect();
-	int collided(collisionRect a_rect);
+	int collided(collisionRect* a_rect);
 
 	// mutators
 	void setRect(float width, float height);
