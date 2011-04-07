@@ -153,9 +153,12 @@ void HudImage::setPosition(int a_x, int a_y)
 {
 	position.x = (float)a_x;
 	position.y = (float)a_y;
+	normalizeCoordinates();
+}
+void HudImage::normalizeCoordinates()
+{
 	if(xScale != 1.0f || yScale != 1.0f)
 	{
-		// normalize coordinates
 		position.x *= 1/ xScale;
 		position.y *= 1/ yScale;
 	}
@@ -291,6 +294,13 @@ void HudImage::scaleCustom()
 	D3DXMatrixMultiply(&transform, &transform, &scale);
 	sprite->SetTransform(&transform);
 }
+
+void HudImage::setSize(int a_width, int a_height)
+{
+	setWidthScale(a_width/(float)imageInfo->Width/spriteColumns);
+	setHeightScale(a_height/(float)imageInfo->Height/spriteRows);
+	scaleCustom();
+}
 /*************************************************************************
 * rotateSpriteY
 * meant to facilitate rotation around the Y axis, but it appears it wont be possible
@@ -320,6 +330,7 @@ void HudImage::setHeightScale(float heightScale)
 {
 	yScale = heightScale;
 }
+
 /*************************************************************************
 * getHeight, getWidth, getXPosition, getYPosition, getScale
 * accesors: return the HudImage parameters

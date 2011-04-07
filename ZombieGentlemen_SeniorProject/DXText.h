@@ -16,7 +16,6 @@ class DXText
 		int fontSize;
 		bool italic;
 		bool bold;
-		float width, height;
 		bool textToggle;
 		bool imageOn;
 
@@ -40,5 +39,6 @@ class DXText
 		void setPosition(int a_x, int a_y);
 		void setTextRectOffset(int offset);
 		void setTextBoxParameters(float width, float height, int a_x, int a_y, int offset);
-	
+
+		void setImage(std::string filename);
 };

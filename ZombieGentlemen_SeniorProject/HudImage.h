@@ -30,6 +30,7 @@ public:
 	void drawCentered();
 	void setPosition(int a_x, int a_y);
 	void setPosition(int a_x, int a_y, int a_z);
+	void normalizeCoordinates();
 	void setCenter(int a_x, int a_y);
 	void setImage(std::string filename);
 	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
@@ -50,6 +51,7 @@ public:
 	void setWidthScale(float widthScale);
 	void setHeightScale(float heightScale);
 	void scaleCustom();
+	void setSize(int a_width, int a_height);
 
 	float getHeight();
 	float getWidth();

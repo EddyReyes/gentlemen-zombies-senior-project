@@ -15,8 +15,6 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 	setFontName("Arial");
 	textToggle = true;
 	imageOn = true;
-	width = 0;
-	height = 0;
 }
 
 DXText::~DXText()
@@ -102,6 +100,10 @@ void DXText::setRect(int a_top, int a_bottom, int a_left, int a_right)
 	textBox->left = a_left;
 	textBox->right = a_right;
 }
+void DXText::setImage(std::string filename)
+{
+	box->setImage(filename);
+}
 
 void DXText::toggleItalic(){ italic = !italic;}
 
@@ -131,12 +133,7 @@ void DXText::setPosition(int a_x, int a_y)
 }
 void DXText::setSize(float a_width, float a_height)
 {
-	width = a_width;
-	height = a_height;
-	D3DXIMAGE_INFO * tempInfo = box->getImageInfo();
-	box->setWidthScale(width/(float)tempInfo->Width);
-	box->setHeightScale(height/(float)tempInfo->Height);
-	box->scaleCustom();
+	box->setSize(a_width, a_height);
 }
 void DXText::setTextRectOffset(int offset)
 {
