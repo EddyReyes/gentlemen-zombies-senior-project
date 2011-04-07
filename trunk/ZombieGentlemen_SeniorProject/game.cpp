@@ -352,7 +352,9 @@ void game::draw()
 
 	cursor->draw();
 
-	dialog->draw();
+	FPSText->draw();
+
+	//dialog->draw();
 
 	dxMgr->endRender();
 }

@@ -11,8 +11,11 @@ Legend
 - In hud image possibly add rotation capability around the Z axis
 + Make the grid, using nodes and edges
 + make a cube class
-- add more texture mapping functionality to map class
++ add more texture mapping functionality to map class
 - create a template bmp for map textures (5 textures by 5 textures)
+4/6
+- remove XY struct from any class that uses it, and delte XY struct as it is 
+  now obsolete.
 
 3/31 William
 + display a message bubble
