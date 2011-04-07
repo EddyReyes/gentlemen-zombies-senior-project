@@ -12,11 +12,13 @@ private:
 	DXText * playerMoney;
 	D3DXVECTOR2 hudPosition;
 	dxManager * dxMgr;
-
+	
+	
 public:
 	HUD();
 	HUD(std::string filename, dxManager * a_dxMgr);
 	~HUD();
+	void draw();
 	void updateHealthBar();
 	void updateArmorBar();
 	void updateWeapon();
