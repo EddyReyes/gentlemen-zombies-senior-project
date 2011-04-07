@@ -25,3 +25,59 @@ HUD::~HUD()
 	playerMoney->~DXText();
 	playerMoney = NULL;
 }
+void HUD::updateHealthBar()
+{
+
+
+}
+void HUD::updateArmorBar()
+{
+
+
+
+}
+void HUD::updateWeapon()
+{
+
+
+}
+void HUD::updatePlayerMoney()
+{
+
+
+}
+
+void HUD::setHealthBarImage(std::string filename)
+{
+
+
+}
+void HUD::setArmorBarImage(std::string filename)
+{
+
+}
+void HUD::setWeaponImage(std::string filename)
+{
+
+
+}
+void HUD::setPlayerMoneyImage(std::string filename)
+{
+
+
+}
+void HUD::setPlayerID(int ID)
+{
+
+
+}
+void HUD::setPlayerIDImage(std::string filename)
+{
+
+
+}
+void HUD::setHudPosition()
+{
+
+
+}

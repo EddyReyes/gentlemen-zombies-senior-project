@@ -40,4 +40,5 @@ class DXText
 		void setPosition(int a_x, int a_y);
 		void setTextRectOffset(int offset);
 		void setTextBoxParameters(float width, float height, int a_x, int a_y, int offset);
+	
 };
