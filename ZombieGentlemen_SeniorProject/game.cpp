@@ -35,10 +35,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraZ = -10.0f;
 
 
-	testTile = new XYPlane(dxMgr, "images/Character.bmp");
-	testTile->setScale(1.1f);
+	//testTile = new XYPlane(dxMgr, "images/Character.bmp");
+	//testTile->setScale(1.1f);
 	//testTile2->selectTextureSource(3, 2);
-	testTile->setPosition(0, 1, 0);
+	//testTile->setPosition(0, 1, 0);
 
 
 	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
@@ -47,11 +47,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	
 	
 	scale = 1.0f;
-	player = new PlayerCharacter(dxMgr, "images/arrows2.bmp");
+	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
 	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
-	player->initPlayerSpriteSheet(1,4);
+	player->initPlayerSpriteSheet(1,1);
 	player->setPlayerSprite(0,0);
-	player->setPosition(4, 1, 0);
+	player->setPosition(0, 4, 0);
 
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
@@ -113,8 +113,8 @@ bool game::collides(PlayerCharacter* a,EnemyCharacter* b)//stub
 	ay>=by||		
 	ax+a->getWidth()==bx||		
 	ax+a->getWidth()==bx+b->getWidth())	*/
-	if(a->getPosition().x>2.0f||
-		a->getPosition().x<-2.0f)
+	if(a->getPosition().x>2.000||
+		a->getPosition().x<-2.000)
 		return true;	
 	else
 		return false;
@@ -225,16 +225,19 @@ void game::handleInput()
 
 	// sprite movement
 	float moveDistance = 5.0f;
-	int prevX, prevY;
+	float prevX, prevY;
+	
+	prevX = position.x*0.005;	
+	prevY = position.y*0.005;
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		position.y += (int)moveDistance;
+		position.y += moveDistance;
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		position.y -= (int)moveDistance;
+		position.y -= moveDistance;
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
@@ -242,17 +245,14 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		position.x += (int)moveDistance;
+		position.x += moveDistance;
 	}
-	
-	prevX = position.x*0.005;	
-	prevY = position.y*0.005;	
+		
 	if(collides(player,enemy))	
 	{		
 		player->setPosition(prevX,prevY,0);	
 		//position.x=prevX;
 		//position.y=prevY;
-
 	}	
 	else	
 	{		
@@ -337,7 +337,7 @@ void game::draw()
 	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
-	testTile->draw();
+	//testTile->draw();
 	m_map->draw();
 	XYMap->draw();
 	player->Draw();
@@ -370,7 +370,7 @@ game::~game()
 	
 	// release sprites
 	cursor->~HudImage();
-	testTile->~XYPlane();
+	//testTile->~XYPlane();
 	player->~PlayerCharacter();
 	enemy->~EnemyCharacter();
 	dialog->~DXText();
