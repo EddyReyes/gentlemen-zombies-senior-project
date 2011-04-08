@@ -2,13 +2,15 @@
 #include "dxManager.h"
 #include "hudImage.h"
 #include "XYPlane.h"
+#include "collisionRect.h"
+
 class PlayerCharacter
 {
 private:
 	float playerHealth;
 	float damageResistance;
 	XYPlane * playerImage;
-
+	collisionRect c;
 public:
 	
 	PlayerCharacter(dxManager* a_dxMgr, std::string filename);

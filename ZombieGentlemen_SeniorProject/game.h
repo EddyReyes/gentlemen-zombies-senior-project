@@ -72,8 +72,6 @@ private:
 	float scale;
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
-
-	
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
@@ -83,8 +81,6 @@ public:
 	void UpdateFPS();
 	void handleInput();
 	void draw();
-	bool collides(PlayerCharacter*,EnemyCharacter*);//stubbed
-
 
 	~game();
 };

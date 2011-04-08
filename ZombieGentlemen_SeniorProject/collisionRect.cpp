@@ -1,47 +1,62 @@
 #include "collisionRect.h"
 
-collisionRect::collisionRect()
+collisionRect::collisionRect()//defualt constructor
 {
 	rect.bottom = NULL;
 	rect.top = NULL;
 	rect.left = NULL;
 	rect.right = NULL;
 
-	pos.x = 0;
-	pos.y = 0;
-
+}
+//takes in an XYPlane and sets the rect based off of it
+void collisionRect::SetcollisionRect(XYPlane* object)
+{
+	rect.top =  object->getYPosition();
+	rect.left = object->getXPosition();
+	rect.right = object->getXPosition()+object->getWidth();
+	rect.bottom = object->getYPosition()+object->getHeight();
 }
 int collisionRect::collided(collisionRect* a_rect)//stub
 {
 	return 0;
 }
-void collisionRect::setRect(float width, float height)//stub
+//allows us to change the size of the rectangle at will
+void collisionRect::setRect(float width, float height)
 {
+	rect.right = width;
+	rect.bottom = height;
 }
-void collisionRect::setPosition(float a_x,float a_y)//stub
+//void collisionRect::setPosition(float a_x,float a_y)
+//{
+//	pos.x = a_x;
+//	pos.y = a_y;
+//}
+
+/**accessors**/
+float collisionRect::getXPosition()
 {
+	return rect.left;
 }
-float collisionRect::getXPosition()//stub
+float collisionRect::getYPosition()
 {
-	return 0;
+	return rect.top;
 }
-float collisionRect::getYPosition()//stub
+float collisionRect::getWidth()
 {
-	return 0;
+	return rect.right;
 }
-float collisionRect::getWidth()//stub
+float collisionRect::getHeight()
 {
-	return 0;
+	return rect.bottom;
 }
-float collisionRect::getHeight()//stub
-{
-	return 0;
-}
-D3DXVECTOR2 collisionRect::getPosition()//stub
-{
-	return pos;
-}
-FloatRect collisionRect::getRect()//stub
+//D3DXVECTOR2 collisionRect::getPosition()//stub
+//{
+//	return pos;
+//}
+FloatRect collisionRect::getRect()
 {
 	return rect;
+}
+collisionRect::~collisionRect()
+{
 }
