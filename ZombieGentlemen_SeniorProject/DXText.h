@@ -35,10 +35,7 @@ class DXText
 		void toggleImage();
 		void toggleText();
 		void draw();
-		void setSize(float width, float height);
-		void setPosition(int a_x, int a_y);
 		void setTextRectOffset(int offset);
-		void setTextBoxParameters(float width, float height, int a_x, int a_y, int offset);
-
+		void setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
 		void setImage(std::string filename);
 };

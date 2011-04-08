@@ -104,7 +104,6 @@ void DXText::setImage(std::string filename)
 {
 	box->setImage(filename);
 }
-
 void DXText::toggleItalic(){ italic = !italic;}
 
 void DXText::toggleBold(){ bold = !bold;}
@@ -127,24 +126,15 @@ void DXText::draw()
 			DT_WORDBREAK, *fontColor);
 	}
 }
-void DXText::setPosition(int a_x, int a_y)
-{
-	box->setPosition(a_x, a_y);
-}
-void DXText::setSize(float a_width, float a_height)
-{
-	box->setSize(a_width, a_height);
-}
 void DXText::setTextRectOffset(int offset)
 {
-	textBox->top = box->getYPosition() + offset;
-	textBox->bottom = (box->getYPosition() + box->getHeight()) - offset;
-	textBox->left = box->getXPosition() + offset;
-	textBox->right = (box->getXPosition() + box->getWidth()) - offset;
+	textBox->top = (long)box->getYPosition() + offset;
+	textBox->bottom = (long)(box->getYPosition() + (long)box->getHeight()) - offset;
+	textBox->left = (long)box->getXPosition() + offset;
+	textBox->right = (long)(box->getXPosition() + (long)box->getWidth()) - offset;
 }
-void DXText::setTextBoxParameters(float width, float height, int a_x, int a_y, int offset)
+void DXText::setTextBoxParameters(float width, float height, float a_x, float a_y, int offset)
 {
-	setSize(width, height);
-	setPosition(a_x, a_y);
+	box->setParameters(width, height, a_x, a_y);
 	setTextRectOffset(offset);
 }
