@@ -7,11 +7,13 @@ PlayerCharacter::PlayerCharacter(dxManager * a_dxMgr, std::string filename)
 	playerHealth = 100;
 	damageResistance = 0.50;
 	playerImage = new XYPlane(a_dxMgr, filename);
-	c.SetcollisionRect(playerImage);
+	c = new collisionRect;
+	c->SetcollisionRect(playerImage);
 };
 PlayerCharacter::~PlayerCharacter()
 {
 	playerImage->~XYPlane();
+	c->~collisionRect();
 }
 float PlayerCharacter::getHealth()
 {
@@ -62,7 +64,7 @@ void PlayerCharacter::setPosition(float a_x, float a_y, float a_z)
 {
 	// askig where to place the image in the game world. 
 	playerImage->setPosition( a_x,  a_y,  a_z);
-	c.SetcollisionRect(playerImage);
+	c->SetcollisionRect(playerImage);
 }
 
 void PlayerCharacter::Draw()

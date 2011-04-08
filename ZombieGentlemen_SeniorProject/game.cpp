@@ -56,7 +56,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
 	enemy->setPosition(4, 4, 0);
-	
+	blarg.SetcollisionRect(enemy->getimg());
 
 	camera = new dxCamera(dxMgr);
 
@@ -225,10 +225,10 @@ void game::handleInput()
 
 	// sprite movement
 	float moveDistance = 5.0f;
-	//float prevX, prevY;
+	float prevX, prevY;
 	
-//	prevX = position.x*0.005;	
-//	prevY = position.y*0.005;
+	prevX = position.x*0.005;	
+	prevY = position.y*0.005;
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
@@ -248,16 +248,16 @@ void game::handleInput()
 		position.x += moveDistance;
 	}
 		
-	//if(collides(player,enemy))	
-	//{		
-	//	player->setPosition(prevX,prevY,0);	
+	if(blarg.collided(player->getcollisionbox())==1)	
+	{		
+		player->setPosition(prevX,prevY,0);	
 		//position.x=prevX;
 		//position.y=prevY;
-	//}	
-	//else	
-	//{		
+	}	
+	else	
+	{		
 		player->setPosition(position.x*0.005,position.y*0.005,0);	
-	//}
+	}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
