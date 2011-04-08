@@ -8,7 +8,6 @@ private:
 	LPDIRECT3DTEXTURE9 image;	// image to hold sprite
 	LPD3DXSPRITE sprite;		// sprite
 	D3DXVECTOR3 position;		// position
-	D3DXVECTOR3 center;			// center
 	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
 	RECT spriteSource;	// sprite section
 	D3DXMATRIX transform;
@@ -16,50 +15,52 @@ private:
 	int spriteRows;
 	bool spriteOn;
 	bool sharingImage;
-	float m_scale, xScale, yScale;
+	float xScale, yScale;
+
+	// private member functions
+	void initializeSprite(std::string filename);
+	void initializeSprite();
+	void guessSpriteColumns();	
+	void initTrasform();
+	void SetTransform();
+	void scale();
+	void normalizeCoordinates();
 
 public:
+	// constructors
 	HudImage();
 	HudImage(dxManager * a_dxMgr, std::string filename);
 	HudImage(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
+	
+	// destructors
 	~HudImage();
 	void releaseImage();
-	void initializeSprite(std::string filename);
-	void initializeSprite();
+	
+	// member functions
 	void draw();
-	void drawCentered();
-	void setPosition(int a_x, int a_y);
-	void setPosition(int a_x, int a_y, int a_z);
-	void normalizeCoordinates();
-	void setCenter(int a_x, int a_y);
+
+	// mutators
+	void setPosition(float a_x, float a_y);
 	void setImage(std::string filename);
 	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
 	void setSpriteColumns(int a_spriteColumns);
 	void setSpriteRows(int a_spriteRows);
-	void guessSpriteColumns();
 	void setRowsColumns(int a_spriteRows, int a_spriteColumns);
 	void selectSpriteSource(int spriteIndex);
 	void selectSpriteSource(int a_spriteRow, int a_spriteColumn);
 	LPDIRECT3DTEXTURE9 * getTexture();
 	D3DXIMAGE_INFO * getImageInfo();
 	void toggleSprite();
-	void initTrasform();
-	void scaleSize(float a_scale);
-	void rotateSpriteY(float rotation);
-	void rotateSpriteX(float rotation);
-	void SetTransform();
-	void setWidthScale(float widthScale);
-	void setHeightScale(float heightScale);
-	void scaleCustom();
-	void setSize(int a_width, int a_height);
+	void setSize(float a_width, float a_height);
+	void setParameters(float a_width, float a_height, float a_x, float a_y);
 
+	// accessors
 	float getHeight();
 	float getWidth();
 	float getXPosition();
 	float getYPosition();
 	float getNormalizedXPosition();
 	float getNormalizedYPosition();
-	float getScale();
 	float getWidthScale();
 	float getHeightScale();
 };

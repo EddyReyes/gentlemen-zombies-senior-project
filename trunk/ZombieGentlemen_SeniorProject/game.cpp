@@ -85,9 +85,9 @@ void game::setMusic()
 void game::SetSprites()
 {
 	cursor = new HudImage(dxMgr,"images/cursor.dds");
-	cursor->scaleSize(0.5f);
+	cursor->setSize(20, 20);
 	background = new HudImage(dxMgr,"images/Lake level.dds");
-	background->scaleSize(1.0f);
+	background->setSize(100, 100);
 	dialog = new DXText(dxMgr, "images/Game_Dialog.bmp");
 	dialog->textInfo("Arial", 24,
 					 D3DCOLOR_ARGB(255, 0, 0, 255),
