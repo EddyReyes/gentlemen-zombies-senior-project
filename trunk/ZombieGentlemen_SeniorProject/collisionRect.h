@@ -1,6 +1,7 @@
 #pragma once
 #include "dxManager.h"
 #include "CustomVertex.h"
+#include "XYPlane.h"
 
 
 // XY struct will be depreciated soon, please remove it from
@@ -12,21 +13,21 @@ class collisionRect
 {
 private: 
 	FloatRect rect;
-	D3DXVECTOR2 pos;
 public:
 	collisionRect();
+	void SetcollisionRect(XYPlane*);
 	~collisionRect();
 	int collided(collisionRect* a_rect);
 
 	// mutators
 	void setRect(float width, float height);
-	void setPosition(float a_x, float a_y);
+	//void setPosition(float a_x, float a_y);
 	
 	// accessors
 	float getXPosition();
 	float getYPosition();
 	float getWidth();
 	float getHeight();
-	D3DXVECTOR2 getPosition();
+	//D3DXVECTOR2 getPosition();
 	FloatRect getRect();
 };

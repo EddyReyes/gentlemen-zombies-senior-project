@@ -102,8 +102,8 @@ void game::SetSprites()
 	background->setPosition(0,0);
 
 }
-bool game::collides(PlayerCharacter* a,EnemyCharacter* b)//stub
-{	//nothing works =/	
+//bool game::collides(PlayerCharacter* a,EnemyCharacter* b)//stub
+//{	//nothing works =/	
 	/*float ax = a->getPosition().x;	
 	float ay = a->getPosition().y;	
 	float bx = b->getPosition().x;	
@@ -113,12 +113,12 @@ bool game::collides(PlayerCharacter* a,EnemyCharacter* b)//stub
 	ay>=by||		
 	ax+a->getWidth()==bx||		
 	ax+a->getWidth()==bx+b->getWidth())	*/
-	if(a->getPosition().x>2.000||
-		a->getPosition().x<-2.000)
-		return true;	
-	else
-		return false;
-}
+	//if(a->getPosition().x>2.000||
+	//	a->getPosition().x<-2.000)
+		//return true;	
+	//else
+	//	return false;
+//}
 void game::update()
 {
 
@@ -225,10 +225,10 @@ void game::handleInput()
 
 	// sprite movement
 	float moveDistance = 5.0f;
-	float prevX, prevY;
+	//float prevX, prevY;
 	
-	prevX = position.x*0.005;	
-	prevY = position.y*0.005;
+//	prevX = position.x*0.005;	
+//	prevY = position.y*0.005;
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
@@ -248,16 +248,16 @@ void game::handleInput()
 		position.x += moveDistance;
 	}
 		
-	if(collides(player,enemy))	
-	{		
-		player->setPosition(prevX,prevY,0);	
+	//if(collides(player,enemy))	
+	//{		
+	//	player->setPosition(prevX,prevY,0);	
 		//position.x=prevX;
 		//position.y=prevY;
-	}	
-	else	
-	{		
+	//}	
+	//else	
+	//{		
 		player->setPosition(position.x*0.005,position.y*0.005,0);	
-	}
+	//}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
