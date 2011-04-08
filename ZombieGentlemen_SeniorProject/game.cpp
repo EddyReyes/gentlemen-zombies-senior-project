@@ -56,7 +56,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
 	enemy->setPosition(4, 4, 0);
-	blarg.setRect(enemy->getimg());
+	blarg.initRect(enemy->getimg());
+	blarg.update();
 
 	camera = new dxCamera(dxMgr);
 

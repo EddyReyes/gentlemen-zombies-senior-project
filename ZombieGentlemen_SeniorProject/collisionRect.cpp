@@ -6,47 +6,68 @@ collisionRect::collisionRect()//defualt constructor
 	rect.top = NULL;
 	rect.left = NULL;
 	rect.right = NULL;
-
+	plane = NULL;
+	cube = NULL;
+	offSet.bottom = NULL;
+	offSet.top = NULL;
+	offSet.left = NULL;
+	offSet.right = NULL;
 }
 int collisionRect::collided(FloatRect* a_rect)
 {
 	if(rect.bottom < a_rect->top) return 1;
-	if(rect.top > a_rect->bottom) return 1;
-	if(rect.right < a_rect->left) return 1;
-	if(rect.left > a_rect->right) return 1;
+	if(rect.top > a_rect->bottom) return 2;
+	if(rect.left < a_rect->right) return 3;
+	if(rect.right > a_rect->left) return 4;
 
 	return 0;
 }
 //takes in an XYPlane and sets the rect based off of it
-void collisionRect::setRect(XYPlane* object)
+void collisionRect::initRect(XYPlane* a_plane)
 {
-	rect.top =  object->getYPosition();
-	rect.left = object->getXPosition();
-	rect.right = object->getXPosition()+object->getWidth();
-	rect.bottom = object->getYPosition()+object->getHeight();
+	plane = a_plane;
+	setRect();
+}
+void collisionRect::initRect(dxCube* a_cube)
+{
+	cube = a_cube;
+	setRect();
+}
+void collisionRect::setRect()
+{
+	if(plane)
+	{
+		rect.top =  plane->getYPosition();
+		rect.left = plane->getXPosition();
+		rect.right = plane->getXPosition()+plane->getWidth();
+		rect.bottom = plane->getYPosition()+plane->getHeight();
+	}
+	else if(cube)
+	{
+		rect.top =  cube->getYPosition();
+		rect.left = cube->getXPosition();
+		rect.right = cube->getXPosition()+cube->getWidth();
+		rect.bottom = cube->getYPosition()+cube->getHeight();
+	}
 }
 // offsets the collision rectangle to fit smaller constraints
-void collisionRect::setOffset(float x_offset, float y_offset)
+void collisionRect::setOffset(FloatRect * a_offSet)
 {
-	rect.top -= y_offset;
-	rect.bottom += y_offset;
-	rect.left += x_offset;
-	rect.right -= x_offset;
+	offSet = *a_offSet;
 }
-//  more specific offset
 void collisionRect::setOffset(float left, float right, float top, float bottom)
 {
-	rect.top -= top;
-	rect.bottom += bottom;
-	rect.left += left;
-	rect.right -= right;
+	offSet.left = left;
+	offSet.right = right;
+	offSet.top = top;
+	offSet.bottom = bottom;
 }
-void collisionRect::setOffset(float offsetPercentage)
+void collisionRect::offset()
 {
-	rect.top -= this->getHeight() * offsetPercentage;
-	rect.bottom += this->getHeight() * offsetPercentage;
-	rect.left += this->getWidth() * offsetPercentage;
-	rect.right -= this->getWidth() * offsetPercentage;
+	rect.top -= offSet.top;
+	rect.bottom += offSet.bottom;
+	rect.left += offSet.left;
+	rect.right -= offSet.right;
 }
 //allows us to change the size of the rectangle at will
 void collisionRect::modifyRect(float width, float height)
@@ -60,4 +81,9 @@ float collisionRect::getYPosition(){return rect.top;}
 float collisionRect::getWidth(){return (rect.right - rect.left);}
 float collisionRect::getHeight(){return (rect.bottom - rect.top);}
 FloatRect * collisionRect::getRect(){return &rect;}
+void collisionRect::update()
+{
+	setRect();
+	offset();
+}
 collisionRect::~collisionRect(){}

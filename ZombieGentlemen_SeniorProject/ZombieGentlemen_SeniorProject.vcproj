@@ -409,6 +409,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testObject.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\TODO list.txt"
 				>
 			</File>

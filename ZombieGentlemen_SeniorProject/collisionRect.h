@@ -2,6 +2,7 @@
 #include "dxManager.h"
 #include "CustomVertex.h"
 #include "XYPlane.h"
+#include "dxCube.h"
 
 
 // XY struct will be depreciated soon, please remove it from
@@ -13,17 +14,23 @@ class collisionRect
 {
 private: 
 	FloatRect rect;
+	FloatRect offSet;
+	XYPlane * plane;
+	dxCube * cube;
 public:
 	collisionRect();
 	~collisionRect();
 	int collided(FloatRect* a_rect);
 
 	// mutators
-	void setRect(XYPlane* object);
-	void setOffset(float x_offset, float y_offset);
+	void initRect(XYPlane* plane);
+	void initRect(dxCube* cube);
+	void setRect();
+	void setOffset(FloatRect * a_offSet);
 	void setOffset(float left, float right, float top, float bottom);
-	void setOffset(float offsetPercentage);
+	void offset();
 	void modifyRect(float width, float height);
+	void update();
 	
 	// accessors
 	float getXPosition();
