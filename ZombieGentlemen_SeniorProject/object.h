@@ -55,6 +55,14 @@ public:
 		image->setImageRowsColumns(imageRows, imageColumns);
 		collRect->setOffset(&offset);
 	}
+	void loadParameters(float x, float y, float z, float width, float height,
+		 int imageRows, int imageColumns, float leftOffset, float topOffset, float rightOffset,
+		 float bottomOffset)
+	{
+		image->setParam(x, y, z, width, height);
+		image->setImageRowsColumns(imageRows, imageColumns);
+		collRect->setOffset(leftOffset, rightOffset, topOffset, bottomOffset);
+	}
 	void draw()
 	{
 		image->draw();
@@ -76,8 +84,9 @@ public:
 			case 4: pos.x -= movement;
 				break;
 			}
+			image->setPosition(pos);
+			collRect->update();
 		}
-		image->setPosition(pos);
 	}
 	collisionRect * getCollisionRect(){return collRect;}
 	void setPosition(float a_x, float a_y, float a_z)
@@ -85,7 +94,6 @@ public:
 		image->setPosition(a_x, a_y, a_z);
 		collRect->update();
 	}
-
 	void toggleImage(){image->toggleImage();}
 	void toggleCollision(){collisionToggle = !collisionToggle;}
 };
