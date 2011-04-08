@@ -62,7 +62,10 @@ private:
 	// Unit test parameters
 
 	cubeMap * m_map;
-	planeMap * XYMap;
+
+	object * testObject;
+	object * testObject2;
+	float objectX, objectY;
 	
 	XY position;
 	DXText * dialog;

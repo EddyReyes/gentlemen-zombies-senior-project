@@ -42,8 +42,12 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 
 	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
-	XYMap = new planeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
-	XYMap->toggleMap();
+
+	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
+	testObject2 = new object(dxMgr, "images/Character.bmp", "testObject.txt");
+	testObject2->setPosition(3.0f, 0.0f, 0.0f);
+	objectX = 0; 
+	objectY = 0;
 	
 	
 	scale = 1.0f;
@@ -225,7 +229,7 @@ void game::handleInput()
 	//}
 
 	// sprite movement
-	float moveDistance = 5.0f;
+	float moveDistance = 0.005f;
 	float prevX, prevY;
 	
 	prevX = position.x*0.005;	
@@ -234,20 +238,27 @@ void game::handleInput()
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
 		position.y += moveDistance;
+		objectY += moveDistance;
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
 		position.y -= moveDistance;
+		objectY -= moveDistance;
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		position.x -= (int)moveDistance;	
+		objectX -= moveDistance;
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		position.x += moveDistance;
+		objectX += moveDistance;
 	}
+
+	testObject->setPosition(objectX, objectY, 0.0f);
+	//testObject->handleCollision(testObject2->getCollisionRect());
 		
 	if(blarg.collided(player->getcollisionbox()->getRect())==1)	
 	{		
@@ -264,7 +275,6 @@ void game::handleInput()
 		if(now - keyLag[DIK_B] > 200)
 		{
 			m_map->toggleMap();
-			XYMap->toggleMap();
 			keyLag[DIK_B] = now;
 		}
 	}
@@ -340,10 +350,13 @@ void game::draw()
 	//testTile->setRenderStates();
 	//testTile->draw();
 	m_map->draw();
-	XYMap->draw();
-	player->Draw();
+
+	testObject->draw();
+	testObject2->draw();
+
+	//player->Draw();
 	
-	enemy->Draw();
+	//enemy->Draw();
 
 
 	camera->SetHudCamera();
@@ -367,7 +380,6 @@ game::~game()
 	
 	// destroy map
 	m_map->~cubeMap();
-	XYMap->~planeMap();
 	
 	// release sprites
 	cursor->~HudImage();
