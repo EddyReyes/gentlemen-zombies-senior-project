@@ -72,6 +72,7 @@ private:
 	float scale;
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
+	collisionRect blarg;
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);

@@ -10,7 +10,7 @@ private:
 	float playerHealth;
 	float damageResistance;
 	XYPlane * playerImage;
-	collisionRect c;
+	collisionRect *c;
 public:
 	
 	PlayerCharacter(dxManager* a_dxMgr, std::string filename);
@@ -32,6 +32,7 @@ public:
 	float getWidth(){return playerImage->getWidth();}
 	D3DXVECTOR3 getPosition(){return *(playerImage->getPosition());}
 
+	collisionRect* getcollisionbox(){return c;}
 	//void attack(int & weapon );
 	//void defend();
 	//addItem()

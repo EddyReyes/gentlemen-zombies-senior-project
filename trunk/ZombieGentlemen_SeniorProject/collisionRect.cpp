@@ -18,7 +18,19 @@ void collisionRect::SetcollisionRect(XYPlane* object)
 }
 int collisionRect::collided(collisionRect* a_rect)//stub
 {
-	return 0;
+	float left2, right2, top2, bottom2;
+	left2 = a_rect->getRect().left;
+	right2 = a_rect->getRect().right;
+	top2 = a_rect->getRect().top;
+	bottom2 = a_rect->getRect().bottom;
+
+	if(rect.right<left2||
+		rect.left>right2||
+		rect.top>bottom2||
+		rect.bottom<top2)
+		return 1;
+	else
+		return 0;
 }
 //allows us to change the size of the rectangle at will
 void collisionRect::setRect(float width, float height)
