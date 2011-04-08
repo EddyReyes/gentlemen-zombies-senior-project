@@ -15,13 +15,15 @@ private:
 	FloatRect rect;
 public:
 	collisionRect();
-	void SetcollisionRect(XYPlane*);
 	~collisionRect();
-	int collided(collisionRect* a_rect);
+	int collided(FloatRect* a_rect);
 
 	// mutators
-	void setRect(float width, float height);
-	//void setPosition(float a_x, float a_y);
+	void setRect(XYPlane* object);
+	void setOffset(float x_offset, float y_offset);
+	void setOffset(float left, float right, float top, float bottom);
+	void setOffset(float offsetPercentage);
+	void modifyRect(float width, float height);
 	
 	// accessors
 	float getXPosition();
@@ -29,5 +31,5 @@ public:
 	float getWidth();
 	float getHeight();
 	//D3DXVECTOR2 getPosition();
-	FloatRect getRect();
+	FloatRect * getRect();
 };

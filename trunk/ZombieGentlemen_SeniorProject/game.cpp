@@ -56,7 +56,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
 	enemy->setPosition(4, 4, 0);
-	blarg.SetcollisionRect(enemy->getimg());
+	blarg.setRect(enemy->getimg());
 
 	camera = new dxCamera(dxMgr);
 
@@ -248,7 +248,7 @@ void game::handleInput()
 		position.x += moveDistance;
 	}
 		
-	if(blarg.collided(player->getcollisionbox())==1)	
+	if(blarg.collided(player->getcollisionbox()->getRect())==1)	
 	{		
 		player->setPosition(prevX,prevY,0);	
 		//position.x=prevX;
