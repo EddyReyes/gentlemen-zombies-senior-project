@@ -9,6 +9,7 @@ class PlayerCharacter
 private:
 	float playerHealth;
 	float damageResistance;
+	float money;
 	XYPlane * playerImage;
 	collisionRect *c;
 public:
@@ -19,6 +20,9 @@ public:
 	void setHealth(int );
 	void healthRegenerate(int healthPack);
 	void playerDamage(int damage);
+	float getMoney();
+	void addMoney(float recieve);
+	void setMoney(int a_money);
 
 	void setPlayerImage(std::string filename);
 	void setPlayerSprite(int a_row, int a_column);

@@ -9,6 +9,7 @@ private:
 	float enemieHealth;
 	float damageResistance;
 	int enemieType;
+	float money;
 	XYPlane * enemyImage;
 
 public:
@@ -20,6 +21,9 @@ public:
 	void setEnemieType(int a_armorType);
 	bool initEnemie(int a_enmeieType);
 	void Enemiedamage(int damage);
+	void setMoney(int a_enemieLevel);
+	float getMoney();
+	void dropeMoney();
 
 	void setEnemieImage(std::string filename);
 	void setEnemieSprite(int a_row, int a_column);

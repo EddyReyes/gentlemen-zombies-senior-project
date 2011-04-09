@@ -68,6 +68,20 @@ void PlayerCharacter::setPosition(float a_x, float a_y, float a_z)
 	c->initRect(playerImage);
 	c->update();
 }
+float PlayerCharacter::getMoney()
+{
+	return money;
+}
+
+void PlayerCharacter::addMoney(float recieve)
+{
+	money += recieve;
+}
+
+void PlayerCharacter::setMoney(int a_money)
+{
+	a_money = money;
+}
 
 void PlayerCharacter::Draw()
 {
