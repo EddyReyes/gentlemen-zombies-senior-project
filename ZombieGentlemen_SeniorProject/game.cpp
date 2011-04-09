@@ -203,18 +203,17 @@ void game::handleInput()
 		}
 	}
 
-	//if ((keystate[DIK_J] & 0x80))
-	//{
-	//	if(now - keyLag[DIK_J] > 150)
-	//	{
-	//		if( scale > 0.2)
-	//		{
-	//			scale -= 0.1f;
-	//			testTile->setScale(scale);
-	//			keyLag[DIK_J] = now;
-	//		}
-	//	}
-	//}
+	if ((keystate[DIK_H] & 0x80))
+	{
+		if(now - keyLag[DIK_H] > 150)
+		{
+			if( scale > 0.2)
+			{
+				testObject->toggleCollision();
+				keyLag[DIK_H] = now;
+			}
+		}
+	}
 	//if ((keystate[DIK_K] & 0x80))
 	//{
 	//	if(now - keyLag[DIK_K] > 150)
@@ -257,20 +256,11 @@ void game::handleInput()
 		objectX += moveDistance;
 	}
 
-	testObject->handleCollision(objectX, objectY, 0.0f, testObject2->getCollisionRect());
+	testObject->setTargetCollision(testObject2->getCollisionRect());
+	testObject->handleCollision(objectX, objectY, 0.0f);
 	objectX = testObject->getXYPlane()->getXPosition();
 	objectY = testObject->getXYPlane()->getYPosition();
 
-	if(blarg.collided(player->getcollisionbox()->getRect())==1)	
-	{		
-		player->setPosition(prevX,prevY,0);	
-		//position.x=prevX;
-		//position.y=prevY;
-	}	
-	else	
-	{		
-		player->setPosition(position.x*0.005,position.y*0.005,0);	
-	}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)

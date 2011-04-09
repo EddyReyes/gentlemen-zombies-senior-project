@@ -12,6 +12,7 @@ class object
 protected:
 	XYPlane *  image;
 	collisionRect * collRect;
+	collisionRect * targetCollRect;
 	bool collisionToggle;
 	dxManager* dxMgr;
 	float movement;
@@ -25,6 +26,7 @@ public:
 		collRect->initRect(image);
 		loadParameters(textFile);
 		movement = 0.005f;
+		collisionToggle = true;
 	}
 	~object()
 	{
@@ -67,15 +69,30 @@ public:
 	{
 		image->draw();
 	}
-	void handleCollision(float a_x, float a_y, float a_z, collisionRect * a_collRect)
+	/************************************************************************************
+	* handleCollision
+	* returns true if movement is valid, flase if movement is invalid and moves object back
+	************************************************************************************/
+	bool handleCollision(float a_x, float a_y, float a_z)
 	{
-		D3DXVECTOR3 pos = *image->getPosition();
-		image->setPosition(a_x, a_y, a_z);
-		collRect->update();
-		if(collRect->collided(a_collRect->getRect()))
+		if(collisionToggle)
 		{
-			image->setPosition(pos);
+			D3DXVECTOR3 pos = *image->getPosition();
+			image->setPosition(a_x, a_y, a_z);
 			collRect->update();
+			if(collRect->collided(targetCollRect->getRect()))
+			{
+				image->setPosition(pos);
+				collRect->update();
+				return false;
+			}
+			return true;
+		}
+		else
+		{
+			image->setPosition(a_x, a_y, a_z);
+			collRect->update();
+			return true;
 		}
 	}
 	collisionRect * getCollisionRect(){return collRect;}
@@ -85,6 +102,12 @@ public:
 		image->setPosition(a_x, a_y, a_z);
 		collRect->update();
 	}
+	void setTargetCollision(collisionRect * a_collRect)
+	{
+		targetCollRect = a_collRect;
+	}
 	void toggleImage(){image->toggleImage();}
 	void toggleCollision(){collisionToggle = !collisionToggle;}
+	void collisionToggleOn(){collisionToggle = true;}
+	void collisionToggleOff(){collisionToggle = false;}
 };
