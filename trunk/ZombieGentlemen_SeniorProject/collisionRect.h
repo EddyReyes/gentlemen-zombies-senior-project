@@ -20,7 +20,7 @@ private:
 public:
 	collisionRect();
 	~collisionRect();
-	int collided(FloatRect* a_rect);
+	bool collided(FloatRect* a_rect);
 
 	// mutators
 	void initRect(XYPlane* plane);

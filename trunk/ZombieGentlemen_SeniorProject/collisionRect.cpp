@@ -13,16 +13,13 @@ collisionRect::collisionRect()//defualt constructor
 	offSet.left = NULL;
 	offSet.right = NULL;
 }
-int collisionRect::collided(FloatRect* a_rect)
+bool collisionRect::collided(FloatRect* a_rect)
 {
-	if(rect.bottom < a_rect->top) return 1;
-	if(rect.top > a_rect->bottom) return 2;
-	if(rect.left < a_rect->right) return 3;
-	if(rect.right > a_rect->left) return 4;
-
-	return 0;
+	return !(rect.top < a_rect->bottom
+		|| rect.bottom > a_rect->top
+		|| rect.left > a_rect->right
+		|| rect.right < a_rect->left);
 }
-//takes in an XYPlane and sets the rect based off of it
 void collisionRect::initRect(XYPlane* a_plane)
 {
 	plane = a_plane;
@@ -40,7 +37,7 @@ void collisionRect::setRect()
 		rect.top =  plane->getYPosition();
 		rect.left = plane->getXPosition();
 		rect.right = plane->getXPosition()+plane->getWidth();
-		rect.bottom = plane->getYPosition()+plane->getHeight();
+		rect.bottom = plane->getYPosition()-plane->getHeight();
 	}
 	else if(cube)
 	{

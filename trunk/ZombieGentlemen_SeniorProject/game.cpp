@@ -45,9 +45,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
 	testObject2 = new object(dxMgr, "images/Character.bmp", "testObject.txt");
-	testObject2->setPosition(3.0f, 0.0f, 0.0f);
+	testObject2->setPosition(3.0f, 1.0f, 0.0f);
 	objectX = 0; 
-	objectY = 0;
+	objectY = 1;
 	
 	
 	scale = 1.0f;
@@ -257,9 +257,10 @@ void game::handleInput()
 		objectX += moveDistance;
 	}
 
-	testObject->setPosition(objectX, objectY, 0.0f);
-	//testObject->handleCollision(testObject2->getCollisionRect());
-		
+	testObject->setPosition(objectX, objectY, 0.0f, testObject2->getCollisionRect());
+	objectX = testObject->getXYPlane()->getXPosition();
+	objectY = testObject->getXYPlane()->getYPosition();
+
 	if(blarg.collided(player->getcollisionbox()->getRect())==1)	
 	{		
 		player->setPosition(prevX,prevY,0);	
