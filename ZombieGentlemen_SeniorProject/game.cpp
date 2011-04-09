@@ -34,7 +34,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 0.0f;
 	cameraZ = -10.0f;
 
-
+	//inits physics object
+	physics = new phyVars;
 	//testTile = new XYPlane(dxMgr, "images/Character.bmp");
 	//testTile->setScale(1.1f);
 	//testTile2->selectTextureSource(3, 2);
@@ -45,7 +46,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
 	testObject2 = new object(dxMgr, "images/Character.bmp", "testObject.txt");
-	testObject2->setPosition(3.0f, 1.0f, 0.0f);
+	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
 	
@@ -59,7 +60,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
-	enemy->setPosition(4, 4, 0);
+	enemy->setPosition(1, 4, 0);
 	blarg.initRect(enemy->getimg());
 	blarg.update();
 
@@ -231,8 +232,8 @@ void game::handleInput()
 	float moveDistance = 0.005f;
 	float prevX, prevY;
 	
-	prevX = position.x*0.005;	
-	prevY = position.y*0.005;
+	prevX = objectX;	
+	prevY = objectY;
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
@@ -255,12 +256,39 @@ void game::handleInput()
 		position.x += moveDistance;
 		objectX += moveDistance;
 	}
+	physics->velY -= physics->gravity;
+	//physics->velX *= physics->friction;
+
+	float x = testObject->getXYPlane()->getXPosition();
+	float y = testObject->getXYPlane()->getYPosition();
+
+	//x += physics->velX;
+	y += physics->velY;
 
 	testObject->setTargetCollision(testObject2->getCollisionRect());
-	testObject->handleCollision(objectX, objectY, 0.0f);
-	objectX = testObject->getXYPlane()->getXPosition();
-	objectY = testObject->getXYPlane()->getYPosition();
+	if(!testObject->handleCollision(objectX, objectY, 0.0f))
+	{
+		objectX = prevX;
+		objectY = prevY;
+		physics->gravity = 0.001;
+	}
+	else
+	{
+		objectX = x;
+		objectY = y;
+	}
 
+
+	//if(blarg.collided(player->getcollisionbox()->getRect())==1)	
+	//{		
+	//	player->setPosition(prevX,prevY,0);	
+		//position.x=prevX;
+		//position.y=prevY;
+	//}	
+	//else	
+	//{		
+		//player->setPosition(position.x*0.005,position.y*0.005,0);	
+	//}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
@@ -378,5 +406,7 @@ game::~game()
 	player->~PlayerCharacter();
 	enemy->~EnemyCharacter();
 	dialog->~DXText();
+	delete physics;
 	//ui->~HUD();
+
 }
