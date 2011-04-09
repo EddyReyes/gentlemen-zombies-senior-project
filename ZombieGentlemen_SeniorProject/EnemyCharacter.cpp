@@ -63,6 +63,32 @@ void EnemyCharacter::setPosition(float a_x, float a_y, float a_z)
 	enemyImage->setPosition( a_x,  a_y,  a_z);
 }
 
+void EnemyCharacter::setMoney(int a_enemieLevel)
+{
+	if(a_enemieLevel == 1)
+	{
+		money = 1;
+	}
+	if(a_enemieLevel == 2)
+	{
+		money = 5;
+	}
+	if(a_enemieLevel == 3)
+	{
+		money = 10;
+	}
+}
+float EnemyCharacter::getMoney()
+{
+	return money;
+}
+void EnemyCharacter::dropeMoney()
+{
+	/*if(enemieHealth = 0)
+	{
+		
+	}*/
+}
 void EnemyCharacter::Draw()
 {
 	// calls the draw function to draw the image.
