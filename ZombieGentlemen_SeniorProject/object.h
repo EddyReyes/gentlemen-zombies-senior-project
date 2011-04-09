@@ -67,12 +67,7 @@ public:
 	{
 		image->draw();
 	}
-	void handleCollision(collisionRect * a_collRect)
-	{
-	}
-	collisionRect * getCollisionRect(){return collRect;}
-	XYPlane * getXYPlane(){return image;}
-	void setPosition(float a_x, float a_y, float a_z, collisionRect * a_collRect)
+	void handleCollision(float a_x, float a_y, float a_z, collisionRect * a_collRect)
 	{
 		D3DXVECTOR3 pos = *image->getPosition();
 		image->setPosition(a_x, a_y, a_z);
@@ -83,6 +78,8 @@ public:
 			collRect->update();
 		}
 	}
+	collisionRect * getCollisionRect(){return collRect;}
+	XYPlane * getXYPlane(){return image;}
 	void setPosition(float a_x, float a_y, float a_z)
 	{
 		image->setPosition(a_x, a_y, a_z);

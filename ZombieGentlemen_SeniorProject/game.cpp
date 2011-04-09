@@ -257,7 +257,7 @@ void game::handleInput()
 		objectX += moveDistance;
 	}
 
-	testObject->setPosition(objectX, objectY, 0.0f, testObject2->getCollisionRect());
+	testObject->handleCollision(objectX, objectY, 0.0f, testObject2->getCollisionRect());
 	objectX = testObject->getXYPlane()->getXPosition();
 	objectY = testObject->getXYPlane()->getYPosition();
 
