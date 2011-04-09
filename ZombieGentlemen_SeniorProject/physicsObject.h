@@ -43,7 +43,7 @@ public:
 	}
 	~physicsObject()
 	{
-		if(sharingObject)
+		if(!sharingObject)
 		{
 			if(physObject)
 			{
