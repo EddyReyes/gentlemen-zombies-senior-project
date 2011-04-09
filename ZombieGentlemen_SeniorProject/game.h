@@ -87,6 +87,7 @@ private:
 	cubeMap * m_map;
 
 	object * testObject;
+	dxCube * testCube;
 	object * testObject2;
 	float objectX, objectY;
 	

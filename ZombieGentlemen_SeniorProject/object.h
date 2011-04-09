@@ -106,6 +106,7 @@ public:
 			cube->setImageRowsColumns(imageRows, imageColumns);
 		}
 		collRect->setOffset(&offset);
+		collRect->update();
 	}
 	void loadParameters(float x, float y, float z, float width, float height, float depth,
 		 int imageRows, int imageColumns, float leftOffset, float topOffset, float rightOffset,

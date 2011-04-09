@@ -44,7 +44,7 @@ void collisionRect::setRect()
 		rect.top =  cube->getYPosition();
 		rect.left = cube->getXPosition();
 		rect.right = cube->getXPosition()+cube->getWidth();
-		rect.bottom = cube->getYPosition()+cube->getHeight();
+		rect.bottom = cube->getYPosition()-cube->getHeight();
 	}
 }
 // offsets the collision rectangle to fit smaller constraints
