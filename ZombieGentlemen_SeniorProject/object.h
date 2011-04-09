@@ -69,26 +69,20 @@ public:
 	}
 	void handleCollision(collisionRect * a_collRect)
 	{
-		int collisionResult;
+	}
+	collisionRect * getCollisionRect(){return collRect;}
+	XYPlane * getXYPlane(){return image;}
+	void setPosition(float a_x, float a_y, float a_z, collisionRect * a_collRect)
+	{
 		D3DXVECTOR3 pos = *image->getPosition();
-		while(collisionResult = collRect->collided(a_collRect->getRect()))
+		image->setPosition(a_x, a_y, a_z);
+		collRect->update();
+		if(collRect->collided(a_collRect->getRect()))
 		{
-			switch(collisionResult)
-			{
-			case 1: pos.y += movement;
-				break;
-			case 2: pos.y -= movement;
-				break;
-			case 3: pos.x += movement;
-				break;
-			case 4: pos.x -= movement;
-				break;
-			}
 			image->setPosition(pos);
 			collRect->update();
 		}
 	}
-	collisionRect * getCollisionRect(){return collRect;}
 	void setPosition(float a_x, float a_y, float a_z)
 	{
 		image->setPosition(a_x, a_y, a_z);
