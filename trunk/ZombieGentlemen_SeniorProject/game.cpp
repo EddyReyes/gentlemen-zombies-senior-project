@@ -45,7 +45,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
 
 	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
-	testObject2 = new object(dxMgr, "images/Character.bmp", "testObject.txt");
+	testCube = new dxCube(dxMgr, "images/glass tile.bmp");
+	testObject2 = new object(testCube, "testObject2.txt");
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
