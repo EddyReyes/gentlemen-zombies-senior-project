@@ -53,8 +53,11 @@ public:
 			{
 				for(int x = 0; x < width; x++)
 				{
-					planes[y][x].plane->~XYPlane();
-					planes[y][x].plane = NULL;
+					if(planes[y][x].plane != NULL)
+					{
+						planes[y][x].plane->~XYPlane();
+						planes[y][x].plane = NULL;
+					}
 				}
 				delete [] planes[y];
 			}
@@ -89,7 +92,14 @@ public:
 			//initialize planes positions
 			for(int x = 0; x < width; x++)
 			{
-				planes[y][x].plane = new XYPlane(dxMgr, mapTexture);
+				if(m_map[y][x] != '.')
+				{
+					planes[y][x].plane = new XYPlane(dxMgr, mapTexture);
+				}
+				else 
+				{
+					planes[y][x].plane = NULL;
+				}
 			}
 		}
 	}
@@ -124,7 +134,10 @@ public:
 			{
 				for(int x = 0; x < width; x++)
 				{
-					planes[y][x].plane->draw();
+					if(planes[y][x].plane != NULL)
+					{
+						planes[y][x].plane->draw();
+					}
 				}
 			}
 		}
@@ -136,48 +149,51 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				planes[y][x].plane->setImageRowsColumns(textureRows, textureColumns);
-				planes[y][x].plane->selectTextureSource(0,0);
-				switch(tolower(m_map[y][x]))
+				if(planes[y][x].plane !=  NULL)
 				{
-				case '.':  planes[y][x].plane->toggleImageOff(); break;
+					planes[y][x].plane->setImageRowsColumns(textureRows, textureColumns);
+					planes[y][x].plane->selectTextureSource(0,0);
+					switch(tolower(m_map[y][x]))
+					{
+					case '.':  planes[y][x].plane->toggleImageOff(); break;
 
-				case 'a':  planes[y][x].plane->selectTextureSource(0,0); break;
-				case 'b':  planes[y][x].plane->selectTextureSource(0,1); break;
-				case 'c':  planes[y][x].plane->selectTextureSource(0,2); break;
-				case 'd':  planes[y][x].plane->selectTextureSource(0,3); break;
-				case 'e':  planes[y][x].plane->selectTextureSource(0,4); break;
+					case 'a':  planes[y][x].plane->selectTextureSource(0,0); break;
+					case 'b':  planes[y][x].plane->selectTextureSource(0,1); break;
+					case 'c':  planes[y][x].plane->selectTextureSource(0,2); break;
+					case 'd':  planes[y][x].plane->selectTextureSource(0,3); break;
+					case 'e':  planes[y][x].plane->selectTextureSource(0,4); break;
 
-				case 'f':  planes[y][x].plane->selectTextureSource(1,0); break;
-				case 'g':  planes[y][x].plane->selectTextureSource(1,1); break;
-				case 'h':  planes[y][x].plane->selectTextureSource(1,2); break;
-				case 'i':  planes[y][x].plane->selectTextureSource(1,3); break;
-				case 'j':  planes[y][x].plane->selectTextureSource(1,4); break;
+					case 'f':  planes[y][x].plane->selectTextureSource(1,0); break;
+					case 'g':  planes[y][x].plane->selectTextureSource(1,1); break;
+					case 'h':  planes[y][x].plane->selectTextureSource(1,2); break;
+					case 'i':  planes[y][x].plane->selectTextureSource(1,3); break;
+					case 'j':  planes[y][x].plane->selectTextureSource(1,4); break;
 
-				case 'k':  planes[y][x].plane->selectTextureSource(2,0); break;
-				case 'l':  planes[y][x].plane->selectTextureSource(2,1); break;
-				case 'm':  planes[y][x].plane->selectTextureSource(2,2); break;
-				case 'n':  planes[y][x].plane->selectTextureSource(2,3); break;
-				case 'o':  planes[y][x].plane->selectTextureSource(2,4); break;
+					case 'k':  planes[y][x].plane->selectTextureSource(2,0); break;
+					case 'l':  planes[y][x].plane->selectTextureSource(2,1); break;
+					case 'm':  planes[y][x].plane->selectTextureSource(2,2); break;
+					case 'n':  planes[y][x].plane->selectTextureSource(2,3); break;
+					case 'o':  planes[y][x].plane->selectTextureSource(2,4); break;
 
-				case 'p':  planes[y][x].plane->selectTextureSource(3,0); break;
-				case 'q':  planes[y][x].plane->selectTextureSource(3,1); break;
-				case 'r':  planes[y][x].plane->selectTextureSource(3,2); break;
-				case 's':  planes[y][x].plane->selectTextureSource(3,3); break;
-				case 't':  planes[y][x].plane->selectTextureSource(3,4); break;
+					case 'p':  planes[y][x].plane->selectTextureSource(3,0); break;
+					case 'q':  planes[y][x].plane->selectTextureSource(3,1); break;
+					case 'r':  planes[y][x].plane->selectTextureSource(3,2); break;
+					case 's':  planes[y][x].plane->selectTextureSource(3,3); break;
+					case 't':  planes[y][x].plane->selectTextureSource(3,4); break;
 
-				case 'u':  planes[y][x].plane->selectTextureSource(4,0); break;
-				case 'v':  planes[y][x].plane->selectTextureSource(4,1); break;
-				case 'w':  planes[y][x].plane->selectTextureSource(4,2); break;
-				case 'x':  planes[y][x].plane->selectTextureSource(4,3); break;
-				case 'y':  planes[y][x].plane->selectTextureSource(4,4); break;
+					case 'u':  planes[y][x].plane->selectTextureSource(4,0); break;
+					case 'v':  planes[y][x].plane->selectTextureSource(4,1); break;
+					case 'w':  planes[y][x].plane->selectTextureSource(4,2); break;
+					case 'x':  planes[y][x].plane->selectTextureSource(4,3); break;
+					case 'y':  planes[y][x].plane->selectTextureSource(4,4); break;
 
-				case 'z':  planes[y][x].plane->toggleImageOff(); break;
+					case 'z':  planes[y][x].plane->toggleImageOff(); break;
 
-				default : char buffer[50];
-					sprintf_s(buffer, "Invalid map texture character at:  %i, %i", x, y);
-					MessageBox(NULL, buffer, "Map Error", MB_OK);
-					break;
+					default : char buffer[50];
+						sprintf_s(buffer, "Invalid map texture character at:  %i, %i", x, y);
+						MessageBox(NULL, buffer, "Map Error", MB_OK);
+						break;
+					}
 				}
 			}
 		}
@@ -188,8 +204,11 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				D3DXVECTOR3 * pos = m_grid->getNode(y, x);
-				planes[y][x].plane->setPosition(*pos);
+				if(planes[y][x].plane != NULL)
+				{
+					D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+					planes[y][x].plane->setPosition(*pos);
+				}
 			}
 		}
 	}
@@ -200,7 +219,10 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				planes[y][x].plane->setScale(scale);
+				if(planes[y][x].plane != NULL)
+				{
+					planes[y][x].plane->setScale(scale);
+				}
 			}
 		}
 	}

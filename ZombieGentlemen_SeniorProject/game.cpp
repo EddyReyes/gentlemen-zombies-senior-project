@@ -340,11 +340,11 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
 		{
-			//if(cameraZ < -1.1)
-			//{
+			if(cameraZ < -1.1)
+			{
 				cameraZ += cameraMove;
 				keyLag[DIK_NUMPAD7] = now;
-			//}
+			}
 		}
 	}
 	if ((keystate[DIK_NUMPAD9] & 0x80) || (keystate[DIK_O] & 0x80))
@@ -370,10 +370,11 @@ void game::draw()
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	//testTile->setRenderStates();
 	//testTile->draw();
-	m_map->draw();
 
 	testObject->draw();
 	testObject2->draw();
+
+	m_map->draw();
 
 	//player->Draw();
 	

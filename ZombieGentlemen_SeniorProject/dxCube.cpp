@@ -408,28 +408,43 @@ void dxCube::draw()
 
 		if(transparencyCulling)
 		{
-			// Draw the trianglestrips that make up the cube
-			//draw with culling clockwise first
-			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CW );
+			//// Draw the trianglestrips that make up the cube
+			////draw with culling clockwise first
+			//pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CW );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
 
-			//pd3dDevice->SetTexture( 0, g_pTexture );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
-
-			// then draw with culling counter clockwise
+			//// then draw with culling counter clockwise
+			//pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
+			//pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
+						
 			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
-
-			//pd3dDevice->SetTexture( 0, g_pTexture );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
 			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
-			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
 			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CW );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
 			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
 			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
+
+			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  4, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 12, 2 );
+			pd3dDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  0, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP,  8, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 16, 2 );
+			pd3dDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 20, 2 );
+
 		}
 		else
 		{
