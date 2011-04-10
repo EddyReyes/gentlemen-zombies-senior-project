@@ -46,6 +46,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
 	testCube = new dxCube(dxMgr, "images/glass tile.bmp");
+	testCube->toggleTransparencyCulling();
 	testObject2 = new object(testCube, "testObject2.txt");
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
@@ -339,11 +340,11 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
 		{
-			if(cameraZ < -1.1)
-			{
+			//if(cameraZ < -1.1)
+			//{
 				cameraZ += cameraMove;
 				keyLag[DIK_NUMPAD7] = now;
-			}
+			//}
 		}
 	}
 	if ((keystate[DIK_NUMPAD9] & 0x80) || (keystate[DIK_O] & 0x80))

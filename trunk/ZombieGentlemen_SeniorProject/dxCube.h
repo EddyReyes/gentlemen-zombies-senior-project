@@ -20,6 +20,7 @@ private:
 	int Columns, Rows; // number of columns and rows in sprite sheet
 	bool cubeToggle; // toogle for drawing XYPlane
 	bool sharingImage; // keeps track of weather the image is being shared with another object
+	bool transparencyCulling;
 	float origin;
 
 	// private member functions
@@ -59,6 +60,7 @@ public:
 	void toggleCube();
 	void toggleCubeOff();
 	void toggleCubeOn();
+	void toggleTransparencyCulling();
 
 	// accessors
 	LPDIRECT3DTEXTURE9 * getTexture();
