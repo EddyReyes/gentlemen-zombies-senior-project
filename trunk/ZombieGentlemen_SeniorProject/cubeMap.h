@@ -53,8 +53,11 @@ public:
 			{
 				for(int x = 0; x < width; x++)
 				{
-					cubes[y][x].cube->~dxCube();
-					cubes[y][x].cube = NULL;
+					if(cubes[y][x].cube != NULL)
+					{
+						cubes[y][x].cube->~dxCube();
+						cubes[y][x].cube = NULL;
+					}
 				}
 				delete [] cubes[y];
 			}
@@ -89,7 +92,14 @@ public:
 			//initialize cubes positions
 			for(int x = 0; x < width; x++)
 			{
-				cubes[y][x].cube = new dxCube(dxMgr, mapTexture);
+				if(m_map[y][x] != '.')
+				{
+					cubes[y][x].cube = new dxCube(dxMgr, mapTexture);
+				}
+				else 
+				{
+					cubes[y][x].cube = NULL;
+				}
 			}
 		}
 	}
@@ -124,7 +134,10 @@ public:
 			{
 				for(int x = 0; x < width; x++)
 				{
-					cubes[y][x].cube->draw();
+					if(cubes[y][x].cube != NULL)
+					{
+						cubes[y][x].cube->draw();
+					}
 				}
 			}
 		}
@@ -136,48 +149,51 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
-				cubes[y][x].cube->selectTextureSource(0,0);
-				switch(tolower(m_map[y][x]))
+				if(cubes[y][x].cube != NULL)
 				{
-				case '.':  cubes[y][x].cube->toggleCubeOff(); break;
+					cubes[y][x].cube->setImageRowsColumns(textureRows, textureColumns);
+					cubes[y][x].cube->selectTextureSource(0,0);
+					switch(tolower(m_map[y][x]))
+					{
+					case '.':  cubes[y][x].cube->toggleCubeOff(); break;
 
-				case 'a':  cubes[y][x].cube->selectTextureSource(0,0); break;
-				case 'b':  cubes[y][x].cube->selectTextureSource(0,1); break;
-				case 'c':  cubes[y][x].cube->selectTextureSource(0,2); break;
-				case 'd':  cubes[y][x].cube->selectTextureSource(0,3); break;
-				case 'e':  cubes[y][x].cube->selectTextureSource(0,4); break;
+					case 'a':  cubes[y][x].cube->selectTextureSource(0,0); break;
+					case 'b':  cubes[y][x].cube->selectTextureSource(0,1); break;
+					case 'c':  cubes[y][x].cube->selectTextureSource(0,2); break;
+					case 'd':  cubes[y][x].cube->selectTextureSource(0,3); break;
+					case 'e':  cubes[y][x].cube->selectTextureSource(0,4); break;
 
-				case 'f':  cubes[y][x].cube->selectTextureSource(1,0); break;
-				case 'g':  cubes[y][x].cube->selectTextureSource(1,1); break;
-				case 'h':  cubes[y][x].cube->selectTextureSource(1,2); break;
-				case 'i':  cubes[y][x].cube->selectTextureSource(1,3); break;
-				case 'j':  cubes[y][x].cube->selectTextureSource(1,4); break;
+					case 'f':  cubes[y][x].cube->selectTextureSource(1,0); break;
+					case 'g':  cubes[y][x].cube->selectTextureSource(1,1); break;
+					case 'h':  cubes[y][x].cube->selectTextureSource(1,2); break;
+					case 'i':  cubes[y][x].cube->selectTextureSource(1,3); break;
+					case 'j':  cubes[y][x].cube->selectTextureSource(1,4); break;
 
-				case 'k':  cubes[y][x].cube->selectTextureSource(2,0); break;
-				case 'l':  cubes[y][x].cube->selectTextureSource(2,1); break;
-				case 'm':  cubes[y][x].cube->selectTextureSource(2,2); break;
-				case 'n':  cubes[y][x].cube->selectTextureSource(2,3); break;
-				case 'o':  cubes[y][x].cube->selectTextureSource(2,4); break;
+					case 'k':  cubes[y][x].cube->selectTextureSource(2,0); break;
+					case 'l':  cubes[y][x].cube->selectTextureSource(2,1); break;
+					case 'm':  cubes[y][x].cube->selectTextureSource(2,2); break;
+					case 'n':  cubes[y][x].cube->selectTextureSource(2,3); break;
+					case 'o':  cubes[y][x].cube->selectTextureSource(2,4); break;
 
-				case 'p':  cubes[y][x].cube->selectTextureSource(3,0); break;
-				case 'q':  cubes[y][x].cube->selectTextureSource(3,1); break;
-				case 'r':  cubes[y][x].cube->selectTextureSource(3,2); break;
-				case 's':  cubes[y][x].cube->selectTextureSource(3,3); break;
-				case 't':  cubes[y][x].cube->selectTextureSource(3,4); break;
+					case 'p':  cubes[y][x].cube->selectTextureSource(3,0); break;
+					case 'q':  cubes[y][x].cube->selectTextureSource(3,1); break;
+					case 'r':  cubes[y][x].cube->selectTextureSource(3,2); break;
+					case 's':  cubes[y][x].cube->selectTextureSource(3,3); break;
+					case 't':  cubes[y][x].cube->selectTextureSource(3,4); break;
 
-				case 'u':  cubes[y][x].cube->selectTextureSource(4,0); break;
-				case 'v':  cubes[y][x].cube->selectTextureSource(4,1); break;
-				case 'w':  cubes[y][x].cube->selectTextureSource(4,2); break;
-				case 'x':  cubes[y][x].cube->selectTextureSource(4,3); break;
-				case 'y':  cubes[y][x].cube->selectTextureSource(4,4); break;
+					case 'u':  cubes[y][x].cube->selectTextureSource(4,0); break;
+					case 'v':  cubes[y][x].cube->selectTextureSource(4,1); break;
+					case 'w':  cubes[y][x].cube->selectTextureSource(4,2); break;
+					case 'x':  cubes[y][x].cube->selectTextureSource(4,3); break;
+					case 'y':  cubes[y][x].cube->selectTextureSource(4,4); break;
 
-				case 'z':  cubes[y][x].cube->toggleCubeOff(); break;
+					case 'z':  cubes[y][x].cube->toggleCubeOff(); break;
 
-				default : char buffer[50];
-					sprintf_s(buffer, "Invalid map texture character at:  %i, %i", x, y);
-					MessageBox(NULL, buffer, "Map Error", MB_OK);
-					break;
+					default : char buffer[50];
+						sprintf_s(buffer, "Invalid map texture character at:  %i, %i", x, y);
+						MessageBox(NULL, buffer, "Map Error", MB_OK);
+						break;
+					}
 				}
 			}
 		}
@@ -188,8 +204,11 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				D3DXVECTOR3 * pos = m_grid->getNode(y, x);
-				cubes[y][x].cube->setPosition(*pos);
+				if(cubes[y][x].cube != NULL)
+				{
+					D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+					cubes[y][x].cube->setPosition(*pos);
+				}
 			}
 		}
 	}
@@ -200,7 +219,10 @@ public:
 		{
 			for(int x = 0; x < width; x++)
 			{
-				cubes[y][x].cube->setScale(scale);
+				if(cubes[y][x].cube != NULL)
+				{
+					cubes[y][x].cube->setScale(scale);
+				}
 			}
 		}
 	}
