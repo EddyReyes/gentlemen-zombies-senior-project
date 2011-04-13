@@ -16,7 +16,7 @@ private:
 	
 public:
 	HUD();
-	HUD(std::string filename, dxManager * a_dxMgr);
+	HUD(dxManager * a_dxMgr);
 	~HUD();
 	void draw();
 	void updateHealthBar();
@@ -24,11 +24,12 @@ public:
 	void updateWeapon();
 	void updatePlayerMoney();
 
+	void initDefaultPositions();
 	void setHealthBarImage(std::string filename);
 	void setArmorBarImage(std::string filename);
 	void setWeaponImage(std::string filename);
 	void setPlayerMoneyImage(std::string filename);
 	void setPlayerID(int ID);
 	void setPlayerIDImage(std::string filename);
-	void setHudPosition();
+	void setHudPosition(float a_x, float a_y);
 };

@@ -102,7 +102,17 @@ void game::SetSprites()
 					 "That's a new face. Nobody ever comes around here"
 					 " after the town was destroyed.  What do you need?");
 	dialog->setTextBoxParameters(500, 250, 10, 40, 25);
-			
+	/**********************
+	* HUD images          *
+	**********************/
+	hudStuff = new HUD(dxMgr);
+	hudStuff->setHealthBarImage("images/healthBar.bmp");
+	hudStuff->setHudPosition(0.0f, 0.0f);	
+	hudStuff->setArmorBarImage("images/armorBar.bmp");
+	hudStuff->setHudPosition(200.0f, 0.0f);
+	hudStuff->setWeaponImage("images/club.bmp");
+	hudStuff->setHudPosition(50.0f, 0.0f);
+	
 
 	// set the starting point for the circle sprite
 	position.x = 0;
@@ -390,7 +400,7 @@ void game::draw()
 	FPSText->draw();
 
 	//dialog->draw();
-	
+	hudStuff->draw();	
 
 	dxMgr->endRender();
 }
@@ -410,6 +420,6 @@ game::~game()
 	enemy->~EnemyCharacter();
 	dialog->~DXText();
 	delete physics;
-	//ui->~HUD();
+	hudStuff->~HUD();
 
 }
