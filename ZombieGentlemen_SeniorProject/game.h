@@ -26,6 +26,7 @@ status: unit test
 #include "planeMap.h"
 #include "entity.h"
 
+#include "HUD.h"
 #include "playerCharacter.h"
 #include "playerItem.h"
 #include "EnemyCharacter.h"
@@ -93,6 +94,7 @@ private:
 	
 	XY position;
 	DXText * dialog;
+	HUD * hudStuff;
 	HudImage * cursor;
 	HudImage * background;
 	XYPlane * testTile;

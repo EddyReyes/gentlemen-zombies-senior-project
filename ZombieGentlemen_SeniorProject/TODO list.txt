@@ -19,9 +19,12 @@ Legend
 
 3/31 William
 + display a message bubble
-- animate the message bubble sprite
+# animate the message bubble sprite
 - have message pop up when town's people sprites are approached(collision detection
   involved)
 - Help document on the GDD and TDD
 - work on the game HUD
-- develop uploaded game HUD concepts
+4/09
++ completed High Concept Doc
+
+
