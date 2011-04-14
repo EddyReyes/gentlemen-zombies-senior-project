@@ -90,6 +90,7 @@ void HUD::initDefaultPositions()
 	setArmorBarImage("images/armorBar.bmp");
 	setWeaponImage("images/sword.bmp");
 	setBagOfMoneyImage("images/moneyBag.bmp");
+	//setCurrencyValueImage("images/moneyTextBox.bmp");
 	setPlayerIDImage("images/WillConcept.bmp");
 	setHudPosition(2.0f, 5.0f);	
 
@@ -155,10 +156,12 @@ void HUD::setBagOfMoneyImage(std::string filename)
 		bagOfMoney = new HudImage(dxMgr, filename);
 	}
 }
-void HUD::setCurrencyValueImage()
+void HUD::setCurrencyValueImage(std::string filename)
 {
+	playerMoney->toggleImage();
 	playerMoney->textInfo("Arial", 26,
 				D3DCOLOR_ARGB(255, 0, 0, 255), "000");
+	playerMoney->setRect(80, 100, 25, 60);
 	playerMoney->setTextBoxParameters(30.0, 60.0, 30, 80, 25);
 }
 void HUD::setPlayerID(int ID)
@@ -189,10 +192,10 @@ void HUD::setHudPosition(float a_x, float a_y)
 		playerID->getXPosition() + 15 + a_x, playerID->getYPosition() + 15 + a_y);
 	if(healthBar)
 		healthBar->setParameters(healthBar->getWidth() - 160 + a_x, healthBar->getHeight() - 250 + a_y,
-		healthBar->getXPosition() + 85 + a_x, healthBar->getYPosition() + 20 + a_y);
+		healthBar->getXPosition() + 85 + a_x, healthBar->getYPosition() + 40 + a_y);
 	if(armorBar)
 		armorBar->setParameters(armorBar->getWidth() - 160 + a_x, armorBar->getHeight() - 250 + a_y,
-		armorBar->getXPosition() + 85 + a_x, armorBar->getYPosition()+ 40 + a_y);
+		armorBar->getXPosition() + 85 + a_x, armorBar->getYPosition()+ 60 + a_y);
 	if(weapon)
 		weapon->setParameters(weapon->getWidth() - 200 + a_x, weapon->getHeight() - 200 + a_y,
 		weapon->getXPosition() + 120 + a_x, weapon->getYPosition() + 70 + a_y);
