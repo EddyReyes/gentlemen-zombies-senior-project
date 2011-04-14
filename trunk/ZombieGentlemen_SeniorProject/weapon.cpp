@@ -1,21 +1,33 @@
 #include "weapon.h"
 
-int Weapon::damageGiven(void)
+Weapon::Weapon()
 {
-
+	damage = 0;
+	hitPoints = 0;
+	weaponCost = 0;
+	weaponSpeed = 0;
+}
+Weapon::~Weapon()
+{	
+}
+int Weapon::damageGiven(int a_damage)
+{
+	damage = a_damage;
+	return damage;
+}
+int Weapon::damageReceived(int a_hitPoints)
+{
+	hitPoints = a_hitPoints;
+	return hitPoints;
+}
+int Weapon::weaponDamageType(void)
+{
 	return 0;
 }
-int Weapon::damageReceived(void)
+float Weapon::cost(int cost)
 {
-	return 0;
-}
-int Weapon::speed(void)
-{
-	return 0;
-}
-float Weapon::cost(void)
-{
-	return 0;
+	
+	return cost;
 }
 int Weapon::shovle()
 {
@@ -24,14 +36,6 @@ int Weapon::shovle()
 	int damage = hitPoints;
 	return damage;
 };
-Weapon::Weapon()
-{
-	//damage points will always be set to zero. 
-	damage = 0;
-}
-Weapon::~Weapon()
-{
-}
 int PlayerWeapon::weaponType(void)
 {
 	return 0;

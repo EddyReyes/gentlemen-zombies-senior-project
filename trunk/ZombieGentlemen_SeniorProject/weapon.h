@@ -7,14 +7,16 @@ class Weapon
 		int hitPoints;
 		int weaponCost;
 		int weaponSpeed;
+		
 	public:
-		int damageGiven(void);
-		int damageReceived(void);
-		int speed(void);
-		float cost(void);
-		int shovle();
 		Weapon();
-		~Weapon();	
+		~Weapon();
+		int damageGiven(int a_damage);
+		int damageReceived(int a_hitPoints);
+		int weaponDamageType(void);
+		float cost(int a_cost);
+		int shovle();
+			
 };
 
 class PlayerWeapon
