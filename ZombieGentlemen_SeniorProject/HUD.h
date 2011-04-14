@@ -5,10 +5,13 @@
 class HUD
 {
 private:
+	HudImage * hudBackground;
 	HudImage * healthBar;
 	HudImage * armorBar;
 	HudImage * weapon;
-	DXText * playerID;
+	HudImage * bagOfMoney;
+	HudImage * playerID;
+	DXText * playerIDNumber;
 	DXText * playerMoney;
 	D3DXVECTOR2 hudPosition;
 	dxManager * dxMgr;
@@ -25,10 +28,12 @@ public:
 	void updatePlayerMoney();
 
 	void initDefaultPositions();
+	void setHudImage(std::string filename);
 	void setHealthBarImage(std::string filename);
 	void setArmorBarImage(std::string filename);
 	void setWeaponImage(std::string filename);
-	void setPlayerMoneyImage(std::string filename);
+	void setBagOfMoneyImage(std::string filename);
+	void setCurrencyValueImage();
 	void setPlayerID(int ID);
 	void setPlayerIDImage(std::string filename);
 	void setHudPosition(float a_x, float a_y);

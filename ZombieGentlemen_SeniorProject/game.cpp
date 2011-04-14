@@ -103,17 +103,11 @@ void game::SetSprites()
 					 " after the town was destroyed.  What do you need?");
 	dialog->setTextBoxParameters(500, 250, 10, 40, 25);
 	/**********************
-	* HUD images          *
+	* HUD images - testing*
 	**********************/
 	hudStuff = new HUD(dxMgr);
-	hudStuff->setHealthBarImage("images/healthBar.bmp");
-	hudStuff->setHudPosition(0.0f, 0.0f);	
-	hudStuff->setArmorBarImage("images/armorBar.bmp");
-	hudStuff->setHudPosition(200.0f, 0.0f);
-	hudStuff->setWeaponImage("images/club.bmp");
-	hudStuff->setHudPosition(50.0f, 0.0f);
+	hudStuff->initDefaultPositions();
 	
-
 	// set the starting point for the circle sprite
 	position.x = 0;
 	position.y = 0;
