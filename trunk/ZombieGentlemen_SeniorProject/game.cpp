@@ -108,6 +108,7 @@ void game::SetSprites()
 	**********************/
 	hudStuff = new HUD(dxMgr);
 	hudStuff->initDefaultPositions();
+
 	
 	// set the starting point for the circle sprite
 	position.x = 0;

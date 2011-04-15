@@ -85,15 +85,15 @@ void HUD::updatePlayerMoney()
 }
 void HUD::initDefaultPositions()
 {
-	setHudImage("images/hud.bmp");
+	setHudImage("images/new_hud.bmp");
 	setHealthBarImage("images/healthBar.bmp");
 	setArmorBarImage("images/armorBar.bmp");
 	setWeaponImage("images/sword.bmp");
 	setBagOfMoneyImage("images/moneyBag.bmp");
 	//setCurrencyValueImage("images/moneyTextBox.bmp");
 	setPlayerIDImage("images/WillConcept.bmp");
-	setHudPosition(2.0f, 5.0f);	
-
+	setHudPosition(2.0f, 5.0f);
+	
 }
 void HUD::setHudImage(std::string filename)
 {
@@ -189,17 +189,17 @@ void HUD::setHudPosition(float a_x, float a_y)
 		hudBackground->getXPosition() + 0 + a_x, hudBackground->getYPosition() - 10 + a_y);
 	if(playerID)
 		playerID->setParameters(playerID->getWidth() - 200 + a_x, playerID->getHeight() - 200 + a_y,
-		playerID->getXPosition() + 15 + a_x, playerID->getYPosition() + 15 + a_y);
+		playerID->getXPosition() + 17 + a_x, playerID->getYPosition() + 15 + a_y);
 	if(healthBar)
 		healthBar->setParameters(healthBar->getWidth() - 160 + a_x, healthBar->getHeight() - 250 + a_y,
-		healthBar->getXPosition() + 85 + a_x, healthBar->getYPosition() + 40 + a_y);
+		healthBar->getXPosition() + 85 + a_x, healthBar->getYPosition() + 20 + a_y);
 	if(armorBar)
-		armorBar->setParameters(armorBar->getWidth() - 160 + a_x, armorBar->getHeight() - 250 + a_y,
-		armorBar->getXPosition() + 85 + a_x, armorBar->getYPosition()+ 60 + a_y);
+		armorBar->setParameters(armorBar->getWidth() - 175 + a_x, armorBar->getHeight() - 250 + a_y,
+		armorBar->getXPosition() + 85 + a_x, armorBar->getYPosition()+ 35 + a_y);
 	if(weapon)
-		weapon->setParameters(weapon->getWidth() - 200 + a_x, weapon->getHeight() - 200 + a_y,
-		weapon->getXPosition() + 120 + a_x, weapon->getYPosition() + 70 + a_y);
+		weapon->setParameters(weapon->getWidth() - 180 + a_x, weapon->getHeight() - 180 + a_y,
+		weapon->getXPosition() + 85 + a_x, weapon->getYPosition() + 95 + a_y);
 	if(bagOfMoney)
-		bagOfMoney->setParameters(bagOfMoney->getWidth() - 200 + a_x, bagOfMoney->getHeight() - 200 + a_y,
-		bagOfMoney->getXPosition() + 15 + a_x, bagOfMoney->getYPosition() + 80 + a_y);
+		bagOfMoney->setParameters(bagOfMoney->getWidth() - 180 + a_x, bagOfMoney->getHeight() - 180 + a_y,
+		bagOfMoney->getXPosition() + 10 + a_x, bagOfMoney->getYPosition() + 72 + a_y);
 }	
