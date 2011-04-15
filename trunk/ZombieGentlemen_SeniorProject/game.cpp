@@ -1,3 +1,4 @@
+//#define physics
 #include "game.h"
 
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
@@ -11,6 +12,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	dxMgr = a_dxMgr;
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
+	OBLIST = new objectMgr;
 
 	now = clock();
 	then = now;
@@ -51,8 +53,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
-	
-	
+	OBLIST->assert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
+	OBLIST->assert(testObject2);
+
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
 	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
@@ -63,8 +66,6 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
 	enemy->setPosition(1, 4, 0);
-	blarg.initRect(enemy->getimg());
-	blarg.update();
 
 	camera = new dxCamera(dxMgr);
 
@@ -221,6 +222,14 @@ void game::handleInput()
 			}
 		}
 	}
+	if((keystate[DIK_X] & 0x80))//Mike's test key =P
+	{
+		//currently trying to delete things from a list on the fly
+		if(now - keyLag[DIK_X] > 150)
+		{
+			//OBLIST->remove(0);
+		}
+	}
 	//if ((keystate[DIK_K] & 0x80))
 	//{
 	//	if(now - keyLag[DIK_K] > 150)
@@ -245,6 +254,8 @@ void game::handleInput()
 	{
 		position.y += moveDistance;
 		objectY += moveDistance;
+		//physics->velY = 0.008;
+
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
@@ -254,7 +265,7 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		position.x -= (int)moveDistance;	
+		position.x -= moveDistance;	
 		objectX -= moveDistance;
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
@@ -262,39 +273,34 @@ void game::handleInput()
 		position.x += moveDistance;
 		objectX += moveDistance;
 	}
-	physics->velY -= physics->gravity;
-	//physics->velX *= physics->friction;
-
+	
 	float x = testObject->getXYPlane()->getXPosition();
 	float y = testObject->getXYPlane()->getYPosition();
 
-	//x += physics->velX;
+//#ifdef physics
+	physics->velY -= physics->gravity;
+	physics->velX *= physics->friction;
+
+
+	x += physics->velX;
 	y += physics->velY;
 
 	testObject->setTargetCollision(testObject2->getCollisionRect());
+	//testObject->handleCollision(objectX, objectY, 0.0f);
 	if(!testObject->handleCollision(objectX, objectY, 0.0f))
 	{
 		objectX = prevX;
 		objectY = prevY;
-		physics->gravity = 0.001;
+		physics->velY = 0;
+		physics->gravity = 0.000;
 	}
 	else
 	{
 		objectX = x;
 		objectY = y;
 	}
+//#endif
 
-
-	//if(blarg.collided(player->getcollisionbox()->getRect())==1)	
-	//{		
-	//	player->setPosition(prevX,prevY,0);	
-		//position.x=prevX;
-		//position.y=prevY;
-	//}	
-	//else	
-	//{		
-		//player->setPosition(position.x*0.005,position.y*0.005,0);	
-	//}
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
@@ -375,9 +381,12 @@ void game::draw()
 	//testTile->setRenderStates();
 	//testTile->draw();
 
-	testObject->draw();
-	testObject2->draw();
-
+	//testObject->draw();
+	//testObject2->draw();
+	for(int c=0; c<OBLIST->getsize(); ++c)
+	{
+		OBLIST->get(c)->draw();
+	}
 	m_map->draw();
 
 	//player->Draw();
@@ -415,5 +424,6 @@ game::~game()
 	dialog->~DXText();
 	delete physics;
 	hudStuff->~HUD();
+	delete OBLIST;
 
 }

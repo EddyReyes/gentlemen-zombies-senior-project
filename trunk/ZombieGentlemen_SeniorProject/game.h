@@ -20,6 +20,7 @@ status: unit test
 #include "DXText.h"
 
 #include "object.h"
+#include "ObjectMgr.h"
 #include "physicsObject.h"
 
 #include "cubeMap.h"
@@ -86,7 +87,7 @@ private:
 	// Unit test parameters
 
 	cubeMap * m_map;
-
+	objectMgr * OBLIST;
 	object * testObject;
 	dxCube * testCube;
 	object * testObject2;
