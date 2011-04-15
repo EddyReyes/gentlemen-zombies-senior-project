@@ -6,6 +6,10 @@ using namespace std; //requred to use the STL vector
 class objectMgr
 {
 public:
+	objectMgr()
+	{
+		list.clear(); //drops all members from the list and calls there destructors
+	}
 	void assert(object *a_obj) //takes in object to put into the list
 	{
 		list.push_back(a_obj);//inserts the object to the back of the list
@@ -20,9 +24,10 @@ public:
 		//will effectively reduce the size of the list as well
 		list.erase(list.begin()+index); 
 	}
-	int getsize()
+	int getsize() {return list.size();}//returns the size of the list
+	~objectMgr()
 	{
-		return list.size();
+		list.clear(); 
 	}
 private:
 	vector<object*> list; //list that will hold all the objects
