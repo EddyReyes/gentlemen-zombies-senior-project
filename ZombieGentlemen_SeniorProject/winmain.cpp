@@ -75,7 +75,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-			g->update();	
+			g->update();
 		}
 	}
 	g->~game();
