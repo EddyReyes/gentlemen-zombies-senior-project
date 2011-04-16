@@ -103,12 +103,18 @@ void game::SetSprites()
 					 "That's a new face. Nobody ever comes around here"
 					 " after the town was destroyed.  What do you need?");
 	dialog->setTextBoxParameters(500, 250, 10, 40, 25);
-	/**********************
-	* HUD images - testing*
-	**********************/
+	/*----------------------------------------------------------------------*
+	 *                         HUD IMAGE TESTING                            *
+	 *---------------------------------------------------------------------**/
 	hudStuff = new HUD(dxMgr);
-	hudStuff->initDefaultPositions();
-
+	hudStuff->setHudImage("images/new_hud.bmp");
+	hudStuff->setHealthBarImage("images/healthBar.bmp");
+	hudStuff->setArmorBarImage("images/armorBar.bmp");
+	hudStuff->setWeaponImage("images/sword.bmp");
+	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
+	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
+	hudStuff->initDefaultPositions(500.0, 0.0);
+	//--------------------------------------------------------------------
 	
 	// set the starting point for the circle sprite
 	position.x = 0;

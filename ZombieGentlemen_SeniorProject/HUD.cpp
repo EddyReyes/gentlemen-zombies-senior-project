@@ -1,5 +1,6 @@
 #include "HUD.h"
 #include "playerCharacter.h"
+#include "EnemyCharacter.h"
 
 HUD::HUD(){}
 HUD::HUD(dxManager * a_dxMgr)
@@ -59,13 +60,18 @@ void HUD::draw()
 }
 void HUD::updateHealthBar()
 {
-	/*if (healthBar)
-	{
-		healthBar->getWidth();
-		healthBar++;
+	player->getHealth();
+	player->setHealth(100);
+	if ( player->getHealth() <= 100)
+	{	
+		// Use switch case for this;
+		/* if enemy type one, take damage,
+		 * decriment the healthBar scale size to respective damage
+		 * if enemy type two, take damage,
+		 * decriment the healthBar scale size to respective damage
+		 * if enemy type three, take damage,
+		 * decriment the healthBar scale size to respective damage*/
 	}
-	else
-	{ healthBar--; }*/
 }
 void HUD::updateArmorBar()
 {
@@ -83,17 +89,14 @@ void HUD::updatePlayerMoney()
 
 
 }
-void HUD::initDefaultPositions()
+void HUD::initDefaultPositions(float a_x, float a_y)
 {
-	setHudImage("images/new_hud.bmp");
-	setHealthBarImage("images/healthBar.bmp");
-	setArmorBarImage("images/armorBar.bmp");
-	setWeaponImage("images/sword.bmp");
-	setBagOfMoneyImage("images/moneyBag.bmp");
-	//setCurrencyValueImage("images/moneyTextBox.bmp");
-	setPlayerIDImage("images/WillConcept.bmp");
-	setHudPosition(2.0f, 5.0f);
-	
+	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
+	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
+	healthBar->setParameters(95.0, 12.0, 95.0 + a_x, 44.0 + a_y);
+	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
+	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
+	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
 }
 void HUD::setHudImage(std::string filename)
 {
@@ -185,21 +188,21 @@ void HUD::setHudPosition(float a_x, float a_y)
 	hudPosition.x = a_x;
 	hudPosition.y = a_y;
 	if(hudBackground)
-		hudBackground->setParameters(hudBackground->getWidth() - 50 + a_x, hudBackground->getHeight() - 50 + a_y,
-		hudBackground->getXPosition() + 0 + a_x, hudBackground->getYPosition() - 10 + a_y);
+		hudBackground->setParameters(hudBackground->getWidth() + a_x, hudBackground->getHeight() + a_y,
+		hudBackground->getXPosition() + a_x, hudBackground->getYPosition() + a_y);
 	if(playerID)
-		playerID->setParameters(playerID->getWidth() - 200 + a_x, playerID->getHeight() - 200 + a_y,
-		playerID->getXPosition() + 17 + a_x, playerID->getYPosition() + 15 + a_y);
+		playerID->setParameters(playerID->getWidth() + a_x, playerID->getHeight() + a_y,
+		playerID->getXPosition() + a_x, playerID->getYPosition() + a_y);
 	if(healthBar)
-		healthBar->setParameters(healthBar->getWidth() - 160 + a_x, healthBar->getHeight() - 250 + a_y,
-		healthBar->getXPosition() + 85 + a_x, healthBar->getYPosition() + 20 + a_y);
+		healthBar->setParameters(healthBar->getWidth() + a_x, healthBar->getHeight() + a_y,
+		healthBar->getXPosition() + a_x, healthBar->getYPosition() + a_y);
 	if(armorBar)
-		armorBar->setParameters(armorBar->getWidth() - 175 + a_x, armorBar->getHeight() - 250 + a_y,
-		armorBar->getXPosition() + 85 + a_x, armorBar->getYPosition()+ 35 + a_y);
+		armorBar->setParameters(armorBar->getWidth() + a_x, armorBar->getHeight() + a_y,
+		armorBar->getXPosition() + a_x, armorBar->getYPosition() + a_y);
 	if(weapon)
-		weapon->setParameters(weapon->getWidth() - 180 + a_x, weapon->getHeight() - 180 + a_y,
-		weapon->getXPosition() + 85 + a_x, weapon->getYPosition() + 95 + a_y);
+		weapon->setParameters(weapon->getWidth() + a_x, weapon->getHeight() + a_y,
+		weapon->getXPosition() + a_x, weapon->getYPosition() + a_y);
 	if(bagOfMoney)
-		bagOfMoney->setParameters(bagOfMoney->getWidth() - 180 + a_x, bagOfMoney->getHeight() - 180 + a_y,
-		bagOfMoney->getXPosition() + 10 + a_x, bagOfMoney->getYPosition() + 72 + a_y);
+		bagOfMoney->setParameters(bagOfMoney->getWidth() + a_x, bagOfMoney->getHeight() + a_y,
+		bagOfMoney->getXPosition() + a_x, bagOfMoney->getYPosition() + a_y);
 }	

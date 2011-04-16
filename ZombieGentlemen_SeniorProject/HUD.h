@@ -1,10 +1,15 @@
 #pragma once
 #include "DXText.h"
 #include "HudImage.h"
+#include "playerCharacter.h"
+#include "EnemyCharacter.h"
 
 class HUD
 {
 private:
+
+	PlayerCharacter * player;
+	EnemyCharacter * enemy;
 	HudImage * hudBackground;
 	HudImage * healthBar;
 	HudImage * armorBar;
@@ -26,8 +31,7 @@ public:
 	void updateArmorBar();
 	void updateWeapon();
 	void updatePlayerMoney();
-
-	void initDefaultPositions();
+	void initDefaultPositions(float a_x, float a_y);
 	void setHudImage(std::string filename);
 	void setHealthBarImage(std::string filename);
 	void setArmorBarImage(std::string filename);
