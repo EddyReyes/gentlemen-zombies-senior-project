@@ -20,7 +20,7 @@ status: unit test
 #include "DXText.h"
 
 #include "object.h"
-#include "ObjectMgr.h"
+#include "objectManager.h"
 #include "physicsObject.h"
 
 #include "cubeMap.h"
@@ -87,7 +87,7 @@ private:
 	// Unit test parameters
 
 	cubeMap * m_map;
-	objectMgr * OBLIST;
+	objectManager * OBLIST;
 	object * testObject;
 	dxCube * testCube;
 	object * testObject2;
@@ -103,6 +103,7 @@ private:
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
 	collisionRect blarg;
+
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);

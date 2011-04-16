@@ -1,2 +1,2 @@
-#include "DXText.h"
 #pragma once
+#include "DXText.h"

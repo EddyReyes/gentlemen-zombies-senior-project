@@ -5,7 +5,7 @@
 
 #include "directInput.h"
 
-#define MOUSE_EXCLUSIVE
+//#define MOUSE_EXCLUSIVE
 
 directInput::directInput(void)
 {
