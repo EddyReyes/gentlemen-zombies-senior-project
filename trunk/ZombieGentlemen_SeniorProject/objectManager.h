@@ -3,10 +3,10 @@
 using namespace std; //requred to use the STL vector
 #include "object.h"
 
-class objectMgr
+class objectManager
 {
 public:
-	objectMgr()
+	objectManager()
 	{
 		list.clear(); //drops all members from the list and calls there destructors
 	}
@@ -25,7 +25,7 @@ public:
 		list.erase(list.begin()+index); 
 	}
 	int getsize() {return list.size();}//returns the size of the list
-	~objectMgr()
+	~objectManager()
 	{
 		list.clear(); 
 	}

@@ -382,7 +382,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\ObjectList.h"
+					RelativePath=".\objectManager.h"
 					>
 				</File>
 				<File

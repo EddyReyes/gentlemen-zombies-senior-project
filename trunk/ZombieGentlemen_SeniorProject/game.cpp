@@ -12,7 +12,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	dxMgr = a_dxMgr;
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
-	OBLIST = new objectMgr;
+	OBLIST = new objectManager;
 
 	now = clock();
 	then = now;
