@@ -26,7 +26,7 @@ public:
 	{
 		list.remove(index);
 	}
-	int getsize() {return objectManager.getsize();}//returns the size of the list
+	int getsize() {return list.getSize();}//returns the size of the list
 	~objectManager()
 	{
 		list.~objectList();
