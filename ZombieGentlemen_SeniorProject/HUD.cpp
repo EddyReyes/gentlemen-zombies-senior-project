@@ -164,10 +164,10 @@ void HUD::setBagOfMoneyImage(std::string filename)
 		bagOfMoney = new HudImage(dxMgr, filename);
 	}
 }
-void HUD::setCurrencyValueImage(std::string filename)
+void HUD::setCurrencyValueImage()
 {
 	//playerMoney->toggleImage();
-	playerMoney = new DXText(dxMgr, filename);
+	playerMoney = new DXText(dxMgr,"images/BlackTextBox.bmp");
 	playerMoney->textInfo("Arial", 12,
 				D3DCOLOR_ARGB(255, 0, 0, 255), "Loading");
 	playerMoney->setTextBoxParameters(30, 60, 600, 80, 25);
@@ -215,3 +215,10 @@ void HUD::setHudPosition(float a_x, float a_y)
 		bagOfMoney->setParameters(bagOfMoney->getWidth() + a_x, bagOfMoney->getHeight() + a_y,
 		bagOfMoney->getXPosition() + a_x, bagOfMoney->getYPosition() + a_y);
 }	
+void HUD::updateCurrencyValueImage()
+{
+	char updateBuffer[50];
+	sprintf_s(updateBuffer, "Money: %f \n",player->getHealth());
+	playerMoney->setDialog(updateBuffer);
+
+}
