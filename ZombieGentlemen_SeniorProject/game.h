@@ -91,7 +91,9 @@ private:
 	objectManager * OBLIST;
 	object * testObject;
 	dxCube * testCube;
+	dxCube * testCube2;
 	object * testObject2;
+	object * testObject3;
 	float objectX, objectY;
 	
 	XY position;

@@ -10,47 +10,11 @@ private:
 	bool sharingObject;
 
 public:
-	physicsObject()
-	{
-		physObject = NULL;
-		xVelocity = NULL;
-		yVelocity = NULL;
-		xAcceleration = NULL;
-		yAcceleration = NULL;
-		gravity = NULL;
-		sharingObject = false;
-	}
-	physicsObject(object * a_object)
-	{
-		physObject = a_object;
-		xVelocity = NULL;
-		yVelocity = NULL;
-		xAcceleration = NULL;
-		yAcceleration = NULL;
-		gravity = NULL;
-		sharingObject = true;
-	}
-	physicsObject(dxManager* a_dxMgr, std::string imgFile, char * textFile)
-	{
-		physObject = new object(a_dxMgr, imgFile, textFile);
-		xVelocity = NULL;
-		yVelocity = NULL;
-		xAcceleration = NULL;
-		yAcceleration = NULL;
-		gravity = NULL;
-		sharingObject = false;
-	}
-	~physicsObject()
-	{
-		if(!sharingObject)
-		{
-			if(physObject)
-			{
-				physObject->~object();
-				physObject = NULL;
-			}
-		}
-	}
+	physicsObject();
+	physicsObject(object * a_object);
+	physicsObject(dxManager* a_dxMgr, std::string imgFile, char * textFile);
+	~physicsObject();
+
 	void setObject(object * a_object){physObject = a_object;}
 	void setXVelocity(float a_xVelocity){xVelocity = a_xVelocity;}
 	void setYVelocity(float a_yVelocity){yVelocity = a_yVelocity;}
