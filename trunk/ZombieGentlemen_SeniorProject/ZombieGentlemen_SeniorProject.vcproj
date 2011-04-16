@@ -350,6 +350,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\collisionMap.h"
+					>
+				</File>
+				<File
 					RelativePath=".\cubeMap.h"
 					>
 				</File>
