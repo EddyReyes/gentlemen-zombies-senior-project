@@ -67,11 +67,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	//OBLIST->assert(testObject3);
 
 	scale = 1.0f;
-	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
+	
 	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
-	player->initPlayerSpriteSheet(1,1);
-	player->setPlayerSprite(0,0);
-	player->setPosition(0, 4, 0);
+	//player->initPlayerSpriteSheet(1,1);
+	//player->setPlayerSprite(0,0);
+	//player->setPosition(0, 4, 0);
 
 	enemy->initEnemieSpriteSheet(1,4);
 	enemy->setEnemieSprite(0, 3);
@@ -117,6 +117,7 @@ void game::SetSprites()
 	 *                         HUD IMAGE TESTING                            *
 	 *---------------------------------------------------------------------**/
 	hudStuff = new HUD(dxMgr);
+	//player = new ;
 	hudStuff->setHudImage("images/new_hud.bmp");
 	hudStuff->setHealthBarImage("images/healthBar.bmp");
 	hudStuff->setArmorBarImage("images/armorBar.bmp");
@@ -174,6 +175,7 @@ void game::update()
 		timerFreq.QuadPart;
 
 	UpdateFPS();
+	hudStuff->updateCurrencyValueImage();
 }
 void game::UpdateFPS()
 {
@@ -294,6 +296,11 @@ void game::handleInput()
 	{
 		position.x += moveDistance;
 		objectX += moveDistance;
+	}
+	if((keystate[DIK_SPACE]& 0x80))
+	{
+		//float add = 1;
+		//player->addMoney(add);
 	}
 	
 	float x = testObject->getXYPlane()->getXPosition();
