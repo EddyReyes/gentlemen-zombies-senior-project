@@ -16,6 +16,7 @@ HUD::HUD(dxManager * a_dxMgr)
 	playerMoney = NULL;
 	hudPosition.x = NULL;
 	hudPosition.y = NULL;
+	player = new PlayerCharacter();
 }
 HUD::~HUD()
 {
@@ -85,7 +86,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
-	playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
+	//playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
 }
 void HUD::setHudImage(std::string filename)
 {
@@ -163,9 +164,11 @@ void HUD::setCurrencyValueImage(std::string filename)
 {
 	//playerMoney->toggleImage();
 	playerMoney = new DXText(dxMgr, filename);
-	playerMoney->textInfo("Arial", 14,
+
+	playerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
 	playerMoney->setTextBoxParameters(68, 45, 72, 100, 12);
+
 }
 void HUD::setPlayerID(int ID)
 {
@@ -201,7 +204,11 @@ void HUD::setHudPosition(float a_x, float a_y)
 void HUD::updateCurrencyValueImage()
 {
 	char updateBuffer[50];
-	sprintf_s(updateBuffer, "Money: %f \n",player->getHealth());
+	sprintf_s(updateBuffer, "Money %i \n",player->getMoney());
 	playerMoney->setDialog(updateBuffer);
 
+}
+void HUD::setPlayer(PlayerCharacter * a_player)
+{
+	player = a_player;
 }

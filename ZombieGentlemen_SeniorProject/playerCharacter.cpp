@@ -2,15 +2,19 @@
 
 PlayerCharacter::PlayerCharacter(dxManager * a_dxMgr, std::string filename)
 {
-	//Player life points is set to 100;
-	//Players damage resistance is at 50%
-	playerHealth = 100;
-	damageResistance = 0.50;
 	playerImage = new XYPlane(a_dxMgr, filename);
 	c = new collisionRect;
 	c->initRect(playerImage);
 	c->update();
 };
+PlayerCharacter::PlayerCharacter()
+{
+	//Player life points is set to 100;
+	//Players damage resistance is at 50%
+	playerHealth = 100;
+	damageResistance = 0.50;
+	money = 0;
+}
 PlayerCharacter::~PlayerCharacter()
 {
 	playerImage->~XYPlane();
