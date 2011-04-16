@@ -330,6 +330,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\objectVector.h"
+					>
+				</File>
+				<File
 					RelativePath=".\sound.h"
 					>
 				</File>
