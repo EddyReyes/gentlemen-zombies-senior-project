@@ -3,10 +3,10 @@
 
 class objectList
 {
-public: 
+private: 
 	object ** list;
 	int size;
-private:
+public:
 	objectList()
 	{
 		list = NULL;
