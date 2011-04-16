@@ -13,6 +13,7 @@ public:
 	objectManager()
 	{
 		list.initList(10);
+		colRects = new collisionRect[10];
 	}
 	void insert(object *a_obj) //takes in object to put into the list
 	{
@@ -30,8 +31,10 @@ public:
 	~objectManager()
 	{
 		list.~objectList();
+		delete colRects;
 	}
 private:
 	objectList list; //list that will hold all the objects
+	collisionRect* colRects;
 #endif
 };
