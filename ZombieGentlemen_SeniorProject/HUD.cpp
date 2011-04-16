@@ -1,10 +1,5 @@
 #include "HUD.h"
-#include "playerCharacter.h"
 
-#define HUB_MOVE_X 0 + a_x
-#define HUB_MOVE_Y 10 + a_y
-
-#include "EnemyCharacter.h"
 
 
 HUD::HUD(){}
@@ -197,7 +192,7 @@ void HUD::setHudPosition(float a_x, float a_y)
 		hudBackground->getXPosition() + a_x, hudBackground->getYPosition() + a_y);
 	if(playerID)
 		playerID->setParameters(playerID->getWidth() - 200 + a_x, playerID->getHeight() - 200 + a_y,
-		playerID->getXPosition() + 17 + HUB_MOVE_X, playerID->getYPosition() + 15 + HUB_MOVE_Y);
+		playerID->getXPosition() + 17 + a_x, playerID->getYPosition() + 15 + a_y);
 
 		playerID->setParameters(playerID->getWidth() + a_x, playerID->getHeight() + a_y,
 		playerID->getXPosition() + a_x, playerID->getYPosition() + a_y);
