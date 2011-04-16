@@ -10,6 +10,7 @@ private:
 	objectList()
 	{
 		list = NULL;
+		size = NULL;
 	}
 	~objectList()
 	{
