@@ -85,7 +85,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
-	//playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
+	playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
 }
 void HUD::setHudImage(std::string filename)
 {
