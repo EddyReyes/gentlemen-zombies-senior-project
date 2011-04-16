@@ -1,8 +1,6 @@
 #pragma once
-#include <vector> 
-using namespace std; //requred to use the STL vector
 #include "object.h"
-
+#include "objectVector.h"
 //#define test
 
 class objectManager
@@ -14,28 +12,26 @@ public:
 #ifndef test
 	objectManager()
 	{
-		list.clear(); //drops all members from the list and calls there destructors
+		list.initList(10);
 	}
-	void assert(object *a_obj) //takes in object to put into the list
+	void insert(object *a_obj) //takes in object to put into the list
 	{
-		list.push_back(a_obj);//inserts the object to the back of the list
+		list.add(a_obj);//inserts the object to the back of the list
 	}
 	object* get(int index)
 	{
-		return list.at(index); //gets an object at an index
+		return list.get(index); //gets an object at an index
 	}
 	void remove(int index)//removes object from list
 	{
-		//uses an iterator i.e. list.begin() and goes to that index and erases it
-		//will effectively reduce the size of the list as well
-		list.erase(list.begin()+index); 
+		list.remove(index);
 	}
-	int getsize() {return list.size();}//returns the size of the list
+	int getsize() {return objectManager.getsize();}//returns the size of the list
 	~objectManager()
 	{
-		list.clear(); 
+		list.~objectList();
 	}
 private:
-	vector<object*> list; //list that will hold all the objects
+	objectList list; //list that will hold all the objects
 #endif
 };
