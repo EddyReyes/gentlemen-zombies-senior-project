@@ -59,13 +59,12 @@ public:
 				return i;
 		}
 	}
-
 	void add(object * a_object)
 	{
 		// if list is full, make it bigger
 		if(isFull())
 		{
-			// keep track of old data
+			// keep track of old size
 			int oldSize = size;
 			// set the new size
 			size += memoryIncriment;
@@ -91,9 +90,28 @@ public:
 	}
 	object * get(int index)
 	{
-		return NULL;
+		if(index >= size || index < 0)
+			return NULL;
+		else
+			return list[index];
 	}
-	void remove(int index){}
+	bool remove(int index)
+	{
+		if(index >= size || index < 0)
+			return false;
+		list[index] = NULL;
+		for(int i = index; i < endOfList(); i++)
+		{
+			swap(i, (i+1));
+		}
+		return true;
+	}
+	void swap(int index1, int index2)
+	{
+		object * temp = list[index1];
+		list[index2] = list[index1];
+		list[index1] = temp;
+	}
 	int getSize()
 	{
 		return size;
