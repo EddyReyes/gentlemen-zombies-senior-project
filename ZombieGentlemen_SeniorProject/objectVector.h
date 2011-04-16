@@ -6,13 +6,22 @@ class objectList
 private: 
 	object ** list;
 	int size;
+	int memoryIncriment;
 public:
 	objectList()
 	{
 		list = NULL;
 		size = NULL;
+		memoryIncriment = 1;
 	}
 	~objectList()
+	{
+		for(int i = 0; i > size; i++)
+		{
+			list[i] = NULL;
+		}
+	}
+	void destroyObjects()
 	{
 		for(int i = 0; i > size; i++)
 		{
@@ -28,12 +37,65 @@ public:
 			list[i] = NULL;
 		}
 	}
-	void add(object * a_object){}
-	object * get(int index){}
+	void setMemoryIncriment(int a_incriment)
+	{
+		if(a_incriment >= 1)
+			memoryIncriment = a_incriment;
+	}
+	bool isFull()
+	{
+		for(int i = 0; i < size; i++)
+		{
+			if(list[i] == NULL)
+				return false;
+		}
+		return true;
+	}
+	int endOfList()
+	{
+		for(int i = 0; i < size; i++)
+		{
+			if(list[i] == NULL)
+				return i;
+		}
+	}
+
+	void add(object * a_object)
+	{
+		// if list is full, make it bigger
+		if(isFull())
+		{
+			// keep track of old data
+			int oldSize = size;
+			// set the new size
+			size += memoryIncriment;
+			// create a new temporary list
+			object ** newList = new object * [size];
+			// fill in the new list with NULL pointers
+			for(int i = 0; i < size; i++)
+			{
+				newList[i] = NULL;
+			}
+			// copy over data from current list to new list
+			for(int i = 0; i < oldSize; i++)
+			{
+				newList[i] = list[i];
+				// set pointers in old list as NULL
+				list[i] = NULL;
+			}
+			delete [] list;
+			list = newList;
+		}
+		// add the new object
+		list[endOfList()] = a_object;
+	}
+	object * get(int index)
+	{
+		return NULL;
+	}
 	void remove(int index){}
 	int getSize()
 	{
 		return size;
 	}
-
 };

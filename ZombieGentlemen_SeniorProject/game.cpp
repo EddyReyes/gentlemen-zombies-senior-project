@@ -53,8 +53,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
-	OBLIST->assert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
-	OBLIST->assert(testObject2);
+	OBLIST->insert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
+	OBLIST->insert(testObject2);
 
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
