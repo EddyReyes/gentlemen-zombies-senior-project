@@ -4,6 +4,8 @@
 #include <fstream>
 #include <ctype.h>
 #include <string.h>
+#include"cubeMap.h"
+#include"planeMap.h"
 
 class collisionMap
 {
@@ -24,8 +26,8 @@ public:
 
 	initCollMap(char * filename, cubeMap * sourceMap)
 	{
-		//m_grid = sourceMap->getGrid();
-		//scale = sourceMap->getScale();
+		m_grid = sourceMap->getGrid();
+		scale = sourceMap->getScale();
 
 		std::fstream file(filename);
 		// the size of the data we are going to create
