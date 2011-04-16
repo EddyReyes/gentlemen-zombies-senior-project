@@ -62,7 +62,7 @@ public:
 			if(list[i] == NULL)
 				return i;
 		}
-		return size-1;
+		return size;
 	}
 	void add(object * a_object)
 	{
@@ -91,7 +91,8 @@ public:
 			list = newList;
 		}
 		// add the new object
-		list[endOfList()] = a_object;
+		if(endOfList() != size)
+			list[endOfList()] = a_object;
 	}
 	object * get(int index)
 	{
@@ -115,6 +116,28 @@ public:
 	{
 		list[(endOfList()-1)] = NULL;
 	}
+	void contractList()
+	{
+		// set the new size
+		size = endOfList();
+		// create a new temporary list
+		object ** newList = new object * [size];
+		// fill in the new list with NULL pointers
+		for(int i = 0; i < size; i++)
+		{
+			newList[i] = NULL;
+		}
+		// copy over data from current list to new list
+		for(int i = 0; i < size; i++)
+		{
+			newList[i] = list[i];
+			// set pointers in old list as NULL
+			list[i] = NULL;
+		}
+		delete [] list;
+		list = newList;
+	}
+
 	void swap(int index1, int index2)
 	{
 		object * temp = list[index1];
