@@ -11,6 +11,7 @@ class collisionMap
 {
 private:
 	char ** map;
+	int width, height;
 	collisionRect * rects;
 	grid * m_grid;
 	float scale;
