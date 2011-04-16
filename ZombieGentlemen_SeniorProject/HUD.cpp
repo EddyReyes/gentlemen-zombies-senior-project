@@ -58,30 +58,18 @@ void HUD::draw()
 	if(playerMoney)
 	playerMoney->draw();
 }
-void HUD::updateHealthBar()
+void HUD::updateHealthBar(int damage)
 {
-	player->getHealth();
-	player->setHealth(100);
-	if ( player->getHealth() <= 100)
-	{	
-		// Use switch case for this;
-		/* if enemy type one, take damage,
-		 * decriment the healthBar scale size to respective damage
-		 * if enemy type two, take damage,
-		 * decriment the healthBar scale size to respective damage
-		 * if enemy type three, take damage,
-		 * decriment the healthBar scale size to respective damage*/
-	}
+	
+	
 }
 void HUD::updateArmorBar()
 {
-
-
-
+	
 }
 void HUD::updateWeapon()
 {
-
+	
 
 }
 void HUD::updatePlayerMoney()
@@ -97,6 +85,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
+	//playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
 }
 void HUD::setHudImage(std::string filename)
 {
@@ -110,7 +99,18 @@ void HUD::setHudImage(std::string filename)
 		hudBackground = new HudImage(dxMgr, filename);
 	}
 }
-
+void HUD::setPlayerIDImage(std::string filename)
+{
+	if(playerID == NULL)
+	{
+		playerID = new HudImage(dxMgr, filename);
+	}
+	else if(playerID)
+	{
+		playerID->~HudImage();
+		playerID = new HudImage(dxMgr, filename);
+	}
+}
 void HUD::setHealthBarImage(std::string filename)
 {
 	if(healthBar == NULL)
@@ -163,25 +163,13 @@ void HUD::setCurrencyValueImage(std::string filename)
 {
 	//playerMoney->toggleImage();
 	playerMoney = new DXText(dxMgr, filename);
-	playerMoney->textInfo("Arial", 12,
-				D3DCOLOR_ARGB(255, 0, 0, 255), "Loading");
-	playerMoney->setTextBoxParameters(30, 60, 600, 80, 25);
+	playerMoney->textInfo("Arial", 14,
+				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
+	playerMoney->setTextBoxParameters(68, 45, 72, 100, 12);
 }
 void HUD::setPlayerID(int ID)
 {
 	 //ID = prints player 1, 2, 3, 4
-}
-void HUD::setPlayerIDImage(std::string filename)
-{
-	if(playerID == NULL)
-	{
-		playerID = new HudImage(dxMgr, filename);
-	}
-	else if(playerID)
-	{
-		playerID->~HudImage();
-		playerID = new HudImage(dxMgr, filename);
-	}
 }
 void HUD::setHudPosition(float a_x, float a_y)
 {
