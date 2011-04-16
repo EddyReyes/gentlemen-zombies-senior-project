@@ -12,7 +12,7 @@ public:
 #ifndef test
 	objectManager()
 	{
-		list.initList(10);
+		list.initList(1);
 		colRects = new collisionRect[10];
 	}
 	void insert(object *a_obj) //takes in object to put into the list
@@ -28,10 +28,18 @@ public:
 		list.remove(index);
 	}
 	int getsize() {return list.getSize();}//returns the size of the list
+	void destroyobject(int index)
+	{
+		list.destroyObject(index);
+	}
 	~objectManager()
 	{
 		list.~objectList();
 		delete colRects;
+	}
+	int endoflist()
+	{
+		return list.endOfList();
 	}
 private:
 	objectList list; //list that will hold all the objects
