@@ -4,30 +4,31 @@
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
 
+
 class HUD
 {
 private:
 
-	PlayerCharacter * player;
-	EnemyCharacter * enemy;
 	HudImage * hudBackground;
 	HudImage * healthBar;
 	HudImage * armorBar;
 	HudImage * weapon;
 	HudImage * bagOfMoney;
 	HudImage * playerID;
+	PlayerCharacter * player;
+	EnemyCharacter * enemy;
 	DXText * playerIDNumber;
 	DXText * playerMoney;
 	D3DXVECTOR2 hudPosition;
 	dxManager * dxMgr;
-	
+		
 	
 public:
 	HUD();
 	HUD(dxManager * a_dxMgr);
 	~HUD();
 	void draw();
-	void updateHealthBar();
+	void updateHealthBar(int damage);
 	void updateArmorBar();
 	void updateWeapon();
 	void updatePlayerMoney();
