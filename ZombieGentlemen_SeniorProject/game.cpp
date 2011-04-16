@@ -53,8 +53,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
-	OBLIST->insert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
-	OBLIST->insert(testObject2);
+	//OBLIST->insert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
+	//OBLIST->insert(testObject2);
 
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
@@ -218,6 +218,7 @@ void game::handleInput()
 		{
 			if( scale > 0.2)
 			{
+				//OBLIST->get(0)->toggleCollision();
 				testObject->toggleCollision();
 				keyLag[DIK_H] = now;
 			}
@@ -228,7 +229,7 @@ void game::handleInput()
 		//currently trying to delete things from a list on the fly
 		if(now - keyLag[DIK_X] > 150)
 		{
-			//OBLIST->remove(0);
+			OBLIST->remove(1);
 		}
 	}
 	//if ((keystate[DIK_K] & 0x80))
@@ -278,29 +279,24 @@ void game::handleInput()
 	float x = testObject->getXYPlane()->getXPosition();
 	float y = testObject->getXYPlane()->getYPosition();
 
-//#ifdef physics
+#ifdef physics
 	physics->velY -= physics->gravity;
 	physics->velX *= physics->friction;
 
-
 	x += physics->velX;
 	y += physics->velY;
-
+#endif
 	testObject->setTargetCollision(testObject2->getCollisionRect());
-	//testObject->handleCollision(objectX, objectY, 0.0f);
 	if(!testObject->handleCollision(objectX, objectY, 0.0f))
 	{
 		objectX = prevX;
 		objectY = prevY;
-		physics->velY = 0;
-		physics->gravity = 0.000;
 	}
 	else
 	{
 		objectX = x;
 		objectY = y;
 	}
-//#endif
 
 	if ((keystate[DIK_B] & 0x80))
 	{
@@ -382,12 +378,12 @@ void game::draw()
 	//testTile->setRenderStates();
 	//testTile->draw();
 
-	//testObject->draw();
-	//testObject2->draw();
-	for(int c=0; c<OBLIST->getsize(); ++c)
-	{
-		OBLIST->get(c)->draw();
-	}
+	testObject->draw();
+	testObject2->draw();
+	//for(int c=0; c<OBLIST->getsize(); ++c)
+	//{
+		//OBLIST->get(c)->draw();
+	//}
 	m_map->draw();
 
 	//player->Draw();
@@ -425,6 +421,8 @@ game::~game()
 	dialog->~DXText();
 	delete physics;
 	hudStuff->~HUD();
-	delete OBLIST;
+	testObject->~object();
+	testObject2->~object();
+	//delete OBLIST;
 
 }
