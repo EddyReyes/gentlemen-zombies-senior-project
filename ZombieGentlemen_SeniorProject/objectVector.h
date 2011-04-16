@@ -21,12 +21,16 @@ public:
 			list[i] = NULL;
 		}
 	}
-	void destroyObjects()
+	void destroyAllObjects()
 	{
 		for(int i = 0; i > size; i++)
 		{
 			list[i]->~object();
 		}
+	}
+	void destroyObject(int index)
+	{
+		list[index]->~object();
 	}
 	void initList(int a_size)
 	{
@@ -58,6 +62,7 @@ public:
 			if(list[i] == NULL)
 				return i;
 		}
+		return size-1;
 	}
 	void add(object * a_object)
 	{
@@ -97,20 +102,24 @@ public:
 	}
 	bool remove(int index)
 	{
-		if(index >= size || index < 0)
+		if(index >= endOfList() || index < 0)
 			return false;
-		list[index] = NULL;
-		for(int i = index; i < endOfList(); i++)
+		for(int i = index; i < (endOfList() -1); i++)
 		{
 			swap(i, (i+1));
 		}
+		pop();
 		return true;
+	}
+	void pop()
+	{
+		list[(endOfList()-1)] = NULL;
 	}
 	void swap(int index1, int index2)
 	{
 		object * temp = list[index1];
-		list[index2] = list[index1];
-		list[index1] = temp;
+		list[index1] = list[index2];
+		list[index2] = temp;
 	}
 	int getSize()
 	{
