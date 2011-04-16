@@ -28,6 +28,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 					 "Loading...");
 	FPSText->setTextBoxParameters(200, 50, 200, 500, 8);
 
+	//hudStuff->setCurrencyValueImage();
+
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
 
@@ -169,6 +171,7 @@ void game::update()
 		timerFreq.QuadPart;
 
 	UpdateFPS();
+	//hudStuff->updateCurrencyValueImage();
 }
 void game::UpdateFPS()
 {
