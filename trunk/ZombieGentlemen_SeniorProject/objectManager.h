@@ -3,9 +3,15 @@
 using namespace std; //requred to use the STL vector
 #include "object.h"
 
+//#define test
+
 class objectManager
 {
 public:
+	
+
+
+#ifndef test
 	objectManager()
 	{
 		list.clear(); //drops all members from the list and calls there destructors
@@ -31,4 +37,5 @@ public:
 	}
 private:
 	vector<object*> list; //list that will hold all the objects
+#endif
 };
