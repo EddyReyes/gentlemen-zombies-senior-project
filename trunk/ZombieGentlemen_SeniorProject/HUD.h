@@ -37,7 +37,7 @@ public:
 	void setArmorBarImage(std::string filename);
 	void setWeaponImage(std::string filename);
 	void setBagOfMoneyImage(std::string filename);
-	void setCurrencyValueImage();
+	void setCurrencyValueImage(std::string filename);
 	void setPlayerID(int ID);
 	void setPlayerIDImage(std::string filename);
 	void setHudPosition(float a_x, float a_y);
