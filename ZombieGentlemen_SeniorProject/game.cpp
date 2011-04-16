@@ -123,8 +123,10 @@ void game::SetSprites()
 	hudStuff->setWeaponImage("images/sword.bmp");
 	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
 	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
-	hudStuff->initDefaultPositions(500.0, 0.0);
-	hudStuff->setCurrencyValueImage("images/BlackTextBox.bmp");
+	hudStuff->setCurrencyValueImage("images/moneyTextBox.bmp");
+	hudStuff->initDefaultPositions(2.0, 0.0);
+			
+	
 	//--------------------------------------------------------------------
 	
 	// set the starting point for the circle sprite
@@ -172,8 +174,6 @@ void game::update()
 		timerFreq.QuadPart;
 
 	UpdateFPS();
-	
-//	hudStuff->updateCurrencyValueImage();
 }
 void game::UpdateFPS()
 {
