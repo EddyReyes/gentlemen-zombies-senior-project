@@ -226,4 +226,6 @@ public:
 			}
 		}
 	}
+	float * getScale(){return &scale;}
+	grid * getGrid(){return grid;}
 };
