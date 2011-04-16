@@ -26,7 +26,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	FPSText->textInfo("Arial", 18,
 					 D3DCOLOR_ARGB(255, 255, 255, 255),
 					 "Loading...");
-	FPSText->setTextBoxParameters(200, 50, 20, 500, 8);
+	FPSText->setTextBoxParameters(200, 50, 200, 500, 8);
 
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
@@ -49,12 +49,20 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testObject = new object(dxMgr, "images/Character.bmp", "testObject.txt");
 	testCube = new dxCube(dxMgr, "images/glass tile.bmp");
 	testCube->toggleTransparencyCulling();
+
 	testObject2 = new object(testCube, "testObject2.txt");
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
+
+	//testObject3 = new object(testCube, "testOject2.txt");
+	//testObject3->setPosition(0.0f, 2.0f, 0.0f);
 	objectX = 0; 
 	objectY = 1;
+
+
 	//OBLIST->insert(testObject);//////////////////////////////////////////////////////////TESTING LIST/////////////////////////////////
 	//OBLIST->insert(testObject2);
+
+	//OBLIST->assert(testObject3);
 
 	scale = 1.0f;
 	player = new PlayerCharacter(dxMgr, "images/Character.bmp");
@@ -290,9 +298,14 @@ void game::handleInput()
 	physics->velX *= physics->friction;
 
 	x += physics->velX;
-	y += physics->velY;
+	//y += physics->velY;
 #endif
 	testObject->setTargetCollision(testObject2->getCollisionRect());
+
+	//testObject->setTargetCollision(testObject3->getCollisionRect());
+	//testObject->handleCollision(objectX, objectY, 0.0f);
+
+
 	if(!testObject->handleCollision(objectX, objectY, 0.0f))
 	{
 		objectX = prevX;
@@ -384,12 +397,18 @@ void game::draw()
 	//testTile->setRenderStates();
 	//testTile->draw();
 
+
+	//testObject->draw();
+	//testObject2->draw();
+
+
 	testObject->draw();
 	testObject2->draw();
 	//for(int c=0; c<OBLIST->getsize(); ++c)
 	//{
 		//OBLIST->get(c)->draw();
 	//}
+
 	m_map->draw();
 
 	//player->Draw();

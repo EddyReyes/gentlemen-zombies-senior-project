@@ -1,6 +1,11 @@
 #include "HUD.h"
 #include "playerCharacter.h"
+
+#define HUB_MOVE_X 0 + a_x
+#define HUB_MOVE_Y 10 + a_y
+
 #include "EnemyCharacter.h"
+
 
 HUD::HUD(){}
 HUD::HUD(dxManager * a_dxMgr)
@@ -161,11 +166,11 @@ void HUD::setBagOfMoneyImage(std::string filename)
 }
 void HUD::setCurrencyValueImage(std::string filename)
 {
-	playerMoney->toggleImage();
-	playerMoney->textInfo("Arial", 26,
-				D3DCOLOR_ARGB(255, 0, 0, 255), "000");
-	playerMoney->setRect(80, 100, 25, 60);
-	playerMoney->setTextBoxParameters(30.0, 60.0, 30, 80, 25);
+	//playerMoney->toggleImage();
+	playerMoney = new DXText(dxMgr, filename);
+	playerMoney->textInfo("Arial", 12,
+				D3DCOLOR_ARGB(255, 0, 0, 255), "Loading");
+	playerMoney->setTextBoxParameters(30, 60, 600, 80, 25);
 }
 void HUD::setPlayerID(int ID)
 {
@@ -191,8 +196,12 @@ void HUD::setHudPosition(float a_x, float a_y)
 		hudBackground->setParameters(hudBackground->getWidth() + a_x, hudBackground->getHeight() + a_y,
 		hudBackground->getXPosition() + a_x, hudBackground->getYPosition() + a_y);
 	if(playerID)
+		playerID->setParameters(playerID->getWidth() - 200 + a_x, playerID->getHeight() - 200 + a_y,
+		playerID->getXPosition() + 17 + HUB_MOVE_X, playerID->getYPosition() + 15 + HUB_MOVE_Y);
+
 		playerID->setParameters(playerID->getWidth() + a_x, playerID->getHeight() + a_y,
 		playerID->getXPosition() + a_x, playerID->getYPosition() + a_y);
+
 	if(healthBar)
 		healthBar->setParameters(healthBar->getWidth() + a_x, healthBar->getHeight() + a_y,
 		healthBar->getXPosition() + a_x, healthBar->getYPosition() + a_y);

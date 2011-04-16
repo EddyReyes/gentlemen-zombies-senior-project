@@ -172,6 +172,10 @@
 				Name="DirectX"
 				>
 				<File
+					RelativePath=".\armor.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\collisionRect.cpp"
 					>
 				</File>
@@ -215,10 +219,6 @@
 			<Filter
 				Name="Game Assets"
 				>
-				<File
-					RelativePath=".\armor.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\cubeMap.cpp"
 					>
