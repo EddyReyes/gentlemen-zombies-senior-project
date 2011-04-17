@@ -10,6 +10,8 @@ class HUD
 private:
 
 	HudImage * hudBackground;
+	HudImage * barHolder;
+	HudImage * barHolder2;
 	HudImage * healthBar;
 	HudImage * armorBar;
 	HudImage * weapon;
@@ -34,7 +36,9 @@ public:
 	void updatePlayerMoney();
 	void initDefaultPositions(float a_x, float a_y);
 	void setHudImage(std::string filename);
+	void setBarHolderImage(std::string filename);
 	void setHealthBarImage(std::string filename);
+	void setBarHolder2Image(std::string filename);
 	void setArmorBarImage(std::string filename);
 	void setWeaponImage(std::string filename);
 	void setBagOfMoneyImage(std::string filename);
@@ -44,5 +48,4 @@ public:
 	void setHudPosition(float a_x, float a_y);
 	void updateCurrencyValue();
 	void setPlayer(PlayerCharacter * a_player);
-	
 };
