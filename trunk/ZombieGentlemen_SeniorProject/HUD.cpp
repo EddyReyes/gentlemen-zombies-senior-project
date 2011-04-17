@@ -7,6 +7,8 @@ HUD::HUD(dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
 	hudBackground = NULL;
+	barHolder = NULL;
+	barHolder2 = NULL;
 	healthBar = NULL;
 	armorBar = NULL;
 	weapon = NULL;
@@ -23,6 +25,12 @@ HUD::~HUD()
 	if(hudBackground)
 	hudBackground->~HudImage();
 	hudBackground = NULL;
+	if(barHolder)
+	barHolder->~HudImage();
+	barHolder = NULL;
+	if(barHolder2)
+	barHolder2->~HudImage();
+	barHolder2 = NULL;
 	if(healthBar)
 	healthBar->~HudImage();
 	healthBar = NULL;
@@ -46,6 +54,10 @@ void HUD::draw()
 {
 	if(hudBackground)
 	hudBackground->draw();
+	if(barHolder)
+	barHolder->draw();
+	if(barHolder2)
+	barHolder2->draw();
 	if(healthBar)
 	healthBar->draw();
 	if(armorBar)
@@ -61,29 +73,29 @@ void HUD::draw()
 }
 void HUD::updateHealthBar(int damage)
 {
-	
-	
+		
 }
 void HUD::updateArmorBar()
 {
-	
+
 }
 void HUD::updateWeapon()
 {
 	
-
 }
 void HUD::updatePlayerMoney()
 {
-
 
 }
 void HUD::initDefaultPositions(float a_x, float a_y)
 {
 	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
 	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
-	healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
-	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
+	barHolder->setParameters(120.0, 100.0, 85.0 + a_x, 9.0 + a_y);
+	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
+	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
+	//healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
+	armorBar->setParameters(82.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
 	//playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
@@ -112,6 +124,18 @@ void HUD::setPlayerIDImage(std::string filename)
 		playerID = new HudImage(dxMgr, filename);
 	}
 }
+void HUD::setBarHolderImage(std::string filename)
+{
+	if(barHolder == NULL)
+	{
+		barHolder = new HudImage(dxMgr, filename);
+	}
+	else if(barHolder)
+	{
+		barHolder->~HudImage();
+		barHolder = new HudImage(dxMgr, filename);
+	}
+}
 void HUD::setHealthBarImage(std::string filename)
 {
 	if(healthBar == NULL)
@@ -122,6 +146,18 @@ void HUD::setHealthBarImage(std::string filename)
 	{
 		healthBar->~HudImage();
 		healthBar = new HudImage(dxMgr, filename);
+	}
+}
+void HUD::setBarHolder2Image(std::string filename)
+{
+	if(barHolder2 == NULL)
+	{
+		barHolder2 = new HudImage(dxMgr, filename);
+	}
+	else if(barHolder2)
+	{
+		barHolder2->~HudImage();
+		barHolder2 = new HudImage(dxMgr, filename);
 	}
 }
 void HUD::setArmorBarImage(std::string filename)
@@ -204,9 +240,10 @@ void HUD::setHudPosition(float a_x, float a_y)
 void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
+	sprintf_s(updateBuffer, "Money %f \n",player->getMoney());
+	sprintf_s(updateBuffer, "Money %.00f \n", player->getMoney());
 	sprintf_s(updateBuffer, "Money %.00f\n Hp %.00f", player->getMoney(), player->getHealth());
 	playerMoney->setDialog(updateBuffer);
-
 }
 void HUD::setPlayer(PlayerCharacter * a_player)
 {

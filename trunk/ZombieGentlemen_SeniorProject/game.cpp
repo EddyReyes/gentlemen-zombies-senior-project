@@ -124,7 +124,9 @@ void game::SetSprites()
 	//player = new ;
 	hudStuff->setPlayer(player);
 	hudStuff->setHudImage("images/new_hud.bmp");
+	hudStuff->setBarHolderImage("images/bar_holder.bmp");
 	hudStuff->setHealthBarImage("images/healthBar.bmp");
+	hudStuff->setBarHolder2Image("images/bar_holder2.bmp");
 	hudStuff->setArmorBarImage("images/armorBar.bmp");
 	hudStuff->setWeaponImage("images/sword.bmp");
 	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
