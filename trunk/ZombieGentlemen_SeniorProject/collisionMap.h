@@ -20,6 +20,8 @@ private:
 	char ** map;
 	int width, height;
 	collisionRectPointer ** rects;
+	collisionRect ** rectList;
+	int listSize;
 	grid * m_grid;
 	float scale;
 public: 
@@ -61,8 +63,12 @@ public:
 				}
 			}
 		}
-
-		//void envCollMap();
+		// generate a 2D array of pointers to the rects
+		generateRects();
+		// from the 2D array create a 1D list
+		makeOneDimentionalList();
+		// destroy 2D list
+		destroy2DRectsList();
 	}
 
 	void generateRects()
@@ -71,6 +77,13 @@ public:
 		for(int y = 0; y < height; y++)
 		{
 			rects[y] = new collisionRectPointer[width];
+			for(int x = 0; x < width; x++)
+			{
+				rects[y][x].colRect = NULL;
+			}
+		}
+		for(int y = 0; y < height; y++)
+		{
 			//initialize cubes positions
 			collisionRectPointer lastRect;
 			for(int x = 0; x < width; x++)
@@ -107,19 +120,53 @@ public:
 						}
 					}
 				}
-				//if(map[y][x] == 'x')
-				//{
-				//	//if(x+1 < width)
-				//	//{
-				//		//if(map[y][x+1] == 'x')
-				//		//{
-				//			lastRect.colRect->modifyParameters(lastRect.colRect->getXPosition(), lastRect.colRect->getYPosition(),
-				//				lastRect.colRect->getWidth() + 1*scale, lastRect.colRect->getHeight());
-				//		//}
-				//	//}
-				//}
 			}
 		}
+	}
+	void makeOneDimentionalList()
+	{
+		listSize = 0;
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				if(rects[y][x].colRect != NULL)
+				{
+					listSize++;
+				}
+			}
+		}
+		rectList = new collisionRect * [listSize];
+		int counter = 0;
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				if(rects[y][x].colRect != NULL)
+				{
+					rectList[counter] = rects[y][x].colRect;
+					counter++;
+				}
+			}
+		}	
+	}
+	void destroy2DRectsList()
+	{
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				if(rects[y][x].colRect != NULL)
+				{
+					rects[y][x].colRect = NULL;
+				}
+			}
+		}
+		delete [] rects;
+	}
+	collisionRect ** getList()
+	{
+		return rectList;
 	}
 	
 #ifndef debug
