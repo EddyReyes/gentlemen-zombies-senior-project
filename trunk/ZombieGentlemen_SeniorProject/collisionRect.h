@@ -29,7 +29,7 @@ public:
 	void setOffset(FloatRect * a_offSet);
 	void setOffset(float left, float right, float top, float bottom);
 	void offset();
-	void modifyRect(float width, float height);
+	void modifyParameters(float a_x, float a_y, float width, float height);
 	void update();
 	
 	// accessors

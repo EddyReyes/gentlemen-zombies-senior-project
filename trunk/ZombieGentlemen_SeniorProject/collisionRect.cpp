@@ -67,10 +67,12 @@ void collisionRect::offset()
 	rect.right -= offSet.right;
 }
 //allows us to change the size of the rectangle at will
-void collisionRect::modifyRect(float width, float height)
+void collisionRect::modifyParameters(float a_x, float a_y, float width, float height)
 {
-	rect.right = width;
-	rect.bottom = height;
+	rect.left = a_x;
+	rect.top = a_y; 
+	rect.right = a_x + width;
+	rect.bottom = a_y + height;
 }
 /**accessors**/
 float collisionRect::getXPosition(){return rect.left;}
