@@ -27,7 +27,7 @@ void PlayerCharacter::setHealth(int hp)
 void PlayerCharacter::healthRegenerate(int healthPack)
 {
 	//updateing players health.(When player receave a health pack it will add more life poits to player health.)
-	playerHealth =+ healthPack;
+	playerHealth += healthPack;
 }
 
 void  PlayerCharacter::playerDamage(int damage)
@@ -45,7 +45,10 @@ float PlayerCharacter::getMoney()
 
 void PlayerCharacter::addMoney(float recieve)
 {
+	float maxMoney = 50;
 	money += recieve;
+	if(money > maxMoney)
+	money = maxMoney;
 }
 
 void PlayerCharacter::setMoney(int a_money)
