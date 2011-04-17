@@ -82,7 +82,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 {
 	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
 	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
-	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 44.0 + a_y);
+	healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
 	armorBar->setParameters(75.0, 12.0, 95.0 + a_x, 72.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
@@ -167,7 +167,7 @@ void HUD::setCurrencyValue(std::string filename)
 
 	playerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
-	playerMoney->setTextBoxParameters(68, 35, 72, 100, 12);
+	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
 
 }
 void HUD::setPlayerID(int ID)
@@ -204,15 +204,11 @@ void HUD::setHudPosition(float a_x, float a_y)
 void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
-	sprintf_s(updateBuffer, "Money %.00f \n", player->getMoney());
+	sprintf_s(updateBuffer, "Money %.00f\n Hp %.00f", player->getMoney(), player->getHealth());
 	playerMoney->setDialog(updateBuffer);
 
 }
 void HUD::setPlayer(PlayerCharacter * a_player)
 {
 	player = a_player;
-}
-void HUD::addMoney(float moneyRecieve)
-{
-	player->addMoney(moneyRecieve);
 }
