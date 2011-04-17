@@ -27,6 +27,7 @@ status: unit test
 #include "cubeMap.h"
 #include "planeMap.h"
 #include "entity.h"
+#include "collisionMap.h"
 
 #include "HUD.h"
 #include "playerCharacter.h"
@@ -85,6 +86,7 @@ private:
 	int FPS;
 	DXText  * FPSText;
 	phyVars* physics;
+	collisionMap * env_map;
 	// Unit test parameters
 
 	cubeMap * m_map;

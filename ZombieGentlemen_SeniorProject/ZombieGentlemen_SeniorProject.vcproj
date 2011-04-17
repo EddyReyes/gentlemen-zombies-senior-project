@@ -429,6 +429,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testMap2.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\testObject.txt"
 				>
 			</File>
