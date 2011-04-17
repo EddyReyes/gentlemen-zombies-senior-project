@@ -7,12 +7,19 @@
 #include"cubeMap.h"
 #include"planeMap.h"
 
+#define debug
+
+struct collisionRectPointer
+{
+	collisionRect * colRect;
+};
+
 class collisionMap
 {
 private:
 	char ** map;
 	int width, height;
-	collisionRect * rects;
+	collisionRectPointer ** rects;
 	grid * m_grid;
 	float scale;
 public: 
@@ -20,7 +27,7 @@ public:
 	{
 		map = NULL;
 		rects = NULL;
-		//grid = NULL;
+		m_grid = NULL;
 		scale = NULL;
 	}
 	collisionMap(char * filename, cubeMap * a_map)
@@ -33,10 +40,10 @@ public:
 	{
 		m_grid = sourceMap->getGrid();
 		scale = sourceMap->getScale();
+		width = sourceMap->getWidth();
+		height = sourceMap->getHeight();
 
 		std::fstream file(filename);
-		// the size of the data we are going to create
-		file >> height >> width;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		map = new char * [height];
 		for(int c = 0; c < height; c++){
@@ -55,9 +62,56 @@ public:
 			}
 		}
 
-		void envCollMap();
+		//void envCollMap();
+	}
+
+	void generateRects()
+	{
+		rects = new collisionRectPointer * [height];
+		for(int y = 0; y < height; y++)
+		{
+			rects[y] = new collisionRectPointer[width];
+			//initialize cubes positions
+			for(int x = 0; x < width; x++)
+			{
+				if(map[y][x] == '.')
+				{
+					rects[y][x].colRect = NULL;
+				}
+				if(map[y][x] == 'x')
+				{
+					if(x>0)
+					{
+						if(map[y][x-1] == '.')
+						{
+							D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+							rects[y][x].colRect = new collisionRect();
+							rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, 1*scale);
+						}
+					}
+					else if(x==0)
+					{
+						D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+						rects[y][x].colRect = new collisionRect();
+						rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, 1*scale);
+					}
+				}
+				if(map[y][x] == 'x')
+				{
+					if(x+1 <= width)
+					{
+						if(map[y][x+1] == 'x')
+						{
+							rects[y][x].colRect->modifyParameters(rects[y][x].colRect->getXPosition(), rects[y][x].colRect->getYPosition(),
+								rects[y][x].colRect->getWidth() + 1*scale, rects[y][x].colRect->getHeight());
+						}
+					}
+				}
+			}
+		}
 	}
 	
+#ifndef debug
 	void envCollMap()
 	{
 
@@ -134,4 +188,5 @@ public:
 			}
 		}
 	}
+#endif
 };

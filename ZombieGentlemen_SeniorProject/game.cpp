@@ -177,7 +177,6 @@ void game::update()
 		timerFreq.QuadPart;
 
 	UpdateFPS();
-	hudStuff->updateCurrencyValueImage();
 }
 void game::UpdateFPS()
 {

@@ -22,6 +22,7 @@ status: unit test
 #include "object.h"
 #include "objectManager.h"
 #include "objectVector.h"
+#include "collisionMap.h"
 #include "physicsObject.h"
 
 #include "cubeMap.h"

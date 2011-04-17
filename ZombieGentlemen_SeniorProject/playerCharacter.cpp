@@ -1,12 +1,6 @@
 #include "playerCharacter.h"
 
-PlayerCharacter::PlayerCharacter(dxManager * a_dxMgr, std::string filename)
-{
-	playerImage = new XYPlane(a_dxMgr, filename);
-	c = new collisionRect;
-	c->initRect(playerImage);
-	c->update();
-};
+
 PlayerCharacter::PlayerCharacter()
 {
 	//Player life points is set to 100;
@@ -17,8 +11,6 @@ PlayerCharacter::PlayerCharacter()
 }
 PlayerCharacter::~PlayerCharacter()
 {
-	playerImage->~XYPlane();
-	c->~collisionRect();
 }
 float PlayerCharacter::getHealth()
 {
@@ -44,34 +36,8 @@ void  PlayerCharacter::playerDamage(int damage)
 	playerHealth -= (1 - damageResistance) * damage;
 	if(playerHealth < 0) playerHealth = 0;
 	// if health equals zero then the player is dead and the health will print out zero for remaining health.
-	
 }
 
-void PlayerCharacter::setPlayerImage(std::string filename)
-{
-	// setting a image. 
-	playerImage->setImage(filename);
-}
-
-void PlayerCharacter::setPlayerSprite(int a_row, int a_column)
-{
-	// asking what image to show in the sprite. its asking what row and what column.
-	playerImage->selectTextureSource(a_row, a_column);
-}
-
-void PlayerCharacter::initPlayerSpriteSheet(int a_rows, int a_columns)
-{
-	// asking how many rows and how many columns dos the sprite has.
-	playerImage->setImageRowsColumns(a_rows, a_columns);
-}
-
-void PlayerCharacter::setPosition(float a_x, float a_y, float a_z)
-{
-	// askig where to place the image in the game world. 
-	playerImage->setPosition( a_x,  a_y,  a_z);
-	c->initRect(playerImage);
-	c->update();
-}
 float PlayerCharacter::getMoney()
 {
 	return money;
@@ -89,10 +55,5 @@ void PlayerCharacter::setMoney(int a_money)
 
 void PlayerCharacter::Draw()
 {
-	// calls the draw function to draw the image.
-	playerImage->draw();
-}
-XYPlane* PlayerCharacter::getimg()
-{
-	return playerImage;
+
 }

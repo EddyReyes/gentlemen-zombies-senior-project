@@ -228,5 +228,6 @@ public:
 	}
 	float getScale(){return scale;}
 	grid * getGrid(){return m_grid;}
-
+	int getWidth(){return width;}
+	int getHeight(){return height;}
 };
