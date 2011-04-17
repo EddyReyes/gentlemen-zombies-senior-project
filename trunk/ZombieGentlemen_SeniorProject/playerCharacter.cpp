@@ -5,7 +5,7 @@ PlayerCharacter::PlayerCharacter()
 {
 	//Player life points is set to 100;
 	//Players damage resistance is at 50%
-	playerHealth = 100;
+	playerHealth = 100.0;
 	damageResistance = 0.50;
 	money = 0;
 }

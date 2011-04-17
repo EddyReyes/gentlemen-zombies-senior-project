@@ -346,6 +346,7 @@ void game::handleInput()
 		if(now - keyLag[DIK_SPACE] > 150)
 		{
 			player->addMoney(1);
+			player->playerDamage(5);
 			keyLag[DIK_SPACE] = now;
 		}
 	}

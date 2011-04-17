@@ -27,4 +27,9 @@ Legend
 4/09
 + completed High Concept Doc
 
+4/17 Leseamus
++ display money in text
+# get health bar connect with player health class
+- get coin image so player can receave money
+- delete useless code in enemy class 
 
