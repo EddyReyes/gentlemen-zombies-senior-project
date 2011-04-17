@@ -55,6 +55,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	testObject2 = new object(testCube, "testObject2.txt");
 	testObject2->setPosition(0.0f, -2.0f, 0.0f);
 
+	env_map = new collisionMap("testMap2.txt", m_map);
+
 	//testObject3 = new object(testCube, "testOject2.txt");
 	//testObject3->setPosition(0.0f, 2.0f, 0.0f);
 	objectX = 0; 

@@ -15,7 +15,6 @@ private:
 	collisionRect * rects;
 	grid * m_grid;
 	float scale;
-	int width,height;
 public: 
 	collisionMap()
 	{
@@ -52,6 +51,85 @@ public:
 					x--;}
 				else{
 					map[y][x] = c;
+				}
+			}
+		}
+
+		void envCollMap();
+	}
+	
+	void envCollMap()
+	{
+
+		static int py = 0;
+		static int px = 0;
+		bool found;
+		int maxWidth = 0;
+
+		if (map[py][px] == '.')
+		{
+			for(int i = 0; i < num_rects; i++)
+			{
+				if(py >= rect[i].y1 && py <= rect[i].y2 && px >= rect[i].x1 && px <= rect[i].x2)
+				{
+
+				}
+			}
+		}
+
+		while(!found)
+		{
+			if(map[py][px + maxWidth] == '.')
+			{
+				found = true;
+			}
+			else
+			{
+				maxWidth++;
+			}
+		}
+		found = false;
+		int maxHeight = 0;
+
+		while(!found)
+		{
+			if(map[py+maxHeight][px] == '.')
+			{
+				found = true;
+			}
+			else
+			{
+				maxHeight++;
+			}
+		}
+		
+		int count = 0;
+		int maxCount = 0;
+		int height = 0;
+		int width = 0;
+
+		for(int x = maxWidth - 1; x >= 0; x--)
+		{
+			for(int y = 0; y < maxHeight && !found; y++)
+			{
+				for(int x2 = 0; x2 <= x && !found; x2++)
+				{
+					if(map[py + y][px + x2] == '.')
+					{
+						found = true;
+					}
+				}
+			
+		
+
+				if(!found)
+				{
+					count = (x + 1) * (y + 1);
+						if(count > maxCount)
+						{
+							width = x + 1;
+							height = y + 1;
+						}
 				}
 			}
 		}
