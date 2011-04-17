@@ -72,41 +72,52 @@ public:
 		{
 			rects[y] = new collisionRectPointer[width];
 			//initialize cubes positions
+			collisionRectPointer lastRect;
 			for(int x = 0; x < width; x++)
 			{
 				if(map[y][x] == '.')
 				{
 					rects[y][x].colRect = NULL;
 				}
-				if(map[y][x] == 'x')
+				else
 				{
-					if(x>0)
+					if(map[y][x] == 'x')
 					{
-						if(map[y][x-1] == '.')
+						if(x>0)
+						{
+							if(map[y][x-1] == '.')
+							{
+								D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+								rects[y][x].colRect = new collisionRect();
+								rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, -1*scale);
+								lastRect.colRect = rects[y][x].colRect;
+							}
+						}
+						else if(x==0)
 						{
 							D3DXVECTOR3 * pos = m_grid->getNode(y, x);
 							rects[y][x].colRect = new collisionRect();
-							rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, 1*scale);
+							rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, -1*scale);
+							lastRect.colRect = rects[y][x].colRect;
 						}
-					}
-					else if(x==0)
-					{
-						D3DXVECTOR3 * pos = m_grid->getNode(y, x);
-						rects[y][x].colRect = new collisionRect();
-						rects[y][x].colRect->modifyParameters(pos->x, pos->y, 1*scale, 1*scale);
-					}
-				}
-				if(map[y][x] == 'x')
-				{
-					if(x+1 <= width)
-					{
-						if(map[y][x+1] == 'x')
+						if(lastRect.colRect != rects[y][x].colRect)
 						{
-							rects[y][x].colRect->modifyParameters(rects[y][x].colRect->getXPosition(), rects[y][x].colRect->getYPosition(),
-								rects[y][x].colRect->getWidth() + 1*scale, rects[y][x].colRect->getHeight());
+							lastRect.colRect->modifyParameters(lastRect.colRect->getXPosition(), lastRect.colRect->getYPosition(),
+								lastRect.colRect->getWidth() + 1*scale, lastRect.colRect->getHeight());
 						}
 					}
 				}
+				//if(map[y][x] == 'x')
+				//{
+				//	//if(x+1 < width)
+				//	//{
+				//		//if(map[y][x+1] == 'x')
+				//		//{
+				//			lastRect.colRect->modifyParameters(lastRect.colRect->getXPosition(), lastRect.colRect->getYPosition(),
+				//				lastRect.colRect->getWidth() + 1*scale, lastRect.colRect->getHeight());
+				//		//}
+				//	//}
+				//}
 			}
 		}
 	}
