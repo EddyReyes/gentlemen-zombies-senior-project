@@ -71,6 +71,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	scale = 1.0f;
 	
 	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
+	player = new PlayerCharacter();
 	//player->initPlayerSpriteSheet(1,1);
 	//player->setPlayerSprite(0,0);
 	//player->setPosition(0, 4, 0);
@@ -121,13 +122,14 @@ void game::SetSprites()
 	 *---------------------------------------------------------------------**/
 	hudStuff = new HUD(dxMgr);
 	//player = new ;
+	hudStuff->setPlayer(player);
 	hudStuff->setHudImage("images/new_hud.bmp");
 	hudStuff->setHealthBarImage("images/healthBar.bmp");
 	hudStuff->setArmorBarImage("images/armorBar.bmp");
 	hudStuff->setWeaponImage("images/sword.bmp");
 	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
 	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
-	hudStuff->setCurrencyValueImage("images/moneyTextBox.bmp");
+	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
 	hudStuff->initDefaultPositions(2.0, 0.0);
 			
 	
@@ -177,7 +179,9 @@ void game::update()
 	UpdateSpeed = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
 		timerFreq.QuadPart;
 
+	hudStuff->updateCurrencyValue();
 	UpdateFPS();
+
 }
 void game::UpdateFPS()
 {
@@ -299,11 +303,7 @@ void game::handleInput()
 		position.x += moveDistance;
 		objectX += moveDistance;
 	}
-	if((keystate[DIK_SPACE]& 0x80))
-	{
-		//float add = 1;
-		//player->addMoney(add);
-	}
+	
 	
 	float x = testObject->getXYPlane()->getXPosition();
 	float y = testObject->getXYPlane()->getYPosition();
@@ -341,8 +341,17 @@ void game::handleInput()
 		}
 	}
 	
+	if((keystate[DIK_SPACE]& 0x80))
+	{
+		if(now - keyLag[DIK_SPACE] > 150)
+		{
+			player->addMoney(1);
+			keyLag[DIK_SPACE] = now;
+		}
+	}
+
 	// camera movement
-	float cameraMove = 0.05f;
+ 	float cameraMove = 0.05f;
 	int cameraLag = 0;
 	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
