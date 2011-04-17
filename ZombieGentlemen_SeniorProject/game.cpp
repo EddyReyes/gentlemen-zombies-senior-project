@@ -80,6 +80,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->setPosition(1, 4, 0);
 
 	camera = new dxCamera(dxMgr);
+	OBLIST->initColMap("colMapTest.txt", m_map);
 
 
 	setMusic();

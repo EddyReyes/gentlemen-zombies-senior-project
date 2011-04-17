@@ -1,12 +1,18 @@
 #pragma once
 #include "object.h"
 #include "objectVector.h"
+#include "collisionMap.h"
 //#define test
 
 class objectManager
 {
 public:
 	
+	void initColMap(char * filename, cubeMap * map)
+	{
+		colMap.initCollMap(filename, map);
+		colMap.generateRects();
+	};
 
 
 #ifndef test
@@ -43,6 +49,8 @@ public:
 	}
 private:
 	objectList list; //list that will hold all the objects
-	collisionRect* colRects;
+	collisionMap colMap;
+	collisionRect * colRects;
+	
 #endif
 };
