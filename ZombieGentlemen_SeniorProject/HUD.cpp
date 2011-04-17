@@ -160,7 +160,7 @@ void HUD::setBagOfMoneyImage(std::string filename)
 		bagOfMoney = new HudImage(dxMgr, filename);
 	}
 }
-void HUD::setCurrencyValueImage(std::string filename)
+void HUD::setCurrencyValue(std::string filename)
 {
 	//playerMoney->toggleImage();
 	playerMoney = new DXText(dxMgr, filename);
@@ -201,14 +201,18 @@ void HUD::setHudPosition(float a_x, float a_y)
 		bagOfMoney->setParameters(bagOfMoney->getWidth() + a_x, bagOfMoney->getHeight() + a_y,
 		bagOfMoney->getXPosition() + a_x, bagOfMoney->getYPosition() + a_y);
 }	
-void HUD::updateCurrencyValueImage()
+void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
-	sprintf_s(updateBuffer, "Money %i \n",player->getMoney());
+	sprintf_s(updateBuffer, "Money %.00f \n", player->getMoney());
 	playerMoney->setDialog(updateBuffer);
 
 }
 void HUD::setPlayer(PlayerCharacter * a_player)
 {
 	player = a_player;
+}
+void HUD::addMoney(float moneyRecieve)
+{
+	player->addMoney(moneyRecieve);
 }
