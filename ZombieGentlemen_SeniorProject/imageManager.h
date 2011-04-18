@@ -1,3 +1,4 @@
+#pragma once
 #include "dxManager.h"
 #include <stdio.h>
 #include <fstream>
