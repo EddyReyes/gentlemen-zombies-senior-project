@@ -3,7 +3,7 @@
 Armor::Armor(){}
 bool Armor::initPlayerArmor(int a_armorType)
 {
-	
+
 	if (a_armorType < 1 || a_armorType > 3) return false;
 	armorHealth = 100.0;
 	setArmorType(a_armorType);
