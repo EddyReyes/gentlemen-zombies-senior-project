@@ -1,13 +1,4 @@
-/**
-The game class will handle the bulk of the game logic
-This class will contian the game states, the map, the players, the characters
-etc.
-
-
-status: unit test
-*/
-
-// DirectX files
+#pragma once
 #include "dxManager.h"
 #include "directInput.h"
 #include "sound.h"
@@ -40,8 +31,10 @@ status: unit test
 
 #include <stdio.h>
 
+//#define testEnvironment
 
-#pragma once
+#ifdef testEnvironment
+
 struct phyVars
 {
 	float gravity; //constant gravity acting on the character
@@ -122,3 +115,52 @@ public:
 
 	~game();
 };
+#endif 
+
+#ifndef testEnvironment
+
+class game
+{
+private:
+	// main game components
+	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
+	HWND * m_wndHandle; //pointer to global variable to hold the window handle
+	dxManager * dxMgr;
+	directInput * inputMgr;
+	// input data
+	sound * soundMgr;
+	BYTE * keystate;
+	int * keyLag;
+	DIMOUSESTATE mouseState;
+	
+	// timer data
+	int now, then, passed, soon; // low resolution timers for keylag
+	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
+	float UpdateSpeed, Elapsed;
+	int FPS;
+
+	// FPS display data
+	DXText  * FPSText;
+
+	// camera data
+	dxCamera * camera;
+	float cameraX, cameraY, cameraZ;
+
+	// Unit test parameters
+
+	cubeMap * m_map;
+	objectManager * obMgr;
+	float objectX, objectY;
+
+public: 
+	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
+	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
+	void setMusic();
+	void update();
+	void UpdateFPS();
+	void handleInput();
+	void draw();
+	~game();
+};
+
+#endif

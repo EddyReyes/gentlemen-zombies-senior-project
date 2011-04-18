@@ -1,6 +1,8 @@
 //#define physics
 #include "game.h"
 
+#ifdef testEnvironment
+
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
 {
 	m_hInstance = a_hInstance;
@@ -475,6 +477,228 @@ game::~game()
 	hudStuff->~HUD();
 	testObject->~object();
 	testObject2->~object();
+	FPSText->~DXText();
 	//delete OBLIST;
+}
+#endif
+
+
+#ifndef testEnvironment
+
+game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
+{
+	m_hInstance = a_hInstance;
+	m_wndHandle = a_wndHandle;
+}
+bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr)
+{
+	// initiallize game data
+	dxMgr = a_dxMgr;
+	inputMgr = a_inputMgr;
+	soundMgr = a_soundMgr;
+
+	// initialize timer data
+	now = clock();
+	then = now;
+	passed = now-then;
+	soon = now +100;
+
+	QueryPerformanceFrequency(&timerFreq);
+	Elapsed  = 0;
+	FPS = 0;
+
+	// initialize FPS display data
+	FPSText = new DXText(dxMgr, "images/BlackTextBox.bmp");
+	FPSText->textInfo("Arial", 18,
+					 D3DCOLOR_ARGB(255, 255, 255, 255),
+					 "Loading...");
+	FPSText->setTextBoxParameters(200, 50, 20, 500, 8);
+
+	// initialize key lag data
+	keyLag = new int [256];
+	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
+
+	camera = new dxCamera(dxMgr);
+	cameraX = 0.0f;
+	cameraY = 0.0f;
+	cameraZ = -10.0f;
+
+	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
+	
+	setMusic();
+	return true;
+}
+void game::setMusic()
+{
+	//Load sound (filename, bufferID) in this case the first buffer is 0
+	soundMgr->LoadSound("sound/Combat music.wav", 0);
+	//SetVolume(bufferID, Volume)
+	soundMgr->SetVolume(0, -2000);
+	//play sound playSound(bufferID) in this case the first buffer is 0
+	soundMgr->playSound(0);
+}
+void game::update()
+{
+
+	//update time
+	now = clock();
+	then = now;
+	passed = now-then;
+	soon = now +100;
+
+	QueryPerformanceCounter(&timeStart);
+	
+	// Handle Input using Direct Input
+	handleInput();
+	// draw to the screen using Direct3D
+	draw();
+
+	// update high resolution timer
+	QueryPerformanceCounter(&timeEnd);
+	UpdateSpeed = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
+		timerFreq.QuadPart;
+
+	UpdateFPS();
 
 }
+void game::UpdateFPS()
+{
+	FPS++;
+	Elapsed += UpdateSpeed;
+
+	if(Elapsed >= 1)
+	{
+		char UpdateBuffer[50];
+		sprintf_s(UpdateBuffer, "FPS: %i \nTime elapsed: %f", FPS, Elapsed);
+		FPSText->setDialog(UpdateBuffer);
+		Elapsed = 0;
+		FPS = 0;
+	}
+}
+
+
+void game::handleInput()
+{
+	inputMgr->reAcquireDevices();
+	inputMgr->updateKeyboardState(); 
+	keystate = inputMgr->getKeyboardState();
+	inputMgr->updateMouseState();
+	mouseState = *(inputMgr->getMouseState());
+
+	// keyboard
+
+	if(keystate[DIK_ESCAPE] & 0x80)
+	{
+		PostQuitMessage(0);
+	}
+
+	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
+		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
+	{
+
+	}
+	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
+		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
+	{
+
+	}
+	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
+	{
+
+	}
+	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
+	{
+
+	}
+
+	if ((keystate[DIK_B] & 0x80))
+	{
+		if(now - keyLag[DIK_B] > 200)
+		{
+			m_map->toggleMap();
+			keyLag[DIK_B] = now;
+		}
+	}
+
+	// camera movement
+ 	float cameraMove = 0.05f;
+	int cameraLag = 0;
+	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
+		{
+			cameraX-= cameraMove;
+			keyLag[DIK_NUMPAD4] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD6] & 0x80) || (keystate[DIK_L] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD6] > cameraLag)
+		{
+			cameraX += cameraMove;
+			keyLag[DIK_NUMPAD6] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD2] & 0x80) || (keystate[DIK_K] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD2] > cameraLag)
+		{
+			cameraY -= cameraMove;
+			keyLag[DIK_NUMPAD2] = now;
+		}
+	}
+	if ((keystate[DIK_NUMPAD8] & 0x80) || (keystate[DIK_I] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD8] > cameraLag)
+		{
+			cameraY+= cameraMove;
+			keyLag[DIK_NUMPAD8] = now;
+		}
+	}
+		
+	if ((keystate[DIK_NUMPAD7] & 0x80) || (keystate[DIK_U] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD7] > cameraLag)
+		{
+			if(cameraZ < -1.1)
+			{
+				cameraZ += cameraMove;
+				keyLag[DIK_NUMPAD7] = now;
+			}
+		}
+	}
+	if ((keystate[DIK_NUMPAD9] & 0x80) || (keystate[DIK_O] & 0x80))
+	{
+		if(now - keyLag[DIK_NUMPAD9] > cameraLag)
+		{
+			cameraZ -= cameraMove;
+			keyLag[DIK_NUMPAD9] = now;
+		}
+	}
+}
+void game::draw()
+{
+	dxMgr->beginRender();
+
+	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
+	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
+
+	m_map->draw();
+
+	camera->SetHudCamera();
+
+	FPSText->draw();
+
+	dxMgr->endRender();
+}
+game::~game()
+{		
+	dxMgr->shutdown();
+	inputMgr->shutdownDirectInput();
+	soundMgr->shutdownDirectSound();
+	
+	// destroy map
+	m_map->~cubeMap();
+	FPSText->~DXText();
+}
+#endif
