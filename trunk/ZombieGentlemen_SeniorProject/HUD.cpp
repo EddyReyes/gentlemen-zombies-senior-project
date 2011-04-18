@@ -71,9 +71,18 @@ void HUD::draw()
 	if(playerMoney)
 	playerMoney->draw();
 }
-void HUD::updateHealthBar(int damage)
+void HUD::updateHealthBar()
 {
-		
+	int width = 100;
+	if( healthBar )
+	{
+		width = healthBar->getWidth();
+		width--;
+		if (width <= 100)
+		{
+			player->playerDamage(20);
+		}
+	}
 }
 void HUD::updateArmorBar()
 {

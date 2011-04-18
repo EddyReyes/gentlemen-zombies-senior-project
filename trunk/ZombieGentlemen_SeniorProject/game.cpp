@@ -354,6 +354,16 @@ void game::handleInput()
 			keyLag[DIK_SPACE] = now;
 		}
 	}
+	//******keydown for HEALTH BAR********/
+	//not done yet
+	if((keystate[DIK_Q]& 0x80))
+	{
+		if(now - keyLag[DIK_Q] > 150)
+		{
+			hudStuff->updateHealthBar();
+			keyLag[DIK_Q] = now;
+		}
+	}
 
 	// camera movement
  	float cameraMove = 0.05f;
