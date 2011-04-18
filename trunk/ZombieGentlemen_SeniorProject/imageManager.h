@@ -10,7 +10,7 @@
 class imageManager
 {
 private:
-	LPDIRECT3DTEXTURE9 * images;	// image texture
+	LPDIRECT3DTEXTURE9 ** images;	// image texture
 	D3DXIMAGE_INFO ** imageInfo;	// contains image parameters
 	std::string ** fileNames;
 	dxManager * dxMgr;
@@ -32,7 +32,7 @@ public:
 		{
 			if(images[y] != NULL)
 			{
-				images[y]->Release();
+				(*images[y])->Release();
 				delete images[y];
 				images[y] = NULL;
 			}
@@ -91,13 +91,13 @@ public:
 	void initImagesArray()
 	{
 		// create an array of the right size for image pointers
-		images = new LPDIRECT3DTEXTURE9 [size];
+		images = new LPDIRECT3DTEXTURE9 * [size];
 		for(int i = 0; i < size; i++)
-		{images[i] = NULL;} // fill all image pointers with NULL
+		{images[i] = new LPDIRECT3DTEXTURE9;} 
 		// create an array of the right size for imageInfo pointers
 		imageInfo = new D3DXIMAGE_INFO * [size];
 		for(int i = 0; i < size; i++)
-		{imageInfo[i] = NULL;} // zero out the imageInfo struct
+		{imageInfo[i] =  new D3DXIMAGE_INFO;}
 	}
 
 	void loadImages()
@@ -106,7 +106,7 @@ public:
 		for(int y = 0; y < size; y++)
 		{
 			// load texture from file in file name array
-			D3DXCreateTextureFromFile(pd3dDevice, fileNames[y]->c_str(),&(images[y]));
+			D3DXCreateTextureFromFile(pd3dDevice, fileNames[y]->c_str(),images[y]);
 			// laod image info from file in file name array
 			D3DXGetImageInfoFromFile(fileNames[y]->c_str(), imageInfo[y]);
 		}
@@ -118,7 +118,7 @@ public:
 		if(index < 0 || index > size)
 		{return NULL;} // if out of bounds return NULL
 		// if index is within memory bounds return a pointer
-		else{return &(images[index]);}
+		else{return images[index];}
 	}
 	D3DXIMAGE_INFO * getImageInfo(int index)
 	{

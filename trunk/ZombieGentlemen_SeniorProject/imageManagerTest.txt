@@ -1,4 +1,4 @@
 3
-armorBar.bmp
-blackTextBox.bmp
-glass tile.bmp
+images/armorBar.bmp
+images/blackTextBox.bmp
+images/glass tile.bmp
