@@ -76,9 +76,8 @@ void HUD::updateHealthBar()
 {
 	float decrement;
 	decrement = player->getHealth();
-	player->playerDamage(20);
+	player->playerDamage(15);
 	decrement = player->getHealth();
-
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
@@ -86,10 +85,11 @@ void HUD::updateHealthBar()
 void HUD::updateArmorBar(int a_armorType)
 {
 	float decrement;
+	float stdWidth = 10.0;
+	decrement = armor->getArmorHealth() - stdWidth;
 	armor->initPlayerArmor(a_armorType);
+	armor->damageArmor(6);
 	decrement = armor->getArmorHealth();
-
-	armor->damageArmor(20);
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
 	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
@@ -97,9 +97,12 @@ void HUD::updateWeapon()
 {
 	
 }
-void HUD::updatePlayerMoney()
+void HUD::updateCurrencyValue()
 {
-
+	char updateBuffer[50];
+  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());
+	
+	playerMoney->setDialog(updateBuffer);
 }
 void HUD::initDefaultPositions(float a_x, float a_y)
 {
@@ -248,13 +251,6 @@ void HUD::setHudPosition(float a_x, float a_y)
 		bagOfMoney->setParameters(bagOfMoney->getWidth() + a_x, bagOfMoney->getHeight() + a_y,
 		bagOfMoney->getXPosition() + a_x, bagOfMoney->getYPosition() + a_y);*/
 }	
-void HUD::updateCurrencyValue()
-{
-	char updateBuffer[50];
-  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());
-	
-	playerMoney->setDialog(updateBuffer);
-}
 void HUD::setPlayer(PlayerCharacter * a_player)
 {
 	player = a_player;
