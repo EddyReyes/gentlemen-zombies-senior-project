@@ -372,6 +372,16 @@ void game::handleInput()
 			keyLag[DIK_X] = now;
 		}
 	}
+	//******keydown for WEAPON DISPLAY********/
+	if((keystate[DIK_C]& 0x80))
+	{
+		if(now - keyLag[DIK_C] > 150)
+		{
+			//displays weapon type
+			hudStuff->updateWeapon();
+			keyLag[DIK_C] = now;
+		}
+	}
 
 	// camera movement
  	float cameraMove = 0.05f;
