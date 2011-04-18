@@ -3,8 +3,9 @@
 Armor::Armor(){}
 bool Armor::initPlayerArmor(int a_armorType)
 {
+	
 	if (a_armorType < 1 || a_armorType > 3) return false;
-	armorHealth = 100;
+	armorHealth = 100.0;
 	setArmorType(a_armorType);
 	return true;
 }
@@ -14,9 +15,9 @@ void Armor::damageArmor(int damage)
 	armorHealth -= (1- damageResistance) * damage;
 	if(armorHealth<0) armorHealth =0; 
 }
-void Armor::armorRegenerate(void)
+float Armor::armorRegenerate()
 {
-	armorHealth = 100;
+	return armorHealth;
 }
 bool Armor::armorDepleted(void)
 {

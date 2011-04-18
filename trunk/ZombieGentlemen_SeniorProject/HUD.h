@@ -3,7 +3,7 @@
 #include "HudImage.h"
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
-
+#include "armor.h"
 
 class HUD
 {
@@ -17,6 +17,7 @@ private:
 	HudImage * weapon;
 	HudImage * bagOfMoney;
 	HudImage * playerID;
+	Armor * armor;
 	PlayerCharacter * player;
 	EnemyCharacter * enemy;
 	DXText * playerIDNumber;
@@ -30,7 +31,6 @@ public:
 	HUD(dxManager * a_dxMgr);
 	~HUD();
 	void draw();
-	void decrimentBars();
 	void updateHealthBar();
 	void updateArmorBar();
 	void updateWeapon();
