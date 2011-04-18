@@ -2,7 +2,7 @@
 
 Armor::Armor()
 {
-		armorHealth = 80.0;
+		armorHealth = 80.0;//armor health
 }
 bool Armor::initPlayerArmor(int a_armorType)
 {
