@@ -34,7 +34,7 @@ public:
 	void updateHealthBar();
 	void updateArmorBar(int a_armorType);
 	void updateWeapon();
-	void updatePlayerMoney();
+	void updateCurrencyValue();
 	void initDefaultPositions(float a_x, float a_y);
 	void setHudImage(std::string filename);
 	void setBarHolderImage(std::string filename);
@@ -47,7 +47,5 @@ public:
 	void setPlayerID(int ID);
 	void setPlayerIDImage(std::string filename);
 	void setHudPosition(float a_x, float a_y);
-	void updateCurrencyValue();
 	void setPlayer(PlayerCharacter * a_player);
-
 };
