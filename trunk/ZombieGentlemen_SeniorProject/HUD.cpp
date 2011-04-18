@@ -95,7 +95,11 @@ void HUD::updateArmorBar(int a_armorType)
 }
 void HUD::updateWeapon()
 {
-	
+	if(weapon)
+	{	
+		weapon = new HudImage(dxMgr, "images/shovel_weapon.bmp");
+		weapon->setParameters(80.0, 80.0, 98.0, 97.0);
+	}
 }
 void HUD::updateCurrencyValue()
 {
@@ -112,7 +116,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
 	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
 	armorBar->setParameters(80.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
-	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
+	weapon->setParameters(80.0, 80.0, 95.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
 }
 void HUD::setHudImage(std::string filename)
