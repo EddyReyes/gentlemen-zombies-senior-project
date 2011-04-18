@@ -2,53 +2,68 @@
 #include "object.h"
 #include "objectVector.h"
 #include "collisionMap.h"
+#include "imageManager.h"
 
 class objectManager
 {
 private:
 	objectList list; //list that will hold all the objects
-	collisionMap colMap;
+	collisionMap * colMap;
 	collisionRect ** colMapRects;
+	imageManager * images;
+	dxManager * dxMgr;
 
 public:
 	
 	objectManager()
 	{
-		/*list.initList(1);
-		colRects = new collisionRect[10];*/
+		dxMgr = NULL;
+		colMap = NULL;
+		colMapRects = NULL;
+	}
+	void initObjectMgr(dxManager * a_dxMgr)
+	{
+		dxMgr = a_dxMgr;
 	}
 
 	void initColMap(char * filename, cubeMap * map)
 	{
-		colMap.initCollMap(filename, map);
-		colMapRects = colMap.getList();
+		colMap = new collisionMap();
+		colMap->initCollMap(filename, map);
+		colMapRects = colMap->getList();
 	};
 
-	//void insert(object *a_obj) //takes in object to put into the list
-	//{
-	//	list.add(a_obj);//inserts the object to the back of the list
-	//}
-	//object* get(int index)
-	//{
-	//	return list.get(index); //gets an object at an index
-	//}
-	//void remove(int index)//removes object from list
-	//{
-	//	list.remove(index);
-	//}
-	//int getsize() {return list.getSize();}//returns the size of the list
-	//void destroyobject(int index)
-	//{
-	//	list.destroyObject(index);
-	//}
+	void initImages(char * filename)
+	{
+		images->initImageManager(filename, dxMgr);
+	}
+
+
+
+	/******************************************************************
+	* Loading functions
+	* These functions are use to create new objects and load them into 
+	* the list
+	*******************************************************************/
+
+	void loadCubeObjectToList(dxCube * a_cube, char* textFile)
+	{
+		object * newObject = new object(a_cube, textFile);
+		list.add(newObject);
+	}
+	void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
+	{
+		object * newObject = new object(a_plane, textFile);
+		list.add(newObject);
+	}
+	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
+	{
+		object * newObject = new object(dxMgr, imgFile, textFile);
+		list.add(newObject);
+	}
+
 	~objectManager()
 	{
-		/*list.~objectList();
-		delete colRects;*/
+		colMap->~collisionMap();
 	}
-	/*int endoflist()
-	{
-		return list.endOfList();
-	}*/
-
 };

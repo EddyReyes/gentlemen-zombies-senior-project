@@ -330,6 +330,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\imageManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\objectVector.h"
 					>
 				</File>
@@ -426,6 +430,10 @@
 			</File>
 			<File
 				RelativePath=".\gameIcon.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\imageManagerTest.txt"
 				>
 			</File>
 			<File

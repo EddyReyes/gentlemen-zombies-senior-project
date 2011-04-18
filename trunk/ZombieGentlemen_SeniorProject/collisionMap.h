@@ -36,7 +36,23 @@ public:
 	{
 		initCollMap(filename,a_map);
 	}
-	~collisionMap(){}
+	~collisionMap()
+	{
+		// delete map character data
+		for(int y = 0; y < height; y++)
+		{
+			delete [] map[y];
+		}
+		delete [] map;
+
+		// destroy collision rects and delete the pointers
+		for(int y = 0; y < height; y++)
+		{
+			rectList[y]->~collisionRect();
+			rectList[y] = NULL;
+		}
+		delete [] rectList;
+	}
 
 	void initCollMap(char * filename, cubeMap * sourceMap)
 	{
@@ -161,6 +177,7 @@ public:
 					rects[y][x].colRect = NULL;
 				}
 			}
+			delete [] rects[y];
 		}
 		delete [] rects;
 	}
