@@ -74,15 +74,23 @@ void HUD::draw()
 void HUD::updateHealthBar()
 {
 	int width = 100;
-	if( healthBar )
+	if ( healthBar->getWidth() <= 100 && healthBar > 0 )
 	{
 		width = healthBar->getWidth();
 		width--;
-		if (width <= 100)
+		/*if (width <= 100)
 		{
 			player->playerDamage(20);
-		}
+		}*/
 	}
+}
+void HUD::decrimentBars()
+{
+
+	float stdWidth = 100.0;
+	stdWidth--;
+	//player->getHealth()/ stdWidth;
+	healthBar->setParameters(stdWidth, 12.0, 95.0, 43.0);
 }
 void HUD::updateArmorBar()
 {
@@ -102,6 +110,9 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
 	barHolder->setParameters(120.0, 100.0, 85.0 + a_x, 9.0 + a_y);
 	healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 43.0 + a_y);
+
+
+
 	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
 	//healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
 	armorBar->setParameters(82.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
@@ -155,6 +166,7 @@ void HUD::setHealthBarImage(std::string filename)
 	{
 		healthBar->~HudImage();
 		healthBar = new HudImage(dxMgr, filename);
+		
 	}
 }
 void HUD::setBarHolder2Image(std::string filename)

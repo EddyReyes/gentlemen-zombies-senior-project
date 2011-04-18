@@ -30,6 +30,7 @@ public:
 	HUD(dxManager * a_dxMgr);
 	~HUD();
 	void draw();
+	void decrimentBars();
 	void updateHealthBar();
 	void updateArmorBar();
 	void updateWeapon();
