@@ -355,13 +355,21 @@ void game::handleInput()
 		}
 	}
 	//******keydown for HEALTH BAR********/
-	//not done yet
-	if((keystate[DIK_Q]& 0x80))
+	if((keystate[DIK_Z]& 0x80))
 	{
-		if(now - keyLag[DIK_Q] > 150)
+		if(now - keyLag[DIK_Z] > 150)
 		{
-			hudStuff->decrimentBars();			
-			keyLag[DIK_Q] = now;
+			hudStuff->updateHealthBar();			
+			keyLag[DIK_Z] = now;
+		}
+	}
+	//******keydown for ARMOR BAR********/
+	if((keystate[DIK_X]& 0x80))
+	{
+		if(now - keyLag[DIK_X] > 150)
+		{
+			hudStuff->updateArmorBar();		
+			keyLag[DIK_X] = now;
 		}
 	}
 
