@@ -14,7 +14,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	dxMgr = a_dxMgr;
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
-	OBLIST = new objectManager;
+	//OBLIST = new objectManager;
 
 	now = clock();
 	then = now;
@@ -83,7 +83,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	enemy->setPosition(1, 4, 0);
 
 	camera = new dxCamera(dxMgr);
-	OBLIST->initColMap("colMapTest.txt", m_map);
+	//OBLIST->initColMap("colMapTest.txt", m_map);
 
 
 	setMusic();
@@ -524,6 +524,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraZ = -10.0f;
 
 	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
+
+	obMgr = new objectManager();
+	obMgr->initObjectMgr(dxMgr);
+	obMgr->initColMap("colMapTest.txt", m_map);
+	obMgr->initImages("imageManagerTest.txt");
 	
 	setMusic();
 	return true;
@@ -700,5 +705,6 @@ game::~game()
 	// destroy map
 	m_map->~cubeMap();
 	FPSText->~DXText();
+	obMgr->~objectManager();
 }
 #endif

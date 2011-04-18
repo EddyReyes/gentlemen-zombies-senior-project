@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 
-//#define testEnvironment
+#define testEnvironment
 
 #ifdef testEnvironment
 
@@ -84,7 +84,7 @@ private:
 	// Unit test parameters
 
 	cubeMap * m_map;
-	objectManager * OBLIST;
+	//objectManager * OBLIST;
 	object * testObject;
 	dxCube * testCube;
 	dxCube * testCube2;
