@@ -208,6 +208,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\imageManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\sound.cpp"
 					>
 				</File>
