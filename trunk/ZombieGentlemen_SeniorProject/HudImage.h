@@ -53,7 +53,7 @@ public:
 	void toggleSprite();
 	void setSize(float a_width, float a_height);
 	void setParameters(float a_width, float a_height, float a_x, float a_y);
-
+	
 	// accessors
 	float getHeight();
 	float getWidth();
