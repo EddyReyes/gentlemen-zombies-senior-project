@@ -130,7 +130,7 @@ void game::SetSprites()
 	hudStuff->setHealthBarImage("images/healthBar.bmp");
 	hudStuff->setBarHolder2Image("images/bar_holder2.bmp");
 	hudStuff->setArmorBarImage("images/armorBar.bmp");
-	hudStuff->setWeaponImage("images/sword.bmp");
+	hudStuff->setWeaponImage("images/shovel_weapon.bmp");
 	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
 	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
 	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
@@ -344,7 +344,7 @@ void game::handleInput()
 			keyLag[DIK_B] = now;
 		}
 	}
-	
+	/******HUD Money Incriment************/
 	if((keystate[DIK_SPACE]& 0x80))
 	{
 		if(now - keyLag[DIK_SPACE] > 150)
@@ -367,19 +367,38 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_X] > 150)
 		{
-
 			hudStuff->updateArmorBar(1);		
 			keyLag[DIK_X] = now;
 		}
 	}
 	//******keydown for WEAPON DISPLAY********/
-	if((keystate[DIK_C]& 0x80))
+	if((keystate[DIK_F1]& 0x80))
 	{
-		if(now - keyLag[DIK_C] > 150)
+		if(now - keyLag[DIK_F1] > 150)
 		{
 			//displays weapon type
-			hudStuff->updateWeapon();
-			keyLag[DIK_C] = now;
+			hudStuff->updateWeapon("images/shovel_weapon.bmp");
+			keyLag[DIK_F1] = now;
+		}
+	}
+	//******keydown for WEAPON DISPLAY2********/
+	if((keystate[DIK_F2]& 0x80))
+	{
+		if(now - keyLag[DIK_F2] > 150)
+		{
+			//displays weapon type
+			hudStuff->updateWeapon("images/club.bmp");
+			keyLag[DIK_F2] = now;
+		}
+	}
+	//******keydown for WEAPON DISPLAY3********/
+	if((keystate[DIK_F3]& 0x80))
+	{
+		if(now - keyLag[DIK_F3] > 150)
+		{
+			//displays weapon type
+			hudStuff->updateWeapon("images/sword.bmp");
+			keyLag[DIK_F3] = now;
 		}
 	}
 
