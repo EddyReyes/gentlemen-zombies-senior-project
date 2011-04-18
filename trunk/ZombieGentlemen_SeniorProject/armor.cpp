@@ -1,11 +1,12 @@
 #include "armor.h"
 
-Armor::Armor(){}
+Armor::Armor()
+{
+		armorHealth = 80.0;
+}
 bool Armor::initPlayerArmor(int a_armorType)
 {
-
 	if (a_armorType < 1 || a_armorType > 3) return false;
-	armorHealth = 100.0;
 	setArmorType(a_armorType);
 	return true;
 }
@@ -28,7 +29,7 @@ float Armor::getArmorHealth(){return armorHealth;}
 float Armor::getDamageResistance(){return damageResistance;}
 void Armor::setArmorHealth(float a_armorHealth)
 {
-	armorHealth = a_armorHealth;
+	 a_armorHealth = armorHealth;
 }
 void Armor::setArmorType(int a_armorType)
 {

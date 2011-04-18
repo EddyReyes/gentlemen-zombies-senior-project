@@ -350,7 +350,6 @@ void game::handleInput()
 		if(now - keyLag[DIK_SPACE] > 150)
 		{
 			player->addMoney(1);
-			player->playerDamage(5);
 			keyLag[DIK_SPACE] = now;
 		}
 	}
@@ -368,7 +367,8 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_X] > 150)
 		{
-			hudStuff->updateArmorBar();		
+
+			hudStuff->updateArmorBar(1);		
 			keyLag[DIK_X] = now;
 		}
 	}

@@ -32,7 +32,7 @@ public:
 	~HUD();
 	void draw();
 	void updateHealthBar();
-	void updateArmorBar();
+	void updateArmorBar(int a_armorType);
 	void updateWeapon();
 	void updatePlayerMoney();
 	void initDefaultPositions(float a_x, float a_y);

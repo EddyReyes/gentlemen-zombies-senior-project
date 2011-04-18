@@ -19,6 +19,7 @@ HUD::HUD(dxManager * a_dxMgr)
 	hudPosition.x = NULL;
 	hudPosition.y = NULL;
 	player = new PlayerCharacter();
+	armor = new Armor();
 }
 HUD::~HUD()
 {
@@ -74,21 +75,21 @@ void HUD::draw()
 void HUD::updateHealthBar()
 {
 	float decrement;
-	float stdWidth = 6.0;
-	decrement = player->getHealth() - stdWidth;
-	player->playerDamage(10);
 	decrement = player->getHealth();
+	player->playerDamage(20);
+	decrement = player->getHealth();
+
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
-void HUD::updateArmorBar()
+
+void HUD::updateArmorBar(int a_armorType)
 {
 	float decrement;
-	float stdWidth = 6.0;
-	//armor->initPlayerArmor(1);
-	decrement = armor->armorRegenerate() - stdWidth;
-	armor->damageArmor(2);
-	decrement = armor->armorRegenerate();
+	armor->initPlayerArmor(a_armorType);
+	decrement = armor->getArmorHealth();
+
+	armor->damageArmor(20);
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
 	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
@@ -107,10 +108,9 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	barHolder->setParameters(124.0, 100.0, 82.0 + a_x, 9.0 + a_y);
 	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
 	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
-	armorBar->setParameters(82.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
+	armorBar->setParameters(80.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
-	//playerMoney->setTextBoxParameters(68.0, 45.0, 72.0 + a_x, 100.0 + a_y, 12); 
 }
 void HUD::setHudImage(std::string filename)
 {
@@ -211,9 +211,7 @@ void HUD::setBagOfMoneyImage(std::string filename)
 }
 void HUD::setCurrencyValue(std::string filename)
 {
-	//playerMoney->toggleImage();
 	playerMoney = new DXText(dxMgr, filename);
-
 	playerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
 	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
@@ -253,7 +251,7 @@ void HUD::setHudPosition(float a_x, float a_y)
 void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
-  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());//player->getHealth());
+  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());
 	
 	playerMoney->setDialog(updateBuffer);
 }
