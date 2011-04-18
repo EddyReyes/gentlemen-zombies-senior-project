@@ -101,7 +101,7 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
 	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
 	barHolder->setParameters(120.0, 100.0, 85.0 + a_x, 9.0 + a_y);
-	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
+	healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 43.0 + a_y);
 	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
 	//healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
 	armorBar->setParameters(82.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
@@ -251,7 +251,7 @@ void HUD::updateCurrencyValue()
 	char updateBuffer[50];
 	sprintf_s(updateBuffer, "Money %f \n",player->getMoney());
 	sprintf_s(updateBuffer, "Money %.00f \n", player->getMoney());
-	sprintf_s(updateBuffer, "Money %.00f\n Hp %.00f", player->getMoney(), player->getHealth());
+  	sprintf_s(updateBuffer, "Money %.00f\n Hp %.00f", player->getMoney(), healthBar->getWidth());//player->getHealth());
 	playerMoney->setDialog(updateBuffer);
 }
 void HUD::setPlayer(PlayerCharacter * a_player)
