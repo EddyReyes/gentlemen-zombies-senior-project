@@ -73,27 +73,24 @@ void HUD::draw()
 }
 void HUD::updateHealthBar()
 {
-	int width = 100;
-	if ( healthBar->getWidth() <= 100 && healthBar > 0 )
-	{
-		width = healthBar->getWidth();
-		width--;
-	
-	}
-}
-void HUD::decrimentBars()
-{
 	float decrement;
 	float stdWidth = 6.0;
-	player->playerDamage(20);
+	decrement = player->getHealth() - stdWidth;
+	player->playerDamage(10);
 	decrement = player->getHealth();
-	
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
 void HUD::updateArmorBar()
 {
-
+	float decrement;
+	float stdWidth = 6.0;
+	//armor->initPlayerArmor(1);
+	decrement = armor->armorRegenerate() - stdWidth;
+	armor->damageArmor(2);
+	decrement = armor->armorRegenerate();
+	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
+	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
 void HUD::updateWeapon()
 {
@@ -108,10 +105,8 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
 	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
 	barHolder->setParameters(124.0, 100.0, 82.0 + a_x, 9.0 + a_y);
-	healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 43.0 + a_y);
-
+	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
 	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
-	//healthBar->setParameters(player->getHealth(), 12.0, 95.0 + a_x, 44.0 + a_y);
 	armorBar->setParameters(82.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
 	weapon->setParameters(80.0, 80.0, 93.0 + a_x, 97.0 + a_y);
 	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
