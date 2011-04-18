@@ -35,6 +35,7 @@ public:
 
 	void initImages(char * filename)
 	{
+		images = new imageManager();
 		images->initImageManager(filename, dxMgr);
 	}
 

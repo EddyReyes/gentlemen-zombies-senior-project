@@ -77,14 +77,16 @@ public:
 		// use height to create the respective rows required
 		textFile = new char * [fileHeight];
 		// loop through array and create collumns and assign NULL to all chars
-		for(int c = 0; c < 50; c++){
-			textFile[c] = new char [fileWidth];
-			textFile[c] = NULL;
+		for(int y = 0; y < fileHeight; y++){
+			textFile[y] = new char [fileWidth];
+			for(int x = 0; x < fileWidth; x++)
+			{textFile[y][x] = NULL;}
 		}
 		// get the data from the file into the 2D array
 		int c;
-		bool newLine;
+		bool newLine = false;
 		for(int y = 0; y < fileHeight; ++y){
+			newLine = false;
 			for(int x = 0; x < fileWidth && !newLine; ++x){
 				c = file.get();
 				newLine = false;
