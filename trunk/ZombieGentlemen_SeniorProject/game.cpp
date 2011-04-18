@@ -360,7 +360,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_Q] > 150)
 		{
-			hudStuff->decrimentBars();
+			hudStuff->decrimentBars();			
 			keyLag[DIK_Q] = now;
 		}
 	}
