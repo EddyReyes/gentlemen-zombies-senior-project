@@ -33,7 +33,7 @@ public:
 	void draw();
 	void updateHealthBar();
 	void updateArmorBar(int a_armorType);
-	void updateWeapon();
+	void updateWeapon(std::string filename);
 	void updateCurrencyValue();
 	void initDefaultPositions(float a_x, float a_y);
 	void setHudImage(std::string filename);

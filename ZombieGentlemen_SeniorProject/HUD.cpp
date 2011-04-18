@@ -93,11 +93,11 @@ void HUD::updateArmorBar(int a_armorType)
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
 	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
-void HUD::updateWeapon()
+void HUD::updateWeapon(std::string filename)
 {
 	if(weapon)
 	{	
-		weapon = new HudImage(dxMgr, "images/shovel_weapon.bmp");
+		weapon = new HudImage(dxMgr, filename);
 		weapon->setParameters(80.0, 80.0, 98.0, 97.0);
 	}
 }
