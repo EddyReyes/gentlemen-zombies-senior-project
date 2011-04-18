@@ -49,4 +49,5 @@ public:
 	void setHudPosition(float a_x, float a_y);
 	void updateCurrencyValue();
 	void setPlayer(PlayerCharacter * a_player);
+
 };

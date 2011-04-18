@@ -85,11 +85,11 @@ void HUD::decrimentBars()
 {
 	float decrement;
 	float stdWidth = 6.0;
-	decrement = player->getHealth() - stdWidth;
-	decrement--;
+	player->playerDamage(20);
+	decrement = player->getHealth();
+	
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
-	
 }
 void HUD::updateArmorBar()
 {
@@ -258,9 +258,8 @@ void HUD::setHudPosition(float a_x, float a_y)
 void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
-	sprintf_s(updateBuffer, "Money %f \n",player->getMoney());
-	sprintf_s(updateBuffer, "Money %.00f \n", player->getMoney());
-  	sprintf_s(updateBuffer, "Money %.00f\n Hp %.00f", player->getMoney(), healthBar->getWidth());//player->getHealth());
+  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());//player->getHealth());
+	
 	playerMoney->setDialog(updateBuffer);
 }
 void HUD::setPlayer(PlayerCharacter * a_player)
