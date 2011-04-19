@@ -39,6 +39,7 @@ public:
 		collisionToggle = true;
 		sharingPlane = false;
 	}
+
 	object(XYPlane * a_plane)
 	{
 		plane = a_plane;
@@ -57,6 +58,47 @@ public:
 		collisionToggle = true;
 		sharingPlane = false;
 	}
+
+/**********************************************************************
+* THE FOLLOWING CONSTRUCTORS MUST BE REMOVED
+**********************************************************************/
+	// THIS CONSTRUCTOR IS DEPRECIATED
+	object(dxManager* a_dxMgr, std::string imgFile, char * textFile)
+	{
+		plane = new XYPlane(a_dxMgr, imgFile);
+		cube = NULL;
+		collRect = new collisionRect();
+		collRect->initRect(plane);
+		loadParametersFromTxtFile(textFile);
+		collisionToggle = true;
+		sharingPlane = false;
+	}
+	// THIS CONSTRUCTOR IS DEPRECIATED
+	object(XYPlane * a_plane, char * textFile)
+	{
+		plane = a_plane;
+		cube = NULL;
+		collRect = new collisionRect();
+		collRect->initRect(plane);
+		loadParametersFromTxtFile(textFile);
+		collisionToggle = true;
+		sharingPlane = true;
+	}
+	// THIS CONSTRUCTOR IS DEPRECIATED
+	object(dxCube * a_cube, char * textFile)
+	{
+		plane = NULL;
+		cube = a_cube;
+		collRect = new collisionRect();
+		collRect->initRect(a_cube);
+		loadParametersFromTxtFile(textFile);
+		collisionToggle = true;
+		sharingPlane = false;
+	}
+/**********************************************************************
+* THE PRECEDING CONSTRUCTORS MUST BE REMOVED
+**********************************************************************/
+
 	~object()
 	{
 		// call destructors
