@@ -13,7 +13,6 @@ public:
 	bool initPlayerArmor(int a_armorType);
 	~Armor();
 	void damageArmor(int damage);
-	float armorRegenerate();
 	bool armorDepleted(void);
 	float getArmorHealth();
 	float getDamageResistance();
@@ -21,4 +20,5 @@ public:
 	void setArmorType(int a_armorType);
 	int getArmorType();
 	void setDamageResistance(float a_damageResistance);
+	void armorHealthRestore();
 };
