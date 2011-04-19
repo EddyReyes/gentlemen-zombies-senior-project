@@ -72,19 +72,24 @@ void HUD::draw()
 	if(playerMoney)
 	playerMoney->draw();
 }
+
 void HUD::updateHealthBar()
 {
 	float decrement;
-	decrement = player->getHealth();
-	player->playerDamage(15);
-	decrement = player->getHealth();
-	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
-	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
+
+		player->playerDamage(15);
+		decrement = player->getHealth();
+
+		healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
+		healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
 void HUD::useHealthPack()
 {
+	float increment;
+	player->healthRegenerate(20);
+	increment = player->getHealth();
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
-	healthBar->setParameters(100.0, 12.0, 95.0, 43.0);
+	healthBar->setParameters(increment, 12.0, 95.0, 43.0);
 }
 void HUD::updateArmorBar(int a_armorType)
 {

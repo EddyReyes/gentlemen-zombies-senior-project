@@ -358,7 +358,8 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_Z] > 150)
 		{
-			hudStuff->updateHealthBar();			
+			hudStuff->updateHealthBar();
+			
 			keyLag[DIK_Z] = now;
 		}
 	}
@@ -377,7 +378,7 @@ void game::handleInput()
 		if(now - keyLag[DIK_C] > 150)
 		{
 			//displays weapon type
-			//hudStuff->useHealthPack();
+			hudStuff->useHealthPack();
 			keyLag[DIK_C] = now;
 			
 		}
