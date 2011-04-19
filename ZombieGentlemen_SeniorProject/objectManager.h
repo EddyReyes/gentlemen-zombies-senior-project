@@ -7,7 +7,7 @@
 class objectManager
 {
 private:
-	objectList list; //list that will hold all the objects
+	objectVector * list; //list that will hold all the objects
 	collisionMap * colMap; // map of collision rectangles
 	collisionRect ** colMapRects; // list of static (map) collision rects
 	imageManager * images; // list of images for objects to use
@@ -19,6 +19,7 @@ public:
 	{
 		// set all pointers to NULL
 		dxMgr = NULL;
+		list = NULL;
 		colMap = NULL;
 		colMapRects = NULL;
 		images = NULL;
@@ -51,23 +52,30 @@ public:
 		// load the file into memory
 		std::fstream file(filename);
 		// count the number of objects in the file
-		int numObjects = 0;
+		int size = 0;
 		file.peek();
 		while(!file.eof())
 		{
 			int c;
 			c = file.get();
 			if(c == '\n' || file.eof()) 
-			{numObjects++;}
+			{size++;}
 		}
 		// clear fstream flags
 		file.clear();
 		// set fstream get pointer back to the beginning
 		file.seekg(0, std::ios::beg);
 
-		// create a new object
-		// load data into it
-		// hand it off to the object vector
+		// create a new object vector
+		list = new objectVector();
+		list->initList(size);
+		// loop until object vector is full
+		for(int i = 0; i < size; i++)
+		{
+			// create a new object
+			// load data into it
+			// hand it off to the object vector
+		}
 	}
 
 	/******************************************************************
@@ -79,21 +87,23 @@ public:
 	void loadCubeObjectToList(dxCube * a_cube, char* textFile)
 	{
 		object * newObject = new object(a_cube, textFile);
-		list.add(newObject);
+		list->add(newObject);
 	}
 	void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
 	{
 		object * newObject = new object(a_plane, textFile);
-		list.add(newObject);
+		list->add(newObject);
 	}
 	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
 	{
 		object * newObject = new object(dxMgr, imgFile, textFile);
-		list.add(newObject);
+		list->add(newObject);
 	}
 
 	~objectManager()
 	{
+		list->destroyAllObjects();
+		list->~objectVector();
 		colMap->~collisionMap();
 	}
 };
