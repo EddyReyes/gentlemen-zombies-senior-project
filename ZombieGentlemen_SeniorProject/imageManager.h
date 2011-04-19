@@ -1,9 +1,6 @@
 #pragma once
 #include "dxManager.h"
-#include <stdio.h>
-#include <fstream>
-#include <ctype.h>
-#include <string.h>
+#include "stringArray.h"
 
 // pointer to pd3dDevice
 #ifndef pd3dDevice
@@ -15,7 +12,7 @@ class imageManager
 private:
 	LPDIRECT3DTEXTURE9 ** images;	// image texture
 	D3DXIMAGE_INFO ** imageInfo;	// contains image parameters
-	std::string ** fileNames;
+	stringArray * fileNames;
 	dxManager * dxMgr;
 	int size;
 

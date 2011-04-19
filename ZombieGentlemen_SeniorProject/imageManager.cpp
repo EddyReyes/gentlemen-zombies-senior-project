@@ -32,16 +32,10 @@ imageManager::~imageManager()
 		}
 	}
 	delete [] imageInfo;
+	
 	// destroy array of strings
-	if(fileNames)
-	{
-		for(int i = 0; i < size; i++)
-		{
-			fileNames[i]->~basic_string();
-		}
-		delete [] fileNames;
-		fileNames = NULL;
-	}
+	if(fileNames) fileNames->~stringArray();
+	fileNames = NULL;
 }
 void imageManager::initImageManager(char * filename, dxManager * a_dxMgr)
 {
@@ -52,23 +46,9 @@ void imageManager::initImageManager(char * filename, dxManager * a_dxMgr)
 }
 void imageManager::loadTextFile(char * filename)
 {
-	std::fstream file(filename);
-	// capture the height(number of rows) and width(number of chars)
-	file >> size;
-	// use height to create the respective rows required
-	fileNames = new std::string * [size];
-	for(int y = 0; y < size; y++)
-	{
-		fileNames[y] = new std::string;
-	}
-	file.ignore(1,0);
-	// get the data from the file into the 2D array
-	for(int y = 0; y < size; ++y){
-		char fileName[100];
-		file.getline(fileName, 100);
-		fileNames[y]->append(fileName);
-		ZeroMemory(fileName, sizeof(fileName));
-	}
+	fileNames = new stringArray();
+	fileNames->loadFromTextFile(filename);
+	size = fileNames->getSize();
 }
 
 void imageManager::initImagesArray()
@@ -88,10 +68,12 @@ void imageManager::loadImages()
 	// loop through size
 	for(int y = 0; y < size; y++)
 	{
+		// load file name from string array
+		std::string * str = fileNames->getStringPtrAt(y);
 		// load texture from file in file name array
-		D3DXCreateTextureFromFile(pd3dDevice, fileNames[y]->c_str(),images[y]);
+		D3DXCreateTextureFromFile(pd3dDevice, str->c_str(),images[y]);
 		// laod image info from file in file name array
-		D3DXGetImageInfoFromFile(fileNames[y]->c_str(), imageInfo[y]);
+		D3DXGetImageInfoFromFile(str->c_str(), imageInfo[y]);
 	}
 }
 

@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 
-#define testEnvironment
+//#define testEnvironment
 
 #ifdef testEnvironment
 
