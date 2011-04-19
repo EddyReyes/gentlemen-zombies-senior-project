@@ -15,7 +15,7 @@ struct collisionRectPointer
 	collisionRect * colRect;
 };
 
-
+#ifndef
 struct env_collisionRect
 {
 	int x1;
@@ -23,7 +23,7 @@ struct env_collisionRect
 	int y1;
 	int y2;
 };
-
+#endif
 
 class collisionMap
 {
@@ -32,7 +32,7 @@ private:
 	int width, height;
 	collisionRectPointer ** rects;
 	collisionRect ** rectList;
-#ifdef tomCode
+#ifndef
 	//Tom's rects
 	env_collisionRect ** env_rect;
 	int num_env_rects;
@@ -207,7 +207,7 @@ public:
 	}
 	
 
-#ifdef tomCode
+#ifndef tomCode
 
 	//Tom's code starts here.
 	void envCollMap(int px, int py)
@@ -216,6 +216,9 @@ public:
 		bool found;
 		int maxWidth = 0;
 
+		//This checks to make sure that the function checks by starting at a collidable object 'x'.
+		//It also checks to make sure that the collidable object is not already in a rect, and moves on.
+		//The first point will always be a collidable object.
 
 		if (map[py][px] == 'x')
 		{
@@ -233,7 +236,7 @@ public:
 		}
 
 
-
+		//Measures the width of the collidable objects to establish the rect.
 		while(!found)
 		{
 			if(map[py][px + maxWidth] == '.')
@@ -246,8 +249,10 @@ public:
 			}
 		}
 		found = false;
+
 		int maxHeight = 0;
 
+		//Measure the height, allowing us to finish checking faster.
 		while(!found)
 		{
 			if(map[py+maxHeight][px] == '.')
