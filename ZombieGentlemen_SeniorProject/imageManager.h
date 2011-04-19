@@ -27,4 +27,5 @@ public:
 	void initImageManager(char * filename, dxManager * a_dxMgr);
 	LPDIRECT3DTEXTURE9 * getImage(int index);
 	D3DXIMAGE_INFO * getImageInfo(int index);
+	int getSize();
 };
