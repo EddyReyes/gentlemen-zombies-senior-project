@@ -2,6 +2,9 @@
 #include "DXText.h"
 #include "HudImage.h"
 #include "playerCharacter.h"
+#include "armor.h"
+#include "weapon.h"
+#include "playerItem.h"
 
 
 class interior
@@ -10,16 +13,22 @@ class interior
 private:
 DXText * playerMoney;
 dxManager * dxMgr;
-
-
+PlayerCharacter * player;
+DXText * playerIDNumber;
+DXText * playerMoney;
+Armor * armor;
+Weapon * weapon;
+PlayerItem * item;
 
 public:
 interior();
 interior(dxManager * a_dxMgr);
 ~interior();
 void interiorDraw();
-void interiorBackground();
-void interiorForeground();
-void dialogueBox();
-void updateMenu();
+void setInteriorBackground(std::string filename);
+void setInteriorForeground(std::string filename);
+void dialogueBox(std::string filename);
+void updateMenu(std::string filename);
+void questDialogue(std::string filename);
+void setPlayer(PlayerCharacter * a_player);
 };
