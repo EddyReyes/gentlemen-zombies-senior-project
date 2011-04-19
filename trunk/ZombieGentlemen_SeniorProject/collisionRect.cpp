@@ -86,3 +86,18 @@ void collisionRect::update()
 	offset();
 }
 collisionRect::~collisionRect(){}
+
+int collisionRect::collisionClass(collisionRect* b)
+{
+	
+	if(rect.left> b->rect.right)
+		return COL_LEFT;
+	else if(rect.right < b->rect.left)
+		return COL_RIGHT;
+	else if(rect.top < b->rect.bottom)
+		return COL_TOP;
+	else if (rect.bottom > b->rect.top)
+		return COL_BOT;
+	else
+		return 0;
+}
