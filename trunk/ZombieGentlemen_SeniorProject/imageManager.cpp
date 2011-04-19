@@ -93,3 +93,4 @@ D3DXIMAGE_INFO * imageManager::getImageInfo(int index)
 	// if index is within memory bounds return a pointer
 	else{return imageInfo[index];}
 }
+int imageManager::getSize(){return size;}
