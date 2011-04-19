@@ -15,6 +15,16 @@ struct collisionRectPointer
 	collisionRect * colRect;
 };
 
+
+struct env_collisionRect
+{
+	int x1;
+	int x2;
+	int y1;
+	int y2;
+};
+
+
 class collisionMap
 {
 private:
@@ -22,6 +32,13 @@ private:
 	int width, height;
 	collisionRectPointer ** rects;
 	collisionRect ** rectList;
+#ifendef
+	//Tom's rects
+	env_collisionRect ** env_rect;
+	int num_env_rects;
+	collisionRect ** col_env_rect;
+#endif
+	//End Tom rects
 	int listSize;
 	grid * m_grid;
 	float scale;
@@ -32,6 +49,8 @@ public:
 		rects = NULL;
 		m_grid = NULL;
 		scale = NULL;
+		env_rect = new env_collisionRect * [30];
+		num_env_rects = 0;
 	}
 	collisionMap(char * filename, cubeMap * a_map)
 	{
@@ -187,25 +206,33 @@ public:
 		return rectList;
 	}
 	
-#ifndef tomCode
-	void envCollMap()
+
+#ifendef tomCode
+
+	//Tom's code starts here.
+	void envCollMap(int px, int py)
 	{
 
-		static int py = 0;
-		static int px = 0;
 		bool found;
 		int maxWidth = 0;
 
-		if (map[py][px] == '.')
-		{
-			for(int i = 0; i < num_rects; i++)
-			{
-				if(py >= rect[i].y1 && py <= rect[i].y2 && px >= rect[i].x1 && px <= rect[i].x2)
-				{
 
+		if (map[py][px] == 'x')
+		{
+			for(int i=0; i < num_env_rects; i++)
+			{
+				if(py >= env_rect[i]->y1 && py <= env_rect[i]->y2 && px >= env_rect[i]->x1 && px <= env_rect[i]->x2)
+				{
+					return;
 				}
 			}
 		}
+		else
+		{
+			return;
+		}
+
+
 
 		while(!found)
 		{
@@ -238,6 +265,7 @@ public:
 		int height = 0;
 		int width = 0;
 
+		//These loops build the shape of the rect to be built.
 		for(int x = maxWidth - 1; x >= 0; x--)
 		{
 			for(int y = 0; y < maxHeight && !found; y++)
@@ -250,19 +278,41 @@ public:
 					}
 				}
 			
-		
-
+				
+				//This helps to build the rect by tracking the biggest rect out of the collidable objects.
 				if(!found)
 				{
 					count = (x + 1) * (y + 1);
 						if(count > maxCount)
 						{
+							maxCount = count;
 							width = x + 1;
 							height = y + 1;
 						}
 				}
 			}
 		}
+
+		/*Builds the array with the corresponding points:
+		* x1 = upper left
+		* y1 = upper right
+		* x2 = px + width - 1(To start at zero) = lower left.
+		* y2 = py + height - 1(To start at zero) = lower right.
+		*/
+		env_collisionRect * temp_env_rect = new env_collisionRect;
+		env_rect[num_env_rects] = temp_env_rect;
+		temp_env_rect->x1 = px;
+		temp_env_rect->y1= py;
+		temp_env_rect->x2 = px + width - 1;
+		temp_env_rect->y2 = py + height - 1;
+
+		/*Problem with this method:
+		* Maps must have a single blank space all around it to make sure it does not leave the bounds of the map.
+		* This is a minor issue, but it keeps from needing to make less checks to establish rects.
+		*/
+		
 	}
+
 #endif
+
 };
