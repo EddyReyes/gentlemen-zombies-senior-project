@@ -32,7 +32,7 @@ private:
 	int width, height;
 	collisionRectPointer ** rects;
 	collisionRect ** rectList;
-#ifendef
+#ifdef tomCode
 	//Tom's rects
 	env_collisionRect ** env_rect;
 	int num_env_rects;
@@ -207,7 +207,7 @@ public:
 	}
 	
 
-#ifendef tomCode
+#ifdef tomCode
 
 	//Tom's code starts here.
 	void envCollMap(int px, int py)
