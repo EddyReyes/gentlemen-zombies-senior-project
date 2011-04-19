@@ -8,7 +8,11 @@
 // XY struct will be depreciated soon, please remove it from
 // anywhere you are using it
 struct XY{int x, y;};
-
+//used for collision classification
+#define COL_LEFT (1)
+#define COL_RIGHT (1<<1)
+#define COL_TOP (1<<2)
+#define COL_BOT (1<<3)
 
 class collisionRect
 {
@@ -39,4 +43,6 @@ public:
 	float getHeight();
 	//D3DXVECTOR2 getPosition();
 	FloatRect * getRect();
+
+	int collisionClass(collisionRect*);
 };
