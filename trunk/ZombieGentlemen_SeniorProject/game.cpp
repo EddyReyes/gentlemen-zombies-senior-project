@@ -761,6 +761,7 @@ void game::draw()
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 
 	m_map->draw();
+	obMgr->draw();
 
 	camera->SetHudCamera();
 
