@@ -15,7 +15,6 @@ DXText * playerMoney;
 dxManager * dxMgr;
 PlayerCharacter * player;
 DXText * playerIDNumber;
-DXText * playerMoney;
 Armor * armor;
 Weapon * weapon;
 PlayerItem * item;
