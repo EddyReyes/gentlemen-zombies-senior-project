@@ -298,12 +298,13 @@ public:
 			}
 		}
 
-		/*Builds the array with the corresponding points:
+		/*Builds the point array with the corresponding points:
 		* x1 = upper left
 		* y1 = upper right
 		* x2 = px + width - 1(To start at zero) = lower left.
 		* y2 = py + height - 1(To start at zero) = lower right.
 		*/
+		//temp_env_rect = one rect in the array.
 		env_collisionRect * temp_env_rect = new env_collisionRect;
 		env_rect[num_env_rects] = temp_env_rect;
 		temp_env_rect->x1 = px;

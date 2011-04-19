@@ -43,7 +43,13 @@ void interior::questDialogue(std::string filename)
 {
 
 }
+
 void interior::setPlayer(PlayerCharacter *a_player)
 {
 	player = a_player;
+}
+
+void interior::storeMenu(std::string filename)
+{
+
 }
