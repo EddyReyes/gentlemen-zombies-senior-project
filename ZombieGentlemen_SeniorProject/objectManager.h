@@ -250,7 +250,7 @@ public:
 
 	void draw()
 	{
-		for(int i = 0; i < list->getSize(); i++)
+		for(int i = 0; i < list->endOfList(); i++)
 		{
 			list->get(i)->draw();
 		}
