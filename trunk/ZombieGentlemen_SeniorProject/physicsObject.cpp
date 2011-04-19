@@ -20,9 +20,9 @@ physicsObject::physicsObject(object * a_object)
 	gravity = NULL;
 	sharingObject = true;
 }
-physicsObject::physicsObject(dxManager* a_dxMgr, std::string imgFile, char * textFile)
+physicsObject::physicsObject(dxManager* a_dxMgr, std::string imgFile)
 {
-	physObject = new object(a_dxMgr, imgFile, textFile);
+	physObject = new object(a_dxMgr, imgFile);
 	xVelocity = NULL;
 	yVelocity = NULL;
 	xAcceleration = NULL;

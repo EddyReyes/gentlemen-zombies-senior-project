@@ -95,10 +95,31 @@ public:
 					bottomOffset);
 
 
-			// create a new object
-			object * temp = new object();
-			// load data into it
-			// hand it off to the object vector
+			if(primitiveType == 'c')
+			{
+				dxCube * tempCube = new dxCube(dxMgr, images->getImage(imageIndex), 
+					images->getImageInfo(imageIndex));
+				// create a new object
+				object * temp = new object(tempCube);
+				// load data into it
+				temp->loadParameters(x, y, z, width, height, depth, imageRows, imageColumns, leftOffset,
+					topOffset, rightOffset, bottomOffset);
+				// hand it off to the object vector
+				list->add(temp);
+			}
+			else if(primitiveType == 'p')
+			{
+				XYPlane * tempPlane = new XYPlane(dxMgr, images->getImage(imageIndex), 
+					images->getImageInfo(imageIndex));
+				// create a new object
+				object * temp = new object(tempPlane);
+				// load data into it
+				temp->loadParameters(x, y, z, width,height, depth, imageRows, imageColumns, leftOffset,
+					topOffset, rightOffset, bottomOffset);
+				// hand it off to the object vector
+				list->add(temp);
+			}
+			
 		}
 	}
 
@@ -155,19 +176,19 @@ public:
 	* the list
 	*******************************************************************/
 
-	void loadCubeObjectToList(dxCube * a_cube, char* textFile)
+	void loadCubeObjectToList(dxCube * a_cube)
 	{
-		object * newObject = new object(a_cube, textFile);
+		object * newObject = new object(a_cube);
 		list->add(newObject);
 	}
-	void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
+	void loadPlaneObjectToList(XYPlane * a_plane)
 	{
-		object * newObject = new object(a_plane, textFile);
+		object * newObject = new object(a_plane);
 		list->add(newObject);
 	}
-	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
+	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile)
 	{
-		object * newObject = new object(dxMgr, imgFile, textFile);
+		object * newObject = new object(dxMgr, imgFile);
 		list->add(newObject);
 	}
 

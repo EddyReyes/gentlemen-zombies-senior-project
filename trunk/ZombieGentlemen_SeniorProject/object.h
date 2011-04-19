@@ -30,33 +30,30 @@ public:
 		collisionToggle = true;
 		sharingPlane = false;
 	}
-	object(dxManager* a_dxMgr, std::string imgFile, char * textFile)
+	object(dxManager* a_dxMgr, std::string imgFile)
 	{
 		plane = new XYPlane(a_dxMgr, imgFile);
 		cube = NULL;
 		collRect = new collisionRect();
 		collRect->initRect(plane);
-		loadParameters(textFile);
 		collisionToggle = true;
 		sharingPlane = false;
 	}
-	object(XYPlane * a_plane, char * textFile)
+	object(XYPlane * a_plane)
 	{
 		plane = a_plane;
 		cube = NULL;
 		collRect = new collisionRect();
 		collRect->initRect(plane);
-		loadParameters(textFile);
 		collisionToggle = true;
 		sharingPlane = true;
 	}
-	object(dxCube * a_cube, char * textFile)
+	object(dxCube * a_cube)
 	{
 		plane = NULL;
 		cube = a_cube;
 		collRect = new collisionRect();
 		collRect->initRect(a_cube);
-		loadParameters(textFile);
 		collisionToggle = true;
 		sharingPlane = false;
 	}
@@ -85,7 +82,7 @@ public:
 	* x, y, z, width, height, rows, columns, left offset, top offset, right offset, 
 	* bottom offset
 	********************************************************************************/
-	void loadParameters(char * filename)
+	void loadParametersFromTxtFile(char * filename)
 	{
 		std::fstream file(filename);
 		D3DXVECTOR3 pos;

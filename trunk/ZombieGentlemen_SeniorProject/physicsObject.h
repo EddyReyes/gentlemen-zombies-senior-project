@@ -12,7 +12,7 @@ private:
 public:
 	physicsObject();
 	physicsObject(object * a_object);
-	physicsObject(dxManager* a_dxMgr, std::string imgFile, char * textFile);
+	physicsObject(dxManager* a_dxMgr, std::string imgFile);
 	~physicsObject();
 
 	void setObject(object * a_object){physObject = a_object;}
