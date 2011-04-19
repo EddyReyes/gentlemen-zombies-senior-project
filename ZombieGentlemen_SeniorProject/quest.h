@@ -1,24 +1,22 @@
+#pragma once
 #include "imageManager.h"
-#include "interior.h"
+//#include "interior.h"
 #include "playerItem.h"
 #include "playerCharacter.h"
 
-#pragma once
+
 
 class Quest
 {
-private:
+	private:
+		DXText * playerMoney;
+		dxManager * dxMgr;
+		PlayerCharacter * player;
+		DXText *playerIDNumber;
 
-DXText * playerMoney;
-dxManager * dxMgr;
-playerCharacter * player;
-DXText *playerIDNumber;
-
-
-public:
-quest();
-quest(dxManager * a_dxMgr, std::string filename);
-~quest();
-void loadQuest(std::string filename);
-
-}
+	public:
+		Quest();
+		Quest(dxManager * a_dxMgr, std::string filename);
+		~Quest();
+		void loadQuest(std::string filename);
+};
