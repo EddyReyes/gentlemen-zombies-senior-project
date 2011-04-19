@@ -47,6 +47,17 @@ public:
 		images->initImageManager(filename, dxMgr);
 	}
 
+	/******************************************************************
+	* loadObjectsFromTxtFile
+	* This massive function takes in one text file, counts the number of 
+	* lines in it, and creates an object vector of that size
+	* it then takes all the data in the txt file, creates a new object
+	* of the right type, loads in the image data, and all parameters including
+	* x, y, z, width, height, rows, columns, left offset, top offset, 
+	* right offset, and bottom offset
+	* once It has created the object and loaded its parameters, it passes
+	* it to the list where it will get dealth with accordingly
+	*******************************************************************/
 	void loadObjectsFromTxtFile(char * filename)
 	{
 		// load the file into memory
@@ -93,8 +104,11 @@ public:
 			loadFail = verifyData(i, imageIndex, primitiveType, width, height, depth,
 					imageRows, imageColumns, leftOffset, topOffset, rightOffset,
 					bottomOffset);
-
-
+			if(loadFail)
+			{
+				MessageBox(NULL, "failed to load objects", "Object Loading Error", MB_OK);
+				break;
+			}
 			if(primitiveType == 'c')
 			{
 				dxCube * tempCube = new dxCube(dxMgr, images->getImage(imageIndex), 
@@ -119,7 +133,6 @@ public:
 				// hand it off to the object vector
 				list->add(temp);
 			}
-			
 		}
 	}
 
@@ -170,28 +183,7 @@ public:
 		return false;
 	}
 
-	/******************************************************************
-	* Loading functions
-	* These functions are use to create new objects and load them into 
-	* the list
-	*******************************************************************/
-
-	void loadCubeObjectToList(dxCube * a_cube)
-	{
-		object * newObject = new object(a_cube);
-		list->add(newObject);
-	}
-	void loadPlaneObjectToList(XYPlane * a_plane)
-	{
-		object * newObject = new object(a_plane);
-		list->add(newObject);
-	}
-	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile)
-	{
-		object * newObject = new object(dxMgr, imgFile);
-		list->add(newObject);
-	}
-
+	
 	~objectManager()
 	{
 		list->destroyAllObjects();
