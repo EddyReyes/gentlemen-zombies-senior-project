@@ -276,6 +276,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\stringArray.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\weapon.cpp"
 					>
 				</File>
@@ -415,6 +419,10 @@
 				</File>
 				<File
 					RelativePath=".\playerItem.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stringArray.h"
 					>
 				</File>
 				<File

@@ -8,18 +8,20 @@ class objectManager
 {
 private:
 	objectList list; //list that will hold all the objects
-	collisionMap * colMap;
-	collisionRect ** colMapRects;
-	imageManager * images;
-	dxManager * dxMgr;
+	collisionMap * colMap; // map of collision rectangles
+	collisionRect ** colMapRects; // list of static (map) collision rects
+	imageManager * images; // list of images for objects to use
+	dxManager * dxMgr; // dxManager for images to use
 
 public:
 	
 	objectManager()
 	{
+		// set all pointers to NULL
 		dxMgr = NULL;
 		colMap = NULL;
 		colMapRects = NULL;
+		images = NULL;
 	}
 	void initObjectMgr(dxManager * a_dxMgr)
 	{
