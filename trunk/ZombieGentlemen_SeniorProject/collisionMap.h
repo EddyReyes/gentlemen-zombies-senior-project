@@ -8,6 +8,7 @@
 #include"planeMap.h"
 
 #define debug
+#define tomCode
 
 struct collisionRectPointer
 {
@@ -186,7 +187,7 @@ public:
 		return rectList;
 	}
 	
-#ifndef debug
+#ifndef tomCode
 	void envCollMap()
 	{
 
