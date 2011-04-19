@@ -49,5 +49,6 @@ public:
 	void setPlayerIDImage(std::string filename);
 	void setHudPosition(float a_x, float a_y);
 	void setPlayer(PlayerCharacter * a_player);
+	void armorPickUP();
 
 };

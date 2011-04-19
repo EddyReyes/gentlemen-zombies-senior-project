@@ -102,6 +102,14 @@ void HUD::updateArmorBar(int a_armorType)
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
 	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
+void HUD::armorPickUP()
+{
+	float newArmor;
+	armor->armorHealthRestore();
+	newArmor = armor->getArmorHealth();
+	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
+	armorBar->setParameters(newArmor, 12.0, 95.0, 71.0);
+}
 void HUD::updateWeapon(std::string filename)
 {
 	if(weapon)

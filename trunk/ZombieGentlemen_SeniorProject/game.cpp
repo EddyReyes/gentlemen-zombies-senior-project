@@ -383,6 +383,18 @@ void game::handleInput()
 			
 		}
 	}
+
+	//******keydown for using a armorPack********/
+	if((keystate[DIK_Q]& 0x80))
+	{
+		if(now - keyLag[DIK_Q] > 150)
+		{
+			//displays weapon type
+			hudStuff->armorPickUP();
+			keyLag[DIK_Q] = now;
+			
+		}
+	}
 	//******keydown for WEAPON DISPLAY********/
 	if((keystate[DIK_F1]& 0x80))
 	{

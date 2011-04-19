@@ -16,10 +16,7 @@ void Armor::damageArmor(int damage)
 	armorHealth -= (1- damageResistance) * damage;
 	if(armorHealth<0) armorHealth =0; 
 }
-float Armor::armorRegenerate()
-{
-	return armorHealth;
-}
+
 bool Armor::armorDepleted(void)
 {
 	if(armorHealth <= 0) return true;
@@ -38,3 +35,8 @@ void Armor::setArmorType(int a_armorType)
 }
 int Armor::getArmorType(){return armorType;}
 void Armor::setDamageResistance(float a_damageResistance){damageResistance = a_damageResistance;}
+void Armor::armorHealthRestore()
+{
+	armorHealth = 80.0;
+	
+}
