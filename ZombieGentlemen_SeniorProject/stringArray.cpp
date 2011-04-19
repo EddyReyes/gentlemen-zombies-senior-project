@@ -16,15 +16,28 @@ stringArray::~stringArray()
 void stringArray::loadFromTextFile(char * filename)
 {
 	std::fstream file(filename);
-	// capture the height(number of rows) and width(number of chars)
-	file >> size;
+
+	// count the number of strings in the text file
+	file.peek();
+	while(!file.eof())
+	{
+		int c;
+		c = file.get();
+		if(c == '\n' || file.eof()) 
+		{size++;}
+	}
+	// clear fstream flags
+	file.clear();
+	// set fstream get pointer back to the beginning
+	file.seekg(0, std::ios::beg);
+
 	// use height to create the respective rows required
 	strings = new std::string * [size];
 	for(int y = 0; y < size; y++)
 	{
 		strings[y] = new std::string;
 	}
-	file.ignore(1,0);
+	//file.ignore(1,0);
 	// get the data from the file into the 2D array
 	for(int y = 0; y < size; ++y){
 		char fileName[100];

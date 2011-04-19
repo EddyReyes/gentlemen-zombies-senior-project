@@ -23,6 +23,11 @@ public:
 		colMapRects = NULL;
 		images = NULL;
 	}
+
+	/******************************************************************
+	* Initializer functions
+	* These functions are use to initialize ojbectManager data
+	*******************************************************************/
 	void initObjectMgr(dxManager * a_dxMgr)
 	{
 		dxMgr = a_dxMgr;
@@ -41,7 +46,29 @@ public:
 		images->initImageManager(filename, dxMgr);
 	}
 
+	void loadObjectsFromTxtFile(char * filename)
+	{
+		// load the file into memory
+		std::fstream file(filename);
+		// count the number of objects in the file
+		int numObjects = 0;
+		file.peek();
+		while(!file.eof())
+		{
+			int c;
+			c = file.get();
+			if(c == '\n' || file.eof()) 
+			{numObjects++;}
+		}
+		// clear fstream flags
+		file.clear();
+		// set fstream get pointer back to the beginning
+		file.seekg(0, std::ios::beg);
 
+		// create a new object
+		// load data into it
+		// hand it off to the object vector
+	}
 
 	/******************************************************************
 	* Loading functions
