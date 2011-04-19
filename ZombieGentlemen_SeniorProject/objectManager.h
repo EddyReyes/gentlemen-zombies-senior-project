@@ -146,7 +146,6 @@ public:
 		if(imageIndex < 0 || imageIndex > images->getSize())
 		{
 			// display error message
-			//char buffer[50];
 			sprintf_s(buffer, "Invalid image index at object :  %i", objectIndex);
 			MessageBox(NULL, buffer, "Object Loading Error", MB_OK);
 			// return that true, signifying failure occured
@@ -156,75 +155,69 @@ public:
 		if(!(primitiveType == 'c' || primitiveType == 'p'))
 		{
 			// display error message
-			//char buffer[50];
 			sprintf_s(buffer, "Invalid primitive type at object :  %i", objectIndex);
 			MessageBox(NULL, buffer, "Object Loading Error", MB_OK);
 			// return that true, signifying failure occured
 			return true;
 		}
 		// check if width is less than zero
-		if(width<=0)
+		if(width <= 0)
 		{
 			sprintf_s(buffer,"Invalid width at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
-
 			return true;
 		}
 		// check if height is less than zero
-		if(height <=0)
+		if(height <= 0)
 		{
 			sprintf_s(buffer,"Invalid height at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
 			return true;
 		}
 		// check if depth is less than zero
-		if(height <=0)
+		if(height <= 0)
 		{
 			sprintf_s(buffer,"Invalid depth at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
 			return true;
 		}
 		// check if imageRows is less than zero
-		if(imageRows<=0)
+		if(imageRows <= 0)
 		{
 			sprintf_s(buffer,"Invalid imageRows at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
 			return true;
 		}
 		// check if imageCoumns is less than zero
-		if(imageColumns<=0)
+		if(imageColumns <= 0)
 		{
 			sprintf_s(buffer,"Invalid imageColumns at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
-
 			return true;
 		}
 		// check if leftOffset is less than zero
-		if(leftOffset<=0)
+		if(leftOffset < 0)
 		{
 			sprintf_s(buffer,"Invalid leftOffest at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
-
 			return true;
 		}
 		// check if topOffset is less than zero
-		if(topOffset<=0)
+		if(topOffset < 0)
 		{
 			sprintf_s(buffer,"Invalid topOffset at object :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
-
 			return true;
 		}
 		// check if rightOffset is less than zero
-		if(rightOffset<=0)
+		if(rightOffset < 0)
 		{
 			sprintf_s(buffer,"Invalid width at rightOffset :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);
-
 			return true;
 		}
 		// check if bottomOffset is less than zero
-		if(bottomOffset<=0)
+		if(bottomOffset < 0)
 		{
 			sprintf_s(buffer,"Invalid width at bottomeOffset :%i", objectIndex);
 			MessageBox(NULL,buffer,"Object Loading Error",MB_OK);

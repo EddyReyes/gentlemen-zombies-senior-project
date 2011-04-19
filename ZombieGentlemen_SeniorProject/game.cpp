@@ -600,7 +600,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	obMgr->initObjectMgr(dxMgr);
 	obMgr->initColMap("colMapTest.txt", m_map);
 	obMgr->initImages("imageManagerTest.txt");
-	obMgr->loadObjectsFromTxtFile("testObject.txt");
+	obMgr->loadObjectsFromTxtFile("testObjects.txt");
 	
 	setMusic();
 	return true;
