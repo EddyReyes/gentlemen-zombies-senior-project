@@ -37,7 +37,6 @@ void stringArray::loadFromTextFile(char * filename)
 	{
 		strings[y] = new std::string;
 	}
-	//file.ignore(1,0);
 	// get the data from the file into the 2D array
 	for(int y = 0; y < size; ++y){
 		char fileName[100];

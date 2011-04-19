@@ -1,20 +1,20 @@
 #pragma once
 #include "object.h"
 
-class objectList
+class objectVector
 {
 private: 
 	object ** list;
 	int size;
 	int memoryIncriment;
 public:
-	objectList()
+	objectVector()
 	{
 		list = NULL;
 		size = NULL;
 		memoryIncriment = 1;
 	}
-	~objectList()
+	~objectVector()
 	{
 		for(int i = 0; i > size; i++)
 		{
