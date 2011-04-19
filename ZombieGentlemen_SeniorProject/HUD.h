@@ -32,6 +32,7 @@ public:
 	~HUD();
 	void draw();
 	void updateHealthBar();
+	void useHealthPack();
 	void updateArmorBar(int a_armorType);
 	void updateWeapon(std::string filename);
 	void updateCurrencyValue();
