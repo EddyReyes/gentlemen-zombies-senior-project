@@ -143,7 +143,7 @@ public:
 		char buffer[50];
 		// check that imageIndex is not less than zero and not greater than the size
 		// of the imageManager array
-		if(imageIndex < 0 || imageIndex > images->getSize())
+		if(imageIndex < 0 || imageIndex > images->getSize() -1)
 		{
 			// display error message
 			sprintf_s(buffer, "Invalid image index at object :  %i", objectIndex);
@@ -246,6 +246,14 @@ public:
 	{
 		object * newObject = new object(dxMgr, imgFile, textFile);
 		list->add(newObject);
+	}
+
+	void draw()
+	{
+		for(int i = 0; i < list->getSize(); i++)
+		{
+			list->get(i)->draw();
+		}
 	}
 	~objectManager()
 	{
