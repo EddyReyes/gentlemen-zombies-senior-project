@@ -18,6 +18,7 @@ DXText * playerIDNumber;
 Armor * armor;
 Weapon * weapon;
 PlayerItem * item;
+Quest * quest;
 
 public:
 interior();
@@ -30,4 +31,5 @@ void dialogueBox(std::string filename);
 void updateMenu(std::string filename);
 void questDialogue(std::string filename);
 void setPlayer(PlayerCharacter * a_player);
+void storeMenu(std::string filename);
 };
