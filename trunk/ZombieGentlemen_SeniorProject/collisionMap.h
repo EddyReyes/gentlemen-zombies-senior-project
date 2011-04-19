@@ -15,7 +15,7 @@ struct collisionRectPointer
 	collisionRect * colRect;
 };
 
-#ifndef
+#ifdef tomCode
 struct env_collisionRect
 {
 	int x1;
@@ -32,11 +32,15 @@ private:
 	int width, height;
 	collisionRectPointer ** rects;
 	collisionRect ** rectList;
-#ifndef
+
+
+#ifdef tomCode
+
 	//Tom's rects
 	env_collisionRect ** env_rect;
 	int num_env_rects;
 	collisionRect ** col_env_rect;
+
 #endif
 	//End Tom rects
 	int listSize;
@@ -207,7 +211,7 @@ public:
 	}
 	
 
-#ifndef tomCode
+#ifdef tomCode
 
 	//Tom's code starts here.
 	void envCollMap(int px, int py)
@@ -316,9 +320,6 @@ public:
 		* Maps must have a single blank space all around it to make sure it does not leave the bounds of the map.
 		* This is a minor issue, but it keeps from needing to make less checks to establish rects.
 		*/
-		
 	}
-
 #endif
-
 };

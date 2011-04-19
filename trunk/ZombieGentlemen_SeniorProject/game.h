@@ -21,6 +21,7 @@
 #include "entity.h"
 #include "collisionMap.h"
 
+#include "quest.h"
 #include "HUD.h"
 #include "playerCharacter.h"
 #include "playerItem.h"
@@ -31,7 +32,7 @@
 
 #include <stdio.h>
 
-//#define testEnvironment
+#define testEnvironment
 
 #ifdef testEnvironment
 
