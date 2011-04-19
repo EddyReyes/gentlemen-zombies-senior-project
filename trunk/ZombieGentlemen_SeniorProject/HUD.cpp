@@ -127,14 +127,14 @@ void HUD::updateCurrencyValue()
 }
 void HUD::initDefaultPositions(float a_x, float a_y)
 {
-	hudBackground->setParameters(220.0, 220.0, 2.0 + a_x, 2.0 + a_y);
-	playerID->setParameters(70.0, 70.0, 19.0 + a_x, 27.0 + a_y);
-	barHolder->setParameters(124.0, 100.0, 82.0 + a_x, 9.0 + a_y);
-	healthBar->setParameters(100.0, 12.0, 95.0 + a_x, 43.0 + a_y);
-	barHolder2->setParameters(95.0, 100.0, 90.0 + a_x, 37.0 + a_y);
-	armorBar->setParameters(80.0, 12.0, 95.0 + a_x, 71.0 + a_y);	
-	weapon->setParameters(80.0, 80.0, 95.0 + a_x, 97.0 + a_y);
-	bagOfMoney->setParameters(75.0, 75.0, 22.0 + a_x, 95.0 + a_y);
+	hudBackground->setParameters(220.0f, 220.0f, 2.0f + a_x, 2.0f + a_y);
+	playerID->setParameters(70.0f, 70.0f, 19.0f + a_x, 27.0f + a_y);
+	barHolder->setParameters(124.0f, 100.0f, 82.0f + a_x, 9.0f + a_y);
+	healthBar->setParameters(100.0f, 12.0f, 95.0f + a_x, 43.0f + a_y);
+	barHolder2->setParameters(95.0f, 100.0f, 90.0f + a_x, 37.0f + a_y);
+	armorBar->setParameters(80.0f, 12.0f, 95.0f + a_x, 71.0f + a_y);	
+	weapon->setParameters(80.0f, 80.0f, 95.0f + a_x, 97.0f + a_y);
+	bagOfMoney->setParameters(75.0f, 75.0f, 22.0f + a_x, 95.0f + a_y);
 }
 void HUD::setHudImage(std::string filename)
 {

@@ -16,7 +16,7 @@ interior::interior(dxManager * a_dxMgr)
 	weapon = new Weapon();
 	item = new PlayerItem();
 	player = new PlayerCharacter();
-	dxManager * dxMgr;
+	//dxManager * dxMgr;
 }
 
 void interior::interiorDraw()
