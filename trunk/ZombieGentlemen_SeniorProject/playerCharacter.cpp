@@ -21,13 +21,18 @@ float PlayerCharacter::getHealth()
 void PlayerCharacter::setHealth(int hp)
 {
 	// setting the players health
+	
 	hp = playerHealth;
 }
 
 void PlayerCharacter::healthRegenerate(int healthPack)
 {
-	//updateing players health.(When player receave a health pack it will add more life poits to player health.)
+	//updateing players health.
+	//(When player receave a health pack it will add more life poits to player health.)
+	float maxHealth = 100.0;
 	playerHealth += healthPack;
+	if(playerHealth > maxHealth)
+		playerHealth = maxHealth;
 }
 
 void  PlayerCharacter::playerDamage(int damage)
