@@ -81,7 +81,11 @@ void HUD::updateHealthBar()
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
-
+void HUD::useHealthPack()
+{
+	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
+	healthBar->setParameters(100.0, 12.0, 95.0, 43.0);
+}
 void HUD::updateArmorBar(int a_armorType)
 {
 	float decrement;
