@@ -12,6 +12,7 @@ private:
 	collisionRect ** colMapRects; // list of static (map) collision rects
 	imageManager * images; // list of images for objects to use
 	dxManager * dxMgr; // dxManager for images to use
+	int index;
 
 public:
 	
@@ -23,6 +24,7 @@ public:
 		colMap = NULL;
 		colMapRects = NULL;
 		images = NULL;
+		index = 0;
 	}
 
 	/******************************************************************
@@ -261,7 +263,31 @@ public:
 		{
 			MessageBox(NULL,"could not pop object list","Object Manager",MB_OK);
 		}
+		if(index > list->endOfList()-1)
+			index = list->endOfList()-1;
 	}
+	void indexNext()
+	{
+		if(index < list->endOfList()-1)
+			index++;
+	}
+	void indexPrev()
+	{
+		if(index > 0)
+			index--;
+	}
+	void moveObject(D3DXVECTOR3 move)
+	{
+		if(index >= 0)
+		{
+			object * obj = list->get(index);
+			D3DXVECTOR3 * pos = obj->getPosition();
+			pos->x += move.x;
+			pos->y += move.y;
+			pos->z += move.z;
+		}
+	}
+
 	~objectManager()
 	{
 		list->destroyAllObjects();

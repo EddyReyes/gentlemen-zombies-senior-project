@@ -672,20 +672,20 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-
+		obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-
+		obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-
+		obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-
+		obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 	}
 
 	if ((keystate[DIK_B] & 0x80))
@@ -694,6 +694,23 @@ void game::handleInput()
 		{
 			m_map->toggleMap();
 			keyLag[DIK_B] = now;
+		}
+	}
+
+	if ((keystate[DIK_G] & 0x80))
+	{
+		if(now - keyLag[DIK_G] > 200)
+		{
+			obMgr->indexPrev();
+			keyLag[DIK_G] = now;
+		}
+	}
+	if ((keystate[DIK_H] & 0x80))
+	{
+		if(now - keyLag[DIK_H] > 200)
+		{
+			obMgr->indexNext();
+			keyLag[DIK_H] = now;
 		}
 	}
 
