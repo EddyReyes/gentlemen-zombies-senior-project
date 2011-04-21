@@ -697,6 +697,15 @@ void game::handleInput()
 		}
 	}
 
+	if ((keystate[DIK_P] & 0x80))
+	{
+		if(now - keyLag[DIK_P] > 200)
+		{
+			obMgr->pop();
+			keyLag[DIK_P] = now;
+		}
+	}
+
 	// camera movement
  	float cameraMove = 0.05f;
 	int cameraLag = 0;
