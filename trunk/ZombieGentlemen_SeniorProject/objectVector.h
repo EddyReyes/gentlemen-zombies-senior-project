@@ -28,9 +28,16 @@ public:
 			list[i]->~object();
 		}
 	}
-	void destroyObject(int index)
+	bool destroyObject(int index)
 	{
-		list[index]->~object();
+		if(index < 0 || index > endOfList())
+			return false;
+		if(list[index])
+		{
+			list[index]->~object();
+			return true;
+		}
+		else return false;
 	}
 	void initList(int a_size)
 	{
@@ -109,12 +116,16 @@ public:
 		{
 			swap(i, (i+1));
 		}
-		pop();
-		return true;
+		return pop();
 	}
-	void pop()
+	bool pop()
 	{
-		list[(endOfList()-1)] = NULL;
+		if(destroyObject(endOfList()-1))
+		{
+			list[(endOfList()-1)] = NULL;
+			return true;
+		}
+		else return false;
 	}
 	void contractList()
 	{

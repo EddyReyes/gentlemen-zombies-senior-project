@@ -8,7 +8,7 @@
 #include"planeMap.h"
 
 #define debug
-#define tomCode
+//#define tomCode
 
 struct collisionRectPointer
 {
@@ -32,17 +32,6 @@ private:
 	int width, height;
 	collisionRectPointer ** rects;
 	collisionRect ** rectList;
-
-
-#ifdef tomCode
-
-	//Tom's rects
-	env_collisionRect ** env_rect;
-	int num_env_rects;
-	collisionRect ** col_env_rect;
-
-#endif
-	//End Tom rects
 	int listSize;
 	grid * m_grid;
 	float scale;
@@ -53,12 +42,10 @@ public:
 		rects = NULL;
 		m_grid = NULL;
 		scale = NULL;
-		env_rect = new env_collisionRect * [30];
-		num_env_rects = 0;
 	}
 	collisionMap(char * filename, cubeMap * a_map)
 	{
-		initCollMap(filename,a_map);
+		initCollMap(filename, a_map);
 	}
 	~collisionMap()
 	{

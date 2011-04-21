@@ -255,6 +255,13 @@ public:
 			list->get(i)->draw();
 		}
 	}
+	void pop()
+	{
+		if(!list->pop())
+		{
+			MessageBox(NULL,"could not pop object list","Object Manager",MB_OK);
+		}
+	}
 	~objectManager()
 	{
 		list->destroyAllObjects();
