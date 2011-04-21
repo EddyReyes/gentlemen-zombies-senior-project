@@ -256,6 +256,20 @@ public:
 	void toggleCollision(){collisionToggle = !collisionToggle;}
 	void collisionToggleOn(){collisionToggle = true;}
 	void collisionToggleOff(){collisionToggle = false;}
+	
+	D3DXVECTOR3 * getPosition()
+	{
+		if(plane)
+		{
+			return plane->getPosition();
+		}
+		if(cube)
+		{
+			return cube->getPosition();
+		}
+	}
+
+
 #ifndef debug
 protected:
 	XYPlane *  image;
