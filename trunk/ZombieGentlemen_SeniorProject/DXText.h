@@ -20,7 +20,9 @@ class DXText
 		bool imageOn;
 
 	public:
+		DXText(dxManager * a_dxMgr);
 		DXText(dxManager * a_dxMgr, std::string filename);
+		DXText(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * img, D3DXIMAGE_INFO * imgInfo);
 		~DXText();
 		void setFont();
 		void setFontName(std::string a_fontName);
@@ -36,6 +38,6 @@ class DXText
 		void toggleText();
 		void draw();
 		void setTextRectOffset(int offset);
-		void setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
+		bool setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
 		void setImage(std::string filename);
 };

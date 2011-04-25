@@ -1,5 +1,22 @@
 #include "DXText.h"
 
+DXText::DXText(dxManager * a_dxMgr)
+{
+	dxMgr = a_dxMgr;
+	dialogText = new std::string;
+	fontName = new std::string;
+	box = NULL;
+	fontColor = new D3DCOLOR;
+	textBox = new RECT;
+
+	// by default set font to arial
+	fontSize = 20;
+	bold = false;
+	italic = false;
+	setFontName("Arial");
+	textToggle = true;
+	imageOn = true;
+}
 DXText::DXText(dxManager * a_dxMgr, std::string filename)
 {
 	dxMgr = a_dxMgr;
@@ -11,12 +28,29 @@ DXText::DXText(dxManager * a_dxMgr, std::string filename)
 
 	// by default set font to arial
 	fontSize = 20;
+	bold = false;
 	italic = false;
 	setFontName("Arial");
 	textToggle = true;
 	imageOn = true;
 }
+DXText::DXText(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * img, D3DXIMAGE_INFO * imgInfo)
+{
+	dxMgr = a_dxMgr;
+	dialogText = new std::string;
+	fontName = new std::string;
+	box = new HudImage(dxMgr, img, imgInfo);
+	fontColor = new D3DCOLOR;
+	textBox = new RECT;
 
+	// by default set font to arial
+	fontSize = 20;
+	italic = false;
+	bold = false;
+	setFontName("Arial");
+	textToggle = true;
+	imageOn = true;
+}
 DXText::~DXText()
 {
 	// destroy strings
@@ -36,8 +70,11 @@ DXText::~DXText()
 	fontColor = NULL;
 
 	// destroy text box image
-	box->~HudImage();
-	box = NULL;
+	if(box)
+	{
+		box->~HudImage();
+		box = NULL;
+	}
 
 	// destroy text rectangle
 	delete textBox;
@@ -46,16 +83,23 @@ DXText::~DXText()
 
 void DXText::setFont()
 {
+	// set weight for bolding of characters
+	int weight = 0;
+	if(bold)
+		weight = FW_BOLD;
+	else
+		weight = FW_DONTCARE;
+
 	//Create a D3DX font object
 	D3DXCreateFont( *dxMgr->getDevice(),
 					fontSize,			// SIZE
 					0,
-					FW_BOLD,	// WEIGHT
+					weight,	// WEIGHT
 					0,
 					italic,		// Italic
 					DEFAULT_CHARSET,
 					OUT_DEFAULT_PRECIS,
-					DEFAULT_QUALITY,
+					PROOF_QUALITY,
 					DEFAULT_PITCH | FF_DONTCARE,
 					TEXT(fontName->c_str()),
 					&font );
@@ -104,9 +148,17 @@ void DXText::setImage(std::string filename)
 {
 	box->setImage(filename);
 }
-void DXText::toggleItalic(){ italic = !italic;}
+void DXText::toggleItalic()
+{
+	italic = !italic;
+	setFont();
+}
 
-void DXText::toggleBold(){ bold = !bold;}
+void DXText::toggleBold()
+{ 
+	bold = !bold;
+	setFont();
+}
 
 void DXText::toggleImage(){imageOn = !imageOn;} 
 
@@ -116,6 +168,7 @@ void DXText::draw()
 {
 	if(imageOn)
 	{
+		if(box)
 		box->draw();
 	}
 	
@@ -128,13 +181,25 @@ void DXText::draw()
 }
 void DXText::setTextRectOffset(int offset)
 {
-	textBox->top = (long)box->getYPosition() + offset;
-	textBox->bottom = (long)(box->getYPosition() + (long)box->getHeight()) - offset;
-	textBox->left = (long)box->getXPosition() + offset;
-	textBox->right = (long)(box->getXPosition() + (long)box->getWidth()) - offset;
+	if(box)
+	{
+		textBox->top = (long)box->getYPosition() + offset;
+		textBox->bottom = (long)(box->getYPosition() + (long)box->getHeight()) - offset;
+		textBox->left = (long)box->getXPosition() + offset;
+		textBox->right = (long)(box->getXPosition() + (long)box->getWidth()) - offset;
+	}
 }
-void DXText::setTextBoxParameters(float width, float height, float a_x, float a_y, int offset)
+bool DXText::setTextBoxParameters(float width, float height, float a_x, float a_y, int offset)
 {
-	box->setParameters(width, height, a_x, a_y);
-	setTextRectOffset(offset);
+	if(box)
+	{
+		box->setParameters(width, height, a_x, a_y);
+		setTextRectOffset(offset);
+		return true;
+	}
+	else
+	{
+		setRect((int)a_y,(int)(a_y + height), (int)a_x, (int)(a_x + width));
+	}
+	return false;
 }
