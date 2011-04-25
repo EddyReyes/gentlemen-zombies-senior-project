@@ -89,15 +89,18 @@ collisionRect::~collisionRect(){}
 
 int collisionRect::collisionClass(collisionRect* b)
 {
-	
+	int side = 0;
 	if(rect.left> b->rect.right)
-		return COL_LEFT;
-	else if(rect.right < b->rect.left)
-		return COL_RIGHT;
-	else if(rect.top < b->rect.bottom)
-		return COL_TOP;
-	else if (rect.bottom > b->rect.top)
-		return COL_BOT;
-	else
-		return 0;
+		side|=COL_LEFT;
+
+	if(rect.right < b->rect.left)
+		side |= COL_RIGHT;
+
+	if(rect.top < b->rect.bottom)
+		side |= COL_TOP;
+
+	if (rect.bottom > b->rect.top)
+		side |= COL_BOT;
+
+	return side;
 }
