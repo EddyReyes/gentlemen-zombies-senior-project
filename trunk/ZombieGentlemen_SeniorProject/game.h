@@ -27,7 +27,6 @@
 #include "playerItem.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
-#include "helmet.h"
 #include "armor.h"
 
 #include <stdio.h>
