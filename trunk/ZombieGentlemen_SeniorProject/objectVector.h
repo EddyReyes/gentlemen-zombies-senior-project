@@ -16,16 +16,17 @@ public:
 	}
 	~objectVector()
 	{
-		for(int i = 0; i > size; i++)
+		for(int i = 0; i < size; i++)
 		{
 			list[i] = NULL;
 		}
 	}
 	void destroyAllObjects()
 	{
-		for(int i = 0; i > size; i++)
+		for(int i = 0; i < size; i++)
 		{
-			list[i]->~object();
+			if(list[i] != NULL)
+				list[i]->~object();
 		}
 	}
 	bool destroyObject(int index)

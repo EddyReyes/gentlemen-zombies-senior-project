@@ -14,7 +14,7 @@
 #include "objectManager.h"
 #include "objectVector.h"
 #include "collisionMap.h"
-#include "physicsObject.h"
+#include "physics.h"
 
 #include "cubeMap.h"
 #include "planeMap.h"

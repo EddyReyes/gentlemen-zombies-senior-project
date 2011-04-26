@@ -311,6 +311,7 @@ public:
 		{
 			return cube->getPosition();
 		}
+		return NULL;
 	}
 
 

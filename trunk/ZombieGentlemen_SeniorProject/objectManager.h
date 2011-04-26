@@ -263,6 +263,10 @@ public:
 		{
 			MessageBox(NULL,"could not pop object list","Object Manager",MB_OK);
 		}
+		else
+		{
+			list->contractList();
+		}
 		if(index > list->endOfList()-1)
 			index = list->endOfList()-1;
 	}
@@ -309,6 +313,7 @@ public:
 				obj2->checkCollision();
 			}
 		}
+
 		//check map for collision
 		for (int i=0; i<list->endOfList(); i++) 
 		{
@@ -320,7 +325,7 @@ public:
 			}
 		}
 
-		// if colliding move all objects back
+		//move objects back if colliding 
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);
@@ -341,6 +346,7 @@ public:
 			obj->clearCollisionFlag();
 		}
 	}
+
 	void updatePosiitonRecords()
 	{
 		object * obj;
