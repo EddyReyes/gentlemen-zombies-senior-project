@@ -20,6 +20,7 @@ class DXText
 		bool imageOn;
 
 	public:
+		DXText();
 		DXText(dxManager * a_dxMgr);
 		DXText(dxManager * a_dxMgr, std::string filename);
 		DXText(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * img, D3DXIMAGE_INFO * imgInfo);
@@ -40,4 +41,5 @@ class DXText
 		void setTextRectOffset(int offset);
 		bool setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
 		void setImage(std::string filename);
+		HudImage* getimg(){return box;}
 };

@@ -1,5 +1,13 @@
 #include "DXText.h"
-
+DXText::DXText()
+{
+	italic = bold = textToggle = imageOn = false;
+	fontSize=0;
+	box = NULL;
+	font = NULL;
+	fontColor = NULL;
+	textBox = NULL;
+}
 DXText::DXText(dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
