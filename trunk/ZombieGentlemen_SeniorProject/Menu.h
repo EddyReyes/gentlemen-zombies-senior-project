@@ -1,11 +1,8 @@
 #pragma once
 #include "DXText.h"
 #include "HudImage.h"
-#include "playerCharacter.h"
-#include "armor.h"
-#include "weapon.h"
-#include "playerItem.h"
-#include "quest.h"
+#include "imageManager.h"
+#include "stringArray.h"
 
 #define num_of_options 2
 
@@ -16,25 +13,17 @@ class Menu
 	private:
 		int selected;
 		imageManager* imgMan;
-		//DXText * options;		
+		DXText ** options; //array of options
 		HudImage * background;
-		/*
-		DXText * playerMoney;
-		PlayerCharacter * player;
-		DXText * playerIDNumber;
-		Armor * armor;
-		Weapon * weapon;
-		PlayerItem * item;
-		Quest * quest;
-		*/
+		stringArray * option_txt;
 	public:
 		Menu();
 		Menu(dxManager * a_dxMgr);
 		~Menu();
+		void setParam(float width,float height,float a_x, float a_y);
 		void Draw();
-		void dialogueBox(std::string filename);
-		void updateMenu(std::string filename);
+		void update(BYTE*,int,int *);
+		void dialogueBox();
 		void questDialogue(std::string filename);
-		void setPlayer(PlayerCharacter * a_player);
 		void storeMenu(std::string filename);
 };
