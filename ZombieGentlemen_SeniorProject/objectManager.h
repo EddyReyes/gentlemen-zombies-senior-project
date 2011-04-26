@@ -281,10 +281,73 @@ public:
 		if(index >= 0)
 		{
 			object * obj = list->get(index);
+			obj->recordPosition();
 			D3DXVECTOR3 * pos = obj->getPosition();
 			pos->x += move.x;
 			pos->y += move.y;
 			pos->z += move.z;
+			obj->getCollisionRect()->update();
+		}
+	}
+
+	void handleCollision()
+	{
+		clearCollisionFlags();
+		object * obj1;
+		object * obj2;
+
+		// check other objects
+		for (int i=0; i<list->endOfList(); i++) 
+		{
+			obj1 = list->get(i);
+			for (int j=i+1; j<list->endOfList(); j++) 
+			{
+				obj2 = list->get(j);
+				obj1->setTargetCollision(obj2->getCollisionRect());
+				obj2->setTargetCollision(obj1->getCollisionRect());
+				obj1->checkCollision();
+				obj2->checkCollision();
+			}
+		}
+		//check map for collision
+		for (int i=0; i<list->endOfList(); i++) 
+		{
+			obj1 = list->get(i);
+			for(int i = 0; i <= colMap->getSize()-1; i++)
+			{
+				obj1->setTargetCollision(colMapRects[i]);
+				obj1->checkCollision();
+			}
+		}
+
+		// if colliding move all objects back
+		for (int i=0; i<list->endOfList(); i++) 
+		{
+			obj1 = list->get(i);
+			if(obj1->isColliding())
+			{
+				obj1->revertPosition();
+			}
+		}
+		updatePosiitonRecords();
+	}
+
+	void clearCollisionFlags()
+	{
+		object * obj;
+		for(int i = 0; i < list->endOfList(); i++)
+		{
+			obj = list->get(i);
+			obj->clearCollisionFlag();
+		}
+	}
+	void updatePosiitonRecords()
+	{
+		object * obj;
+		for(int i = 0; i < list->endOfList(); i++)
+		{
+			obj = list->get(i);
+			obj->recordPosition();
 		}
 	}
 
