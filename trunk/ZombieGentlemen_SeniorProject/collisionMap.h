@@ -42,9 +42,11 @@ public:
 		rects = NULL;
 		m_grid = NULL;
 		scale = NULL;
+		listSize = 0;
 	}
 	collisionMap(char * filename, cubeMap * a_map)
 	{
+		listSize = 0;
 		initCollMap(filename, a_map);
 	}
 	~collisionMap()
@@ -196,6 +198,7 @@ public:
 	{
 		return rectList;
 	}
+	int getSize(){return listSize;}
 	
 
 #ifdef tomCode

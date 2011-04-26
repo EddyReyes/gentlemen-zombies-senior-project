@@ -19,6 +19,8 @@ protected:
 	collisionRect * targetCollRect;
 	bool collisionToggle;
 	bool sharingPlane;
+	D3DXVECTOR3 oldPos;
+	bool colliding;
 
 public:
 	object()
@@ -29,6 +31,7 @@ public:
 		targetCollRect = NULL;
 		collisionToggle = true;
 		sharingPlane = false;
+		colliding = false;
 	}
 	object(dxManager* a_dxMgr, std::string imgFile)
 	{
@@ -38,6 +41,7 @@ public:
 		collRect->initRect(plane);
 		collisionToggle = true;
 		sharingPlane = false;
+		colliding = false;
 	}
 
 	object(XYPlane * a_plane)
@@ -48,6 +52,7 @@ public:
 		collRect->initRect(plane);
 		collisionToggle = true;
 		sharingPlane = true;
+		colliding = false;
 	}
 	object(dxCube * a_cube)
 	{
@@ -57,6 +62,7 @@ public:
 		collRect->initRect(a_cube);
 		collisionToggle = true;
 		sharingPlane = false;
+		colliding = false;
 	}
 
 /**********************************************************************
@@ -72,6 +78,7 @@ public:
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
 		sharingPlane = false;
+		colliding = false;
 	}
 	// THIS CONSTRUCTOR IS DEPRECIATED
 	object(XYPlane * a_plane, char * textFile)
@@ -83,6 +90,7 @@ public:
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
 		sharingPlane = true;
+		colliding = false;
 	}
 	// THIS CONSTRUCTOR IS DEPRECIATED
 	object(dxCube * a_cube, char * textFile)
@@ -94,6 +102,7 @@ public:
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
 		sharingPlane = false;
+		colliding = false;
 	}
 /**********************************************************************
 * THE PRECEDING CONSTRUCTORS MUST BE REMOVED
@@ -146,6 +155,7 @@ public:
 		}
 		collRect->setOffset(&offset);
 		collRect->update();
+		recordPosition();
 	}
 	void loadParameters(float x, float y, float z, float width, float height, float depth,
 		 int imageRows, int imageColumns, float leftOffset, float topOffset, float rightOffset,
@@ -162,6 +172,8 @@ public:
 			cube->setImageRowsColumns(imageRows, imageColumns);
 		}
 		collRect->setOffset(leftOffset, rightOffset, topOffset, bottomOffset);
+		collRect->update();
+		recordPosition();
 	}
 	void draw()
 	{
@@ -223,6 +235,26 @@ public:
 			return true;
 		}
 	}
+
+	void checkCollision()
+	{
+		if(!colliding)
+		colliding = collRect->collided(targetCollRect->getRect());
+	}
+	void clearCollisionFlag(){colliding = false;}
+	void recordPosition()
+	{
+		if(plane)
+		{
+			oldPos = *plane->getPosition();
+		}
+		if(cube)
+		{
+			oldPos = *cube->getPosition();
+		}
+	}
+	bool isColliding(){return colliding;}
+
 	collisionRect * getCollisionRect(){return collRect;}
 	XYPlane * getXYPlane(){return plane;}
 	dxCube * getDxCube(){return cube;}
@@ -235,6 +267,18 @@ public:
 		if(cube)
 		{
 			cube->setPosition(a_x, a_y, a_z);
+		}
+		collRect->update();
+	}
+	void revertPosition()
+	{
+		if(plane)
+		{
+			plane->setPosition(oldPos);
+		}
+		if(cube)
+		{
+			cube->setPosition(oldPos);
 		}
 		collRect->update();
 	}

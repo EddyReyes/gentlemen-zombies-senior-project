@@ -628,6 +628,7 @@ void game::update()
 	
 	// Handle Input using Direct Input
 	handleInput();
+	obMgr->handleCollision();
 	// draw to the screen using Direct3D
 	draw();
 
@@ -637,7 +638,6 @@ void game::update()
 		timerFreq.QuadPart;
 
 	UpdateFPS();
-
 }
 void game::UpdateFPS()
 {
