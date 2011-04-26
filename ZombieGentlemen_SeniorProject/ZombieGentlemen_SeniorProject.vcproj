@@ -256,7 +256,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\physicsObject.cpp"
+					RelativePath=".\physics.cpp"
 					>
 				</File>
 				<File
@@ -398,7 +398,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\physicsObject.h"
+					RelativePath=".\physics.h"
 					>
 				</File>
 				<File
