@@ -211,3 +211,45 @@ bool DXText::setTextBoxParameters(float width, float height, float a_x, float a_
 	}
 	return false;
 }
+HudImage* DXText::getimg(){return box;}
+void DXText::loadFromTxtFile(char * filename)
+{
+	// open text file
+	std::fstream file(filename);
+
+	// check to see if text file is empty
+	file.peek();
+	if(file.eof())
+		MessageBox(NULL,"invalid DXText parameters","Text Error",MB_OK);
+	else
+	{
+		// if not load font name
+		std::string fontName;
+		char font[100];
+		file.getline(font, 100);
+		fontName.append(font);
+
+		int a, r, g, b;
+		float width, height, x, y, offset;
+
+		file >> fontSize >> a >> r >> g >> b >> width >> height >> x >> y >> offset;
+
+		if( a<0 || a > 255
+			|| r<0 || r > 255
+			|| g<0 || g > 255
+			|| b<0 || b > 255)
+		MessageBox(NULL,"invalid DXText color parameters","Text Error",MB_OK);
+
+		if(fontSize <= 0)
+			MessageBox(NULL,"invalid DXText size","Text Error",MB_OK);
+		if(x < 0 || y < 0)
+			MessageBox(NULL,"invalid DXText position","Text Error",MB_OK);
+		if(width < 0 || height < 0)
+			MessageBox(NULL,"invalid DXText width/height parameters","Text Error",MB_OK);
+		if(offset < 0)
+			MessageBox(NULL,"invalid offset","Text Error",MB_OK);
+
+		*fontColor = D3DCOLOR_ARGB(a, r, g, b);
+		setTextBoxParameters(width, height, x, y, offset);
+	}
+}

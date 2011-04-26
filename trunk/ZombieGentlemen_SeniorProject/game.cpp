@@ -581,10 +581,12 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	// initialize FPS display data
 	FPSText = new DXText(dxMgr, "images/BlackTextBox.bmp");
 	//FPSText = new DXText(dxMgr);
-	FPSText->textInfo("Arial", 18,
+	/*FPSText->textInfo("Arial", 18,
 					 D3DCOLOR_ARGB(255, 255, 255, 255),
 					 "Loading...");
-	FPSText->setTextBoxParameters(200, 50, 20, 500, 8);
+	FPSText->setTextBoxParameters(200, 50, 20, 500, 8);*/
+	FPSText->loadFromTxtFile("textParameters.txt");
+	FPSText->setDialog("Loading...");
 
 	// initialize key lag data
 	keyLag = new int [256];
