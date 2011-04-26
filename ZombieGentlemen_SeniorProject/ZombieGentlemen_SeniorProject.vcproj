@@ -473,6 +473,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\textParameters.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\TODO list.txt"
 				>
 			</File>

@@ -2,6 +2,10 @@
 #include <string.h>
 #include "HudImage.h"
 #include "dxManager.h"
+#include <stdio.h>
+#include <fstream>
+#include <ctype.h>
+#include <string.h>
 
 class DXText
 {
@@ -41,5 +45,6 @@ class DXText
 		void setTextRectOffset(int offset);
 		bool setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
 		void setImage(std::string filename);
-		HudImage* getimg(){return box;}
+		HudImage* getimg();
+		void loadFromTxtFile(char * filename);
 };
