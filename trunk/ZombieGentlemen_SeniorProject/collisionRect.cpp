@@ -87,19 +87,19 @@ void collisionRect::update()
 }
 collisionRect::~collisionRect(){}
 
-int collisionRect::collisionClass(collisionRect* b)
+int collisionRect::classify(FloatRect* a_rect)
 {
 	int side = 0;
-	if(rect.left> b->rect.right)
+	if(rect.left < a_rect->right && rect.left > a_rect->left)
 		side|=COL_LEFT;
 
-	if(rect.right < b->rect.left)
+	if(rect.right > a_rect->left && rect.right < a_rect->right)
 		side |= COL_RIGHT;
 
-	if(rect.top < b->rect.bottom)
+	if(rect.top > a_rect->bottom && rect.top < a_rect->top)
 		side |= COL_TOP;
 
-	if (rect.bottom > b->rect.top)
+	if (rect.bottom < a_rect->top && rect.bottom > a_rect->bottom)
 		side |= COL_BOT;
 
 	return side;

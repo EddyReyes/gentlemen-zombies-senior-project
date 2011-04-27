@@ -251,5 +251,6 @@ void DXText::loadFromTxtFile(char * filename)
 
 		*fontColor = D3DCOLOR_ARGB(a, r, g, b);
 		setTextBoxParameters(width, height, x, y, offset);
+		setFont();
 	}
 }

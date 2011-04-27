@@ -4,11 +4,17 @@ physics::physics()
 {
 	xVelocity = NULL;
 	yVelocity = NULL;
+	friction = false;
 }
 physics::~physics(){}
 void physics::update(float a_deltaTime)
 {
-	xVelocity *= groundFriction;// * a_deltaTime;
+	if(friction)
+	{
+		xVelocity *= groundFriction;
+	}
+	if(xVelocity < 0.0001 && xVelocity > -0.0001)
+		xVelocity = 0;
 	yVelocity += gravity * a_deltaTime;
 }
 void physics::updatePosition(D3DXVECTOR3 * pos)
@@ -18,3 +24,5 @@ void physics::updatePosition(D3DXVECTOR3 * pos)
 }
 void physics::killXVel(){xVelocity = 0;}
 void physics::killYVel(){yVelocity = 0;}
+void physics::frictionOn(){friction = true;}
+void physics::frictionOff(){friction = false;}

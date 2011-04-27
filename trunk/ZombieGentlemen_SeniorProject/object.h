@@ -19,6 +19,7 @@ protected:
 	bool collisionToggle;
 	D3DXVECTOR3 oldPos;
 	bool colliding;
+	int collData;
 	physics * phys;
 
 public:
@@ -30,6 +31,7 @@ public:
 		targetCollRect = NULL;
 		collisionToggle = true;
 		colliding = false;
+		collData = 0;
 		phys = NULL;
 	}
 	object(dxManager* a_dxMgr, std::string imgFile)
@@ -40,6 +42,7 @@ public:
 		collRect->initRect(plane);
 		collisionToggle = true;
 		colliding = false;
+		collData = 0;
 		phys = NULL;
 	}
 
@@ -51,6 +54,7 @@ public:
 		collRect->initRect(plane);
 		collisionToggle = true;
 		colliding = false;
+		collData = 0;
 		phys = NULL;
 	}
 	object(dxCube * a_cube)
@@ -61,6 +65,7 @@ public:
 		collRect->initRect(a_cube);
 		collisionToggle = true;
 		colliding = false;
+		collData = 0;
 		phys = NULL;
 	}
 
@@ -197,58 +202,105 @@ public:
 	* handleCollision
 	* returns true if movement is valid, flase if movement is invalid and moves object back
 	************************************************************************************/
-	bool handleCollision(float a_x, float a_y, float a_z)
-	{
-		if(collisionToggle)
-		{
-			D3DXVECTOR3 pos; 
-			if(plane)
-			{
-				pos = *plane->getPosition();
-				plane->setPosition(a_x, a_y, a_z);
-			}
-			if(cube)
-			{
-				pos = *cube->getPosition();
-				cube->setPosition(a_x, a_y, a_z);
-			}
-			collRect->update();
-			if(collRect->collided(targetCollRect->getRect()))
-			{
-				if(plane)
-				{
-					plane->setPosition(pos);
-				}
-				if(cube)
-				{
-					cube->setPosition(pos);
-				}
-				collRect->update();
-				return false;
-			}
-			return true;
-		}
-		else
-		{
-			if(plane)
-			{
-				plane->setPosition(a_x, a_y, a_z);
-			}
-			if(cube)
-			{
-				cube->setPosition(a_x, a_y, a_z);
-			}
-			collRect->update();
-			return true;
-		}
-	}
+	//bool handleCollision(float a_x, float a_y, float a_z)
+	//{
+	//	if(collisionToggle)
+	//	{
+	//		D3DXVECTOR3 pos; 
+	//		if(plane)
+	//		{
+	//			pos = *plane->getPosition();
+	//			plane->setPosition(a_x, a_y, a_z);
+	//		}
+	//		if(cube)
+	//		{
+	//			pos = *cube->getPosition();
+	//			cube->setPosition(a_x, a_y, a_z);
+	//		}
+	//		collRect->update();
+	//		if(collRect->collided(targetCollRect->getRect()))
+	//		{
+	//			if(plane)
+	//			{
+	//				plane->setPosition(pos);
+	//			}
+	//			if(cube)
+	//			{
+	//				cube->setPosition(pos);
+	//			}
+	//			collRect->update();
+	//			return false;
+	//		}
+	//		return true;
+	//	}
+	//	else
+	//	{
+	//		if(plane)
+	//		{
+	//			plane->setPosition(a_x, a_y, a_z);
+	//		}
+	//		if(cube)
+	//		{
+	//			cube->setPosition(a_x, a_y, a_z);
+	//		}
+	//		collRect->update();
+	//		return true;
+	//	}
+	//}
 
 	void checkCollision()
 	{
 		if(!colliding)
-		colliding = collRect->collided(targetCollRect->getRect());
+			colliding = collRect->collided(targetCollRect->getRect());
+		
+		if(colliding)
+			collData = collRect->classify(targetCollRect->getRect());
+		if(collData)
+		{
+			int data = collData;
+			// check for left side collision
+			if(data & 1)
+			{
+				// if horizontal collision occured, kill horizontal velocity
+				if(phys){phys->killXVel();}
+			}
+			data = collData;
+
+			// check for right side collision
+			if(data & (1<<1) >> 1)
+			{
+				// if horizontal collision occured, kill horizontal velocity
+				if(phys){phys->killXVel();}
+			}
+			data = collData;
+			
+
+			//// check for top side collision
+			if(data & (1<<2) >> 2)
+			{
+				// if verticle collision occured, kill vertical velocity
+				if(phys){phys->killYVel();}
+			}
+			data = collData;
+			// check for bottom side collision
+			if(data & (1<<3) >> 3)
+			{
+				// if verticle collision occured, kill vertical velocity
+				if(phys){
+					phys->killYVel();
+					phys->frictionOn();
+				}
+			}
+		}
 	}
-	void clearCollisionFlag(){colliding = false;}
+	void clearCollisionFlag()
+	{
+		colliding = false;
+		if(phys)
+		{
+			phys->frictionOff();
+		}
+	}
 	void recordPosition()
 	{
 		if(plane)
@@ -277,8 +329,9 @@ public:
 		}
 		collRect->update();
 	}
-	void revertPosition()
+	void handleCollision()
 	{
+		// revert position
 		if(plane)
 		{
 			plane->setPosition(oldPos);

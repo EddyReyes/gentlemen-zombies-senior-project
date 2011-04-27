@@ -44,5 +44,5 @@ public:
 	//D3DXVECTOR2 getPosition();
 	FloatRect * getRect();
 
-	int collisionClass(collisionRect*);
+	int classify(FloatRect* a_rect);
 };

@@ -143,7 +143,8 @@ private:
 	int FPS;
 
 	// FPS display data
-	DXText  * FPSText;
+	DXText * FPSText;
+	DXText * physicsData; 
 
 	// camera data
 	dxCamera * camera;
@@ -160,7 +161,7 @@ public:
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
 	void setMusic();
 	void update();
-	void UpdateFPS();
+	void updateDebugData();
 	void handleInput();
 	void draw();
 	~game();
