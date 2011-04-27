@@ -86,11 +86,6 @@ XYPlane::~XYPlane()
 		g_pVB->Release(); // release vertex buffer
 		g_pVB = NULL;
 	}
-	if(imageInfo)
-	{
-		delete imageInfo;
-		imageInfo = 0;
-	}
 	if(position)
 	{
 		delete position;
@@ -115,6 +110,11 @@ void XYPlane::releaseImage()
 		{
 			image->Release(); // release image if not being shared
 			image = NULL;
+		}
+		if(imageInfo)
+		{
+			delete imageInfo;
+			imageInfo = 0;
 		}
 	}
 }

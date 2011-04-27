@@ -1,27 +1,23 @@
 #pragma once
-#include "object.h"
+#include "dxManager.h"
 
-#define gravity 0.001f //-9.8f
-#define groundFriction 0.008f
+#define gravity -0.5f //-9.8f
+#define groundFriction 0.1f
 
 class physics
 {
 private:
-	object * physObject;
 	float xVelocity, yVelocity;
-	float deltaTime;
 
 public:
 	// constructors
 	physics();
-	physics(object * a_object);
 	// destructor
 	~physics();
 
 	// member functions
-	void setObject(object * a_object){physObject = a_object;}
 	void update(float a_deltaTime);
-	void updatePosition();
+	void updatePosition(D3DXVECTOR3 * pos);
 	void killXVel();
 	void killYVel();
 

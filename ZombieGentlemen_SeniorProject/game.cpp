@@ -670,27 +670,49 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->setYVelocity(0.1f);
+		}
+		else
+			obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f), UpdateSpeed);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->setYVelocity(-0.1f);
+		}
+		else
+			obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f), UpdateSpeed);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->setXVelocity(-0.1f);
+		}
+		else
+			obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f), UpdateSpeed);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->setXVelocity(0.1f);
+		}
+		else
+			obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f), UpdateSpeed);
 	}
+
+	obMgr->moveObject(D3DXVECTOR3(0.0f, 0.0f, 0.0f), UpdateSpeed);
 
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
 		{
-			m_map->toggleMap();
+			obMgr->getObject()->togglePhysics();
 			keyLag[DIK_B] = now;
 		}
 	}

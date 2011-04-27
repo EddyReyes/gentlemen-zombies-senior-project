@@ -229,8 +229,8 @@ void DXText::loadFromTxtFile(char * filename)
 		file.getline(font, 100);
 		fontName.append(font);
 
-		int a, r, g, b;
-		float width, height, x, y, offset;
+		int a, r, g, b, offset;
+		float width, height, x, y;
 
 		file >> fontSize >> a >> r >> g >> b >> width >> height >> x >> y >> offset;
 
