@@ -21,6 +21,9 @@
 #include "entity.h"
 #include "collisionMap.h"
 
+#include "Menu.h"
+#include "defines.h"
+
 #include "quest.h"
 #include "HUD.h"
 #include "playerCharacter.h"
