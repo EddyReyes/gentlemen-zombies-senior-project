@@ -252,6 +252,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Menu.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\object.cpp"
 					>
 				</File>
@@ -362,6 +366,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\defines.h"
+					>
+				</File>
+				<File
 					RelativePath=".\EnemyCharacter.h"
 					>
 				</File>
@@ -383,6 +391,10 @@
 				</File>
 				<File
 					RelativePath=".\interior.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Menu.h"
 					>
 				</File>
 				<File
