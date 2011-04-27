@@ -270,6 +270,7 @@ public:
 		if(index > list->endOfList()-1)
 			index = list->endOfList()-1;
 	}
+	object * getObject(){return list->get(index);}
 	void indexNext()
 	{
 		if(index < list->endOfList()-1)
@@ -280,13 +281,19 @@ public:
 		if(index > 0)
 			index--;
 	}
-	void moveObject(D3DXVECTOR3 move)
+	void moveObject(D3DXVECTOR3 move, float deltaTime)
 	{
 		if(index >= 0)
 		{
 			object * obj = list->get(index);
 			obj->recordPosition();
 			D3DXVECTOR3 * pos = obj->getPosition();
+			if(obj->getPhysics())
+			{
+				physics * phys = obj->getPhysics();
+				phys->update(deltaTime);
+				phys->updatePosition(pos);
+			}
 			pos->x += move.x;
 			pos->y += move.y;
 			pos->z += move.z;

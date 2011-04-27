@@ -3,6 +3,7 @@
 #include "dxCube.h"
 #include "dxManager.h"
 #include "collisionRect.h"
+#include "physics.h"
 #include <stdio.h>
 #include <fstream>
 #include <ctype.h>
@@ -16,9 +17,9 @@ protected:
 	collisionRect * collRect;
 	collisionRect * targetCollRect;
 	bool collisionToggle;
-	bool sharingPlane;
 	D3DXVECTOR3 oldPos;
 	bool colliding;
+	physics * phys;
 
 public:
 	object()
@@ -28,8 +29,8 @@ public:
 		collRect = NULL;
 		targetCollRect = NULL;
 		collisionToggle = true;
-		sharingPlane = false;
 		colliding = false;
+		phys = NULL;
 	}
 	object(dxManager* a_dxMgr, std::string imgFile)
 	{
@@ -38,8 +39,8 @@ public:
 		collRect = new collisionRect();
 		collRect->initRect(plane);
 		collisionToggle = true;
-		sharingPlane = false;
 		colliding = false;
+		phys = NULL;
 	}
 
 	object(XYPlane * a_plane)
@@ -49,8 +50,8 @@ public:
 		collRect = new collisionRect();
 		collRect->initRect(plane);
 		collisionToggle = true;
-		sharingPlane = true;
 		colliding = false;
+		phys = NULL;
 	}
 	object(dxCube * a_cube)
 	{
@@ -59,8 +60,8 @@ public:
 		collRect = new collisionRect();
 		collRect->initRect(a_cube);
 		collisionToggle = true;
-		sharingPlane = false;
 		colliding = false;
+		phys = NULL;
 	}
 
 /**********************************************************************
@@ -75,8 +76,8 @@ public:
 		collRect->initRect(plane);
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
-		sharingPlane = false;
 		colliding = false;
+		phys = NULL;
 	}
 	// THIS CONSTRUCTOR IS DEPRECIATED
 	object(XYPlane * a_plane, char * textFile)
@@ -87,8 +88,8 @@ public:
 		collRect->initRect(plane);
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
-		sharingPlane = true;
 		colliding = false;
+		phys = NULL;
 	}
 	// THIS CONSTRUCTOR IS DEPRECIATED
 	object(dxCube * a_cube, char * textFile)
@@ -99,8 +100,8 @@ public:
 		collRect->initRect(a_cube);
 		loadParametersFromTxtFile(textFile);
 		collisionToggle = true;
-		sharingPlane = false;
 		colliding = false;
+		phys = NULL;
 	}
 /**********************************************************************
 * THE PRECEDING CONSTRUCTORS MUST BE REMOVED
@@ -109,19 +110,27 @@ public:
 	~object()
 	{
 		// call destructors
-		if(!sharingPlane)
+		// destroy plane
+		if(plane)
 		{
-			if(plane)
-			{
-				plane->~XYPlane();
-			}
+			plane->~XYPlane();
 		}
+		// destroy cube
+		if(cube)
+		{
+			cube->~dxCube();
+		}
+		// destory the collision rect
 		collRect->~collisionRect();
-		
+
+		// destroy the physics data
+		phys->~physics();
+
 		// handle pointers
 		collRect = NULL;
 		plane = NULL;
 		cube = NULL;
+		phys = NULL;
 	}
 	/********************************************************************************
 	* loadParameters
@@ -311,4 +320,17 @@ public:
 		}
 		return NULL;
 	}
+	void togglePhysics()
+	{
+		if(phys)
+		{
+			phys->~physics();
+			phys = NULL;
+		}
+		else
+		{
+			phys = new physics();
+		}
+	}
+	physics * getPhysics(){return phys;}
 };

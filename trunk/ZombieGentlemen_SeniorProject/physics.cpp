@@ -2,29 +2,19 @@
 
 physics::physics()
 {
-	physObject = NULL;
-	xVelocity = NULL;
-	yVelocity = NULL;
-}
-physics::physics(object * a_object)
-{
-	physObject = a_object;
 	xVelocity = NULL;
 	yVelocity = NULL;
 }
 physics::~physics(){}
 void physics::update(float a_deltaTime)
 {
-	xVelocity *= groundFriction * deltaTime;
-	yVelocity += gravity * deltaTime;
+	xVelocity *= groundFriction;// * a_deltaTime;
+	yVelocity += gravity * a_deltaTime;
 }
-void physics::updatePosition()
+void physics::updatePosition(D3DXVECTOR3 * pos)
 {
-	physObject->recordPosition();
-	D3DXVECTOR3 * pos = physObject->getPosition();
 	pos->x += xVelocity;
 	pos->y += yVelocity;
-	physObject->getCollisionRect()->update();
 }
 void physics::killXVel(){xVelocity = 0;}
 void physics::killYVel(){yVelocity = 0;}
