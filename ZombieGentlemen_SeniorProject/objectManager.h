@@ -338,7 +338,7 @@ public:
 			obj1 = list->get(i);
 			if(obj1->isColliding())
 			{
-				obj1->revertPosition();
+				obj1->handleCollision();
 			}
 		}
 		updatePosiitonRecords();

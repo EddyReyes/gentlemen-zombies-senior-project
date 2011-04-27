@@ -583,6 +583,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
 
+	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
+	physicsData->loadFromTxtFile("textParameters2.txt");
+	physicsData->setDialog("Loading...");
+
 	// initialize key lag data
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
@@ -634,20 +638,38 @@ void game::update()
 	UpdateSpeed = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
 		timerFreq.QuadPart;
 
-	UpdateFPS();
+	updateDebugData();
 }
-void game::UpdateFPS()
+void game::updateDebugData()
 {
+	// display FPS
 	FPS++;
 	Elapsed += UpdateSpeed;
 
 	if(Elapsed >= 1)
 	{
-		char UpdateBuffer[50];
-		sprintf_s(UpdateBuffer, "FPS: %i \nTime elapsed: %f", FPS, Elapsed);
+		char UpdateBuffer[256];
+		sprintf_s(UpdateBuffer, "FPS: %i", FPS);
 		FPSText->setDialog(UpdateBuffer);
 		Elapsed = 0;
 		FPS = 0;
+	}
+
+	// display phsics
+	if(Elapsed >= 0.5)
+	{
+		char PhysicsBuffer[256];
+		if(obMgr->getObject()->getPhysics())
+		{
+			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
+				obMgr->getObject()->getPhysics()->getXVelocity(), 
+				obMgr->getObject()->getPhysics()->getYVelocity());
+		}
+		else
+		{
+			sprintf_s(PhysicsBuffer, "Physics Disabled");
+		}
+		physicsData->setDialog(PhysicsBuffer);
 	}
 }
 
@@ -672,7 +694,7 @@ void game::handleInput()
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
-			obMgr->getObject()->getPhysics()->setYVelocity(0.1f);
+			obMgr->getObject()->getPhysics()->setYVelocity(0.05f);
 		}
 		else
 			obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f), UpdateSpeed);
@@ -682,7 +704,7 @@ void game::handleInput()
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
-			obMgr->getObject()->getPhysics()->setYVelocity(-0.1f);
+			obMgr->getObject()->getPhysics()->setYVelocity(-0.05f);
 		}
 		else
 			obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f), UpdateSpeed);
@@ -691,7 +713,7 @@ void game::handleInput()
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
-			obMgr->getObject()->getPhysics()->setXVelocity(-0.1f);
+			obMgr->getObject()->getPhysics()->setXVelocity(-0.05f);
 		}
 		else
 			obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f), UpdateSpeed);
@@ -700,7 +722,7 @@ void game::handleInput()
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
-			obMgr->getObject()->getPhysics()->setXVelocity(0.1f);
+			obMgr->getObject()->getPhysics()->setXVelocity(0.05f);
 		}
 		else
 			obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f), UpdateSpeed);
@@ -812,6 +834,7 @@ void game::draw()
 	camera->SetHudCamera();
 
 	FPSText->draw();
+	physicsData->draw();
 
 	dxMgr->endRender();
 }
