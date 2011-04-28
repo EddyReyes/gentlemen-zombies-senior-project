@@ -254,52 +254,55 @@ public:
 			colliding = collRect->collided(targetCollRect->getRect());
 		
 		if(colliding)
-			collData = collRect->classify(targetCollRect->getRect());
+			collData |= collRect->classify(targetCollRect->getRect());
+		updatePhysics();
+	}
+	void updatePhysics()
+	{
 		if(collData)
 		{
-			int data = collData;
 			// check for left side collision
-			if(data & 1)
+			if(collData & 1)
 			{
 				// if horizontal collision occured, kill horizontal velocity
 				if(phys){phys->killXVel();}
 			}
-			data = collData;
 
 			// check for right side collision
-			if(data & (1<<1) >> 1)
+			if(collData & (1<<1) >> 1)
 			{
 				// if horizontal collision occured, kill horizontal velocity
 				if(phys){phys->killXVel();}
 			}
-			data = collData;
 			
-
 			//// check for top side collision
-			if(data & (1<<2) >> 2)
+			if(collData & (1<<2) >> 2)
 			{
 				// if verticle collision occured, kill vertical velocity
 				if(phys){phys->killYVel();}
 			}
-			data = collData;
+
 			// check for bottom side collision
-			if(data & (1<<3) >> 3)
+			if(collData & (1<<3) >> 3)
 			{
 				// if verticle collision occured, kill vertical velocity
 				if(phys){
 					phys->killYVel();
 					phys->frictionOn();
+					phys->gravityOff();
 				}
 			}
 		}
 	}
-	void clearCollisionFlag()
+	void clear()
 	{
 		colliding = false;
 		if(phys)
 		{
 			phys->frictionOff();
+			phys->gravityOn();
 		}
+		collData = 0;
 	}
 	void recordPosition()
 	{
