@@ -234,21 +234,21 @@ public:
 	* the list
 	*******************************************************************/
 
-	void loadCubeObjectToList(dxCube * a_cube, char* textFile)
-	{
-		object * newObject = new object(a_cube, textFile);
-		list->add(newObject);
-	}
-	void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
-	{
-		object * newObject = new object(a_plane, textFile);
-		list->add(newObject);
-	}
-	void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
-	{
-		object * newObject = new object(dxMgr, imgFile, textFile);
-		list->add(newObject);
-	}
+	//void loadCubeObjectToList(dxCube * a_cube, char* textFile)
+	//{
+	//	object * newObject = new object(a_cube, textFile);
+	//	list->add(newObject);
+	//}
+	//void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
+	//{
+	//	object * newObject = new object(a_plane, textFile);
+	//	list->add(newObject);
+	//}
+	//void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
+	//{
+	//	object * newObject = new object(dxMgr, imgFile, textFile);
+	//	list->add(newObject);
+	//}
 
 	void draw()
 	{
