@@ -426,10 +426,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\quest.h"
-					>
-				</File>
-				<File
 					RelativePath=".\stringArray.h"
 					>
 				</File>
