@@ -2,13 +2,13 @@
 #include "dxManager.h"
 
 #define gravity -0.5f //-9.8f
-#define groundFriction 0.05f
+#define groundFriction 0.9f
 
 class physics
 {
 private:
 	float xVelocity, yVelocity;
-	bool friction;
+	bool friction, applyGravity;
 
 public:
 	// constructors
@@ -31,4 +31,6 @@ public:
 	float getYVelocity(){return yVelocity;}
 	void frictionOn();
 	void frictionOff();
+	void gravityOn();
+	void gravityOff();
 };

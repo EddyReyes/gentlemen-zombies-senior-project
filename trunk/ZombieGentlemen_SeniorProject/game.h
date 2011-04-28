@@ -34,33 +34,9 @@
 
 #include <stdio.h>
 
-//#define testEnvironment
+#define testEnvironment
 
 #ifdef testEnvironment
-
-struct phyVars
-{
-	float gravity; //constant gravity acting on the character
-	float velX, velY;//velocity in said directions
-	float friction; //friction on the ground
-	phyVars() //constructor
-	{
-		gravity = 0.001;
-		velX=0;
-		velY=0;
-		friction = 0.008;
-	}
-	/*void setGrav(float g){gravity = g;}
-	void setFric(float f){friction = f;}
-	void setXvelocity(float vx){velX=vx;}
-	void setYvelocity(float vy){velY=vy;}
-
-	float getGrav(){return gravity;}
-	float getFric(){return friction;}
-	float getVX(){return velX;}
-	float getVY(){return velY;}
-*/
-};
 
 class game
 {
@@ -82,29 +58,12 @@ private:
 	float UpdateSpeed, Elapsed;
 	int FPS;
 	DXText  * FPSText;
-	phyVars* physics;
-	collisionMap * env_map;
 	// Unit test parameters
 
-	cubeMap * m_map;
-	//objectManager * OBLIST;
-	object * testObject;
-	dxCube * testCube;
-	dxCube * testCube2;
-	object * testObject2;
-	object * testObject3;
-	float objectX, objectY;
-	
-	XY position;
 	DXText * dialog;
 	HUD * hudStuff;
 	HudImage * cursor;
 	HudImage * background;
-	XYPlane * testTile;
-	float scale;
-	dxCamera * camera;
-	float cameraX, cameraY, cameraZ;
-	collisionRect blarg;
 
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);

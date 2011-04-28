@@ -303,7 +303,7 @@ public:
 
 	void handleCollision()
 	{
-		clearCollisionFlags();
+		clearObjects();
 		object * obj1;
 		object * obj2;
 
@@ -344,13 +344,13 @@ public:
 		updatePosiitonRecords();
 	}
 
-	void clearCollisionFlags()
+	void clearObjects()
 	{
 		object * obj;
 		for(int i = 0; i < list->endOfList(); i++)
 		{
 			obj = list->get(i);
-			obj->clearCollisionFlag();
+			obj->clear();
 		}
 	}
 
