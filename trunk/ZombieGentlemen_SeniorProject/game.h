@@ -26,7 +26,6 @@
 
 #include "HUD.h"
 #include "playerCharacter.h"
-#include "playerItem.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
 #include "armor.h"
