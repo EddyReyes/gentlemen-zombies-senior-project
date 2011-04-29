@@ -271,19 +271,19 @@ public:
 					phys->killXVel();
 				}
 				// check for right side collision
-				if(collData & (1<<1) >> 1)
+				if((collData & (1<<1)) >> 1)
 				{
 					// if horizontal collision occured, kill horizontal velocity
 					phys->killXVel();
 				}
 				// check for top side collision
-				if(collData & (1<<2) >> 2)
+				if((collData & (1<<2)) >> 2)
 				{
 					// if verticle collision occured, kill vertical velocity
 					phys->killYVel();
 				}
 				// check for bottom side collision
-				if(collData & (1<<3) >> 3)
+				if((collData & (1<<3)) >> 3)
 				{
 					phys->onGroundOn();
 					//// if verticle collision occured, kill vertical velocity
