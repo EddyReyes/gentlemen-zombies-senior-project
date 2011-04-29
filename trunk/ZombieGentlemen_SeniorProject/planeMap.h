@@ -21,7 +21,7 @@ private:
 	grid * m_grid;
 	float scale;
 	int textureRows, textureColumns;
-	string mapTexture;
+	std::string mapTexture;
 	char ** m_map;
 	XYPlanePointer ** planes;
 	dxManager * dxMgr;
@@ -105,7 +105,7 @@ public:
 	}
 	void loadMap(char * filename)
 	{
-		fstream file(filename);
+		std::fstream file(filename);
 		// the size of the data we are going to create
 		file >> height >> width >> textureRows >> textureColumns >> scale;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
