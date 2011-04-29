@@ -7,48 +7,43 @@
 
 class HUD
 {
-private:
+	private:
+		HudImage * hudBackground;
+		HudImage * barHolder;
+		HudImage * barHolder2;
+		HudImage * healthBar;
+		HudImage * armorBar;
+		HudImage * weapon;
+		HudImage * bagOfMoney;
+		HudImage * playerID;
+		Armor * armor;
+		PlayerCharacter * player;
+		EnemyCharacter * enemy;
+		DXText * playerIDNumber;
+		DXText * playerMoney;
+		D3DXVECTOR2 hudPosition;
+		dxManager * dxMgr;
 
-	HudImage * hudBackground;
-	HudImage * barHolder;
-	HudImage * barHolder2;
-	HudImage * healthBar;
-	HudImage * armorBar;
-	HudImage * weapon;
-	HudImage * bagOfMoney;
-	HudImage * playerID;
-	Armor * armor;
-	PlayerCharacter * player;
-	EnemyCharacter * enemy;
-	DXText * playerIDNumber;
-	DXText * playerMoney;
-	D3DXVECTOR2 hudPosition;
-	dxManager * dxMgr;
-		
-	
-public:
-	HUD();
-	HUD(dxManager * a_dxMgr);
-	~HUD();
-	void draw();
-	void updateHealthBar();
-	void useHealthPack();
-	void updateArmorBar(int a_armorType);
-	void updateWeapon(std::string filename);
-	void updateCurrencyValue();
-	void initDefaultPositions(float a_x, float a_y);
-	void setHudImage(std::string filename);
-	void setBarHolderImage(std::string filename);
-	void setHealthBarImage(std::string filename);
-	void setBarHolder2Image(std::string filename);
-	void setArmorBarImage(std::string filename);
-	void setWeaponImage(std::string filename);
-	void setBagOfMoneyImage(std::string filename);
-	void setCurrencyValue(std::string filename);
-	void setPlayerID(int ID);
-	void setPlayerIDImage(std::string filename);
-	void setHudPosition(float a_x, float a_y);
-	void setPlayer(PlayerCharacter * a_player);
-	void armorPickUP();
-
+	public:
+		HUD();
+		HUD(dxManager * a_dxMgr);
+		~HUD();
+		void draw();
+		void updateHealthBarDamage();
+		void useHealthPack();
+		void updateArmorBarDamage(int a_armorType);
+		void useArmorPickUp();
+		void updateWeapon(std::string filename);
+		void updateCurrencyValue();
+		void initDefaultPositions(float a_x, float a_y);
+		void setHudImage(std::string filename);
+		void setPlayerIDImage(std::string filename);
+		void setBarHolderImage(std::string filename);
+		void setHealthBarImage(std::string filename);
+		void setBarHolder2Image(std::string filename);
+		void setArmorBarImage(std::string filename);
+		void setWeaponImage(std::string filename);
+		void setBagOfMoneyImage(std::string filename);
+		void setCurrencyValue(std::string filename);
+		void setPlayer(PlayerCharacter * a_player);
 };
