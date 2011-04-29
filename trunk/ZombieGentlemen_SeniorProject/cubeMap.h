@@ -22,6 +22,8 @@ private:
 	float scale;
 	int textureRows, textureColumns;
 	std::string mapTexture;
+	LPDIRECT3DTEXTURE9 * texture;	// map texture
+	D3DXIMAGE_INFO * imageInfo;	// contains image parameters
 	char ** m_map;
 	dxCubePointer ** cubes;
 	dxManager * dxMgr;
@@ -33,6 +35,8 @@ public:
 	cubeMap(std::string textFile, std::string a_textureFile, dxManager * a_dxMgr)
 	{
 		dxMgr = a_dxMgr;
+		texture = new LPDIRECT3DTEXTURE9;
+		imageInfo = new D3DXIMAGE_INFO;
 		mapTexture = a_textureFile;
 		loadMap(textFile);
 		m_grid = new grid(height, width, scale);
@@ -74,6 +78,13 @@ public:
 			delete [] m_map;
 			m_map = NULL;
 		}
+
+		// destroy image and data
+		if(texture)
+		{
+			(*texture)->Release();
+			texture = NULL;
+		}
 	}
 
 	void initMap()
@@ -85,6 +96,11 @@ public:
 	}
 	void initCubes()
 	{
+		// load texture into memory ONCE
+		D3DXCreateTextureFromFile(pd3dDevice, mapTexture.c_str(),texture);
+		// load image info from file in file name array
+		D3DXGetImageInfoFromFile(mapTexture.c_str(), imageInfo);
+
 		cubes = new dxCubePointer * [height];
 		for(int y = 0; y < height; y++)
 		{
@@ -94,7 +110,7 @@ public:
 			{
 				if(m_map[y][x] != '.')
 				{
-					cubes[y][x].cube = new dxCube(dxMgr, mapTexture);
+					cubes[y][x].cube = new dxCube(dxMgr, texture, imageInfo);
 				}
 				else 
 				{
