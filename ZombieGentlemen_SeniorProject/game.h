@@ -113,10 +113,8 @@ private:
 
 	// Unit test parameters
 	int m_charstate;	//keeps track of what state the player is in
-
-	cubeMap * m_map;
-	objectManager * obMgr;
 	float objectX, objectY;
+	level* lvl1;
 
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);

@@ -293,11 +293,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	soundMgr = a_soundMgr;
 	m_currentgamestate = menu;
 	m_charstate = char_idle;
-
-
-	// instansiate menu
-	//mainMenu = new Menu(dxMgr,"MenuArt.txt","Scatta.txt");
-	//mainMenu->setParam(300,300,250,150);
+	//instantiate menu
+	//mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
+	//mainMenu->setParam(800,600,0,0);
 
 	// initialize timer data
 	now = clock();
@@ -327,15 +325,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 0.0f;
 	cameraZ = -10.0f;
 
-	m_map = new cubeMap("testMap.txt", "images/glassPanes2.bmp", dxMgr);
-
-	obMgr = new objectManager();
-	obMgr->initObjectMgr(dxMgr);
-	obMgr->initColMap("colMapTest.txt", m_map);
-	obMgr->initImages("imageManagerTest.txt");
-	obMgr->loadObjectsFromTxtFile("testObjects.txt");
-	obMgr->updatePhysics(UpdateSpeed);
-	
+	lvl1 = new level(dxMgr,"testfiles.txt",UpdateSpeed);
 	setMusic();
 	return true;
 }
@@ -361,10 +351,8 @@ void game::update()
 	
 	// Handle Input using Direct Input
 	handleInput();
-	// update physics
-	obMgr->updatePhysics(UpdateSpeed);
-	// handle collision
-	obMgr->handleCollision();
+	// handle collision & update physics
+	lvl1->update(UpdateSpeed);
 	// draw to the screen using Direct3D
 	draw();
 
@@ -394,11 +382,11 @@ void game::updateDebugData()
 	if(Elapsed >= 0.0)
 	{
 		char PhysicsBuffer[256];
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
 			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
-				obMgr->getObject()->getPhysics()->getXVelocity(), 
-				obMgr->getObject()->getPhysics()->getYVelocity());
+				lvl1->getObjectPhysic()->getXVelocity(), 
+				lvl1->getObjectPhysic()->getYVelocity());
 		}
 		else
 		{
@@ -439,6 +427,7 @@ void game::handleInput()
 	mouseState = *(inputMgr->getMouseState());
 
 	// keyboard
+	//mainMenu->update(keystate,now,keyLag);
 
 	if(keystate[DIK_ESCAPE] & 0x80)
 	{
@@ -448,55 +437,55 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->setYVelocity(0.12f);
+			lvl1->getObjectPhysic()->setYVelocity(0.12f);
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
+			lvl1->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->setYVelocity(-0.05f);
+			lvl1->getObjectPhysic()->setYVelocity(-0.05f);
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
+			lvl1->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->setXVelocity(-0.05f);
-			obMgr->getObject()->getPhysics()->walkingOn();
+			lvl1->getObjectPhysic()->setXVelocity(-0.05f);
+			lvl1->getObjectPhysic()->walkingOn();
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
+			lvl1->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
 	}
 	else
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->walkingOff();
+			lvl1->getObjectPhysic()->walkingOff();
 		}
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->setXVelocity(0.05f);
-			obMgr->getObject()->getPhysics()->walkingOn();
+			lvl1->getObjectPhysic()->setXVelocity(0.05f);
+			lvl1->getObjectPhysic()->walkingOn();
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
+			lvl1->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 	}
 	else
 	{
-		if(obMgr->getObject()->getPhysics())
+		if(lvl1->getObjectPhysic())
 		{
-			obMgr->getObject()->getPhysics()->walkingOff();
+			lvl1->getObjectPhysic()->walkingOff();
 		}
 	}
 	
@@ -505,7 +494,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_B] > 200)
 		{
-			obMgr->getObject()->togglePhysics();
+			lvl1->getManager()->getObject()->togglePhysics();
 			keyLag[DIK_B] = now;
 		}
 	}
@@ -514,7 +503,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_G] > 200)
 		{
-			obMgr->indexPrev();
+			lvl1->getManager()->indexPrev();
 			keyLag[DIK_G] = now;
 		}
 	}
@@ -522,7 +511,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_H] > 200)
 		{
-			obMgr->indexNext();
+			lvl1->getManager()->indexNext();
 			keyLag[DIK_H] = now;
 		}
 	}
@@ -531,7 +520,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_P] > 200)
 		{
-			obMgr->pop();
+			lvl1->getManager()->pop();
 			keyLag[DIK_P] = now;
 		}
 	}
@@ -599,8 +588,8 @@ void game::draw()
 	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 
-	m_map->draw();
-	obMgr->draw();
+	lvl1->draw();
+	//mainMenu->Draw();
 
 	camera->SetHudCamera();
 
@@ -614,10 +603,10 @@ game::~game()
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
 	soundMgr->shutdownDirectSound();
-	
 	// destroy map
-	m_map->~cubeMap();
 	FPSText->~DXText();
-	obMgr->~objectManager();
+
+	lvl1->~level();
+
 }
 #endif
