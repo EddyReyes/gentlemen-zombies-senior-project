@@ -13,7 +13,7 @@ private:
 public:
 	stringArray();
 	~stringArray();
-	void loadFromTextFile(char * filename);
+	void loadFromTextFile(std::string filename);
 	std::string ** getStringArray();
 	std::string * getStringPtrAt(int index);
 	std::string getStringAt(int index);

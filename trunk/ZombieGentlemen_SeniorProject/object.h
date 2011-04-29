@@ -73,7 +73,7 @@ public:
 * THE FOLLOWING CONSTRUCTORS MUST BE REMOVED
 **********************************************************************/
 	//// THIS CONSTRUCTOR IS DEPRECIATED
-	//object(dxManager* a_dxMgr, std::string imgFile, char * textFile)
+	//object(dxManager* a_dxMgr, std::string imgFile, std::string textFile)
 	//{
 	//	plane = new XYPlane(a_dxMgr, imgFile);
 	//	cube = NULL;
@@ -85,7 +85,7 @@ public:
 	//	phys = NULL;
 	//}
 	//// THIS CONSTRUCTOR IS DEPRECIATED
-	//object(XYPlane * a_plane, char * textFile)
+	//object(XYPlane * a_plane, std::string textFile)
 	//{
 	//	plane = a_plane;
 	//	cube = NULL;
@@ -97,7 +97,7 @@ public:
 	//	phys = NULL;
 	//}
 	//// THIS CONSTRUCTOR IS DEPRECIATED
-	//object(dxCube * a_cube, char * textFile)
+	//object(dxCube * a_cube, std::string textFile)
 	//{
 	//	plane = NULL;
 	//	cube = a_cube;
@@ -145,9 +145,9 @@ public:
 	* x, y, z, width, height, rows, columns, left offset, top offset, right offset, 
 	* bottom offset
 	********************************************************************************/
-	void loadParametersFromTxtFile(char * filename)
+	void loadParametersFromTxtFile(std::string filename)
 	{
-		std::fstream file(filename);
+		std::fstream file(filename.c_str());
 		D3DXVECTOR3 pos;
 		float width, height, depth;
 		int imageRows, imageColumns;

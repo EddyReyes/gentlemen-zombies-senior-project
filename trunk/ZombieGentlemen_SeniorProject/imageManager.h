@@ -17,14 +17,14 @@ private:
 	int size;
 
 	// private member functions
-	void loadTextFile(char * filename);
+	void loadTextFile(std::string filename);
 	void initImagesArray();
 	void loadImages();
 
 public:
 	imageManager();
 	~imageManager();
-	void initImageManager(char * filename, dxManager * a_dxMgr);
+	void initImageManager(std::string filename, dxManager * a_dxMgr);
 	LPDIRECT3DTEXTURE9 * getImage(int index);
 	D3DXIMAGE_INFO * getImageInfo(int index);
 	int getSize();

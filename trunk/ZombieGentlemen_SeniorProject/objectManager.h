@@ -36,14 +36,14 @@ public:
 		dxMgr = a_dxMgr;
 	}
 
-	void initColMap(char * filename, cubeMap * map)
+	void initColMap(std::string filename, cubeMap * map)
 	{
 		colMap = new collisionMap();
 		colMap->initCollMap(filename, map);
 		colMapRects = colMap->getList();
 	};
 
-	void initImages(char * filename)
+	void initImages(std::string filename)
 	{
 		images = new imageManager();
 		images->initImageManager(filename, dxMgr);
@@ -60,10 +60,10 @@ public:
 	* once It has created the object and loaded its parameters, it passes
 	* it to the list where it will get dealth with accordingly
 	*******************************************************************/
-	void loadObjectsFromTxtFile(char * filename)
+	void loadObjectsFromTxtFile(std::string filename)
 	{
 		// load the file into memory
-		std::fstream file(filename);
+		std::fstream file(filename.c_str());
 		// count the number of objects in the file
 		int size = 0;
 		file.peek();

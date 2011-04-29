@@ -44,7 +44,7 @@ public:
 		scale = NULL;
 		listSize = 0;
 	}
-	collisionMap(char * filename, cubeMap * a_map)
+	collisionMap(std::string filename, cubeMap * a_map)
 	{
 		listSize = 0;
 		initCollMap(filename, a_map);
@@ -67,14 +67,14 @@ public:
 		delete [] rectList;
 	}
 
-	void initCollMap(char * filename, cubeMap * sourceMap)
+	void initCollMap(std::string filename, cubeMap * sourceMap)
 	{
 		m_grid = sourceMap->getGrid();
 		scale = sourceMap->getScale();
 		width = sourceMap->getWidth();
 		height = sourceMap->getHeight();
 
-		std::fstream file(filename);
+		std::fstream file(filename.c_str());
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		map = new char * [height];
 		for(int c = 0; c < height; c++){
