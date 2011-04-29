@@ -1,7 +1,5 @@
 #include "HUD.h"
 
-
-
 HUD::HUD(){}
 HUD::HUD(dxManager * a_dxMgr)
 {
@@ -73,15 +71,13 @@ void HUD::draw()
 	playerMoney->draw();
 }
 
-void HUD::updateHealthBar()
+void HUD::updateHealthBarDamage()
 {
 	float decrement;
-
-		player->playerDamage(15);
-		decrement = player->getHealth();
-
-		healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
-		healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
+	player->playerDamage(15);
+	decrement = player->getHealth();
+	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
+	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
 void HUD::useHealthPack()
 {
@@ -91,7 +87,7 @@ void HUD::useHealthPack()
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(increment, 12.0, 95.0, 43.0);
 }
-void HUD::updateArmorBar(int a_armorType)
+void HUD::updateArmorBarDamage(int a_armorType)
 {
 	float decrement;
 	float stdWidth = 10.0;
@@ -102,7 +98,7 @@ void HUD::updateArmorBar(int a_armorType)
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
 	armorBar->setParameters(decrement, 12.0, 95.0, 71.0);
 }
-void HUD::armorPickUP()
+void HUD::useArmorPickUp()
 {
 	float newArmor;
 	armor->armorHealthRestore();
@@ -122,7 +118,6 @@ void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
   	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());
-	
 	playerMoney->setDialog(updateBuffer);
 }
 void HUD::initDefaultPositions(float a_x, float a_y)
@@ -241,38 +236,4 @@ void HUD::setCurrencyValue(std::string filename)
 	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
 
 }
-void HUD::setPlayerID(int ID)
-{
-	 //ID = prints player 1, 2, 3, 4
-}
-void HUD::setHudPosition(float a_x, float a_y)
-{
-	hudPosition.x = a_x;
-	hudPosition.y = a_y;
-	if(hudBackground)
-		hudBackground->setParameters(hudBackground->getWidth() + a_x, hudBackground->getHeight() + a_y,
-		hudBackground->getXPosition() + a_x, hudBackground->getYPosition() + a_y);
-	if(playerID)
-		playerID->setParameters(playerID->getWidth() - 200 + a_x, playerID->getHeight() - 200 + a_y,
-		playerID->getXPosition() + 17 + a_x, playerID->getYPosition() + 15 + a_y);
-
-		playerID->setParameters(playerID->getWidth() + a_x, playerID->getHeight() + a_y,
-		playerID->getXPosition() + a_x, playerID->getYPosition() + a_y);
-
-	/*if(healthBar)
-		healthBar->setParameters(healthBar->getWidth() + a_x, healthBar->getHeight() + a_y,
-		healthBar->getXPosition() + a_x, healthBar->getYPosition() + a_y);
-	if(armorBar)
-		armorBar->setParameters(armorBar->getWidth() + a_x, armorBar->getHeight() + a_y,
-		armorBar->getXPosition() + a_x, armorBar->getYPosition() + a_y);
-	if(weapon)
-		weapon->setParameters(weapon->getWidth() + a_x, weapon->getHeight() + a_y,
-		weapon->getXPosition() + a_x, weapon->getYPosition() + a_y);
-	if(bagOfMoney)
-		bagOfMoney->setParameters(bagOfMoney->getWidth() + a_x, bagOfMoney->getHeight() + a_y,
-		bagOfMoney->getXPosition() + a_x, bagOfMoney->getYPosition() + a_y);*/
-}	
-void HUD::setPlayer(PlayerCharacter * a_player)
-{
-	player = a_player;
-}
+void HUD::setPlayer(PlayerCharacter * a_player){ player = a_player; }
