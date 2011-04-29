@@ -122,6 +122,7 @@ public:
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
 	void setMusic();
 	void update();
+	void handleGamState();
 	void updateDebugData();
 	void handleInput();
 	void draw();
