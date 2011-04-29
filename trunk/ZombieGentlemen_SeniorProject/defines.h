@@ -2,8 +2,8 @@
 //some states may not be used but are there just in case
 
 //game states
-#define adventure_mode  0 //top down view
-#define menu			1//menu mode also used in stores
+#define menu			0//menu mode also used in stores
+#define adventure_mode  1 //top down view
 #define side_scroll		2//side scroll mode
 
 

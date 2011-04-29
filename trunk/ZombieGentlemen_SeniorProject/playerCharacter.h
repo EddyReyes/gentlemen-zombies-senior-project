@@ -1,8 +1,6 @@
 #pragma once
 #include "dxManager.h"
-#include "hudImage.h"
-#include "XYPlane.h"
-#include "collisionRect.h"
+#include "object.h"
 
 class PlayerCharacter
 {
@@ -10,9 +8,12 @@ private:
 	float playerHealth;
 	float damageResistance;
 	float money;
+	object* m_char;
 public:
 	
 	PlayerCharacter();
+	PlayerCharacter(dxManager * a_dxMgr,char*file);
+
 	~PlayerCharacter();
 	float getHealth();
 	void setHealth(int );
@@ -22,6 +23,7 @@ public:
 	void addMoney(float recieve);
 	void setMoney(int a_money);
 	void Draw();
+	void moveplayer(float,float);
 
 	//void attack(int & weapon );
 	//void defend();

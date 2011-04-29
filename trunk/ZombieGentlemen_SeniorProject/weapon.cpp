@@ -24,7 +24,7 @@ int Weapon::weaponDamageType(void)
 {
 	return 0;
 }
-float Weapon::cost(int cost)
+float Weapon::cost(float cost)
 {
 	
 	return cost;
