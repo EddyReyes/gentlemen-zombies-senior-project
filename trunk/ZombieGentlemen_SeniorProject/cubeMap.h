@@ -30,7 +30,7 @@ private:
 
 public:
 	cubeMap(){}
-	cubeMap(char * textFile, std::string a_textureFile, dxManager * a_dxMgr)
+	cubeMap(std::string textFile, std::string a_textureFile, dxManager * a_dxMgr)
 	{
 		dxMgr = a_dxMgr;
 		mapTexture = a_textureFile;
@@ -103,9 +103,9 @@ public:
 			}
 		}
 	}
-	void loadMap(char * filename)
+	void loadMap(std::string filename)
 	{
-		std::fstream file(filename);
+		std::fstream file(filename.c_str());
 		// the size of the data we are going to create
 		file >> height >> width >> textureRows >> textureColumns >> scale;
 		/*printf("file size %dx%d\n", m_width, m_height);*/

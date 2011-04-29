@@ -248,6 +248,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\level.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Menu.cpp"
 					>
 				</File>
@@ -383,6 +387,10 @@
 				</File>
 				<File
 					RelativePath=".\interior.h"
+					>
+				</File>
+				<File
+					RelativePath=".\level.h"
 					>
 				</File>
 				<File
