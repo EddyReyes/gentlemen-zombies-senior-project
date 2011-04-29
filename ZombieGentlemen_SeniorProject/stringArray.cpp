@@ -13,9 +13,9 @@ stringArray::~stringArray()
 		strings = NULL;
 	}
 }
-void stringArray::loadFromTextFile(char * filename)
+void stringArray::loadFromTextFile(std::string filename)
 {
-	std::fstream file(filename);
+	std::fstream file(filename.c_str());
 
 	// count the number of strings in the text file
 	file.peek();

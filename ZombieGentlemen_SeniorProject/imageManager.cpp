@@ -37,14 +37,14 @@ imageManager::~imageManager()
 	if(fileNames) fileNames->~stringArray();
 	fileNames = NULL;
 }
-void imageManager::initImageManager(char * filename, dxManager * a_dxMgr)
+void imageManager::initImageManager(std::string filename, dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
 	loadTextFile(filename);
 	initImagesArray();
 	loadImages();
 }
-void imageManager::loadTextFile(char * filename)
+void imageManager::loadTextFile(std::string filename)
 {
 	fileNames = new stringArray();
 	fileNames->loadFromTextFile(filename);
