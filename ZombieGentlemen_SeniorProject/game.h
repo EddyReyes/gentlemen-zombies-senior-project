@@ -29,6 +29,7 @@
 #include "EnemyCharacter.h"
 #include "weapon.h"
 #include "armor.h"
+#include "level.h"
 
 #include <stdio.h>
 

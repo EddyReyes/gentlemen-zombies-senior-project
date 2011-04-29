@@ -1,3 +1,4 @@
+#pragma once
 #include "dxManager.h"
 #include "objectManager.h"
 //#include "stringArray.h"
