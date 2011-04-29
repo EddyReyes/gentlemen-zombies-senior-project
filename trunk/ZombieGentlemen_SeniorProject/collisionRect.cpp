@@ -97,6 +97,16 @@ int collisionRect::classify(FloatRect* a_rect)
 	if (rect.bottom < a_rect->top && rect.bottom > a_rect->bottom)
 		side |= COL_BOT;
 
+#ifdef sensitive
+
+	if(rect.left < a_rect->right && rect.left > a_rect->left)
+		side|=COL_LEFT;
+
+	if(rect.right > a_rect->left && rect.right < a_rect->right)
+		side |= COL_RIGHT;
+
+#else
+
 	if(!(((side & (1<<3)) >> 3) || ((side & (1<<2)) >> 2)))
 	{
 		if(rect.left < a_rect->right && rect.left > a_rect->left)
@@ -105,6 +115,9 @@ int collisionRect::classify(FloatRect* a_rect)
 		if(rect.right > a_rect->left && rect.right < a_rect->right)
 			side |= COL_RIGHT;
 	}
+#endif
+
+
 
 	return side;
 }

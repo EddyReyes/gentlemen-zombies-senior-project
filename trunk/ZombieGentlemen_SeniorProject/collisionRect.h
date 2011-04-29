@@ -4,7 +4,7 @@
 #include "XYPlane.h"
 #include "dxCube.h"
 
-
+#define sensitive
 // XY struct will be depreciated soon, please remove it from
 // anywhere you are using it
 struct XY{int x, y;};

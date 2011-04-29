@@ -40,6 +40,7 @@ public:
 	void walkingOff();
 	bool hasGravity();
 	bool isWalking(){return walking;}
+	bool isjumpingAllowed(){return jumpingAllowed;}
 
 
 	bool isOnGround(){return onGround;}
