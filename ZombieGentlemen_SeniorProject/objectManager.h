@@ -302,13 +302,13 @@ public:
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj = list->get(i);
-			//obj->recordPosition();
 			D3DXVECTOR3 * pos = obj->getPosition();
 			if(obj->getPhysics())
 			{
 				physics * phys = obj->getPhysics();
 				phys->update(deltaTime);
 				phys->updatePosition(pos);
+				phys->onGroundOff();
 			}
 			obj->getCollisionRect()->update();
 		}

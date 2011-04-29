@@ -2,14 +2,14 @@
 #include "dxManager.h"
 
 #define gravity -0.5f //-9.8f
-#define groundFriction 0.99f
+#define groundFriction 0.97f
 
 class physics
 {
 private:
 	float xVelocity, yVelocity;
 	bool friction, applyGravity;
-	bool jumpingAllowed, walking;
+	bool jumpingAllowed, walking, onGround;
 
 public:
 	// constructors
@@ -38,5 +38,11 @@ public:
 	void jumpingOff();
 	void walkingOn();
 	void walkingOff();
+	bool hasGravity();
 	bool isWalking(){return walking;}
+
+
+	bool isOnGround(){return onGround;}
+	void onGroundOn(){onGround = true;}
+	void onGroundOff(){onGround = false;}
 };
