@@ -251,9 +251,11 @@ public:
 	void checkCollision()
 	{
 		if(!colliding)
+		{
 			colliding = collRect->collided(targetCollRect->getRect());
+		}
 		
-		if(colliding)
+		if(collRect->collided(targetCollRect->getRect()))
 			collData |= collRect->classify(targetCollRect->getRect());
 		//updatePhysics();
 	}
