@@ -2,13 +2,14 @@
 #include "dxManager.h"
 
 #define gravity -0.5f //-9.8f
-#define groundFriction 0.9f
+#define groundFriction 0.99f
 
 class physics
 {
 private:
 	float xVelocity, yVelocity;
 	bool friction, applyGravity;
+	bool jumpingAllowed, walking;
 
 public:
 	// constructors
@@ -23,8 +24,8 @@ public:
 	void killYVel();
 
 	// mutators
-	void setXVelocity(float a_xVelocity){xVelocity = a_xVelocity;}
-	void setYVelocity(float a_yVelocity){yVelocity = a_yVelocity;}
+	void setXVelocity(float a_xVelocity);
+	void setYVelocity(float a_yVelocity);
 
 	// accesors
 	float getXVelocity(){return xVelocity;}
@@ -33,4 +34,9 @@ public:
 	void frictionOff();
 	void gravityOn();
 	void gravityOff();
+	void jumpingOn();
+	void jumpingOff();
+	void walkingOn();
+	void walkingOff();
+	bool isWalking(){return walking;}
 };
