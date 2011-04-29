@@ -343,7 +343,7 @@ public:
 			}
 		}
 
-		//update physics and handle collision back if colliding 
+		//update physics and handle collision if colliding 
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);

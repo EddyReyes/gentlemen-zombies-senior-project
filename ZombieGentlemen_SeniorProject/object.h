@@ -9,6 +9,12 @@
 #include <ctype.h>
 #include <string.h>
 
+#define collidingLeft collData & 1
+#define collidingRight (collData & (1<<1)) >> 1
+#define collidingTop (collData & (1<<2)) >> 2
+#define collidingBottom (collData & (1<<3)) >> 3
+
+
 class object
 {
 protected:
@@ -266,26 +272,14 @@ public:
 			//phys->onGroundOff();
 			if(collData)
 			{
-				// check for left side collision
-				if(collData & 1)
-				{
-					// if horizontal collision occured, kill horizontal velocity
-					phys->killXVel();
-				}
-				// check for right side collision
-				if((collData & (1<<1)) >> 1)
-				{
-					// if horizontal collision occured, kill horizontal velocity
-					phys->killXVel();
-				}
 				// check for top side collision
-				if((collData & (1<<2)) >> 2)
+				if(collidingTop)
 				{
 					// if verticle collision occured, kill vertical velocity
 					phys->killYVel();
 				}
 				// check for bottom side collision
-				if((collData & (1<<3)) >> 3)
+				if(collidingBottom)
 				{
 					phys->onGroundOn();
 					//// if verticle collision occured, kill vertical velocity
@@ -300,6 +294,36 @@ public:
 					//}
 					//// allow jumping
 					//phys->jumpingOn();
+				}
+				else
+				{
+					// check for left side collision
+					if(collData & 1)
+					{
+						// if horizontal collision occured, kill horizontal velocity
+						phys->killXVel();
+					}
+					// check for right side collision
+					if((collData & (1<<1)) >> 1)
+					{
+						// if horizontal collision occured, kill horizontal velocity
+						phys->killXVel();
+					}
+				}
+				if(phys->isjumpingAllowed())
+				{
+					// check for left side collision
+					if(collData & 1)
+					{
+						// if horizontal collision occured, kill horizontal velocity
+						phys->killXVel();
+					}
+					// check for right side collision
+					if((collData & (1<<1)) >> 1)
+					{
+						// if horizontal collision occured, kill horizontal velocity
+						phys->killXVel();
+					}
 				}
 			}
 		}
