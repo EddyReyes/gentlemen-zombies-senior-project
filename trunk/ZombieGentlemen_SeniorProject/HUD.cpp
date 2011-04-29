@@ -14,8 +14,6 @@ HUD::HUD(dxManager * a_dxMgr)
 	playerID = NULL;
 	playerIDNumber = NULL;
 	playerMoney = NULL;
-	hudPosition.x = NULL;
-	hudPosition.y = NULL;
 	player = new PlayerCharacter();
 	armor = new Armor();
 }
