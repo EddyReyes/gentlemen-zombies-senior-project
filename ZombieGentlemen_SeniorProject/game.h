@@ -92,6 +92,8 @@ private:
 	BYTE * keystate;
 	int * keyLag;
 	DIMOUSESTATE mouseState;
+	Menu* mainMenu;
+	int m_currentgamestate; //keeps track of which state the game is in
 	
 	// timer data
 	int now, then, passed, soon; // low resolution timers for keylag
@@ -102,12 +104,14 @@ private:
 	// FPS display data
 	DXText * FPSText;
 	DXText * physicsData; 
+	//DXText * objstate; 
 
 	// camera data
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
 
 	// Unit test parameters
+	int m_charstate;	//keeps track of what state the player is in
 
 	cubeMap * m_map;
 	objectManager * obMgr;

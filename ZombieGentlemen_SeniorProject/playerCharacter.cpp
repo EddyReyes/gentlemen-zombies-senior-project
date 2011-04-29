@@ -8,9 +8,20 @@ PlayerCharacter::PlayerCharacter()
 	playerHealth = 100.0;
 	damageResistance = 0.50;
 	money = 0;
+	m_char = NULL;
+
+}
+PlayerCharacter::PlayerCharacter(dxManager* a_dxMgr, char* file)
+{
+	playerHealth = 100.0;
+	damageResistance = 0.50;
+	money = 0;
+	m_char = new object(a_dxMgr,file);
+	m_char->setPosition(1,1,0);
 }
 PlayerCharacter::~PlayerCharacter()
 {
+	delete m_char;
 }
 float PlayerCharacter::getHealth()
 {
@@ -60,8 +71,11 @@ void PlayerCharacter::setMoney(int a_money)
 {
 	a_money = money;
 }
-
 void PlayerCharacter::Draw()
 {
-
+	m_char->draw();
+}
+void PlayerCharacter::moveplayer(float a_x,float a_y)
+{
+	m_char->setPosition(a_x,a_y,0.0f);
 }

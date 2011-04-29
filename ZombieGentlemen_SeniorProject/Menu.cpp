@@ -11,6 +11,7 @@ Menu::Menu()
 	option_txt = NULL;
 	options = NULL;
 }
+//first param takes in file that loads up the art, the second loads options from a file
 Menu::Menu(dxManager * a_dxMgr,char* menuArt,char* menuOptions)//takes the the directx manager and initialized everything
 {
 	//creates a new image manager from a txt file and creates a background image out of the first element
@@ -32,7 +33,7 @@ Menu::Menu(dxManager * a_dxMgr,char* menuArt,char* menuOptions)//takes the the d
 	}
 	//default parameters
 	const float height = 300, width = 300;
-	setParam(height,width,640/2,480/2);
+	//setParam(height,width,640/2,480/2);
 }
 
 void Menu::Draw()
@@ -52,7 +53,7 @@ void Menu::setParam(float w, float h, float a_x, float a_y)
 	for(int q=0;q<option_txt->getSize();++q)
 	{
 		//offset seemingly random
-		options[q]->setTextBoxParameters(w/2,h/4,a_x,a_y+(q*100),10);
+		options[q]->setTextBoxParameters(w/2,h/4,a_x,a_y+(q*(h/4)),10);
 		options[q]->setFontColor(0xff,0x00,0x00,0x00);//sets the color to black in hex
 	}
 }
@@ -68,9 +69,9 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 {
 	
 	//key allows you to scroll through the options
-	if(keystate[DIK_T] & 0x80)
+	if(keystate[DIK_S] & 0x80||keystate[DIK_DOWN] & 0x80)
 	{
-		if(now - keylag[DIK_T] > 150)
+		if(now - keylag[DIK_S] > 150||now - keylag[DIK_DOWN] > 150)
 		{
 			if (selected == 0) 
 			{
@@ -88,12 +89,37 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
 				selected = 0;
 			}
-			keylag[DIK_T] = now;
+			keylag[DIK_S] = keylag[DIK_DOWN] = now;
 		}
 		
-	}
+	}/*
+	if(keystate[DIK_W] & 0x80||keystate[DIK_UP] & 0x80)
+	{
+		if(now - keylag[DIK_W] > 150||now - keylag[DIK_UP] > 150)
+		{
+			if (selected == 0) 
+			{
+				selected = option_txt->getSize();
+				options[selected-1]->getimg()->shareImage(imgMan->getImage(2),imgMan->getImageInfo(2));
+				selected--;
+			}
+			else if(selected < option_txt->getSize())
+			{
+				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
+				options[selected]->getimg()->shareImage(imgMan->getImage(2),imgMan->getImageInfo(2));
+				selected--;
+			}
+			else
+			{
+				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
+				selected = 0;
+			}
+			keylag[DIK_W] = keylag[DIK_UP] = now;
+		}
+		
+	}*/
 	//key that says that an option was hit
-	if(keystate[DIK_E] & 0x80)
+	if(keystate[DIK_RETURN] & 0x80)
 	{
 		return selected;
 	}

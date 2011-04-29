@@ -14,7 +14,7 @@ class Weapon
 		int damageGiven(int a_damage);
 		int damageReceived(int a_hitPoints);
 		int weaponDamageType(void);
-		float cost(int a_cost);
+		float cost(float a_cost);
 		int shovle();
 			
 };
