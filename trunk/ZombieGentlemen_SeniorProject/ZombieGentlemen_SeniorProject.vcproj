@@ -248,10 +248,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\interior.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Menu.cpp"
 					>
 				</File>
@@ -269,10 +265,6 @@
 				</File>
 				<File
 					RelativePath=".\playerCharacter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\playerItem.cpp"
 					>
 				</File>
 				<File

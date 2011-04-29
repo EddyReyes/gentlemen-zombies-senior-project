@@ -261,6 +261,7 @@ public:
 	{
 		if(phys)
 		{
+			//phys->onGroundOff();
 			if(collData)
 			{
 				// check for left side collision
@@ -284,17 +285,19 @@ public:
 				// check for bottom side collision
 				if(collData & (1<<3) >> 3)
 				{
-					// if verticle collision occured, kill vertical velocity
-					phys->killYVel();
-					// turn on friction
-					if(!(phys->isWalking()))
-					{
-						phys->frictionOn();
-					}
-					// turn gravity off
-					phys->gravityOff();
-					// allow jumping
-					phys->jumpingOn();
+					phys->onGroundOn();
+					//// if verticle collision occured, kill vertical velocity
+					//phys->killYVel();
+					//// turn gravity off
+					//phys->gravityOff();
+					//// turn frick on if walking
+					//phys->frictionOff();
+					//if(!(phys->isWalking()))
+					//{
+					//	phys->frictionOn();
+					//}
+					//// allow jumping
+					//phys->jumpingOn();
 				}
 			}
 		}
@@ -305,9 +308,14 @@ public:
 		{
 			if(!colliding)
 			{
-				phys->frictionOff();
-				phys->gravityOn();
-				phys->jumpingOff();
+				//phys->frictionOff();
+				//if(!(phys->isWalking()))
+				//{
+				//	phys->frictionOn();
+				//}
+				//phys->onGroundOff();
+				//phys->gravityOn();
+				//phys->jumpingOff();
 			}
 		}
 		colliding = false;
