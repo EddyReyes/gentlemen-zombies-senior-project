@@ -327,6 +327,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	obMgr->initColMap("colMapTest.txt", m_map);
 	obMgr->initImages("imageManagerTest.txt");
 	obMgr->loadObjectsFromTxtFile("testObjects.txt");
+	obMgr->updatePhysics(UpdateSpeed);
 	
 	setMusic();
 	return true;
@@ -353,6 +354,9 @@ void game::update()
 	
 	// Handle Input using Direct Input
 	handleInput();
+	// update physics
+	obMgr->updatePhysics(UpdateSpeed);
+	// handle collision
 	obMgr->handleCollision();
 	// draw to the screen using Direct3D
 	draw();
@@ -418,10 +422,10 @@ void game::handleInput()
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
-			obMgr->getObject()->getPhysics()->setYVelocity(0.05f);
+			obMgr->getObject()->getPhysics()->setYVelocity(0.12f);
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f), UpdateSpeed);
+			obMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
@@ -431,28 +435,43 @@ void game::handleInput()
 			obMgr->getObject()->getPhysics()->setYVelocity(-0.05f);
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f), UpdateSpeed);
+			obMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
 			obMgr->getObject()->getPhysics()->setXVelocity(-0.05f);
+			obMgr->getObject()->getPhysics()->walkingOn();
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f), UpdateSpeed);
+			obMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
+	}
+	else
+	{
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->walkingOff();
+		}
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		if(obMgr->getObject()->getPhysics())
 		{
 			obMgr->getObject()->getPhysics()->setXVelocity(0.05f);
+			obMgr->getObject()->getPhysics()->walkingOn();
 		}
 		else
-			obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f), UpdateSpeed);
+			obMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 	}
-
-	obMgr->moveObject(D3DXVECTOR3(0.0f, 0.0f, 0.0f), UpdateSpeed);
+	else
+	{
+		if(obMgr->getObject()->getPhysics())
+		{
+			obMgr->getObject()->getPhysics()->walkingOff();
+		}
+	}
+	
 
 	if ((keystate[DIK_B] & 0x80))
 	{

@@ -255,53 +255,62 @@ public:
 		
 		if(colliding)
 			collData |= collRect->classify(targetCollRect->getRect());
-		updatePhysics();
+		//updatePhysics();
 	}
 	void updatePhysics()
 	{
-		if(collData)
+		if(phys)
 		{
-			// check for left side collision
-			if(collData & 1)
+			if(collData)
 			{
-				// if horizontal collision occured, kill horizontal velocity
-				if(phys){phys->killXVel();}
-			}
-
-			// check for right side collision
-			if(collData & (1<<1) >> 1)
-			{
-				// if horizontal collision occured, kill horizontal velocity
-				if(phys){phys->killXVel();}
-			}
-			
-			//// check for top side collision
-			if(collData & (1<<2) >> 2)
-			{
-				// if verticle collision occured, kill vertical velocity
-				if(phys){phys->killYVel();}
-			}
-
-			// check for bottom side collision
-			if(collData & (1<<3) >> 3)
-			{
-				// if verticle collision occured, kill vertical velocity
-				if(phys){
+				// check for left side collision
+				if(collData & 1)
+				{
+					// if horizontal collision occured, kill horizontal velocity
+					phys->killXVel();
+				}
+				// check for right side collision
+				if(collData & (1<<1) >> 1)
+				{
+					// if horizontal collision occured, kill horizontal velocity
+					phys->killXVel();
+				}
+				// check for top side collision
+				if(collData & (1<<2) >> 2)
+				{
+					// if verticle collision occured, kill vertical velocity
 					phys->killYVel();
-					phys->frictionOn();
+				}
+				// check for bottom side collision
+				if(collData & (1<<3) >> 3)
+				{
+					// if verticle collision occured, kill vertical velocity
+					phys->killYVel();
+					// turn on friction
+					if(!(phys->isWalking()))
+					{
+						phys->frictionOn();
+					}
+					// turn gravity off
 					phys->gravityOff();
+					// allow jumping
+					phys->jumpingOn();
 				}
 			}
 		}
 	}
 	void clear()
 	{
-		colliding = false;
 		if(phys)
 		{
-			phys->frictionOff();
-			phys->gravityOn();
+			if(!colliding)
+			{
+				phys->frictionOff();
+				phys->gravityOn();
+				phys->jumpingOff();
+			}
 		}
+		colliding = false;
 		collData = 0;
 	}
 	void recordPosition()

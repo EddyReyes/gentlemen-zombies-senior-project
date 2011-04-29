@@ -136,6 +136,8 @@ public:
 				list->add(temp);
 			}
 		}
+		updatePosiitonRecords();
+		clearObjects();
 	}
 
 	bool verifyData(int objectIndex, int imageIndex, char primitiveType, 
@@ -281,12 +283,26 @@ public:
 		if(index > 0)
 			index--;
 	}
-	void moveObject(D3DXVECTOR3 move, float deltaTime)
+	void moveObject(D3DXVECTOR3 move)
 	{
 		if(index >= 0)
 		{
 			object * obj = list->get(index);
 			obj->recordPosition();
+			D3DXVECTOR3 * pos = obj->getPosition();
+			pos->x += move.x;
+			pos->y += move.y;
+			pos->z += move.z;
+			obj->getCollisionRect()->update();
+		}
+	}
+	void updatePhysics(float deltaTime)
+	{
+		object * obj;
+		for (int i=0; i<list->endOfList(); i++) 
+		{
+			obj = list->get(i);
+			//obj->recordPosition();
 			D3DXVECTOR3 * pos = obj->getPosition();
 			if(obj->getPhysics())
 			{
@@ -294,16 +310,12 @@ public:
 				phys->update(deltaTime);
 				phys->updatePosition(pos);
 			}
-			pos->x += move.x;
-			pos->y += move.y;
-			pos->z += move.z;
 			obj->getCollisionRect()->update();
 		}
 	}
-
 	void handleCollision()
 	{
-		clearObjects();
+		//clearObjects();
 		object * obj1;
 		object * obj2;
 
@@ -320,7 +332,6 @@ public:
 				obj2->checkCollision();
 			}
 		}
-
 		//check map for collision
 		for (int i=0; i<list->endOfList(); i++) 
 		{
@@ -332,16 +343,19 @@ public:
 			}
 		}
 
-		//move objects back if colliding 
+		//update physics and handle collision back if colliding 
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);
 			if(obj1->isColliding())
 			{
+				obj1->updatePhysics();
 				obj1->handleCollision();
 			}
 		}
+		// update position records and clear 
 		updatePosiitonRecords();
+		clearObjects();
 	}
 
 	void clearObjects()
