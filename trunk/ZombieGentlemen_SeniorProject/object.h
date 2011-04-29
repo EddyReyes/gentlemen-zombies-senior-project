@@ -298,13 +298,13 @@ public:
 				else
 				{
 					// check for left side collision
-					if(collData & 1)
+					if(collidingLeft)
 					{
 						// if horizontal collision occured, kill horizontal velocity
 						phys->killXVel();
 					}
 					// check for right side collision
-					if((collData & (1<<1)) >> 1)
+					if(collidingRight)
 					{
 						// if horizontal collision occured, kill horizontal velocity
 						phys->killXVel();
@@ -313,13 +313,13 @@ public:
 				if(phys->isjumpingAllowed())
 				{
 					// check for left side collision
-					if(collData & 1)
+					if(collidingLeft)
 					{
 						// if horizontal collision occured, kill horizontal velocity
 						phys->killXVel();
 					}
 					// check for right side collision
-					if((collData & (1<<1)) >> 1)
+					if(collidingRight)
 					{
 						// if horizontal collision occured, kill horizontal velocity
 						phys->killXVel();

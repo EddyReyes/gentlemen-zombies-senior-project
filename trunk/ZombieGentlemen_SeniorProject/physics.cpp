@@ -16,9 +16,7 @@ void physics::update(float a_deltaTime)
 	{
 		if(!walking)
 		{
-
 			xVelocity *= groundFriction;
-
 		}
 		if(xVelocity < 0.001 && xVelocity > -0.001)
 			xVelocity = 0;

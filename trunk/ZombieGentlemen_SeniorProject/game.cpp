@@ -294,8 +294,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	m_currentgamestate = menu;
 	m_charstate = char_idle;
 	//instantiate menu
-	//mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
-	//mainMenu->setParam(800,600,0,0);
+	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
+	mainMenu->setParam(800,600,0,0);
 
 	// initialize timer data
 	now = clock();
@@ -464,13 +464,6 @@ void game::handleInput()
 		else
 			lvl1->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
 	}
-	else
-	{
-		if(lvl1->getObjectPhysic())
-		{
-			lvl1->getObjectPhysic()->walkingOff();
-		}
-	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
 		if(lvl1->getObjectPhysic())
@@ -481,7 +474,9 @@ void game::handleInput()
 		else
 			lvl1->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 	}
-	else
+	
+	if (!((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
+		&& !((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80)))
 	{
 		if(lvl1->getObjectPhysic())
 		{
