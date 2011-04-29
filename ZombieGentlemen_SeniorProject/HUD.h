@@ -21,7 +21,6 @@ class HUD
 		EnemyCharacter * enemy;
 		DXText * playerIDNumber;
 		DXText * playerMoney;
-		D3DXVECTOR2 hudPosition;
 		dxManager * dxMgr;
 
 	public:
