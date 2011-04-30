@@ -519,6 +519,15 @@ void game::handleInput()
 			keyLag[DIK_P] = now;
 		}
 	}
+	//test key
+	if((keystate[DIK_E] & 0x80))
+	{
+		if(now - keyLag[DIK_E] >200)
+		{
+			lvl1->~level();
+			lvl1 = new level(dxMgr,"testfiles2.txt",UpdateSpeed);
+		}
+	}
 
 	// camera movement
  	float cameraMove = 0.05f;

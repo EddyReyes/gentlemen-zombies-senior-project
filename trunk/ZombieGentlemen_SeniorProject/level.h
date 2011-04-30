@@ -15,7 +15,6 @@ public:
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void update(float);
-	void loadlevel(char*);//clear out the previous level and load a new one from file
 	~level();//deconstructor
 
 	//debug code

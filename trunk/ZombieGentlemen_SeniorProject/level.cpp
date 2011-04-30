@@ -23,9 +23,6 @@ level::level(dxManager* a_dxMgr,char* initfiles,float updatespd)//will load a fi
 	ObjMan->loadObjectsFromTxtFile(files->getStringAt(3));
 	ObjMan->updatePhysics(updatespd);
 }
-void level::loadlevel(char* initfiles)
-{
-}
 void level::update(float update)
 {
 	ObjMan->updatePhysics(update);
