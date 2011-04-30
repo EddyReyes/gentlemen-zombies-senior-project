@@ -294,8 +294,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	m_currentgamestate = menu;
 	m_charstate = char_idle;
 	//instantiate menu
-	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
-	mainMenu->setParam(800,600,0,0);
+	/*mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
+	mainMenu->setParam(800,600,0,0);*/
 
 	// initialize timer data
 	now = clock();
