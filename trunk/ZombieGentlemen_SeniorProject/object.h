@@ -328,6 +328,16 @@ public:
 			}
 		}
 	}
+	void updatePhysicsMovePermissions()
+	{
+		if(!collRect->collided(targetCollRect->getRect()))
+		{
+			if(phys)
+			{
+				phys->updateMovePermissions();
+			}
+		}
+	}
 	void clear()
 	{
 		if(phys)

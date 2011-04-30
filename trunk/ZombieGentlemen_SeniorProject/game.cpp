@@ -439,7 +439,7 @@ void game::handleInput()
 	{
 		if(lvl1->getObjectPhysic())
 		{
-			lvl1->getObjectPhysic()->setYVelocity(0.12f);
+			lvl1->getObjectPhysic()->setYVelocity(12.0f);
 		}
 		else
 			lvl1->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
@@ -447,11 +447,11 @@ void game::handleInput()
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		if(lvl1->getObjectPhysic())
+		/*if(lvl1->getObjectPhysic())
 		{
 			lvl1->getObjectPhysic()->setYVelocity(-0.05f);
 		}
-		else
+		else*/
 			lvl1->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
@@ -461,7 +461,7 @@ void game::handleInput()
 			if(lvl1->getObjectPhysic()->canMoveLeft())
 			{
 				lvl1->getObjectPhysic()->walkingOn();
-				lvl1->getObjectPhysic()->setXVelocity(-0.05f);
+				lvl1->getObjectPhysic()->setXVelocity(-8.0f);
 			}
 		}
 		else
@@ -474,7 +474,7 @@ void game::handleInput()
 			if(lvl1->getObjectPhysic()->canMoveRight())
 			{
 				lvl1->getObjectPhysic()->walkingOn();
-				lvl1->getObjectPhysic()->setXVelocity(0.05f);
+				lvl1->getObjectPhysic()->setXVelocity(8.0f);
 			}
 		}
 		else

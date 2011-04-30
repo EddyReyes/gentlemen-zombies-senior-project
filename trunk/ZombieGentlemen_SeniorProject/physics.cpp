@@ -10,18 +10,18 @@ physics::physics()
 	onGround = false;
 	leftMove = true;
 	rightMove = true;
+	jumpLag = 0;
+	time = 0;
 }
 physics::~physics(){}
 void physics::update(float a_deltaTime)
 {
-
-	
-
+	time = a_deltaTime;
 	if(onGround)
 	{
 		if(!walking)
 		{
-			xVelocity *= groundFriction;
+			xVelocity *= groundFriction ;
 		}
 		if(xVelocity < 0.001 && xVelocity > -0.001)
 			xVelocity = 0;
@@ -29,13 +29,15 @@ void physics::update(float a_deltaTime)
 		// kill yVelocity
 		yVelocity = 0;
 		// allow jumping
-		jumpingAllowed = true;
+		
 
-		if(xVelocity > 0)
+		hitTop = false;
+			jumpingAllowed = true;
+	
+	/*	if(xVelocity > 0)
 			leftMove = true;
 		if(xVelocity < 0)
-			rightMove = true;
-
+			rightMove = true;*/
 	}
 	else
 	{
@@ -46,14 +48,30 @@ void physics::update(float a_deltaTime)
 		// do not allow jumping
 		jumpingAllowed = false;
 
-		leftMove = true;
-		rightMove = true;
+	/*	leftMove = true;
+		rightMove = true;*/
 	}
 }
 void physics::updatePosition(D3DXVECTOR3 * pos)
 {
-	pos->x += xVelocity;
-	pos->y += yVelocity;
+	pos->x += xVelocity * time;
+	pos->y += yVelocity * time;
+}
+
+void physics::updateMovePermissions()
+{
+	if(onGround)
+	{
+		if(xVelocity > 0)
+			leftMove = true;
+		if(xVelocity < 0)
+			rightMove = true;
+	}
+	if(!leftMove && !rightMove)
+	{
+		leftMove = true;
+		rightMove = true;
+	}
 }
 
 void physics::setXVelocity(float a_xVelocity)
@@ -77,14 +95,21 @@ void physics::killXVel()
 		leftMove = false;
 	if(xVelocity > 0)
 		rightMove = false;
-	xVelocity = 0;
+	if(!hitTop)
+		xVelocity = xVelocity * -0.1 ;
+	else
+	{
+		xVelocity = 0;
+	}
 }
-void physics::killYVel(){yVelocity = 0;}
+void physics::killYVel()
+{
+	if(yVelocity > 0)
+		hitTop = true;
+	yVelocity = 0;
+}
 void physics::frictionOn(){friction = true;}
 void physics::frictionOff(){friction = false;}
-void physics::gravityOn(){applyGravity = true;}
-void physics::gravityOff(){applyGravity = false;}
-bool physics::hasGravity(){return applyGravity;}
 void physics::jumpingOn(){jumpingAllowed = true;}
 void physics::jumpingOff(){jumpingAllowed = false;}
 void physics::walkingOn(){walking = true;}

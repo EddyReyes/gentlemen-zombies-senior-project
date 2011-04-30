@@ -351,6 +351,7 @@ public:
 			{
 				obj1->updatePhysics();
 				obj1->handleCollision();
+				obj1->updatePhysicsMovePermissions();
 			}
 		}
 		// update position records and clear 
