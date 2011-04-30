@@ -453,7 +453,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testfiles2.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\testMap.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\testMap2.txt"
 				>
 			</File>
 			<File

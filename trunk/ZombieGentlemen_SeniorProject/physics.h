@@ -9,7 +9,7 @@ class physics
 private:
 	float xVelocity, yVelocity;
 	bool friction, applyGravity;
-	bool jumpingAllowed, walking, onGround;
+	bool jumpingAllowed, walking, onGround, rightMove, leftMove;
 
 public:
 	// constructors
@@ -41,6 +41,8 @@ public:
 	bool hasGravity();
 	bool isWalking(){return walking;}
 	bool isjumpingAllowed(){return jumpingAllowed;}
+	bool canMoveLeft(){return leftMove;}
+	bool canMoveRight(){return rightMove;}
 
 
 	bool isOnGround(){return onGround;}
