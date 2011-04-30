@@ -8,10 +8,15 @@ physics::physics()
 	jumpingAllowed = true;
 	walking = false;
 	onGround = false;
+	leftMove = true;
+	rightMove = true;
 }
 physics::~physics(){}
 void physics::update(float a_deltaTime)
 {
+
+	
+
 	if(onGround)
 	{
 		if(!walking)
@@ -25,6 +30,12 @@ void physics::update(float a_deltaTime)
 		yVelocity = 0;
 		// allow jumping
 		jumpingAllowed = true;
+
+		if(xVelocity > 0)
+			leftMove = true;
+		if(xVelocity < 0)
+			rightMove = true;
+
 	}
 	else
 	{
@@ -34,6 +45,9 @@ void physics::update(float a_deltaTime)
 		friction = false;
 		// do not allow jumping
 		jumpingAllowed = false;
+
+		leftMove = true;
+		rightMove = true;
 	}
 }
 void physics::updatePosition(D3DXVECTOR3 * pos)
@@ -42,13 +56,29 @@ void physics::updatePosition(D3DXVECTOR3 * pos)
 	pos->y += yVelocity;
 }
 
-void physics::setXVelocity(float a_xVelocity){xVelocity = a_xVelocity;}
+void physics::setXVelocity(float a_xVelocity)
+{
+	/*if(a_xVelocity < 0 && leftMove && onGround)
+		xVelocity = a_xVelocity;
+	if(a_xVelocity > 0 && rightMove && onGround)
+		xVelocity = a_xVelocity;
+	if(a_xVelocity == 0);*/
+		xVelocity = a_xVelocity;
+
+}
 void physics::setYVelocity(float a_yVelocity)
 {
 	if(jumpingAllowed)
 		yVelocity = a_yVelocity;
 }
-void physics::killXVel(){xVelocity = 0;}
+void physics::killXVel()
+{
+	if(xVelocity < 0)
+		leftMove = false;
+	if(xVelocity > 0)
+		rightMove = false;
+	xVelocity = 0;
+}
 void physics::killYVel(){yVelocity = 0;}
 void physics::frictionOn(){friction = true;}
 void physics::frictionOff(){friction = false;}
