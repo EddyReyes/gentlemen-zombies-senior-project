@@ -1,15 +1,18 @@
 #pragma once
 #include "dxManager.h"
 
-#define gravity -0.5f //-9.8f
+//#define gravity -0.5f //-9.8f
+#define gravity -50.0f
 #define groundFriction 0.97f
+//#define groundFriction 5.0f
 
 class physics
 {
 private:
-	float xVelocity, yVelocity;
-	bool friction, applyGravity;
+	float xVelocity, yVelocity, time;
+	bool friction, hitTop;
 	bool jumpingAllowed, walking, onGround, rightMove, leftMove;
+	float jumpLag;
 
 public:
 	// constructors
@@ -43,6 +46,7 @@ public:
 	bool isjumpingAllowed(){return jumpingAllowed;}
 	bool canMoveLeft(){return leftMove;}
 	bool canMoveRight(){return rightMove;}
+	void updateMovePermissions();
 
 
 	bool isOnGround(){return onGround;}
