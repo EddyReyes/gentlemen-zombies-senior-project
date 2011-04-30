@@ -1,0 +1,4 @@
+testMap.txt
+colMapTest.txt
+imageManagerTest.txt
+testObjects.txt
