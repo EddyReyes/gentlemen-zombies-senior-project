@@ -62,9 +62,9 @@ void physics::updateMovePermissions()
 {
 	if(onGround)
 	{
-		if(xVelocity > 0)
+		if(xVelocity >= 0)
 			leftMove = true;
-		if(xVelocity < 0)
+		if(xVelocity <= 0)
 			rightMove = true;
 	}
 	if(!leftMove && !rightMove)
