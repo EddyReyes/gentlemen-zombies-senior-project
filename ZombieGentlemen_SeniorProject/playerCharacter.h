@@ -14,6 +14,8 @@ public:
 	PlayerCharacter();
 	PlayerCharacter(dxManager * a_dxMgr,char*file);
 
+	object* getObj(){return m_char;}
+
 	~PlayerCharacter();
 	float getHealth();
 	void setHealth(int );
@@ -24,6 +26,7 @@ public:
 	void setMoney(int a_money);
 	void Draw();
 	void moveplayer(float,float);
+
 
 	//void attack(int & weapon );
 	//void defend();

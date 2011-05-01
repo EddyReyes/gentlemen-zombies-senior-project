@@ -17,7 +17,7 @@ PlayerCharacter::PlayerCharacter(dxManager* a_dxMgr, char* file)
 	damageResistance = 0.50;
 	money = 0;
 	m_char = new object(a_dxMgr,file);
-	m_char->setPosition(1,1,0);
+	m_char->setPosition(0,0,0);
 }
 PlayerCharacter::~PlayerCharacter()
 {
