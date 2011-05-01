@@ -11,7 +11,7 @@ private:
 	cubeMap* m_map;
 public:
 	level();
-	level(dxManager*, char*,float);//initializes objectmanager
+	level(dxManager*, char*);//initializes objectmanager
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void update(float);
@@ -20,6 +20,7 @@ public:
 	//debug code
 	void pop();
 	void moveObject(D3DXVECTOR3);//may or maynot stay that way
+	object* getobject(){return ObjMan->getObject();}
 	physics* getObjectPhysic(){return ObjMan->getObject()->getPhysics();}
 	objectManager* getManager(){return ObjMan;}
 };

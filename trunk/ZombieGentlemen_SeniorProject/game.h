@@ -46,6 +46,7 @@ private:
 	BYTE * keystate;
 	int * keyLag;
 	PlayerCharacter * player;
+	level* lvl;
 	EnemyCharacter * enemy;
 	DIMOUSESTATE mouseState;
 	float curX; // mouse X position
@@ -57,7 +58,13 @@ private:
 	float UpdateSpeed, Elapsed;
 	int FPS;
 	DXText  * FPSText;
+	D3DXVECTOR3 postion;
 	// Unit test parameters
+
+	
+	// camera data
+	dxCamera * camera;
+	float cameraX, cameraY, cameraZ;
 
 	DXText * dialog;
 	HUD * hudStuff;

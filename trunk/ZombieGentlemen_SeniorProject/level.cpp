@@ -7,7 +7,7 @@ level::level()
 	files = NULL;
 	m_map = NULL;
 }
-level::level(dxManager* a_dxMgr,char* initfiles,float updatespd)//will load a file with the names of files in it
+level::level(dxManager* a_dxMgr,char* initfiles)//will load a file with the names of files in it
 {
 	//puts the files into a string array
 	files = new stringArray();
@@ -21,7 +21,7 @@ level::level(dxManager* a_dxMgr,char* initfiles,float updatespd)//will load a fi
 	ObjMan->initColMap(files->getStringAt(1),m_map);
 	ObjMan->initImages(files->getStringAt(2));
 	ObjMan->loadObjectsFromTxtFile(files->getStringAt(3));
-	ObjMan->updatePhysics(updatespd);
+	//ObjMan->updatePhysics(updatespd);
 }
 void level::update(float update)
 {

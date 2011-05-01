@@ -20,6 +20,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	passed = now-then;
 	soon = now +100;
 
+	camera = new dxCamera(dxMgr);
+	cameraX = 0.0f;
+	cameraY = 0.0f;
+	cameraZ = -10.0f;
+
 	QueryPerformanceFrequency(&timerFreq);
 	Elapsed  = 0;
 	FPS = 0;
@@ -31,16 +36,19 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
-	
-	enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
-	player = new PlayerCharacter();
+	postion.x=0.0f;
+	postion.y=0.0f;
+
+	lvl = new level(dxMgr,"testfiles2.txt");
+	//enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
+	player = new PlayerCharacter(dxMgr, "images/armorBar.bmp");
 	//player->initPlayerSpriteSheet(1,1);
 	//player->setPlayerSprite(0,0);
 	//player->setPosition(0, 4, 0);
 
-	enemy->initEnemieSpriteSheet(1,4);
-	enemy->setEnemieSprite(0, 3);
-	enemy->setPosition(1, 4, 0);
+	//enemy->initEnemieSpriteSheet(1,4);
+	//enemy->setEnemieSprite(0, 3);
+	//enemy->setPosition(1, 4, 0);
 
 	setMusic();
 
@@ -89,6 +97,7 @@ void game::SetSprites()
 	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
 	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
 	hudStuff->initDefaultPositions(2.0, 0.0);
+
 			
 	
 	//--------------------------------------------------------------------
@@ -108,7 +117,7 @@ void game::update()
 	soon = now +100;
 
 	QueryPerformanceCounter(&timeStart);
-	
+	lvl->update(now);
 	// Handle Input using Direct Input
 	handleInput();
 	// draw to the screen using Direct3D
@@ -146,12 +155,32 @@ void game::handleInput()
 	keystate = inputMgr->getKeyboardState();
 	inputMgr->updateMouseState();
 	mouseState = *(inputMgr->getMouseState());
+	int cameraLag = 0;
+
 
 
 	// keyboard
 	if(keystate[DIK_ESCAPE] & 0x80)
 	{
 		PostQuitMessage(0);
+	}
+	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
+		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
+	{
+		player->moveplayer(postion.x,postion.y+=0.05);
+	}
+	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
+		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
+	{
+		player->moveplayer(postion.x,postion.y-=0.05);
+	}
+	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
+	{
+		player->moveplayer(postion.x-=0.05,postion.y);
+	}
+	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
+	{
+		player->moveplayer(postion.x+=0.05,postion.y);
 	}
 	
 	/******HUD Money Incriment************/
@@ -244,10 +273,13 @@ void game::handleInput()
 void game::draw()
 {
 	dxMgr->beginRender();
+	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 
-	//player->Draw();
+	lvl->draw();
+	player->Draw();
 	
 	//enemy->Draw();
+	hudStuff->draw();	
 
 	//background->drawSprite();
 
@@ -256,7 +288,6 @@ void game::draw()
 	FPSText->draw();
 
 	//dialog->draw();
-	hudStuff->draw();	
 
 	dxMgr->endRender();
 }
@@ -270,7 +301,7 @@ game::~game()
 	cursor->~HudImage();
 	//testTile->~XYPlane();
 	player->~PlayerCharacter();
-	enemy->~EnemyCharacter();
+	//enemy->~EnemyCharacter();
 	dialog->~DXText();
 	hudStuff->~HUD();
 	FPSText->~DXText();
@@ -325,7 +356,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 0.0f;
 	cameraZ = -10.0f;
 
-	lvl1 = new level(dxMgr,"testfiles.txt",UpdateSpeed);
+	lvl1 = new level(dxMgr,"testfiles.txt");
 	setMusic();
 	return true;
 }
@@ -353,6 +384,11 @@ void game::update()
 	handleInput();
 	// handle collision & update physics
 	lvl1->update(UpdateSpeed);
+	float ycoord = lvl1->getobject()->getPosition()->y;
+	float xcoord = lvl1->getobject()->getPosition()->x;
+	cameraX = xcoord;
+	cameraY = ycoord;
+
 	// draw to the screen using Direct3D
 	draw();
 
@@ -425,6 +461,8 @@ void game::handleInput()
 	keystate = inputMgr->getKeyboardState();
 	inputMgr->updateMouseState();
 	mouseState = *(inputMgr->getMouseState());
+ 	float cameraMove = 0.05f;
+	int cameraLag = 0;
 
 	// keyboard
 	//mainMenu->update(keystate,now,keyLag);
@@ -531,14 +569,12 @@ void game::handleInput()
 		if(now - keyLag[DIK_E] >200)
 		{
 			lvl1->~level();
-			lvl1 = new level(dxMgr,"testfiles2.txt",UpdateSpeed);
+			lvl1 = new level(dxMgr,"testfiles2.txt");
 		}
 	}
 
 	// camera movement
- 	float cameraMove = 0.05f;
-	int cameraLag = 0;
-	if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
+	/*if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
 		if(now - keyLag[DIK_NUMPAD4] > cameraLag)
 		{
@@ -569,7 +605,7 @@ void game::handleInput()
 			cameraY+= cameraMove;
 			keyLag[DIK_NUMPAD8] = now;
 		}
-	}
+	}*/
 		
 	if ((keystate[DIK_NUMPAD7] & 0x80) || (keystate[DIK_U] & 0x80))
 	{
