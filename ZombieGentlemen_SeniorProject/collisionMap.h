@@ -59,10 +59,10 @@ public:
 		delete [] map;
 
 		// destroy collision rects and delete the pointers
-		for(int y = 0; y < height; y++)
+		for(int i = 0; i < listSize; i++)
 		{
-			rectList[y]->~collisionRect();
-			rectList[y] = NULL;
+			rectList[i]->~collisionRect();
+			rectList[i] = NULL;
 		}
 		delete [] rectList;
 	}
@@ -165,6 +165,9 @@ public:
 				}
 			}
 		}
+		listSize += 4;
+		// make a list with enough room for all the collision rects in the map as well as 
+		// 3 bounding rects for that surround the world
 		rectList = new collisionRect * [listSize];
 		int counter = 0;
 		for(int y = 0; y < height; y++)
@@ -178,6 +181,24 @@ public:
 				}
 			}
 		}	
+
+		// add map boundaries
+				
+		// left boundary
+		rectList[listSize-1] = new collisionRect();
+		rectList[listSize-1]->modifyParameters(-1.0f, 100.0f, (float)scale,(float)((100.0f + height) * -1 * scale));
+
+		// right boundary
+		rectList[listSize-2] = new collisionRect();
+		rectList[listSize-2]->modifyParameters((float)width, 100.0f, (float)scale, (float)((100.0f + height) * -1 * scale));
+		
+		// bottom boundary
+		rectList[listSize-3] = new collisionRect();
+		rectList[listSize-3]->modifyParameters(-1.0f,(float)(height * -1 * scale),(float)((width + 1) * scale),(float)(((height * -1) -1) * scale));
+
+		// top boundary
+		rectList[listSize-4] = new collisionRect();
+		rectList[listSize-4]->modifyParameters(-1.0f, 100.0f,(float)((width + 1) * scale), -1 * scale);
 	}
 	void destroy2DRectsList()
 	{
