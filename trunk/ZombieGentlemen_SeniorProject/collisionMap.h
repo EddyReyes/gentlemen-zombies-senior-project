@@ -62,6 +62,7 @@ public:
 		for(int i = 0; i < listSize; i++)
 		{
 			rectList[i]->~collisionRect();
+			delete rectList[i];
 			rectList[i] = NULL;
 		}
 		delete [] rectList;
@@ -186,19 +187,19 @@ public:
 				
 		// left boundary
 		rectList[listSize-1] = new collisionRect();
-		rectList[listSize-1]->modifyParameters(-1.0f, 100.0f, (float)scale,(float)((100.0f + height) * -1 * scale));
+		rectList[listSize-1]->modifyParameters(-1 * scale, 100 * scale, (float)scale,(float)((100 * scale + height) * -1 * scale));
 
 		// right boundary
 		rectList[listSize-2] = new collisionRect();
-		rectList[listSize-2]->modifyParameters((float)width, 100.0f, (float)scale, (float)((100.0f + height) * -1 * scale));
+		rectList[listSize-2]->modifyParameters((float)width * scale, 100 * scale, (float)scale, (float)((100 * scale + height) * -1 * scale));
 		
 		// bottom boundary
 		rectList[listSize-3] = new collisionRect();
-		rectList[listSize-3]->modifyParameters(-1.0f,(float)(height * -1 * scale),(float)((width + 1) * scale),(float)(((height * -1) -1) * scale));
+		rectList[listSize-3]->modifyParameters(-1 * scale,(float)(height * -1 * scale),(float)((width + 1) * scale),(float)(((height * -1) -1) * scale));
 
 		// top boundary
 		rectList[listSize-4] = new collisionRect();
-		rectList[listSize-4]->modifyParameters(-1.0f, 100.0f,(float)((width + 1) * scale), -1 * scale);
+		rectList[listSize-4]->modifyParameters(-1 * scale, 100 * scale,(float)((width + 1) * scale), -1 * scale);
 	}
 	void destroy2DRectsList()
 	{

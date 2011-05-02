@@ -27,6 +27,7 @@ public:
 		{
 			if(list[i] != NULL)
 				list[i]->~object();
+				delete list[i];
 		}
 	}
 	bool destroyObject(int index)
@@ -36,6 +37,7 @@ public:
 		if(list[index])
 		{
 			list[index]->~object();
+			delete list[index];
 			return true;
 		}
 		else return false;
