@@ -19,7 +19,7 @@ class planeMap
 {
 private:
 	grid * m_grid;
-	float scale;
+	float scale, depth;
 	int textureRows, textureColumns;
 	std::string mapTexture;
 	LPDIRECT3DTEXTURE9 * texture;	// map texture
@@ -123,7 +123,7 @@ public:
 	{
 		std::fstream file(filename.c_str());
 		// the size of the data we are going to create
-		file >> height >> width >> textureRows >> textureColumns >> scale;
+		file >> height >> width >> textureRows >> textureColumns >> scale >> depth;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		m_map = new char * [height];
 		for(int c = 0; c < height; c++){
@@ -223,6 +223,7 @@ public:
 				if(planes[y][x].plane != NULL)
 				{
 					D3DXVECTOR3 * pos = m_grid->getNode(y, x);
+					pos->z = depth;
 					planes[y][x].plane->setPosition(*pos);
 				}
 			}
@@ -246,4 +247,21 @@ public:
 	grid * getGrid(){return m_grid;}
 	int getWidth(){return width;}
 	int getHeight(){return height;}
+
+	void offsetMap(D3DXVECTOR3 offset)
+	{
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				if(planes[y][x].plane != NULL)
+				{
+					D3DXVECTOR3 * pos = planes[y][x].plane->getPosition();
+					pos->x += offset.x;
+					pos->y += offset.y;
+					pos->z += offset.z;
+				}
+			}
+		}
+	}
 };

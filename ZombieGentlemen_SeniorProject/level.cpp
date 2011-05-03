@@ -7,34 +7,50 @@ level::level()
 	files = NULL;
 	m_map = NULL;
 }
-level::level(dxManager* a_dxMgr,char* initfiles)//will load a file with the names of files in it
+/******************************************************************
+* initLevel
+* takes in a  text file, and loads all level assets from it
+******************************************************************/
+void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 {
 	//puts the files into a string array
 	files = new stringArray();
-	files->loadFromTextFile(initfiles);
+	files->loadFromTextFile(initFiles);
 
 	//initialize the data with it
-	m_map = new cubeMap(files->getStringAt(0),"images/glassPanes2.bmp",a_dxMgr);
+	m_map = new cubeMap(files->getStringAt(0),files->getStringAt(1),a_dxMgr);
 
 	ObjMan = new objectManager();
 	ObjMan->initObjectMgr(a_dxMgr);
-	ObjMan->initColMap(files->getStringAt(1),m_map);
-	ObjMan->initImages(files->getStringAt(2));
-	ObjMan->loadObjectsFromTxtFile(files->getStringAt(3));
-	//ObjMan->updatePhysics(updatespd);
+	ObjMan->initColMap(files->getStringAt(2), m_map);
+	ObjMan->initImages(files->getStringAt(3));
+	ObjMan->loadObjectsFromTxtFile(files->getStringAt(4));
+	backGrnd = new background();
+	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
+	backGrnd->adjustPlanes(m_map, 5);
 }
-void level::update(float update)
+/******************************************************************
+* update
+* takes in the time that has ellapsed since the last update
+* and updates the physics with it, as well as checks for collision
+* between all objects
+******************************************************************/
+void level::update(float updateTime)
 {
-	ObjMan->updatePhysics(update);
+	ObjMan->updatePhysics(updateTime);
 	ObjMan->handleCollision();
 }
 void level::setMusic(char* sound)
 {
-
+	
 }
+
+
+
 void level::draw()
 {
 	m_map->draw();
+	backGrnd->draw();
 	ObjMan->draw();
 }
 void level::moveObject(D3DXVECTOR3 go)

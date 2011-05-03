@@ -7,23 +7,10 @@
 #include"cubeMap.h"
 #include"planeMap.h"
 
-#define debug
-//#define tomCode
-
 struct collisionRectPointer
 {
 	collisionRect * colRect;
 };
-
-#ifdef tomCode
-struct env_collisionRect
-{
-	int x1;
-	int x2;
-	int y1;
-	int y2;
-};
-#endif
 
 class collisionMap
 {
@@ -221,117 +208,4 @@ public:
 		return rectList;
 	}
 	int getSize(){return listSize;}
-	
-
-#ifdef tomCode
-
-	//Tom's code starts here.
-	void envCollMap(int px, int py)
-	{
-
-		bool found;
-		int maxWidth = 0;
-
-		//This checks to make sure that the function checks by starting at a collidable object 'x'.
-		//It also checks to make sure that the collidable object is not already in a rect, and moves on.
-		//The first point will always be a collidable object.
-
-		if (map[py][px] == 'x')
-		{
-			for(int i=0; i < num_env_rects; i++)
-			{
-				if(py >= env_rect[i]->y1 && py <= env_rect[i]->y2 && px >= env_rect[i]->x1 && px <= env_rect[i]->x2)
-				{
-					return;
-				}
-			}
-		}
-		else
-		{
-			return;
-		}
-
-
-		//Measures the width of the collidable objects to establish the rect.
-		while(!found)
-		{
-			if(map[py][px + maxWidth] == '.')
-			{
-				found = true;
-			}
-			else
-			{
-				maxWidth++;
-			}
-		}
-		found = false;
-
-		int maxHeight = 0;
-
-		//Measure the height, allowing us to finish checking faster.
-		while(!found)
-		{
-			if(map[py+maxHeight][px] == '.')
-			{
-				found = true;
-			}
-			else
-			{
-				maxHeight++;
-			}
-		}
-		
-		int count = 0;
-		int maxCount = 0;
-		int height = 0;
-		int width = 0;
-
-		//These loops build the shape of the rect to be built.
-		for(int x = maxWidth - 1; x >= 0; x--)
-		{
-			for(int y = 0; y < maxHeight && !found; y++)
-			{
-				for(int x2 = 0; x2 <= x && !found; x2++)
-				{
-					if(map[py + y][px + x2] == '.')
-					{
-						found = true;
-					}
-				}
-			
-				
-				//This helps to build the rect by tracking the biggest rect out of the collidable objects.
-				if(!found)
-				{
-					count = (x + 1) * (y + 1);
-						if(count > maxCount)
-						{
-							maxCount = count;
-							width = x + 1;
-							height = y + 1;
-						}
-				}
-			}
-		}
-
-		/*Builds the point array with the corresponding points:
-		* x1 = upper left
-		* y1 = upper right
-		* x2 = px + width - 1(To start at zero) = lower left.
-		* y2 = py + height - 1(To start at zero) = lower right.
-		*/
-		//temp_env_rect = one rect in the array.
-		env_collisionRect * temp_env_rect = new env_collisionRect;
-		env_rect[num_env_rects] = temp_env_rect;
-		temp_env_rect->x1 = px;
-		temp_env_rect->y1= py;
-		temp_env_rect->x2 = px + width - 1;
-		temp_env_rect->y2 = py + height - 1;
-
-		/*Problem with this method:
-		* Maps must have a single blank space all around it to make sure it does not leave the bounds of the map.
-		* This is a minor issue, but it keeps from needing to make less checks to establish rects.
-		*/
-	}
-#endif
 };

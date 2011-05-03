@@ -21,35 +21,27 @@ void physics::update(float a_deltaTime)
 	{
 		if(!walking)
 		{
-			xVelocity *= groundFriction ;
+			xVelocity *= groundFriction;
 		}
 		if(xVelocity < 0.001 && xVelocity > -0.001)
 			xVelocity = 0;
 
 		// kill yVelocity
 		yVelocity = 0;
-		// allow jumping
-		
-
+		// reset hit top flag
 		hitTop = false;
-			jumpingAllowed = true;
-	
-	/*	if(xVelocity > 0)
-			leftMove = true;
-		if(xVelocity < 0)
-			rightMove = true;*/
+		// allow jumping
+		jumpingAllowed = true;
 	}
 	else
 	{
 		// apply gravity
 		yVelocity += gravity * a_deltaTime;
+		xVelocity *= 0.9f;
 		// turn friction off
 		friction = false;
 		// do not allow jumping
 		jumpingAllowed = false;
-
-	/*	leftMove = true;
-		rightMove = true;*/
 	}
 }
 void physics::updatePosition(D3DXVECTOR3 * pos)
@@ -74,16 +66,7 @@ void physics::updateMovePermissions()
 	}
 }
 
-void physics::setXVelocity(float a_xVelocity)
-{
-	/*if(a_xVelocity < 0 && leftMove && onGround)
-		xVelocity = a_xVelocity;
-	if(a_xVelocity > 0 && rightMove && onGround)
-		xVelocity = a_xVelocity;
-	if(a_xVelocity == 0);*/
-		xVelocity = a_xVelocity;
-
-}
+void physics::setXVelocity(float a_xVelocity){xVelocity = a_xVelocity;}
 void physics::setYVelocity(float a_yVelocity)
 {
 	if(jumpingAllowed)

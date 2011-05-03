@@ -356,7 +356,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	cameraY = 0.0f;
 	cameraZ = -10.0f;
 
-	lvl1 = new level(dxMgr,"testfiles.txt");
+	lvl1 = new level();
+	lvl1->initLevel(dxMgr,"testfiles.txt");
 	setMusic();
 	return true;
 }
@@ -384,10 +385,13 @@ void game::update()
 	handleInput();
 	// handle collision & update physics
 	lvl1->update(UpdateSpeed);
-	float ycoord = lvl1->getobject()->getPosition()->y;
-	float xcoord = lvl1->getobject()->getPosition()->x;
-	cameraX = xcoord;
-	cameraY = ycoord;
+	if(lvl1->getobject())
+	{
+		float ycoord = lvl1->getobject()->getPosition()->y;
+		float xcoord = lvl1->getobject()->getPosition()->x;
+		cameraX = xcoord;
+		cameraY = ycoord;
+	}
 
 	// draw to the screen using Direct3D
 	draw();
@@ -418,11 +422,11 @@ void game::updateDebugData()
 	if(Elapsed >= 0.0)
 	{
 		char PhysicsBuffer[256];
-		if(lvl1->getObjectPhysic())
+		if(lvl1->getobject()->getPhysics())
 		{
 			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
-				lvl1->getObjectPhysic()->getXVelocity(), 
-				lvl1->getObjectPhysic()->getYVelocity());
+				lvl1->getobject()->getPhysics()->getXVelocity(), 
+				lvl1->getobject()->getPhysics()->getYVelocity());
 		}
 		else
 		{
@@ -475,9 +479,9 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		if(lvl1->getObjectPhysic())
+		if(lvl1->getobject()->getPhysics())
 		{
-			lvl1->getObjectPhysic()->setYVelocity(12.0f);
+			lvl1->getobject()->getPhysics()->setYVelocity(12.0f);
 		}
 		else
 			lvl1->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
@@ -485,21 +489,17 @@ void game::handleInput()
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		/*if(lvl1->getObjectPhysic())
-		{
-			lvl1->getObjectPhysic()->setYVelocity(-0.05f);
-		}
-		else*/
+		if(!lvl1->getobject()->getPhysics())
 			lvl1->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		if(lvl1->getObjectPhysic())
+		if(lvl1->getobject()->getPhysics())
 		{
-			if(lvl1->getObjectPhysic()->canMoveLeft())
+			if(lvl1->getobject()->getPhysics()->canMoveLeft())
 			{
-				lvl1->getObjectPhysic()->walkingOn();
-				lvl1->getObjectPhysic()->setXVelocity(-8.0f);
+				lvl1->getobject()->getPhysics()->walkingOn();
+				lvl1->getobject()->getPhysics()->setXVelocity(-8.0f);
 			}
 		}
 		else
@@ -507,12 +507,12 @@ void game::handleInput()
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		if(lvl1->getObjectPhysic())
+		if(lvl1->getobject()->getPhysics())
 		{
-			if(lvl1->getObjectPhysic()->canMoveRight())
+			if(lvl1->getobject()->getPhysics()->canMoveRight())
 			{
-				lvl1->getObjectPhysic()->walkingOn();
-				lvl1->getObjectPhysic()->setXVelocity(8.0f);
+				lvl1->getobject()->getPhysics()->walkingOn();
+				lvl1->getobject()->getPhysics()->setXVelocity(8.0f);
 			}
 		}
 		else
@@ -522,9 +522,9 @@ void game::handleInput()
 	if (!((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 		&& !((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80)))
 	{
-		if(lvl1->getObjectPhysic())
+		if(lvl1->getobject()->getPhysics())
 		{
-			lvl1->getObjectPhysic()->walkingOff();
+			lvl1->getobject()->getPhysics()->walkingOff();
 		}
 	}
 	
@@ -569,7 +569,7 @@ void game::handleInput()
 		if(now - keyLag[DIK_E] >200)
 		{
 			lvl1->~level();
-			lvl1 = new level(dxMgr,"testfiles2.txt");
+			lvl1->initLevel(dxMgr, "testfiles2.txt");
 		}
 	}
 
