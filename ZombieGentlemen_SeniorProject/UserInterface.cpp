@@ -17,6 +17,8 @@ UserInterface::~UserInterface()
 }
 bool UserInterface::playerEngagesEnemy()
 {
+	//check if player collides with enemy
+
 	return true;
 }
 bool UserInterface::playerChecksHealth()

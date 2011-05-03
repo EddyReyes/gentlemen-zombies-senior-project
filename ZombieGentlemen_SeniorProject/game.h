@@ -46,9 +46,13 @@ private:
 	sound * soundMgr;
 	BYTE * keystate;
 	int * keyLag;
+	DXText * dialog;
+	HUD * hudStuff;
+	HudImage * cursor;
+	HudImage * background;
 	PlayerCharacter * player;
-	level* lvl;
 	EnemyCharacter * enemy;
+	level* lvl;
 	DIMOUSESTATE mouseState;
 	float curX; // mouse X position
 	float curY; // moust Y position
@@ -60,18 +64,10 @@ private:
 	int FPS;
 	DXText  * FPSText;
 	D3DXVECTOR3 postion;
-	// Unit test parameters
-
-	
+		
 	// camera data
 	dxCamera * camera;
 	float cameraX, cameraY, cameraZ;
-
-	DXText * dialog;
-	HUD * hudStuff;
-	HudImage * cursor;
-	HudImage * background;
-
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
@@ -114,6 +110,8 @@ private:
 	DXText * FPSText;
 	DXText * physicsData; 
 	//DXText * objstate; 
+	HUD * hudStuff;
+	PlayerCharacter * player;
 
 	// camera data
 	dxCamera * camera;
@@ -123,7 +121,7 @@ private:
 	int m_charstate;	//keeps track of what state the player is in
 	float objectX, objectY;
 	level* lvl1;
-
+			
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);

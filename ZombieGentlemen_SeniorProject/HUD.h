@@ -22,6 +22,7 @@ class HUD
 		DXText * playerIDNumber;
 		DXText * playerMoney;
 		dxManager * dxMgr;
+		
 
 	public:
 		HUD();
