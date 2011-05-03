@@ -39,9 +39,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	postion.x=0.0f;
 	postion.y=0.0f;
 
-	lvl = new level(dxMgr,"testfiles2.txt");
+	/*lvl = new Level();
+	lvl->initLevel(dxMgr,"testfiles2.txt");*/
 	//enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
-	player = new PlayerCharacter(dxMgr, "images/armorBar.bmp");
+	//player = new PlayerCharacter(dxMgr, "images/armorBar.bmp");
 	//player->initPlayerSpriteSheet(1,1);
 	//player->setPlayerSprite(0,0);
 	//player->setPosition(0, 4, 0);
@@ -85,7 +86,6 @@ void game::SetSprites()
 	 *                         HUD IMAGE TESTING                            *
 	 *---------------------------------------------------------------------**/
 	hudStuff = new HUD(dxMgr);
-	//player = new ;
 	hudStuff->setPlayer(player);
 	hudStuff->setHudImage("images/new_hud.bmp");
 	hudStuff->setBarHolderImage("images/bar_holder.bmp");
@@ -97,9 +97,6 @@ void game::SetSprites()
 	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
 	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
 	hudStuff->initDefaultPositions(2.0, 0.0);
-
-			
-	
 	//--------------------------------------------------------------------
 	
 	// set the starting point for the circle sprite
@@ -346,7 +343,23 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
-
+	/*----------------------------------------------------------------------*
+	 *                         HUD IMAGE TESTING                            *
+	 *---------------------------------------------------------------------**/
+	hudStuff = new HUD(dxMgr);
+	hudStuff->setPlayer(player);
+	hudStuff->setHudImage("images/new_hud.bmp");
+	hudStuff->setBarHolderImage("images/bar_holder.bmp");
+	hudStuff->setHealthBarImage("images/healthBar.bmp");
+	hudStuff->setBarHolder2Image("images/bar_holder2.bmp");
+	hudStuff->setArmorBarImage("images/armorBar.bmp");
+	hudStuff->setWeaponImage("images/shovel_weapon.bmp");
+	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
+	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
+	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
+	hudStuff->initDefaultPositions(2.0, 0.0);
+	//--------------------------------------------------------------------
+		
 	// initialize key lag data
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
@@ -572,7 +585,7 @@ void game::handleInput()
 			lvl1->initLevel(dxMgr, "testfiles2.txt");
 		}
 	}
-
+	
 	// camera movement
 	/*if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
 	{
@@ -636,9 +649,10 @@ void game::draw()
 
 	lvl1->draw();
 	//mainMenu->Draw();
+	hudStuff->draw();
 
 	camera->SetHudCamera();
-
+		
 	FPSText->draw();
 	physicsData->draw();
 
@@ -651,8 +665,8 @@ game::~game()
 	soundMgr->shutdownDirectSound();
 	// destroy map
 	FPSText->~DXText();
-
+	hudStuff->~HUD();
 	lvl1->~level();
-
+	
 }
 #endif
