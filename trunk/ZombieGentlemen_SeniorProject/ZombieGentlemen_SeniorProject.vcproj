@@ -280,6 +280,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\UserInterface.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\weapon.cpp"
 					>
 				</File>
@@ -435,6 +439,10 @@
 				</File>
 				<File
 					RelativePath=".\stringArray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\UserInterface.h"
 					>
 				</File>
 				<File
