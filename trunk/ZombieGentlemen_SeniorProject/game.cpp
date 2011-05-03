@@ -499,7 +499,7 @@ void game::handleInput()
 			if(lvl1->getobject()->getPhysics()->canMoveLeft())
 			{
 				lvl1->getobject()->getPhysics()->walkingOn();
-				lvl1->getobject()->getPhysics()->setXVelocity(-8.0f);
+				lvl1->getobject()->getPhysics()->setXVelocity(-6.0f);
 			}
 		}
 		else
@@ -512,7 +512,7 @@ void game::handleInput()
 			if(lvl1->getobject()->getPhysics()->canMoveRight())
 			{
 				lvl1->getobject()->getPhysics()->walkingOn();
-				lvl1->getobject()->getPhysics()->setXVelocity(8.0f);
+				lvl1->getobject()->getPhysics()->setXVelocity(6.0f);
 			}
 		}
 		else

@@ -1,6 +1,6 @@
-5 25 1 4 1
-adda...............abc...
-ccca............dddcccabc
-cccaabcd.....cccccccccccc
-ccccccca..bbbcccccccccccc
-cccccccabcccccccccccccccc
+5 50 1 4 1
+cccc...............ccc...cccc...............ccc...
+cccc............ccccccccccccc............ccccccccc
+cccccccc.....cccccccccccccccccccc.....cccccccccccc
+cccccccc..ccccccccccccccccccccccc..ccccccccccccccc
+cccccccccccccccccccccccccccccccccccccccccccccccccc
