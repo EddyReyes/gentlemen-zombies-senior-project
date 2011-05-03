@@ -25,6 +25,7 @@
 #include "defines.h"
 
 #include "HUD.h"
+#include "UserInterface.h"
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
