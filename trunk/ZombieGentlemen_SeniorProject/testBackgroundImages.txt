@@ -1,0 +1,2 @@
+images/grass.bmp
+images/chocolate hills.jpg

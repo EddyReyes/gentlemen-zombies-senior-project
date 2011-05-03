@@ -204,55 +204,7 @@ public:
 			cube->draw();
 		}
 	}
-	/************************************************************************************
-	* handleCollision
-	* returns true if movement is valid, flase if movement is invalid and moves object back
-	************************************************************************************/
-	//bool handleCollision(float a_x, float a_y, float a_z)
-	//{
-	//	if(collisionToggle)
-	//	{
-	//		D3DXVECTOR3 pos; 
-	//		if(plane)
-	//		{
-	//			pos = *plane->getPosition();
-	//			plane->setPosition(a_x, a_y, a_z);
-	//		}
-	//		if(cube)
-	//		{
-	//			pos = *cube->getPosition();
-	//			cube->setPosition(a_x, a_y, a_z);
-	//		}
-	//		collRect->update();
-	//		if(collRect->collided(targetCollRect->getRect()))
-	//		{
-	//			if(plane)
-	//			{
-	//				plane->setPosition(pos);
-	//			}
-	//			if(cube)
-	//			{
-	//				cube->setPosition(pos);
-	//			}
-	//			collRect->update();
-	//			return false;
-	//		}
-	//		return true;
-	//	}
-	//	else
-	//	{
-	//		if(plane)
-	//		{
-	//			plane->setPosition(a_x, a_y, a_z);
-	//		}
-	//		if(cube)
-	//		{
-	//			cube->setPosition(a_x, a_y, a_z);
-	//		}
-	//		collRect->update();
-	//		return true;
-	//	}
-	//}
+
 
 	void checkCollision()
 	{
@@ -263,7 +215,6 @@ public:
 		
 		if(collRect->collided(targetCollRect->getRect()))
 			collData |= collRect->classify(targetCollRect->getRect());
-		//updatePhysics();
 	}
 	void updatePhysics()
 	{
@@ -282,18 +233,6 @@ public:
 				if(collidingBottom)
 				{
 					phys->onGroundOn();
-					//// if verticle collision occured, kill vertical velocity
-					//phys->killYVel();
-					//// turn gravity off
-					//phys->gravityOff();
-					//// turn frick on if walking
-					//phys->frictionOff();
-					//if(!(phys->isWalking()))
-					//{
-					//	phys->frictionOn();
-					//}
-					//// allow jumping
-					//phys->jumpingOn();
 				}
 				else
 				{
@@ -325,35 +264,22 @@ public:
 						phys->killXVel();
 					}
 				}
+				if((collidingTop &&  collidingBottom) && (collidingRight || collidingLeft))
+				{
+					phys->killXVel();
+				}
 			}
 		}
 	}
 	void updatePhysicsMovePermissions()
 	{
-		if(!collRect->collided(targetCollRect->getRect()))
+		if(phys)
 		{
-			if(phys)
-			{
-				phys->updateMovePermissions();
-			}
+			phys->updateMovePermissions();
 		}
 	}
 	void clear()
 	{
-		if(phys)
-		{
-			if(!colliding)
-			{
-				//phys->frictionOff();
-				//if(!(phys->isWalking()))
-				//{
-				//	phys->frictionOn();
-				//}
-				//phys->onGroundOff();
-				//phys->gravityOn();
-				//phys->jumpingOff();
-			}
-		}
 		colliding = false;
 		collData = 0;
 	}
@@ -385,6 +311,10 @@ public:
 		}
 		collRect->update();
 	}
+	/************************************************************************************
+	* handleCollision
+	* reverts the position of the object to the old position recorded previously
+	************************************************************************************/
 	void handleCollision()
 	{
 		// revert position
@@ -441,5 +371,10 @@ public:
 			phys = new physics();
 		}
 	}
-	physics * getPhysics(){return phys;}
+	physics * getPhysics()
+	{
+		if(this != NULL)
+			return phys;
+		else return NULL;
+	}
 };

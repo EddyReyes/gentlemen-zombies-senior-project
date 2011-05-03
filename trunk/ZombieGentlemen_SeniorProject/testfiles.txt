@@ -1,4 +1,6 @@
 testMap.txt
+images/glassPanes2.bmp
 colMapTest.txt
 imageManagerTest.txt
-testObjects.txt
+testObject.txt
+testBackground.txt

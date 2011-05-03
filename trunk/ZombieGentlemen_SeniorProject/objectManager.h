@@ -230,27 +230,6 @@ public:
 		// return that false, signifying all parameters are valid
 		return false;
 	}
-	/******************************************************************
-	* Loading functions
-	* These functions are use to create new objects and load them into 
-	* the list
-	*******************************************************************/
-
-	//void loadCubeObjectToList(dxCube * a_cube, char* textFile)
-	//{
-	//	object * newObject = new object(a_cube, textFile);
-	//	list->add(newObject);
-	//}
-	//void loadPlaneObjectToList(XYPlane * a_plane, char* textFile)
-	//{
-	//	object * newObject = new object(a_plane, textFile);
-	//	list->add(newObject);
-	//}
-	//void loadPlaneObjectToList(dxManager * dxMgr, std::string imgFile, char * textFile)
-	//{
-	//	object * newObject = new object(dxMgr, imgFile, textFile);
-	//	list->add(newObject);
-	//}
 
 	void draw()
 	{
@@ -302,15 +281,18 @@ public:
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj = list->get(i);
-			D3DXVECTOR3 * pos = obj->getPosition();
-			if(obj->getPhysics())
+			if(obj)
 			{
-				physics * phys = obj->getPhysics();
-				phys->update(deltaTime);
-				phys->updatePosition(pos);
-				phys->onGroundOff();
+				D3DXVECTOR3 * pos = obj->getPosition();
+				if(obj->getPhysics())
+				{
+					physics * phys = obj->getPhysics();
+					phys->update(deltaTime);
+					phys->updatePosition(pos);
+					phys->onGroundOff();
+				}
+				obj->getCollisionRect()->update();
 			}
-			obj->getCollisionRect()->update();
 		}
 	}
 	void handleCollision()
@@ -323,23 +305,32 @@ public:
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);
-			for (int j=i+1; j<list->endOfList(); j++) 
+			if(obj1 != NULL)
 			{
-				obj2 = list->get(j);
-				obj1->setTargetCollision(obj2->getCollisionRect());
-				obj2->setTargetCollision(obj1->getCollisionRect());
-				obj1->checkCollision();
-				obj2->checkCollision();
+				for (int j=i+1; j<list->endOfList(); j++) 
+				{
+					obj2 = list->get(j);
+					if(obj2 != NULL)
+					{
+						obj1->setTargetCollision(obj2->getCollisionRect());
+						obj2->setTargetCollision(obj1->getCollisionRect());
+						obj1->checkCollision();
+						obj2->checkCollision();
+					}
+				}
 			}
 		}
 		//check map for collision
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);
-			for(int i = 0; i <= colMap->getSize()-1; i++)
+			if(obj1 != NULL)
 			{
-				obj1->setTargetCollision(colMapRects[i]);
-				obj1->checkCollision();
+				for(int i = 0; i <= colMap->getSize()-1; i++)
+				{
+					obj1->setTargetCollision(colMapRects[i]);
+					obj1->checkCollision();
+				}
 			}
 		}
 
@@ -347,13 +338,17 @@ public:
 		for (int i=0; i<list->endOfList(); i++) 
 		{
 			obj1 = list->get(i);
-			if(obj1->isColliding())
+			if(obj1 != NULL)
 			{
-				obj1->updatePhysics();
-				obj1->handleCollision();
-				obj1->updatePhysicsMovePermissions();
+				if(obj1->isColliding())
+				{
+					obj1->updatePhysics();
+					obj1->handleCollision();
+					obj1->updatePhysicsMovePermissions();
+				}
 			}
 		}
+
 		// update position records and clear 
 		updatePosiitonRecords();
 		clearObjects();
@@ -365,7 +360,8 @@ public:
 		for(int i = 0; i < list->endOfList(); i++)
 		{
 			obj = list->get(i);
-			obj->clear();
+			if(obj != NULL)
+				obj->clear();
 		}
 	}
 
@@ -375,7 +371,8 @@ public:
 		for(int i = 0; i < list->endOfList(); i++)
 		{
 			obj = list->get(i);
-			obj->recordPosition();
+			if(obj != NULL)
+				obj->recordPosition();
 		}
 	}
 

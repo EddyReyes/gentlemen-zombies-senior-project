@@ -224,6 +224,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\background.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\cubeMap.cpp"
 					>
 				</File>
@@ -354,6 +358,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\background.h"
+					>
+				</File>
+				<File
 					RelativePath=".\collisionMap.h"
 					>
 				</File>
@@ -453,18 +461,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\testfiles2.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\testMap.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\testMap2.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\testObject.txt"
 				>
 			</File>
@@ -488,6 +484,54 @@
 				RelativePath=".\TODO list.txt"
 				>
 			</File>
+			<Filter
+				Name="levels"
+				>
+				<Filter
+					Name="level 1"
+					>
+					<File
+						RelativePath=".\testBackground.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testBackgroundImages.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testBackgroundMap.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testBackgroundMap2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testBackgroundMaps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testfiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testMap.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="level 2"
+					>
+					<File
+						RelativePath=".\testfiles2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\testMap2.txt"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
