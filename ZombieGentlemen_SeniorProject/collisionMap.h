@@ -173,20 +173,20 @@ public:
 		// add map boundaries
 				
 		// left boundary
-		rectList[listSize-1] = new collisionRect();
-		rectList[listSize-1]->modifyParameters(-1 * scale, 100 * scale, (float)scale,(float)((100 * scale + height) * -1 * scale));
+		rectList[listSize-4] = new collisionRect();
+		rectList[listSize-4]->modifyParameters(-1 * scale, 100 * scale, (float)scale,(float)((100 * scale + height* scale) * -1 ));
 
 		// right boundary
 		rectList[listSize-2] = new collisionRect();
-		rectList[listSize-2]->modifyParameters((float)width * scale, 100 * scale, (float)scale, (float)((100 * scale + height) * -1 * scale));
-		
-		// bottom boundary
-		rectList[listSize-3] = new collisionRect();
-		rectList[listSize-3]->modifyParameters(-1 * scale,(float)(height * -1 * scale),(float)((width + 1) * scale),(float)(((height * -1) -1) * scale));
+		rectList[listSize-2]->modifyParameters((float)width * scale, 100 * scale, (float)scale, (float)((100 * scale + height * scale) * -1 ));
 
 		// top boundary
-		rectList[listSize-4] = new collisionRect();
-		rectList[listSize-4]->modifyParameters(-1 * scale, 100 * scale,(float)((width + 1) * scale), -1 * scale);
+		rectList[listSize-3] = new collisionRect();
+		rectList[listSize-3]->modifyParameters(-1 * scale, 100 * scale,(float)((width + 1) * scale), -1 * scale);
+		
+		// bottom boundary
+		rectList[listSize-1] = new collisionRect();
+		rectList[listSize-1]->modifyParameters(-1 * scale,(float)(height * -1 * scale),(float)((width + 1) * scale),(float)(-5 * scale));
 	}
 	void destroy2DRectsList()
 	{

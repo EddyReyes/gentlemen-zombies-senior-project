@@ -340,7 +340,13 @@ public:
 			obj1 = list->get(i);
 			if(obj1 != NULL)
 			{
-				if(obj1->isColliding())
+				// check if object has collided with the bottom boundary
+				// if it has then send it back to the top
+				if(obj1->getCollisionRect()->collided(colMapRects[colMap->getSize()-1]->getRect()))
+				{
+					obj1->setPosition(obj1->getPosition()->x, obj1->getCollisionRect()->getHeight() * -1 + 0.1f, obj1->getPosition()->z); 
+				}
+				else if(obj1->isColliding())
 				{
 					obj1->updatePhysics();
 					obj1->handleCollision();
