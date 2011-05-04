@@ -96,7 +96,7 @@ private:
 	directInput * inputMgr;
 	// input data
 	sound * soundMgr;
-	inputData input;
+	inputData * input;
 	Menu* mainMenu;
 	int m_currentgamestate; //keeps track of which state the game is in
 	
