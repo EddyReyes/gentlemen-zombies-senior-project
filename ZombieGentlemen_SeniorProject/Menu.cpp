@@ -92,7 +92,7 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 			keylag[DIK_S] = keylag[DIK_DOWN] = now;
 		}
 		
-	}/*
+	}
 	if(keystate[DIK_W] & 0x80||keystate[DIK_UP] & 0x80)
 	{
 		if(now - keylag[DIK_W] > 150||now - keylag[DIK_UP] > 150)
@@ -101,23 +101,23 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 			{
 				selected = option_txt->getSize();
 				options[selected-1]->getimg()->shareImage(imgMan->getImage(2),imgMan->getImageInfo(2));
-				selected--;
 			}
-			else if(selected < option_txt->getSize())
+			else if(selected <= option_txt->getSize()&& selected !=1)
 			{
-				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
-				options[selected]->getimg()->shareImage(imgMan->getImage(2),imgMan->getImageInfo(2));
 				selected--;
+				options[selected]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
+				options[selected-1]->getimg()->shareImage(imgMan->getImage(2),imgMan->getImageInfo(2));
 			}
 			else
 			{
+				//selected--;
 				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
 				selected = 0;
 			}
 			keylag[DIK_W] = keylag[DIK_UP] = now;
 		}
 		
-	}*/
+	}
 	//key that says that an option was hit
 	if(keystate[DIK_RETURN] & 0x80)
 	{
