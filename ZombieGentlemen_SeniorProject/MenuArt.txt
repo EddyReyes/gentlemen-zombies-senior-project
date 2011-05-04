@@ -1,0 +1,3 @@
+images/1242270110286.bmp
+images/blackTextBox.bmp
+images/armorBar.bmp
