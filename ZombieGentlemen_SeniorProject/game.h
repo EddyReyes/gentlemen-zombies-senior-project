@@ -25,7 +25,6 @@
 #include "defines.h"
 
 #include "HUD.h"
-#include "UserInterface.h"
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
@@ -110,8 +109,6 @@ private:
 	DXText * FPSText;
 	DXText * physicsData; 
 	//DXText * objstate; 
-	HUD * hudStuff;
-	PlayerCharacter * player;
 
 	// camera data
 	dxCamera * camera;

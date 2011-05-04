@@ -343,23 +343,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
-	/*----------------------------------------------------------------------*
-	 *                         HUD IMAGE TESTING                            *
-	 *---------------------------------------------------------------------**/
-	hudStuff = new HUD(dxMgr);
-	hudStuff->setPlayer(player);
-	hudStuff->setHudImage("images/new_hud.bmp");
-	hudStuff->setBarHolderImage("images/bar_holder.bmp");
-	hudStuff->setHealthBarImage("images/healthBar.bmp");
-	hudStuff->setBarHolder2Image("images/bar_holder2.bmp");
-	hudStuff->setArmorBarImage("images/armorBar.bmp");
-	hudStuff->setWeaponImage("images/shovel_weapon.bmp");
-	hudStuff->setBagOfMoneyImage("images/moneyBag.bmp");
-	hudStuff->setPlayerIDImage("images/WillConcept.bmp");
-	hudStuff->setCurrencyValue("images/moneyTextBox.bmp");
-	hudStuff->initDefaultPositions(2.0, 0.0);
-	//--------------------------------------------------------------------
-		
+			
 	// initialize key lag data
 	keyLag = new int [256];
 	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
@@ -541,7 +525,6 @@ void game::handleInput()
 		}
 	}
 	
-
 	if ((keystate[DIK_B] & 0x80))
 	{
 		if(now - keyLag[DIK_B] > 200)
@@ -649,8 +632,7 @@ void game::draw()
 
 	lvl1->draw();
 	//mainMenu->Draw();
-	hudStuff->draw();
-
+	
 	camera->SetHudCamera();
 		
 	FPSText->draw();
@@ -665,7 +647,6 @@ game::~game()
 	soundMgr->shutdownDirectSound();
 	// destroy map
 	FPSText->~DXText();
-	hudStuff->~HUD();
 	lvl1->~level();
 	
 }

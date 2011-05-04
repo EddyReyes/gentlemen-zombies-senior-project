@@ -232,6 +232,5 @@ void HUD::setCurrencyValue(std::string filename)
 	playerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
 	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
-
 }
-void HUD::setPlayer(PlayerCharacter * a_player){ player = a_player; }
+void HUD::setPlayer(PlayerCharacter * a_player){  a_player =  player; }
