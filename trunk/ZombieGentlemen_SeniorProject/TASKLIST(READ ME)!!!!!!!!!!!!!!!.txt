@@ -1,0 +1,46 @@
+task list
+sound manager
+-load all the sounds from a file
+-play those sounds when states change
+-destroy those sounds when the game is done
+
+top/down view
+-background image or XYPlane explore options
+-player able to move about the top down view
+-collidable enviornment
+-special collision object that loads a level
+-another special collision object that goes into stores
+-optional random NPC'S walking around
+
+game assests
+-Art
+-music
+-sound effects
+
+player/enemy implementation 
+-need to be recognized bt the object manager
+-need to be able to do actions i.e attack, jump ect...
+-following things also need to be implemented maybe even before doing the other 2
+	-A.I. for the enemy's
+	-entity class
+		-is the base class which both derive from 
+	-sprite animation
+		-needs to be time based
+	-implemantation of unused classes
+		-Armor/weapons
+
+game states
+-menu,top/down,side scroll
+-possible design change
+-needs to be implemented that way game states can be changed
+
+Store class (low priority may be scrapped)
+
+menu class finished
+-menus within menus
+-ability to move in both directions instead of just down =P
+
+implementation of game controllers (would like to have in before tech fair)
+
+smooth camera(low priority may be scrapped)
+multiple players on the same screen(low priority)
