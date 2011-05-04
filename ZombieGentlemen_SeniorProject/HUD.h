@@ -2,7 +2,7 @@
 #include "DXText.h"
 #include "HudImage.h"
 #include "playerCharacter.h"
-#include "EnemyCharacter.h"
+#include "imageManager.h"
 #include "armor.h"
 
 class HUD
@@ -16,19 +16,24 @@ class HUD
 		HudImage * weapon;
 		HudImage * bagOfMoney;
 		HudImage * playerID;
-		Armor * armor;
 		PlayerCharacter * player;
-		EnemyCharacter * enemy;
 		DXText * playerIDNumber;
 		DXText * playerMoney;
+		imageManager * imgMgr;
 		dxManager * dxMgr;
-		
 
 	public:
 		HUD();
 		HUD(dxManager * a_dxMgr);
 		~HUD();
 		void draw();
+		void loadFromFile();
+		void update();
+
+
+
+
+
 		void updateHealthBarDamage();
 		void useHealthPack();
 		void updateArmorBarDamage(int a_armorType);
