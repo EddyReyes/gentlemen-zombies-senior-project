@@ -343,10 +343,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
-			
-	// initialize key lag data
-	keyLag = new int [256];
-	for(int i = 0; i < 256; i++){keyLag[i] = 0;}
+
+	input.init();
 
 	camera = new dxCamera(dxMgr);
 	cameraX = 0.0f;
@@ -436,9 +434,9 @@ void game::handleInput()
 {
 	inputMgr->reAcquireDevices();
 	inputMgr->updateKeyboardState(); 
-	keystate = inputMgr->getKeyboardState();
+	input.keystate = inputMgr->getKeyboardState();
 	inputMgr->updateMouseState();
-	mouseState = *(inputMgr->getMouseState());
+	input.mouseState = *(inputMgr->getMouseState());
  	float cameraMove = 0.05f;
 	int cameraLag = 0;
 
@@ -447,7 +445,7 @@ void game::handleInput()
 
 	if(m_currentgamestate == menu)
 	{
-		int check = mainMenu->update(keystate,now,keyLag);
+		int check = mainMenu->update(input.keystate,now,input.keyLag);
 		if(check == 1)
 		{
 			 mainMenu->~Menu();
@@ -460,13 +458,13 @@ void game::handleInput()
 	}
 	else
 	{
-		if(keystate[DIK_ESCAPE] & 0x80)
+		if(input.keystate[DIK_ESCAPE] & 0x80)
 		{
 			PostQuitMessage(0);
 		}
 
-		if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
-			&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
+		if (((input.keystate[DIK_UP] & 0x80) || (input.keystate[DIK_W] & 0x80))
+			&& !((input.keystate[DIK_DOWN] & 0x80) || (input.keystate[DIK_S] & 0x80)))
 		{
 			if(lvl1->getobject()->getPhysics())
 			{
@@ -475,13 +473,13 @@ void game::handleInput()
 			else
 				lvl1->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
 		}
-		if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
-			&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
+		if (((input.keystate[DIK_DOWN] & 0x80)|| (input.keystate[DIK_S] & 0x80))
+			&& !((input.keystate[DIK_UP] & 0x80) || (input.keystate[DIK_W] & 0x80)))
 		{
 			if(!lvl1->getobject()->getPhysics())
 				lvl1->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
 		}
-		if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
+		if ((input.keystate[DIK_LEFT] & 0x80) || (input.keystate[DIK_A] & 0x80))
 		{
 			if(lvl1->getobject()->getPhysics())
 			{
@@ -494,7 +492,7 @@ void game::handleInput()
 			else
 				lvl1->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
 		}
-		if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
+		if ((input.keystate[DIK_RIGHT] & 0x80) || (input.keystate[DIK_D] & 0x80))
 		{
 			if(lvl1->getobject()->getPhysics())
 			{
@@ -508,8 +506,8 @@ void game::handleInput()
 				lvl1->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 		}
 	
-		if (!((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
-			&& !((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80)))
+		if (!((input.keystate[DIK_LEFT] & 0x80) || (input.keystate[DIK_A] & 0x80))
+			&& !((input.keystate[DIK_RIGHT] & 0x80) || (input.keystate[DIK_D] & 0x80)))
 		{
 			if(lvl1->getobject()->getPhysics())
 			{
@@ -517,44 +515,44 @@ void game::handleInput()
 			}
 		}
 	
-		if ((keystate[DIK_B] & 0x80))
+		if ((input.keystate[DIK_B] & 0x80))
 		{
-			if(now - keyLag[DIK_B] > 200)
+			if(now - input.keyLag[DIK_B] > 200)
 			{
 				lvl1->getManager()->getObject()->togglePhysics();
-				keyLag[DIK_B] = now;
+				input.keyLag[DIK_B] = now;
 			}
 		}
 
-		if ((keystate[DIK_G] & 0x80))
+		if ((input.keystate[DIK_G] & 0x80))
 		{
-			if(now - keyLag[DIK_G] > 200)
+			if(now - input.keyLag[DIK_G] > 200)
 			{
 				lvl1->getManager()->indexPrev();
-				keyLag[DIK_G] = now;
+				input.keyLag[DIK_G] = now;
 			}
 		}
-		if ((keystate[DIK_H] & 0x80))
+		if ((input.keystate[DIK_H] & 0x80))
 		{
-			if(now - keyLag[DIK_H] > 200)
+			if(now - input.keyLag[DIK_H] > 200)
 			{
 				lvl1->getManager()->indexNext();
-				keyLag[DIK_H] = now;
+				input.keyLag[DIK_H] = now;
 			}
 		}
 
-		if ((keystate[DIK_P] & 0x80))
+		if ((input.keystate[DIK_P] & 0x80))
 		{
-			if(now - keyLag[DIK_P] > 200)
+			if(now - input.keyLag[DIK_P] > 200)
 			{
 				lvl1->getManager()->pop();
-				keyLag[DIK_P] = now;
+				input.keyLag[DIK_P] = now;
 			}
 		}
 		//test key
-		if((keystate[DIK_E] & 0x80))
+		if((input.keystate[DIK_E] & 0x80))
 		{
-			if(now - keyLag[DIK_E] >200)
+			if(now - input.keyLag[DIK_E] >200)
 			{
 				lvl1->~level();
 				lvl1->initLevel(dxMgr, "testfiles2.txt");
@@ -595,23 +593,23 @@ void game::handleInput()
 			}
 		}*/
 		
-		if ((keystate[DIK_NUMPAD7] & 0x80) || (keystate[DIK_U] & 0x80))
+		if ((input.keystate[DIK_NUMPAD7] & 0x80) || (input.keystate[DIK_U] & 0x80))
 		{
-			if(now - keyLag[DIK_NUMPAD7] > cameraLag)
+			if(now - input.keyLag[DIK_NUMPAD7] > cameraLag)
 			{
 				if(cameraZ < -1.1)
 				{
 					cameraZ += cameraMove;
-					keyLag[DIK_NUMPAD7] = now;
+					input.keyLag[DIK_NUMPAD7] = now;
 				}
 			}
 		}
-		if ((keystate[DIK_NUMPAD9] & 0x80) || (keystate[DIK_O] & 0x80))
+		if ((input.keystate[DIK_NUMPAD9] & 0x80) || (input.keystate[DIK_O] & 0x80))
 		{
-			if(now - keyLag[DIK_NUMPAD9] > cameraLag)
+			if(now - input.keyLag[DIK_NUMPAD9] > cameraLag)
 			{
 				cameraZ -= cameraMove;
-				keyLag[DIK_NUMPAD9] = now;
+				input.keyLag[DIK_NUMPAD9] = now;
 			}
 		}
 	}
