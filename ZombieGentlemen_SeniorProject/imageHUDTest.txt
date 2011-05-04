@@ -1,0 +1,9 @@
+images/hudBackground.bmp
+images/WillConcept.bmp
+images/barHolder.bmp
+images/healthBar.bmp
+images/barHolder2.bmp
+images/armorBar.bmp
+images/weapon.bmp
+images/moneyBag.bmp
+images/moneyTextBox.bmp
