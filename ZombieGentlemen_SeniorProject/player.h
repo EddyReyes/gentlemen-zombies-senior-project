@@ -1,6 +1,7 @@
 #pragma once
 #include "dxManager.h"
 #include "object.h"
+#include "armor.h"
 
 class Player
 {
@@ -8,6 +9,7 @@ private:
 	float PlayerHealth;
 	float damageResistance;
 	float money;
+	Armor * amr;
 	object* m_char;
 public:
 	
@@ -26,6 +28,8 @@ public:
 	void setMoney(float a_money);
 	void Draw();
 	void movePlayer(float,float);
+
+	Armor * getArmor(){return amr;}
 
 
 	//void attack(int & weapon );
