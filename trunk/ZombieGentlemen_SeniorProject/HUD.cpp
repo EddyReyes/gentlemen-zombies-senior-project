@@ -14,7 +14,6 @@ HUD::HUD()
 	PlayerIDNumber = NULL;
 	PlayerMoney = NULL;
 	plyr = NULL;
-	armor = NULL;
 }
 HUD::~HUD()
 {
@@ -84,6 +83,13 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 	imgMgr->initImageManager(filename, dxMgr);
 
 	hudBackground = new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
+
+
+
+
+
+	// after loading all the images, load text paramerts for all DXText objects
+	PlayerMoney->loadFromTxtFile("textParameters.txt");
 }
 /****************************************************************
 * update
@@ -96,12 +102,11 @@ void HUD::update()
 {
 	if(plyr != NULL)
 	{
-		char updateBuffer[50];
-
 		healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
-		armorBar->setParameters(armor->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
-		
-		sprintf_s(updateBuffer, "Mny %.00f/50\n", plyr->getMoney());
+		armorBar->setParameters(plyr->getArmor()->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
+
+		char updateBuffer[50];
+		sprintf_s(updateBuffer, "Money %.00f\n", plyr->getMoney());
 		PlayerMoney->setDialog(updateBuffer);
 	}
 }
@@ -287,9 +292,10 @@ void HUD::setBagOfMoneyImage(std::string filename)
 }
 void HUD::setCurrencyValue(std::string filename)
 {
-	PlayerMoney = new DXText(dxMgr, filename);
-	PlayerMoney->textInfo("Arial", 11,
-				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
-	PlayerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
+	//PlayerMoney = new DXText(dxMgr, filename);
+	//PlayerMoney->textInfo("Arial", 11,
+	//			D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
+	//PlayerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
+
 
 }

@@ -17,7 +17,6 @@ class HUD
 		HudImage * bagOfMoney;
 		HudImage * PlayerID;
 		Player * plyr;
-		Armor  * armor;
 		DXText * PlayerIDNumber;
 		DXText * PlayerMoney;
 		imageManager * imgMgr;
