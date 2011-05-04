@@ -22,9 +22,9 @@ class Weapon
 class PlayerWeapon
 {
 	private:
-		int playerWeaponDamage;
-		int playerWeaponType;
-		int playerWeaponUpdate;
+		int PlayerWeaponDamage;
+		int PlayerWeaponType;
+		int PlayerWeaponUpdate;
 	public:
 		int weaponType(void);
 		int weaponDamageUpdate(void);

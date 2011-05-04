@@ -1,7 +1,7 @@
 #pragma once
 #include "DXText.h"
 #include "HudImage.h"
-#include "player.h"
+#include "Player.h"
 #include "imageManager.h"
 #include "armor.h"
 
@@ -15,10 +15,11 @@ class HUD
 		HudImage * armorBar;
 		HudImage * weapon;
 		HudImage * bagOfMoney;
-		HudImage * playerID;
-		player * plyr;
-		DXText * playerIDNumber;
-		DXText * playerMoney;
+		HudImage * PlayerID;
+		Player * plyr;
+		Armor  * armor;
+		DXText * PlayerIDNumber;
+		DXText * PlayerMoney;
 		imageManager * imgMgr;
 		dxManager * dxMgr;
 
@@ -29,7 +30,7 @@ class HUD
 		void loadFromFile(std::string filename, dxManager * a_dxMgr);
 		void update();
 		void initDefaultPositions(float a_x, float a_y);
-		void setPlayer(player * a_player);
+		void setPlayer(Player * a_Player);
 
 		// the following functions must be removed
 		void updateHealthBarDamage();

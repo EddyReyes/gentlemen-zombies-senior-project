@@ -1,6 +1,6 @@
 #pragma once
 
-//Armor class, handles player armor
+//Armor class, handles Player armor
 
 class Armor
 {

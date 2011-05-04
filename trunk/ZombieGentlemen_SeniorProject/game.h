@@ -26,7 +26,7 @@
 #include "defines.h"
 
 #include "HUD.h"
-#include "player.h"
+#include "Player.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
 #include "armor.h"
@@ -50,7 +50,7 @@ private:
 	HUD * hudStuff;
 	HudImage * cursor;
 	HudImage * background;
-	player * plyr;
+	Player * plyr;
 	EnemyCharacter * enemy;
 	level* lvl;
 	DIMOUSESTATE mouseState;
@@ -99,6 +99,7 @@ private:
 	inputData * input;
 	Menu* mainMenu;
 	int m_currentgamestate; //keeps track of which state the game is in
+	Player * player;
 	
 	// timer data
 	int now, then, passed, soon; // low resolution timers for keylag
@@ -116,7 +117,7 @@ private:
 	float cameraX, cameraY, cameraZ;
 
 	// Unit test parameters
-	int m_charstate;	//keeps track of what state the player is in
+	int m_charstate;	//keeps track of what state the Player is in
 	float objectX, objectY;
 	level* lvl1;
 			
