@@ -27,7 +27,6 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	ObjMan->loadObjectsFromTxtFile(files->getStringAt(4));
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
-	backGrnd->adjustPlanes(m_map, 5);
 }
 /******************************************************************
 * update

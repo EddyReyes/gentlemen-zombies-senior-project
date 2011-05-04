@@ -61,25 +61,6 @@ void background::initBackground(dxManager * dxMgr, std::string filename)
 	}
 }
 
-void background::adjustPlanes(cubeMap * map, float depth)
-{
-	for(int i = 0; i < numPlaneMaps; i++)
-	{
-		if(planeMaps[i] != NULL)
-		{
-			////planes[i]->setParam(-10 * (i+2), map->getScale() * 10, (((i+2))  * map->getScale()/2), ((map->getWidth() * map->getScale()) +  (10 * (i+2))), map->getScale() * (10 * (i+2)));
-			////planes[i]->setPosition(-10 * (i+2), map->getScale() * 10 * (i+2), (((i+2))  * map->getScale()/2));
-			//planes[i]->setPosition(-1 * depth * (i+1), depth * (i+1), (i+1) * depth);
-			////planes[i]->setSize(((map->getWidth() * map->getScale()) +  (10 * (i+2))), map->getScale() * (10 * (i+2)) *2);
-			////planes[i]->setSize(((10 * (i+1) * 2) + map->getWidth() *map->getScale() * (i+2)), ((10 * (i+1) * 2) + map->getWidth() *map->getScale() * (i+2)));
-			//planes[i]->setSize(((map->getWidth() * map->getScale() * (i+1)) + (depth * (i+1) * 2)), map->getHeight() * map->getScale() * 2 * (i+1));
-			////planes[i]->setScale((i+1) * 10);
-			planeMaps[i]->offsetMap(D3DXVECTOR3(-1 * planeMaps[i]->getScale(), 0.5 * planeMaps[i]->getScale() *  planeMaps[i]->getHeight(), 0));
-		}
-	}
-
-}
-
 void background::draw()
 {
 	for(int i = 0; i < numPlaneMaps; i++)

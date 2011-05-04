@@ -17,6 +17,5 @@ public:
 	background();
 	~background();
 	void initBackground(dxManager * dxMgr, std::string filename);
-	void adjustPlanes(cubeMap * map, float depth);
 	void draw();
 };

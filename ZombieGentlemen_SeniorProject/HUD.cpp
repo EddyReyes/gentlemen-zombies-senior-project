@@ -13,7 +13,7 @@ HUD::HUD()
 	playerID = NULL;
 	playerIDNumber = NULL;
 	playerMoney = NULL;
-	player = NULL;
+	plyr = NULL;
 }
 HUD::~HUD()
 {
@@ -93,9 +93,9 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 ****************************************************************/
 void HUD::update()
 {
-	if(player != NULL)
+	if(plyr != NULL)
 	{
-		healthBar->setParameters(player->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
+		healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
 		
 	}
 }
@@ -121,23 +121,23 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 * sets the player pointer
 * must be called in order for the updates to take effect
 ****************************************************************/
-void HUD::setPlayer(PlayerCharacter * a_player){player = a_player;}
+void HUD::setPlayer(player * a_player){plyr = a_player;}
 
 //The following methods must be removed*********************************
 
 void HUD::updateHealthBarDamage()
 {
 	float decrement;
-	player->playerDamage(15);
-	decrement = player->getHealth();
+	plyr->playerDamage(15);
+	decrement = plyr->getHealth();
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
 }
 void HUD::useHealthPack()
 {
 	float increment;
-	player->healthRegenerate(20);
-	increment = player->getHealth();
+	plyr->healthRegenerate(20);
+	increment = plyr->getHealth();
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(increment, 12.0, 95.0, 43.0);
 }
@@ -178,7 +178,7 @@ void HUD::updateWeapon(std::string filename)
 void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
-  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", player->getMoney(), healthBar->getWidth());
+  	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", plyr->getMoney(), healthBar->getWidth());
 	playerMoney->setDialog(updateBuffer);
 }
 
