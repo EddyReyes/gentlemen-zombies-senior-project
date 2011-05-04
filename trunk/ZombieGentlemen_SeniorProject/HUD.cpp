@@ -1,9 +1,8 @@
 #include "HUD.h"
 
-HUD::HUD(){}
-HUD::HUD(dxManager * a_dxMgr)
+HUD::HUD()
 {
-	dxMgr = a_dxMgr;
+	dxMgr = NULL;
 	hudBackground = NULL;
 	barHolder = NULL;
 	barHolder2 = NULL;
@@ -14,8 +13,7 @@ HUD::HUD(dxManager * a_dxMgr)
 	playerID = NULL;
 	playerIDNumber = NULL;
 	playerMoney = NULL;
-	player = new PlayerCharacter();
-	armor = new Armor();
+	player = NULL;
 }
 HUD::~HUD()
 {
@@ -69,6 +67,26 @@ void HUD::draw()
 	playerMoney->draw();
 }
 
+void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
+{
+	dxMgr = a_dxMgr;
+	imgMgr = new imageManager();
+	imgMgr->initImageManager(filename, dxMgr);
+
+	hudBackground = new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
+}
+
+void HUD::update()
+{
+	if(player != NULL)
+	{
+		healthBar->setParameters(player->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
+		
+	}
+}
+
+
+
 void HUD::updateHealthBarDamage()
 {
 	float decrement;
@@ -102,7 +120,7 @@ void HUD::useArmorPickUp()
 	armor->armorHealthRestore();
 	newArmor = armor->getArmorHealth();
 	armorBar = new HudImage(dxMgr, "images/armorBar.bmp");
-	armorBar->setParameters(newArmor, 12.0, 95.0, 71.0);
+	armorBar->setParameters(newArmor, armorBar->getYPosition(), 95.0, 71.0);
 }
 void HUD::updateWeapon(std::string filename)
 {
@@ -232,5 +250,6 @@ void HUD::setCurrencyValue(std::string filename)
 	playerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
 	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
+
 }
-void HUD::setPlayer(PlayerCharacter * a_player){  a_player =  player; }
+void HUD::setPlayer(PlayerCharacter * a_player){player = a_player;}
