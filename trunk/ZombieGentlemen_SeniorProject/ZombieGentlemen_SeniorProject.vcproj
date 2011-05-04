@@ -344,6 +344,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inputData.h"
+					>
+				</File>
+				<File
 					RelativePath=".\sound.h"
 					>
 				</File>

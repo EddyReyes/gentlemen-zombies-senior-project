@@ -1,6 +1,7 @@
 #pragma once
 #include "dxManager.h"
 #include "directInput.h"
+#include "inputData.h"
 #include "sound.h"
 #include <time.h>
 #include "dxCamera.h"
@@ -83,6 +84,8 @@ public:
 
 #ifndef testEnvironment
 
+
+
 class game
 {
 private:
@@ -93,9 +96,7 @@ private:
 	directInput * inputMgr;
 	// input data
 	sound * soundMgr;
-	BYTE * keystate;
-	int * keyLag;
-	DIMOUSESTATE mouseState;
+	inputData input;
 	Menu* mainMenu;
 	int m_currentgamestate; //keeps track of which state the game is in
 	
