@@ -12,6 +12,7 @@ private:
 	cubeMap* m_map;
 	background * backGrnd;
 
+
 public:
 	level();
 	void initLevel(dxManager* a_dxMgr, std::string filename);

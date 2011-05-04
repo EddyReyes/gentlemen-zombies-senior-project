@@ -42,10 +42,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	/*lvl = new Level();
 	lvl->initLevel(dxMgr,"testfiles2.txt");*/
 	//enemy = new EnemyCharacter(dxMgr, "images/arrows2.bmp");
-	//player = new PlayerCharacter(dxMgr, "images/armorBar.bmp");
-	//player->initPlayerSpriteSheet(1,1);
-	//player->setPlayerSprite(0,0);
-	//player->setPosition(0, 4, 0);
+	//plyr = new PlayerCharacter(dxMgr, "images/armorBar.bmp");
+	//plyr->initPlayerSpriteSheet(1,1);
+	//plyr->setPlayerSprite(0,0);
+	//plyr->setPosition(0, 4, 0);
 
 	//enemy->initEnemieSpriteSheet(1,4);
 	//enemy->setEnemieSprite(0, 3);
@@ -86,7 +86,7 @@ void game::SetSprites()
 	 *                         HUD IMAGE TESTING                            *
 	 *---------------------------------------------------------------------**/
 	hudStuff = new HUD(dxMgr);
-	hudStuff->setPlayer(player);
+	hudStuff->setPlayer(plyr);
 	hudStuff->setHudImage("images/new_hud.bmp");
 	hudStuff->setBarHolderImage("images/bar_holder.bmp");
 	hudStuff->setHealthBarImage("images/healthBar.bmp");
@@ -164,20 +164,20 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		player->moveplayer(postion.x,postion.y+=0.05);
+		plyr->moveplayer(postion.x,postion.y+=0.05);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		player->moveplayer(postion.x,postion.y-=0.05);
+		plyr->moveplayer(postion.x,postion.y-=0.05);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		player->moveplayer(postion.x-=0.05,postion.y);
+		plyr->moveplayer(postion.x-=0.05,postion.y);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		player->moveplayer(postion.x+=0.05,postion.y);
+		plyr->moveplayer(postion.x+=0.05,postion.y);
 	}
 	
 	/******HUD Money Incriment************/
@@ -185,7 +185,7 @@ void game::handleInput()
 	{
 		if(now - keyLag[DIK_SPACE] > 150)
 		{
-			player->addMoney(1);
+			plyr->addMoney(1);
 			keyLag[DIK_SPACE] = now;
 		}
 	}
@@ -273,7 +273,7 @@ void game::draw()
 	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 
 	lvl->draw();
-	player->Draw();
+	plyr->Draw();
 	
 	//enemy->Draw();
 	hudStuff->draw();	
@@ -297,7 +297,7 @@ game::~game()
 	// release sprites
 	cursor->~HudImage();
 	//testTile->~XYPlane();
-	player->~PlayerCharacter();
+	plyr->~player();
 	//enemy->~EnemyCharacter();
 	dialog->~DXText();
 	hudStuff->~HUD();
@@ -387,7 +387,7 @@ void game::update()
 		float ycoord = lvl1->getobject()->getPosition()->y;
 		float xcoord = lvl1->getobject()->getPosition()->x;
 		cameraX = xcoord;
-		//cameraY = ycoord;
+		cameraY = ycoord;
 	}
 
 	// draw to the screen using Direct3D

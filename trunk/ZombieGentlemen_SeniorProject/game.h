@@ -25,7 +25,7 @@
 #include "defines.h"
 
 #include "HUD.h"
-#include "playerCharacter.h"
+#include "player.h"
 #include "EnemyCharacter.h"
 #include "weapon.h"
 #include "armor.h"
@@ -49,7 +49,7 @@ private:
 	HUD * hudStuff;
 	HudImage * cursor;
 	HudImage * background;
-	PlayerCharacter * player;
+	player * plyr;
 	EnemyCharacter * enemy;
 	level* lvl;
 	DIMOUSESTATE mouseState;

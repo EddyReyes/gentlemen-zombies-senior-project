@@ -112,6 +112,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;$(WindowsSdkDir)\Include&quot;;&quot;$(DXSDK_DIR)\Include&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -128,6 +129,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="d3d9.lib d3dx9.lib dxerr.lib winmm.lib dsound.lib dxguid.lib dinput8.lib"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -272,7 +274,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\playerCharacter.cpp"
+					RelativePath=".\player.cpp"
 					>
 				</File>
 				<File
@@ -426,7 +428,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\playerCharacter.h"
+					RelativePath=".\player.h"
 					>
 				</File>
 				<File
