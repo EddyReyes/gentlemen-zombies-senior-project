@@ -164,20 +164,20 @@ void game::handleInput()
 	if (((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80))
 		&& !((keystate[DIK_DOWN] & 0x80) || (keystate[DIK_S] & 0x80)))
 	{
-		plyr->moveplayer(postion.x,postion.y+=0.05);
+		plyr->movePlayer(postion.x,postion.y+=0.05);
 	}
 	if (((keystate[DIK_DOWN] & 0x80)|| (keystate[DIK_S] & 0x80))
 		&& !((keystate[DIK_UP] & 0x80) || (keystate[DIK_W] & 0x80)))
 	{
-		plyr->moveplayer(postion.x,postion.y-=0.05);
+		plyr->movePlayer(postion.x,postion.y-=0.05);
 	}
 	if ((keystate[DIK_LEFT] & 0x80) || (keystate[DIK_A] & 0x80))
 	{
-		plyr->moveplayer(postion.x-=0.05,postion.y);
+		plyr->movePlayer(postion.x-=0.05,postion.y);
 	}
 	if ((keystate[DIK_RIGHT] & 0x80) || (keystate[DIK_D] & 0x80))
 	{
-		plyr->moveplayer(postion.x+=0.05,postion.y);
+		plyr->movePlayer(postion.x+=0.05,postion.y);
 	}
 	
 	/******HUD Money Incriment************/
@@ -297,7 +297,7 @@ game::~game()
 	// release sprites
 	cursor->~HudImage();
 	//testTile->~XYPlane();
-	plyr->~player();
+	plyr->~Player();
 	//enemy->~EnemyCharacter();
 	dialog->~DXText();
 	hudStuff->~HUD();
@@ -343,6 +343,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
+
+	player = new Player();
 
 	input = new inputData;
 	input->init();

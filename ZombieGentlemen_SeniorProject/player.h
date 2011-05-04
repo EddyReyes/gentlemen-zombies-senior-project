@@ -2,30 +2,30 @@
 #include "dxManager.h"
 #include "object.h"
 
-class player
+class Player
 {
 private:
-	float playerHealth;
+	float PlayerHealth;
 	float damageResistance;
 	float money;
 	object* m_char;
 public:
 	
-	player();
-	player(dxManager * a_dxMgr,char*file);
+	Player();
+	Player(dxManager * a_dxMgr,char*file);
 
 	object* getObj(){return m_char;}
 
-	~player();
+	~Player();
 	float getHealth();
 	void setHealth(float a_health);
 	void healthRegenerate(float healthPack);
-	void playerDamage(float damage);
+	void PlayerDamage(float damage);
 	float getMoney();
 	void addMoney(float recieve);
 	void setMoney(float a_money);
 	void Draw();
-	void moveplayer(float,float);
+	void movePlayer(float,float);
 
 
 	//void attack(int & weapon );

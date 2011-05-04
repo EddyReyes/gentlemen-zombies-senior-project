@@ -29,7 +29,7 @@ Legend
 
 4/17 Leseamus
 + display money in text
-+ get health bar connect with player health class
-- get coin image so player can receave money
++ get health bar connect with Player health class
+- get coin image so Player can receave money
 - delete useless code in enemy class 
 

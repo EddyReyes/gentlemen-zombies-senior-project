@@ -10,10 +10,11 @@ HUD::HUD()
 	armorBar = NULL;
 	weapon = NULL;
 	bagOfMoney = NULL;
-	playerID = NULL;
-	playerIDNumber = NULL;
-	playerMoney = NULL;
+	PlayerID = NULL;
+	PlayerIDNumber = NULL;
+	PlayerMoney = NULL;
 	plyr = NULL;
+	armor = NULL;
 }
 HUD::~HUD()
 {
@@ -38,12 +39,12 @@ HUD::~HUD()
 	if(bagOfMoney)
 	bagOfMoney->~HudImage();
 	bagOfMoney= NULL;
-	if(playerID)
-	playerID->~HudImage();
-	playerID = NULL;
-	if(playerMoney)
-	playerMoney->~DXText();
-	playerMoney = NULL;
+	if(PlayerID)
+	PlayerID->~HudImage();
+	PlayerID = NULL;
+	if(PlayerMoney)
+	PlayerMoney->~DXText();
+	PlayerMoney = NULL;
 	// destroy image manager (also destroys all images)
 	imgMgr->~imageManager();
 	imgMgr = NULL;
@@ -64,10 +65,10 @@ void HUD::draw()
 	weapon->draw();
 	if(bagOfMoney)
 	bagOfMoney->draw();
-	if(playerID)
-	playerID->draw();
-	if(playerMoney)
-	playerMoney->draw();
+	if(PlayerID)
+	PlayerID->draw();
+	if(PlayerMoney)
+	PlayerMoney->draw();
 }
 
 /****************************************************************
@@ -87,16 +88,21 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 /****************************************************************
 * update
 * updates entire hud
-* health bar is updated to illustrate players current health
-* armor bar is updated to illustrate players current health
-* money is updated to illustrate players current funds
+* health bar is updated to illustrate Players current health
+* armor bar is updated to illustrate Players current health
+* money is updated to illustrate Players current funds
 ****************************************************************/
 void HUD::update()
 {
 	if(plyr != NULL)
 	{
+		char updateBuffer[50];
+
 		healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
+		armorBar->setParameters(armor->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
 		
+		sprintf_s(updateBuffer, "Mny %.00f/50\n", plyr->getMoney());
+		PlayerMoney->setDialog(updateBuffer);
 	}
 }
 
@@ -108,7 +114,7 @@ void HUD::update()
 void HUD::initDefaultPositions(float a_x, float a_y)
 {
 	hudBackground->setParameters(220.0f, 220.0f, 2.0f + a_x, 2.0f + a_y);
-	playerID->setParameters(70.0f, 70.0f, 19.0f + a_x, 27.0f + a_y);
+	PlayerID->setParameters(70.0f, 70.0f, 19.0f + a_x, 27.0f + a_y);
 	barHolder->setParameters(124.0f, 100.0f, 82.0f + a_x, 9.0f + a_y);
 	healthBar->setParameters(100.0f, 12.0f, 95.0f + a_x, 43.0f + a_y);
 	barHolder2->setParameters(95.0f, 100.0f, 90.0f + a_x, 37.0f + a_y);
@@ -118,17 +124,17 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 }
 /****************************************************************
 * setPlayer
-* sets the player pointer
+* sets the Player pointer
 * must be called in order for the updates to take effect
 ****************************************************************/
-void HUD::setPlayer(player * a_player){plyr = a_player;}
+void HUD::setPlayer(Player * a_Player){plyr = a_Player;}
 
 //The following methods must be removed*********************************
 
 void HUD::updateHealthBarDamage()
 {
 	float decrement;
-	plyr->playerDamage(15);
+	plyr->PlayerDamage(15);
 	decrement = plyr->getHealth();
 	healthBar = new HudImage(dxMgr, "images/healthBar.bmp");
 	healthBar->setParameters(decrement, 12.0, 95.0, 43.0);
@@ -179,7 +185,7 @@ void HUD::updateCurrencyValue()
 {
 	char updateBuffer[50];
   	sprintf_s(updateBuffer, "Mny %.00f/50\n Hp %.00f", plyr->getMoney(), healthBar->getWidth());
-	playerMoney->setDialog(updateBuffer);
+	PlayerMoney->setDialog(updateBuffer);
 }
 
 void HUD::setHudImage(std::string filename)
@@ -196,14 +202,14 @@ void HUD::setHudImage(std::string filename)
 }
 void HUD::setPlayerIDImage(std::string filename)
 {
-	if(playerID == NULL)
+	if(PlayerID == NULL)
 	{
-		playerID = new HudImage(dxMgr, filename);
+		PlayerID = new HudImage(dxMgr, filename);
 	}
-	else if(playerID)
+	else if(PlayerID)
 	{
-		playerID->~HudImage();
-		playerID = new HudImage(dxMgr, filename);
+		PlayerID->~HudImage();
+		PlayerID = new HudImage(dxMgr, filename);
 	}
 }
 void HUD::setBarHolderImage(std::string filename)
@@ -281,9 +287,9 @@ void HUD::setBagOfMoneyImage(std::string filename)
 }
 void HUD::setCurrencyValue(std::string filename)
 {
-	playerMoney = new DXText(dxMgr, filename);
-	playerMoney->textInfo("Arial", 11,
+	PlayerMoney = new DXText(dxMgr, filename);
+	PlayerMoney->textInfo("Arial", 11,
 				D3DCOLOR_ARGB(255, 0, 0, 0), "Loading");
-	playerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
+	PlayerMoney->setTextBoxParameters(68, 55, 72, 100, 12);
 
 }
