@@ -357,18 +357,12 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	lvl1 = new level();
 	lvl1->initLevel(dxMgr,"testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
-	//setMusic();
+	setMusic();
 	return true;
 }
 void game::setMusic()
 {
-	//Load sound (filename, bufferID) in this case the first buffer is 0
-	//soundMgr->LoadSound("sound/Combat music.wav", 0);
-	//soundMgr = new sound("soundManager.txt", 10);
-	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
-	//play sound playSound(bufferID) in this case the first buffer is 0
-	soundMgr->playSound(0);
 }
 void game::update()
 {
@@ -454,6 +448,7 @@ void game::handleInput()
 
 	if(m_currentgamestate == menu)
 	{
+		soundMgr->SetVolume(1, -2000);
 		soundMgr->playSound(1);
 
 		int check = mainMenu->update(input->keystate,now,input->keyLag);
