@@ -212,10 +212,10 @@ bool DXText::setTextBoxParameters(float width, float height, float a_x, float a_
 	return false;
 }
 HudImage* DXText::getimg(){return box;}
-void DXText::loadFromTxtFile(char * filename)
+void DXText::loadFromTxtFile(std::string filename)
 {
 	// open text file
-	std::fstream file(filename);
+	std::fstream file(filename.c_str());
 
 	// check to see if text file is empty
 	file.peek();
@@ -254,3 +254,7 @@ void DXText::loadFromTxtFile(char * filename)
 		setFont();
 	}
 }
+int DXText::getTextBoxWidth(){return (textBox->right - textBox->left);}
+int DXText::getTextBoxHeight(){return (textBox->bottom - textBox->top);}
+int DXText::getTextBoxXPos(){return textBox->left;}
+int DXText::getTextBoxYPos(){return textBox->top;}

@@ -1,4 +1,4 @@
-//#define physics
+
 #include "game.h"
 
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
@@ -177,7 +177,7 @@ void game::draw()
 	{
 		lvl1->draw();
 	
-	//	FPSText->draw();
+		FPSText->draw();
 		physicsData->draw();
 	}
 	camera->SetHudCamera();
@@ -189,7 +189,7 @@ game::~game()
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
 	soundMgr->~sound();
-	// destroy map
+	physicsData->~DXText();
 	FPSText->~DXText();
 	lvl1->~level();	
 }
