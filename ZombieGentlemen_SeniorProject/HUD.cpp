@@ -133,4 +133,5 @@ void HUD::initDefaultPositions(float a_x, float a_y)
 * sets the Player pointer
 * must be called in order for the updates to take effect
 ****************************************************************/
+
 void HUD::setPlayer(Player * a_Player){plyr = a_Player;}
