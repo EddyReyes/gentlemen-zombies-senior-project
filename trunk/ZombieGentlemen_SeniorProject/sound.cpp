@@ -28,6 +28,11 @@ sound::sound(std::string file, int numChannels)
 	initializeChannelPan(0, numChannels);
 
 };
+sound::~sound()
+{
+	shutdownDirectSound();
+	soundFiles->~stringArray();
+};
 
 // Initialize ChannelVolume array
 void sound::initializeChannelVolume(int initVolume, int numChannels)
@@ -282,6 +287,7 @@ bool sound::initDirectSound(HWND * a_wndHandle)
 * shutdownDirectSound
 * Releases the DirecSound device
 *******************************************************************/
+
 void sound::shutdownDirectSound(void)
 {
 	if (g_pDS)
