@@ -80,15 +80,15 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 	imgMgr = new imageManager();
 	imgMgr->initImageManager(filename, dxMgr);
 
-	hudBackground = new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
-	PlayerID = new HudImage(dxMgr, imgMgr->getImage(1), imgMgr->getImageInfo(1));
-	barHolder = new HudImage(dxMgr, imgMgr->getImage(2), imgMgr->getImageInfo(2));
-	healthBar = new HudImage(dxMgr, imgMgr->getImage(3), imgMgr->getImageInfo(3));
-	barHolder2 = new HudImage(dxMgr, imgMgr->getImage(4), imgMgr->getImageInfo(4));
-	armorBar = new HudImage(dxMgr, imgMgr->getImage(5), imgMgr->getImageInfo(5));
-	weapon = new HudImage(dxMgr, imgMgr->getImage(6), imgMgr->getImageInfo(6));
-	bagOfMoney = new HudImage(dxMgr, imgMgr->getImage(7), imgMgr->getImageInfo(7));
-	PlayerMoney = new DXText(dxMgr, imgMgr->getImage(8), imgMgr->getImageInfo(8));
+	hudBackground	= new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
+	PlayerID		= new HudImage(dxMgr, imgMgr->getImage(1), imgMgr->getImageInfo(1));
+	barHolder		= new HudImage(dxMgr, imgMgr->getImage(2), imgMgr->getImageInfo(2));
+	healthBar		= new HudImage(dxMgr, imgMgr->getImage(3), imgMgr->getImageInfo(3));
+	barHolder2		= new HudImage(dxMgr, imgMgr->getImage(4), imgMgr->getImageInfo(4));
+	armorBar		= new HudImage(dxMgr, imgMgr->getImage(5), imgMgr->getImageInfo(5));
+	weapon			= new HudImage(dxMgr, imgMgr->getImage(6), imgMgr->getImageInfo(6));
+	bagOfMoney		= new HudImage(dxMgr, imgMgr->getImage(7), imgMgr->getImageInfo(7));
+	PlayerMoney		= new DXText(dxMgr, imgMgr->getImage(8), imgMgr->getImageInfo(8));
 	// after loading all the images, load text paramerts for all DXText objects
 	PlayerMoney->loadFromTxtFile("textParameters.txt");
 }

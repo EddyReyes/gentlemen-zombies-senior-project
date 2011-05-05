@@ -6,6 +6,8 @@
 #include "physics.h"
 #include "stringArray.h"
 #include "background.h"
+#include "HUD.h"
+
 class level
 {
 private:
@@ -13,6 +15,7 @@ private:
 	stringArray * files;
 	cubeMap * m_map;
 	background * backGrnd;
+	HUD * p1HUD;
 
 
 public:

@@ -27,6 +27,9 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
+	p1HUD = new HUD();
+	p1HUD->loadFromFile(files->getStringAt(6), a_dxMgr);
+	p1HUD->initDefaultPositions(0,0);
 }
 /******************************************************************
 * update
@@ -49,6 +52,7 @@ void level::draw()
 	m_map->draw();
 	backGrnd->draw();
 	objMgr->draw();
+	p1HUD->draw();
 }
 void level::handleInput(inputData * input, int now)
 {
