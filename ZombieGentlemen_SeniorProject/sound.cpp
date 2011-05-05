@@ -303,5 +303,8 @@ void sound::initSoundFiles(std::string initFiles)
 {
 	soundFiles = new stringArray();
 	soundFiles->loadFromTextFile(initFiles);
-	LoadSound(soundFiles->getStringAt(0), 0);
+	for(int sound = 0; sound < soundFiles->getSize();sound++)
+	{
+		LoadSound(soundFiles->getStringAt(sound), sound);
+	}
 }
