@@ -483,7 +483,7 @@ void game::draw()
 	{
 		lvl1->draw();
 	
-		FPSText->draw();
+	//	FPSText->draw();
 		physicsData->draw();
 	}
 	camera->SetHudCamera();

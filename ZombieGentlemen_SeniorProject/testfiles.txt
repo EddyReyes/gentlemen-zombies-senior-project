@@ -4,3 +4,4 @@ colMapTest.txt
 imageManagerTest.txt
 testObject.txt
 testBackground.txt
+imageHUDTest.txt
