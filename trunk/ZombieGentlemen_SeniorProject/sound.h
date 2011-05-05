@@ -16,6 +16,7 @@ wish list: mute toggle method for each indidual channel
 #include <dsound.h>
 #include "dsutil.h"
 #include <iostream>
+#include "stringArray.h"
 using namespace std;
 
 
@@ -27,6 +28,7 @@ private:
 	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to an array of ten buffers for sound.
 	int * ChannelVolume; // pointer to an array of 10 volume values
 	int * ChannelPan; // pointer to an array of 10 Pan Values
+	stringArray * soundFiles;
 
 	// private methods
 	void initializeChannelVolume(int initVolume, int numChannels);
@@ -35,7 +37,7 @@ private:
 public:
 
 	sound();
-	sound(int numChannels);
+	sound(std::string file, int numChannels);
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
 	bool LoadSound(std::string wavFilename, int bufferID);
 	void SetVolume(int bufferID, int Volume);

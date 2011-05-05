@@ -44,8 +44,6 @@ void level::setMusic(char* sound)
 	
 }
 
-
-
 void level::draw()
 {
 	m_map->draw();

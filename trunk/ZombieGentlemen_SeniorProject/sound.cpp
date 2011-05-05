@@ -17,14 +17,18 @@ sound::sound()
 };
 
 // Create a sound object with a custom number of channels
-sound::sound(int numChannels)
+sound::sound(std::string file, int numChannels)
 {
 	// initialize array of 10 buffers
 	SoundChannel = new LPDIRECTSOUNDBUFFER[numChannels];
 	ChannelVolume = new int [numChannels];
 	ChannelPan = new int [numChannels];
+	soundFiles = new stringArray();
+	soundFiles->loadFromTextFile(file);
+	LoadSound(soundFiles->getStringAt(0), soundFiles->getSize());
 	initializeChannelVolume(-5000, numChannels);
 	initializeChannelPan(0, numChannels);
+
 };
 
 // Initialize ChannelVolume array
