@@ -34,58 +34,6 @@
 
 #include <stdio.h>
 
-//#define testEnvironment
-
-#ifdef testEnvironment
-
-class game
-{
-private:
-	dxManager * dxMgr;
-	directInput * inputMgr;
-	sound * soundMgr;
-	BYTE * keystate;
-	int * keyLag;
-	DXText * dialog;
-	HUD * hudStuff;
-	HudImage * cursor;
-	HudImage * background;
-	Player * plyr;
-	EnemyCharacter * enemy;
-	level* lvl;
-	DIMOUSESTATE mouseState;
-	float curX; // mouse X position
-	float curY; // moust Y position
-	HINSTANCE * m_hInstance; //pointer to global handle to hold the application instance
-	HWND * m_wndHandle; //pointer to global variable to hold the window handle
-	int now, then, passed, soon; // low resolution timers for keylag
-	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
-	float UpdateSpeed, Elapsed;
-	int FPS;
-	DXText  * FPSText;
-	D3DXVECTOR3 postion;
-		
-	// camera data
-	dxCamera * camera;
-	float cameraX, cameraY, cameraZ;
-public: 
-	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
-	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
-	void setMusic();
-	void SetSprites();
-	void update();
-	void UpdateFPS();
-	void handleInput();
-	void draw();
-
-	~game();
-};
-#endif 
-
-#ifndef testEnvironment
-
-
-
 class game
 {
 private:
@@ -132,5 +80,3 @@ public:
 	void draw();
 	~game();
 };
-
-#endif

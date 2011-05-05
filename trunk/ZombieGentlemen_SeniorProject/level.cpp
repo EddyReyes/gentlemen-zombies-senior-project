@@ -30,6 +30,11 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	p1HUD = new HUD();
 	p1HUD->loadFromFile(files->getStringAt(6), a_dxMgr);
 	p1HUD->initDefaultPositions(0,0);
+
+	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
+	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
+	checkpointtxt->setDialog("CHECKPOINT");
+	checkpoint = 10;
 }
 /******************************************************************
 * update
@@ -41,6 +46,9 @@ void level::update(float updateTime)
 {
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
+	//will check if youur at a checkpoint
+
+
 }
 void level::setMusic(char* sound)
 {
@@ -53,6 +61,13 @@ void level::draw()
 	backGrnd->draw();
 	objMgr->draw();
 	p1HUD->draw();
+	//checks if checkpoint was hit draws indication 
+	//also checks if the player is way past it to stop drawing indication
+	if(hitcheckpoint())
+	{
+		checkpointtxt->draw();
+		//checkpointtxt->~DXText();
+	}
 }
 void level::handleInput(inputData * input, int now)
 {
@@ -230,9 +245,22 @@ void level::moveObject(D3DXVECTOR3 go)
 {
 	objMgr->moveObject(go);
 }
+bool level::hitcheckpoint()
+{
+	if(objMgr->getObject()->getPosition()->x >= checkpoint && 
+		objMgr->getObject()->getPosition()->x < checkpoint + 2)
+	{
+		std::ofstream file("checkpoint.txt");
+		file<<objMgr->getObject()->getPosition()->x;
+		return true;
+	}
+	else
+		return false;
+}
 level::~level()
 {
 	m_map->~cubeMap();
 	objMgr->~objectManager();
 	files->~stringArray();
+	checkpointtxt->~DXText();
 }

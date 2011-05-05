@@ -16,7 +16,8 @@ private:
 	cubeMap * m_map;
 	background * backGrnd;
 	HUD * p1HUD;
-
+	DXText* checkpointtxt;
+	int checkpoint;
 
 public:
 	level();
@@ -26,7 +27,8 @@ public:
 	void handleInput(inputData * input, int now);
 	void update(float);
 	~level();//deconstructor
-
+	bool hitcheckpoint();
+	void loadfromcheckpoint(std::string);
 	//debug code
 	void pop();
 	void moveObject(D3DXVECTOR3);//may or maynot stay that way
