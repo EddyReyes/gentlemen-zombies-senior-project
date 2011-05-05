@@ -363,6 +363,7 @@ void game::setMusic()
 {
 	//Load sound (filename, bufferID) in this case the first buffer is 0
 	soundMgr->LoadSound("sound/Combat music.wav", 0);
+	//soundMgr = new sound("soundManager.txt", 10);
 	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
 	//play sound playSound(bufferID) in this case the first buffer is 0
@@ -370,7 +371,6 @@ void game::setMusic()
 }
 void game::update()
 {
-
 	//update time
 	now = clock();
 	then = now;
