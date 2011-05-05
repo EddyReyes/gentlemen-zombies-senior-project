@@ -46,5 +46,10 @@ class DXText
 		bool setTextBoxParameters(float width, float height, float a_x, float a_y, int offset);
 		void setImage(std::string filename);
 		HudImage* getimg();
-		void loadFromTxtFile(char * filename);
+		void loadFromTxtFile(std::string filename);
+
+		int getTextBoxWidth();
+		int getTextBoxHeight();
+		int getTextBoxXPos();
+		int getTextBoxYPos();
 };

@@ -6,4 +6,3 @@ images/bar_holder2.bmp
 images/armorBar.bmp
 images/shovel_weapon.bmp
 images/moneyBag.bmp
-images/moneyTextBox.bmp

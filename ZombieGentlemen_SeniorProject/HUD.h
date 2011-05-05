@@ -8,24 +8,25 @@
 class HUD
 {
 	private:
-		HudImage * hudBackground;
-		HudImage * barHolder;
-		HudImage * barHolder2;
+		//HudImage * hudBackground;
+		//HudImage * barHolder;
+		//HudImage * barHolder2;
 		HudImage * healthBar;
 		HudImage * armorBar;
-		HudImage * weapon;
-		HudImage * bagOfMoney;
-		HudImage * PlayerID;
+		//HudImage * weapon;
+		//HudImage * bagOfMoney;
+		//HudImage * PlayerID;
 		Player * plyr;
 		DXText * PlayerMoney;
+		HudImage ** images;
 		imageManager * imgMgr;
 		dxManager * dxMgr;
 	public:
 		HUD();
 		~HUD();
 		void draw();
-		void loadFromFile(std::string filename, dxManager * a_dxMgr);
+		void loadFromFile(std::string filename, std::string textParam, dxManager * a_dxMgr);
 		void update();
-		void initDefaultPositions(float a_x, float a_y);
+		void initPositions(std::string filename);
 		void setPlayer(Player * a_Player);
 };

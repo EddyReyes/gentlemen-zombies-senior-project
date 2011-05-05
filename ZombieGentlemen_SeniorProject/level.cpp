@@ -28,8 +28,8 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
 	p1HUD = new HUD();
-	p1HUD->loadFromFile(files->getStringAt(6), a_dxMgr);
-	p1HUD->initDefaultPositions(0,0);
+	p1HUD->loadFromFile(files->getStringAt(6), files->getStringAt(7), a_dxMgr);
+	p1HUD->initPositions(files->getStringAt(8));
 
 	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
@@ -159,7 +159,6 @@ void level::handleInput(inputData * input, int now)
 	{
 		if(now - input->keyLag[DIK_P] > 200)
 		{
-			objMgr->pop();
 			input->keyLag[DIK_P] = now;
 		}
 	}

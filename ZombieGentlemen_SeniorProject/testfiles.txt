@@ -5,3 +5,5 @@ imageManagerTest.txt
 testObject.txt
 testBackground.txt
 imageHUDTest.txt
+HUDMoney.txt
+defautHUDPositions.txt
