@@ -357,7 +357,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	lvl1 = new level();
 	lvl1->initLevel(dxMgr,"testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
-	setMusic();
+	//setMusic();
 	return true;
 }
 void game::setMusic()
@@ -454,11 +454,16 @@ void game::handleInput()
 
 	if(m_currentgamestate == menu)
 	{
+		soundMgr->playSound(1);
+
 		int check = mainMenu->update(input->keystate,now,input->keyLag);
 		if(check == 1)
 		{
 			 mainMenu->~Menu();
 			 m_currentgamestate = adventure_mode;
+
+			 soundMgr->stopSound(1);
+			 soundMgr->playSound(0);
 		}
 		if(check == 2)
 		{
