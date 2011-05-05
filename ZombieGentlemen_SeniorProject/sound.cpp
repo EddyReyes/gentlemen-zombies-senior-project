@@ -23,9 +23,7 @@ sound::sound(std::string file, int numChannels)
 	SoundChannel = new LPDIRECTSOUNDBUFFER[numChannels];
 	ChannelVolume = new int [numChannels];
 	ChannelPan = new int [numChannels];
-	soundFiles = new stringArray();
-	soundFiles->loadFromTextFile(file);
-	LoadSound(soundFiles->getStringAt(0), soundFiles->getSize());
+	initSoundFiles(file);
 	initializeChannelVolume(-5000, numChannels);
 	initializeChannelPan(0, numChannels);
 
@@ -294,4 +292,10 @@ void sound::shutdownDirectSound(void)
 	delete [] SoundChannel; // delete channels
 	delete [] ChannelVolume; // delete all volume variables
 	delete [] ChannelPan; // delete all pan vairables
+}
+void sound::initSoundFiles(std::string initFiles)
+{
+	soundFiles = new stringArray();
+	soundFiles->loadFromTextFile(initFiles);
+	LoadSound(soundFiles->getStringAt(0), 0);
 }

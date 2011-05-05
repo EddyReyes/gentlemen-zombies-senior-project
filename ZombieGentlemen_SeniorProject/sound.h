@@ -51,4 +51,6 @@ public:
 	bool stopSound(int bufferID);
 	bool initDirectSound(HWND * a_wndHandle);
 	void shutdownDirectSound(void);
+	void initSoundFiles(std::string initFiles);
+
 };
