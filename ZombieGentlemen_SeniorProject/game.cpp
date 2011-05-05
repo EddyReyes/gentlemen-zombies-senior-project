@@ -356,13 +356,14 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	lvl1 = new level();
 	lvl1->initLevel(dxMgr,"testfiles.txt");
+	a_soundMgr->initSoundFiles("soundManager.txt");
 	setMusic();
 	return true;
 }
 void game::setMusic()
 {
 	//Load sound (filename, bufferID) in this case the first buffer is 0
-	soundMgr->LoadSound("sound/Combat music.wav", 0);
+	//soundMgr->LoadSound("sound/Combat music.wav", 0);
 	//soundMgr = new sound("soundManager.txt", 10);
 	//SetVolume(bufferID, Volume)
 	soundMgr->SetVolume(0, -2000);
@@ -493,7 +494,7 @@ game::~game()
 {		
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
-	soundMgr->shutdownDirectSound();
+	soundMgr->~sound();
 	// destroy map
 	FPSText->~DXText();
 	lvl1->~level();	

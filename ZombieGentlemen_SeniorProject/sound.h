@@ -38,6 +38,7 @@ public:
 
 	sound();
 	sound(std::string file, int numChannels);
+	~sound();
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
 	bool LoadSound(std::string wavFilename, int bufferID);
 	void SetVolume(int bufferID, int Volume);
