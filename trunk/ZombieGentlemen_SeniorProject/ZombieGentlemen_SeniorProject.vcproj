@@ -254,6 +254,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\item.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\level.cpp"
 					>
 				</File>
@@ -404,6 +408,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\item.h"
+					>
+				</File>
+				<File
 					RelativePath=".\level.h"
 					>
 				</File>
@@ -441,6 +449,10 @@
 				</File>
 				<File
 					RelativePath=".\stringArray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\town.h"
 					>
 				</File>
 				<File

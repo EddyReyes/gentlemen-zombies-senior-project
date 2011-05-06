@@ -1,4 +1,3 @@
-
 #include "game.h"
 
 game::game(HWND * a_wndHandle, HINSTANCE * a_hInstance)
@@ -49,7 +48,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	a_soundMgr->initSoundFiles("soundManager.txt");
 	lvl1 = new level();
-	lvl1->initLevel(dxMgr,"testfiles.txt");
+	lvl1->initLevel(dxMgr, camera , "testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
 	setMusic();
 	return true;

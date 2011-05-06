@@ -1,8 +1,8 @@
 images/new_hud.bmp
 images/WillConcept.bmp
 images/bar_holder.bmp
-images/healthBar.bmp
 images/bar_holder2.bmp
-images/armorBar.bmp
 images/shovel_weapon.bmp
 images/moneyBag.bmp
+images/healthBar.bmp
+images/armorBar.bmp

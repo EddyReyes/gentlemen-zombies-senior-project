@@ -7,12 +7,13 @@ level::level()
 	files = NULL;
 	m_map = NULL;
 	checkpointtxt = NULL;
+	camera = NULL;
 }
 /******************************************************************
 * initLevel
 * takes in a  text file, and loads all level assets from it
 ******************************************************************/
-void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
+void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initFiles)
 {
 	//puts the files into a string array
 	files = new stringArray();
@@ -31,6 +32,8 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	p1HUD = new HUD();
 	p1HUD->loadFromFile(files->getStringAt(6), files->getStringAt(7), a_dxMgr);
 	p1HUD->initPositions(files->getStringAt(8));
+
+	camera = a_camera;
 
 	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
@@ -260,7 +263,7 @@ bool level::hitcheckpoint()
 void level::loadfromcheckpoint(std::string a_file)
 {
 	std::fstream temp;
-	temp.open(a_file,std::fstream::out||std::fstream::app);
+	temp.open(a_file.c_str(),std::fstream::out||std::fstream::app);
 	float x,y;
 	temp>>x;
 	temp>>y;

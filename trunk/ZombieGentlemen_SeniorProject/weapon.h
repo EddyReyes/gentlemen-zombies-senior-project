@@ -1,50 +1,20 @@
 #pragma once
 
-class Weapon
+class weapon
 {
 	private:
 		int damage;
-		int hitPoints;
-		int weaponCost;
 		int weaponSpeed;
 		
 	public:
-		Weapon();
-		~Weapon();
-		int damageGiven(int a_damage);
-		int damageReceived(int a_hitPoints);
-		int weaponDamageType(void);
-		float cost(float a_cost);
-		int shovle();
-			
-};
+		weapon();
+		~weapon();
 
-class PlayerWeapon
-{
-	private:
-		int PlayerWeaponDamage;
-		int PlayerWeaponType;
-		int PlayerWeaponUpdate;
-	public:
-		int weaponType(void);
-		int weaponDamageUpdate(void);
-		int weaponPickup(void);
-		int weaponPickupUpdate(void);
-		PlayerWeapon();
-		~PlayerWeapon();
-};
+		// muutotors
+		void setDamage();
+		void setSpeed();
 
-class NPCWeapon
-{
-	private:
-		int npcWeaponDamage;
-		int npcWeaponTypes;
-		int npcWeaponUpdate;
-	public:
-		int npcWeaponType(void);
-		int npcWeaponDamageUpdate(void);
-		int npcWeaponPickup(void);
-		int npcWeaponPickupUpdate(void);
-		NPCWeapon();
-		~NPCWeapon();
+		// accessors
+		void getDamage();
+		void getSpeed();
 };

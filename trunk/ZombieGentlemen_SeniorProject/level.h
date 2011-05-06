@@ -6,6 +6,7 @@
 #include "physics.h"
 #include "stringArray.h"
 #include "background.h"
+#include "dxCamera.h"
 #include "HUD.h"
 
 class level
@@ -17,11 +18,12 @@ private:
 	background * backGrnd;
 	HUD * p1HUD;
 	DXText* checkpointtxt;
+	dxCamera * camera;
 	int checkpoint;
 
 public:
 	level();
-	void initLevel(dxManager* a_dxMgr, std::string filename);
+	void initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string filename);
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void handleInput(inputData * input, int now);

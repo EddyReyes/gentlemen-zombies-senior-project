@@ -2,46 +2,33 @@
 #include "dxManager.h"
 #include "object.h"
 #include "armor.h"
+#include "weapon.h"
 
 class Player
 {
 private:
-	float PlayerHealth;
+	float health;
 	float damageResistance;
 	float money;
 	Armor * amr;
-	object* m_char;
+	weapon * plrWeapon;
+	object* m_object;
+
 public:
 	
 	Player();
-	Player(dxManager * a_dxMgr,char*file);
+	void init(object * a_object);
 
-	object* getObj(){return m_char;}
+	object * getObject(){return m_object;}
 
 	~Player();
-	float getHealth();
+	
 	void setHealth(float a_health);
 	void healthRegenerate(float healthPack);
-	void PlayerDamage(float damage);
-	float getMoney();
+	void damage(float damage);
 	void addMoney(float recieve);
 	void setMoney(float a_money);
-	void Draw();
-	void movePlayer(float,float);
-
+	float getHealth();
+	float getMoney();
 	Armor * getArmor(){return amr;}
-
-
-	//void attack(int & weapon );
-	//void defend();
-	//addItem()
-	//removeItem()
-	//addMoney()
-	//removeMoney()
-	//updateHelmet()
-	//updateArmor()
-	//void calculateDamageResistance()
-	//calculateMovementSpeed()
-	//calculateMaxJumpHeight()
-
 };
