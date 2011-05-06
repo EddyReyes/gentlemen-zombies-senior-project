@@ -127,8 +127,8 @@ void HUD::loadFromFile(std::string filename, std::string textParam, dxManager * 
 	// after loading all the images, load text paramerts for all DXText objects
 	PlayerMoney->loadFromTxtFile(textParam);
 	PlayerMoney->setDialog("No Player");
-	healthBar = images[0];
-	armorBar = images[1];
+	healthBar = images[imgMgr->getSize()-2];
+	armorBar = images[imgMgr->getSize()-1];
 
 		//hudBackground	= new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
 	//PlayerID		= new HudImage(dxMgr, imgMgr->getImage(1), imgMgr->getImageInfo(1));

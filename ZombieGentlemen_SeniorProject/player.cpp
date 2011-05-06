@@ -3,37 +3,18 @@
 
 Player::Player()
 {
-	//Player life points is set to 100;
-	//Players damage resistance is at 50%
-	PlayerHealth = 100.0;
-	damageResistance = 0.50;
-	money = 0;
-	m_char = NULL;
-
+	m_object = NULL;
 }
-Player::Player(dxManager* a_dxMgr, char* file)
+
+void Player::init(object * a_object)
 {
-	PlayerHealth = 100.0;
-	damageResistance = 0.50;
+	health = 100.0f;
+	m_object = a_object;
 	money = 0;
-	m_char = new object(a_dxMgr,file);
-	m_char->setPosition(0,0,0);
 }
 Player::~Player()
 {
-	delete m_char;
-}
-float Player::getHealth()
-{
-	//getting the Players health.
-	return PlayerHealth;
-}
-
-void Player::setHealth(float a_health)
-{
-	// setting the Players health
-	
-	a_health = PlayerHealth;
+	// the players object does not get destroyed becuase it is handled by the object manager
 }
 
 void Player::healthRegenerate(float healthPack)
@@ -41,22 +22,17 @@ void Player::healthRegenerate(float healthPack)
 	//updateing Players health.
 	//(When Player receave a health pack it will add more life poits to Player health.)
 	float maxHealth = 100.0;
-	PlayerHealth += healthPack;
-	if(PlayerHealth > maxHealth)
-		PlayerHealth = maxHealth;
+	health += healthPack;
+	if(health > maxHealth)
+		health = maxHealth;
 }
 
-void  Player::PlayerDamage(float damage)
+void  Player::damage(float damage)
 {
 	//udateing the Players current health: health is being depleated. 
-	PlayerHealth -= (1 - damageResistance) * damage;
-	if(PlayerHealth < 0) PlayerHealth = 0;
+	health -= (1 - damageResistance) * damage;
+	if(health < 0) health = 0;
 	// if health equals zero then the Player is dead and the health will print out zero for remaining health.
-}
-
-float Player::getMoney()
-{
-	return money;
 }
 
 void Player::addMoney(float recieve)
@@ -66,16 +42,8 @@ void Player::addMoney(float recieve)
 	if(money > maxMoney)
 	money = maxMoney;
 }
+void Player::setMoney(float a_money){a_money = money;}
+void Player::setHealth(float a_health){health  = a_health;}
 
-void Player::setMoney(float a_money)
-{
-	a_money = money;
-}
-void Player::Draw()
-{
-	m_char->draw();
-}
-void Player::movePlayer(float a_x,float a_y)
-{
-	m_char->setPosition(a_x,a_y,0.0f);
-}
+float Player::getHealth(){return health;}
+float Player::getMoney(){return money;}
