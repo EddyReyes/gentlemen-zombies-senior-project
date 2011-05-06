@@ -156,6 +156,19 @@ void game::handleInput()
 		}
 		if(check == 2)
 		{
+			fstream file("checkpoint.txt",fstream::in||fstream::app);
+			if(file.good())
+			{
+				mainMenu->~Menu();
+				m_currentgamestate = adventure_mode;
+				lvl1->loadfromcheckpoint("checkpoint.txt");
+
+				 soundMgr->stopSound(1);
+				soundMgr->playSound(0);
+			}
+		}
+		if(check == 3)
+		{
 			PostQuitMessage(0);
 		}
 	}

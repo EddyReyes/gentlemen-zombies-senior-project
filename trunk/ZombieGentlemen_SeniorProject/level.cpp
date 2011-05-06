@@ -6,6 +6,7 @@ level::level()
 	objMgr = NULL;
 	files = NULL;
 	m_map = NULL;
+	checkpointtxt = NULL;
 }
 /******************************************************************
 * initLevel
@@ -34,7 +35,7 @@ void level::initLevel(dxManager* a_dxMgr, std::string initFiles)
 	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
 	checkpointtxt->setDialog("CHECKPOINT");
-	checkpoint = 10;
+	checkpoint = 20;
 }
 /******************************************************************
 * update
@@ -52,9 +53,8 @@ void level::update(float updateTime)
 }
 void level::setMusic(char* sound)
 {
-	
-}
 
+}
 void level::draw()
 {
 	m_map->draw();
@@ -250,11 +250,21 @@ bool level::hitcheckpoint()
 		objMgr->getObject()->getPosition()->x < checkpoint + 2)
 	{
 		std::ofstream file("checkpoint.txt");
-		file<<objMgr->getObject()->getPosition()->x;
+		file<<objMgr->getObject()->getPosition()->x<<'\n';
+		file<<objMgr->getObject()->getPosition()->y<<'\n';
 		return true;
 	}
 	else
 		return false;
+}
+void level::loadfromcheckpoint(std::string a_file)
+{
+	std::fstream temp;
+	temp.open(a_file,std::fstream::out||std::fstream::app);
+	float x,y;
+	temp>>x;
+	temp>>y;
+	objMgr->getObject()->setPosition(x,y,0.0f);
 }
 level::~level()
 {
