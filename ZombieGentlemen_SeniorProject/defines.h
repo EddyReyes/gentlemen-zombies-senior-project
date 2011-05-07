@@ -5,6 +5,7 @@
 #define menu			0//menu mode also used in stores
 #define adventure_mode  1 //top down view
 #define side_scroll		2//side scroll mode
+#define game_over		3
 
 
 //character states
