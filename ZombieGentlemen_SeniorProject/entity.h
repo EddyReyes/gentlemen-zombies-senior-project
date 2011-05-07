@@ -7,6 +7,7 @@ protected:
 	object * m_object;
 	bool alive, armor;
 	// entity will also require a state
+	enum state{idle, walking, jumping};
 
 
 public:
