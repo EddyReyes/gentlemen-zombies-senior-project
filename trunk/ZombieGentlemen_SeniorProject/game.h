@@ -26,12 +26,8 @@
 #include "defines.h"
 
 #include "HUD.h"
-#include "Player.h"
-#include "EnemyCharacter.h"
-#include "weapon.h"
-#include "armor.h"
 #include "level.h"
-
+#include "entity.h"
 #include <stdio.h>
 
 class game
@@ -47,7 +43,6 @@ private:
 	inputData * input;
 	Menu* mainMenu;
 	int m_currentgamestate; //keeps track of which state the game is in
-	Player * player;
 	
 	// timer data
 	int now, then, passed, soon; // low resolution timers for keylag

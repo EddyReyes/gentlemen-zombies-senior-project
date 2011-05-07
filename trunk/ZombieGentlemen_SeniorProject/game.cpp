@@ -36,8 +36,6 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
 
-	player = new Player();
-
 	input = new inputData;
 	input->init();
 

@@ -1,6 +1,6 @@
 #pragma once
 
-class entity
+class obstacle
 {
 
 };

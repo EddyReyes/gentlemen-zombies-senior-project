@@ -1,9 +1,8 @@
 #pragma once
 #include "DXText.h"
 #include "HudImage.h"
-#include "Player.h"
+#include "entity.h"
 #include "imageManager.h"
-#include "armor.h"
 
 class HUD
 {
@@ -16,7 +15,7 @@ class HUD
 		//HudImage * weapon;
 		//HudImage * bagOfMoney;
 		//HudImage * PlayerID;
-		Player * plyr;
+		entity * plyr;
 		DXText * PlayerMoney;
 		HudImage ** images;
 		imageManager * imgMgr;
@@ -28,5 +27,5 @@ class HUD
 		void loadFromFile(std::string filename, std::string textParam, dxManager * a_dxMgr);
 		void update();
 		void initPositions(std::string filename);
-		void setPlayer(Player * a_Player);
+		void setPlayer(entity * a_Player);
 };
