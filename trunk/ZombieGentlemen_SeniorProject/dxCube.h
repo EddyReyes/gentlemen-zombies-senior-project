@@ -54,7 +54,7 @@ public:
 	void setImageRowsColumns(int a_Rows, int a_Columns);
 	void setRows(int a_Rows);
 	void setColumns(int a_Columns);
-	void selectTextureSource(int a_Row, int a_Column);
+	bool selectTextureSource(int a_Row, int a_Column);
 
 	// toggle
 	void toggleCube();
