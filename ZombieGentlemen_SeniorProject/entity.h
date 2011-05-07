@@ -18,7 +18,7 @@ public:
 	void animate();
 	
 	//virtual functions (for child classes)
-	virtual void update();
+	virtual void update() = 0;
 
 	// mutators
 	void setObject(object * a_object);

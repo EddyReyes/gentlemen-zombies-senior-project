@@ -230,10 +230,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\EnemyCharacter.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\entity.cpp"
 					>
 				</File>

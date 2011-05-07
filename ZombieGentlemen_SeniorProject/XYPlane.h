@@ -51,7 +51,7 @@ public:
 	void setImageRowsColumns(int a_Rows, int a_Columns);
 	void setRows(int a_Rows);
 	void setColumns(int a_Columns);
-	void selectTextureSource(int a_Row, int a_Column);
+	bool selectTextureSource(int a_Row, int a_Column);
 	void setImage(std::string filename);
 	void shareImage(LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
 	

@@ -220,11 +220,12 @@ void XYPlane::setColumns(int a_Columns){Columns = a_Columns;}
 * selectTextureSource
 * sets the UV coordinates to a specific rectangle inside the image
 *************************************************************************/
-void XYPlane::selectTextureSource(int a_Row, int a_Column)
+bool XYPlane::selectTextureSource(int a_Row, int a_Column)
 {
 	if(a_Row >= Rows || a_Column >= Columns)
 	{
 		MessageBox(NULL, "Invalid texture source called", "ERROR", MB_OK);
+		return false;
 	}
 	else
 	{
@@ -232,8 +233,9 @@ void XYPlane::selectTextureSource(int a_Row, int a_Column)
 		textureCoord->bottom = (((imageInfo->Height/Rows) * a_Row) + imageInfo->Height/Rows) / (float)imageInfo->Height;
 		textureCoord->left = ( a_Column * (imageInfo->Width/Columns)) / (float)imageInfo->Width;
 		textureCoord->right = ((a_Column * (imageInfo->Width/Columns)) + (imageInfo->Width/Columns)) / (float)imageInfo->Width;
+		SetupVB();
+		return true;
 	}
-	SetupVB();
 }
 LPDIRECT3DTEXTURE9 * XYPlane::getTexture(){return &image;}
 D3DXIMAGE_INFO * XYPlane::getImageInfo(){return imageInfo;}
