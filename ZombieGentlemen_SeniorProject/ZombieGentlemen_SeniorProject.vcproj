@@ -286,6 +286,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\town.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\turret.cpp"
 					>
 				</File>
