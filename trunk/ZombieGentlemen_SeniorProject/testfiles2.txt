@@ -4,3 +4,6 @@ colMapTest2.txt
 imageManagerTest.txt
 testObjects.txt
 testBackground.txt
+imageHUDTest.txt
+HUDMoney.txt
+defautHUDPositions.txt
