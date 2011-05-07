@@ -26,8 +26,10 @@
 #include "defines.h"
 
 #include "HUD.h"
+#include "town.h"
 #include "level.h"
 #include "entity.h"
+#include "ziggy.h"
 #include <stdio.h>
 
 class game

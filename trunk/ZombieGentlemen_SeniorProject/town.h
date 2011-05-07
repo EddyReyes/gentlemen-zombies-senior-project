@@ -13,9 +13,9 @@ private:
 	dxCamera * camera;
 
 public:
-	town(){};
-	~town(){};
+	town();
+	~town();
 	void init();
-	void udpate(){};
-	void draw(){};
+	void update();
+	void draw();
 };
