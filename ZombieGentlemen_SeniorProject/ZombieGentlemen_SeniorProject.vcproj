@@ -222,10 +222,6 @@
 				Name="Game Assets"
 				>
 				<File
-					RelativePath=".\armor.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\background.cpp"
 					>
 				</File>
@@ -242,7 +238,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\entityManger.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\game.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\goomba.cpp"
 					>
 				</File>
 				<File
@@ -251,10 +255,6 @@
 				</File>
 				<File
 					RelativePath=".\HUD.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\item.cpp"
 					>
 				</File>
 				<File
@@ -270,6 +270,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\obstacle.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\physics.cpp"
 					>
 				</File>
@@ -278,15 +282,19 @@
 					>
 				</File>
 				<File
-					RelativePath=".\player.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\stringArray.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\weapon.cpp"
+					RelativePath=".\teleporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\turret.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ziggy.cpp"
 					>
 				</File>
 			</Filter>
@@ -364,10 +372,6 @@
 				Name="Game Assets"
 				>
 				<File
-					RelativePath=".\armor.h"
-					>
-				</File>
-				<File
 					RelativePath=".\background.h"
 					>
 				</File>
@@ -384,15 +388,19 @@
 					>
 				</File>
 				<File
-					RelativePath=".\EnemyCharacter.h"
-					>
-				</File>
-				<File
 					RelativePath=".\entity.h"
 					>
 				</File>
 				<File
+					RelativePath=".\entityManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\game.h"
+					>
+				</File>
+				<File
+					RelativePath=".\goomba.h"
 					>
 				</File>
 				<File
@@ -401,14 +409,6 @@
 				</File>
 				<File
 					RelativePath=".\HUD.h"
-					>
-				</File>
-				<File
-					RelativePath=".\interior.h"
-					>
-				</File>
-				<File
-					RelativePath=".\item.h"
 					>
 				</File>
 				<File
@@ -432,6 +432,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\obstacle.h"
+					>
+				</File>
+				<File
 					RelativePath=".\physics.h"
 					>
 				</File>
@@ -440,15 +444,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\player.h"
-					>
-				</File>
-				<File
-					RelativePath=".\playerItem.h"
-					>
-				</File>
-				<File
 					RelativePath=".\stringArray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\teleporter.h"
 					>
 				</File>
 				<File
@@ -456,7 +456,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\weapon.h"
+					RelativePath=".\turret.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ziggy.h"
 					>
 				</File>
 			</Filter>

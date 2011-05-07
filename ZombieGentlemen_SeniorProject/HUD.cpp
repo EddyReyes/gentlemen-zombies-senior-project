@@ -150,12 +150,12 @@ void HUD::update()
 {
 	if(plyr != NULL)
 	{
-		healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
-		armorBar->setParameters(plyr->getArmor()->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
+		//healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
+		//armorBar->setParameters(plyr->getArmor()->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
 
-		char updateBuffer[50];
-		sprintf_s(updateBuffer, "Money %.00f\n", plyr->getMoney());
-		PlayerMoney->setDialog(updateBuffer);
+		//char updateBuffer[50];
+		//sprintf_s(updateBuffer, "Money %.00f\n", plyr->getMoney());
+		//PlayerMoney->setDialog(updateBuffer);
 	}
 }
 
@@ -214,4 +214,4 @@ void HUD::initPositions(std::string filename)
 * must be called in order for the updates to take effect
 ****************************************************************/
 
-void HUD::setPlayer(Player * a_Player){plyr = a_Player;}
+void HUD::setPlayer(entity * a_Player){plyr = a_Player;}
