@@ -48,6 +48,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	lvl1 = new level();
 	lvl1->initLevel(dxMgr, camera , "testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
+
+	the_town = new town(dxMgr);
 	setMusic();
 	return true;
 }
@@ -168,6 +170,7 @@ void game::handleInput()
 		{
 			PostQuitMessage(0);
 		}
+
 	}
 	else
 	{
@@ -183,6 +186,12 @@ void game::draw()
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
 	if(m_currentgamestate == menu)
 		mainMenu->Draw();
+#ifdef topdown
+	else if(m_currentgamestate == adventure_mode)
+	{
+		the_town->draw();
+	}
+#endif
 	else
 	{
 		lvl1->draw();
@@ -202,4 +211,5 @@ game::~game()
 	physicsData->~DXText();
 	FPSText->~DXText();
 	lvl1->~level();	
+	the_town->~town();
 }
