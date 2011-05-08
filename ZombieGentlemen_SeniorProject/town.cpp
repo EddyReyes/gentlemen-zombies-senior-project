@@ -3,15 +3,19 @@
 town::town()
 {
 	map = NULL;
-	objMgr = NULL;
+	objects = NULL;
 	camera = NULL;
+}
+town::town(dxManager*)
+{
+
 }
 town::~town()
 {
 	if(map)
 	map->~XYPlane();
-	if(objMgr)
-	objMgr->~object();
+	if(objects)
+	objects->~object();
 	if(camera)
 	camera->~dxCamera();
 }
