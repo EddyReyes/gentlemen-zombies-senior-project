@@ -11,7 +11,7 @@ class town
 private:
 	XYPlane* map;
 	dxCamera * camera;
-
+	object * objMgr;
 public:
 	town();
 	town(dxManager*);
