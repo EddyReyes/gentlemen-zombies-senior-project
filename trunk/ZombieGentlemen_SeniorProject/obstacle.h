@@ -4,7 +4,7 @@
 class obstacle
 {
 private:
-	object * m_ojbect;
+	object * m_object;
 public:
 
 	// constructor/desctructor
@@ -12,5 +12,5 @@ public:
 	~obstacle();
 
 	// mutators
-	void setOjbect();
+	void setOjbect(int a_object);
 };

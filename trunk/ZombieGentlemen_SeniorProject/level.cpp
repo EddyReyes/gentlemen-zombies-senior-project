@@ -263,7 +263,9 @@ bool level::hitcheckpoint()
 void level::loadfromcheckpoint(std::string a_file)
 {
 	std::fstream temp;
+
 	temp.open(a_file.c_str(),std::fstream::out||std::fstream::app);
+	// .theirs	
 	float x,y;
 	temp>>x;
 	temp>>y;
