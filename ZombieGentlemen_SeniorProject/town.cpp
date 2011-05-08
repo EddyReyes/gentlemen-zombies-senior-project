@@ -2,21 +2,28 @@
 
 town::town()
 {
-	camera = NULL;
 	map = NULL;
-}
-town::town(dxManager* a_dxMgr)
-{
-	map = new XYPlane(a_dxMgr,"images/top_downTest.bmp");
-	camera = new dxCamera(a_dxMgr);
-}
-void town::draw()
-{
-	camera->SetupCamera2D(0.0f,0.0f,5.0f);
-	map->draw();
+	objMgr = NULL;
+	camera = NULL;
 }
 town::~town()
 {
+	if(map)
 	map->~XYPlane();
+	if(objMgr)
+	objMgr->~object();
+	if(camera)
 	camera->~dxCamera();
+}
+void town::init()
+{
+
+}
+void town::update()
+{
+
+}
+void town::draw()
+{
+
 }
