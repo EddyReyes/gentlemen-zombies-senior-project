@@ -28,9 +28,12 @@
 #include "HUD.h"
 #include "town.h"
 #include "level.h"
+#include "town.h"
 #include "entity.h"
 #include "ziggy.h"
 #include <stdio.h>
+
+//#define topdown
 
 class game
 {
@@ -65,6 +68,7 @@ private:
 	int m_charstate;	//keeps track of what state the Player is in
 	float objectX, objectY;
 	level* lvl1;
+	town* the_town;
 			
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
