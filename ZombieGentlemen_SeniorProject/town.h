@@ -3,6 +3,9 @@
 #include "XYPlane.h"
 #include "objectManager.h"
 #include "dxCamera.h"
+#include "directInput.h"
+#include "inputData.h"
+
 
 // this class will contain the towns map, objects, and characters
 
@@ -17,6 +20,6 @@ public:
 	town();
 	~town();
 	void init(dxManager * a_dxMgr);
-	void update();
+	int update(inputData * input,int now);
 	void draw();
 };
