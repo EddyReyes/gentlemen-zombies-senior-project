@@ -9,6 +9,7 @@ object::object()
 	collisionToggle = true;
 	colliding = false;
 	collData = 0;
+	oldCollData = 0;
 	phys = NULL;
 }
 object::object(dxManager* a_dxMgr, std::string imgFile)
@@ -20,6 +21,7 @@ object::object(dxManager* a_dxMgr, std::string imgFile)
 	collisionToggle = true;
 	colliding = false;
 	collData = 0;
+	oldCollData = 0;
 	phys = NULL;
 }
 
@@ -32,6 +34,7 @@ object::object(XYPlane * a_plane)
 	collisionToggle = true;
 	colliding = false;
 	collData = 0;
+	oldCollData = 0;
 	phys = NULL;
 }
 object::object(dxCube * a_cube)
@@ -43,6 +46,7 @@ object::object(dxCube * a_cube)
 	collisionToggle = true;
 	colliding = false;
 	collData = 0;
+	oldCollData = 0;
 	phys = NULL;
 }
 
@@ -208,6 +212,8 @@ void object::clear()
 		phys->updateMovePermissions();
 	}
 	colliding = false;
+	
+	oldCollData = collData;
 	collData = 0;
 }
 
@@ -319,3 +325,4 @@ bool object::setSprite(int row, int column)
 	}
 	return false;
 }
+int object::getCollData(){return oldCollData;}

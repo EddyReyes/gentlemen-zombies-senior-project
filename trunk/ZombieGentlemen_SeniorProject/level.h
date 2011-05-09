@@ -8,6 +8,7 @@
 #include "background.h"
 #include "dxCamera.h"
 #include "HUD.h"
+#include "player.h"
 
 class level
 {
@@ -20,6 +21,7 @@ private:
 	DXText* checkpointtxt;
 	dxCamera * camera;
 	int checkpoint;
+	player * tempPlayer;
 
 public:
 	level();

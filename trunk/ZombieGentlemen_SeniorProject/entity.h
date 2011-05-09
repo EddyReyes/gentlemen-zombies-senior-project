@@ -1,14 +1,13 @@
 #pragma once
 #include "object.h"
 
+
 class entity
 {
 protected:
 	object * m_object;
 	bool alive, armor;
-	// entity will also require a state
-	enum state{idle, walking, jumping};
-
+	// entitys will also require a state
 
 public:
 	// constructor destructor
@@ -16,10 +15,10 @@ public:
 	~entity();
 
 	// member functions
-	void animate();
-	
+	virtual void animate() = 0;
+
 	//virtual functions (for child classes)
-	virtual void update() = 0;
+	virtual void update(float) = 0;
 
 	// mutators
 	void setObject(object * a_object);

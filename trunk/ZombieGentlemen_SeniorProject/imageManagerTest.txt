@@ -2,3 +2,4 @@ images/armorBar.bmp
 images/blackTextBox.bmp
 images/glass tile.bmp
 images/character.bmp
+images/animation/playerStates.bmp

@@ -11,12 +11,11 @@ class town
 private:
 	XYPlane* map;
 	dxCamera * camera;
-	object * object;
+	object * m_object;
 public:
 	town();
-	town(dxManager*);
 	~town();
-	void init();
+	void init(dxManager * a_dxMgr);
 	void update();
 	void draw();
 };
