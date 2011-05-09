@@ -112,8 +112,8 @@ void game::handleInput()
 		if(check == 1)
 		{
 			mainMenu->~Menu();
-			gameState = sideScroll;
-
+			//gameState = sideScroll;
+			gameState = topDown;
 			soundMgr->stopSound(1);
 			soundMgr->playSound(0);
 		}
@@ -136,8 +136,15 @@ void game::handleInput()
 		}
 		
 		break;
+	case topDown:
+		{
+			if(the_town->update(input,now)== 0)
+				gameState = sideScroll;
+		}
+		break;
 
 	case sideScroll:
+
 		// when game is in level state, input is handled inside level
 		lvl1->handleInput(input, now);
 		break;
