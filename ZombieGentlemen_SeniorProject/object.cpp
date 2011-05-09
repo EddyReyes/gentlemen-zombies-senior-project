@@ -247,6 +247,18 @@ void object::setPosition(float a_x, float a_y, float a_z)
 	}
 	collRect->update();
 }
+void object::setPosition(D3DXVECTOR3 vec)
+{
+	if(plane)
+	{
+		plane->setPosition(vec.x, vec.y, vec.z);
+	}
+	if(cube)
+	{
+		cube->setPosition(vec.x, vec.y, vec.z);
+	}
+	collRect->update();
+}
 /************************************************************************************
 * handleCollision
 * reverts the position of the object to the old position recorded previously

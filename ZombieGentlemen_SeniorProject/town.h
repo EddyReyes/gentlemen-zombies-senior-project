@@ -12,6 +12,7 @@ private:
 	XYPlane* map;
 	dxCamera * camera;
 	object * m_object;
+	D3DXVECTOR3* m_points;
 public:
 	town();
 	~town();

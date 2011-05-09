@@ -59,6 +59,7 @@ public:
 	void togglePhysics();
 	void toggleImage();		
 	void setPosition(float a_x, float a_y, float a_z);	
+	void setPosition(D3DXVECTOR3);	
 	void setTargetCollision(collisionRect * a_collRect);
 	bool setSprite(int row, int column);
 	
