@@ -43,7 +43,18 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 
 	tempPlayer = new player;
 	tempPlayer->setObject(objMgr->getObject());
-	
+
+	// initialize FPS display data
+	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	FPSText->loadFromTxtFile("textParameters.txt");
+	FPSText->setDialog("Loading...");
+
+	physicsData = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	physicsData->loadFromTxtFile("textParameters2.txt");
+	physicsData->setDialog("Loading...");
+
+	Elapsed = 0;
+	FPS = 0;
 }
 /******************************************************************
 * update
@@ -55,10 +66,50 @@ void level::update(float updateTime)
 {
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
-	tempPlayer->update(0);
+	tempPlayer->update(updateTime);
+	updateDebugData(updateTime);
+	updateCamera();
 	//will check if youur at a checkpoint
+}
 
+void level::updateCamera()
+{
+	float cameraY = tempPlayer->getObject()->getPosition()->y;
+	float cameraX = tempPlayer->getObject()->getPosition()->x;
+	//camera->SetupCamera2D(cameraX, cameraY, -10);
+	camera->SetupCamera2D(cameraX, 0, -10);
+}
+void level::updateDebugData(float updateTime)
+{
+	// display FPS
+	FPS++;
+	Elapsed += updateTime;
 
+	if(Elapsed >= 1)
+	{
+		char UpdateBuffer[256];
+		sprintf_s(UpdateBuffer, "FPS: %i", FPS);
+		FPSText->setDialog(UpdateBuffer);
+		Elapsed = 0;
+		FPS = 0;
+	}
+
+	// display phsics
+	if(Elapsed >= 0.0)
+	{
+		char PhysicsBuffer[256];
+		if(tempPlayer->getObject()->getPhysics())
+		{
+			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
+				tempPlayer->getObject()->getPhysics()->getXVelocity(), 
+				tempPlayer->getObject()->getPhysics()->getYVelocity());
+		}
+		else
+		{
+			sprintf_s(PhysicsBuffer, "Physics Disabled");
+		}
+		physicsData->setDialog(PhysicsBuffer);
+	}
 }
 void level::setMusic(char* sound)
 {
@@ -70,6 +121,8 @@ void level::draw()
 	backGrnd->draw();
 	objMgr->draw();
 	p1HUD->draw();
+	FPSText->draw();
+	physicsData->draw();
 	//checks if checkpoint was hit draws indication 
 	//also checks if the player is way past it to stop drawing indication
 	if(hitcheckpoint())
@@ -278,6 +331,8 @@ void level::loadfromcheckpoint(std::string a_file)
 }
 level::~level()
 {
+	FPSText->~DXText();
+	physicsData->~DXText();
 	m_map->~cubeMap();
 	objMgr->~objectManager();
 	files->~stringArray();

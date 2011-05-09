@@ -23,13 +23,21 @@ private:
 	int checkpoint;
 	player * tempPlayer;
 
+	float Elapsed;
+	int FPS;
+	// debug data
+	DXText * FPSText;
+	DXText * physicsData; 
+
 public:
 	level();
 	void initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string filename);
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void handleInput(inputData * input, int now);
-	void update(float);
+	void update(float timePassed);
+	void updateCamera();
+	void updateDebugData(float updateTime);
 	~level();//deconstructor
 	bool hitcheckpoint();
 	void loadfromcheckpoint(std::string);
