@@ -23,8 +23,6 @@
 #include "collisionMap.h"
 
 #include "Menu.h"
-#include "defines.h"
-
 #include "HUD.h"
 #include "town.h"
 #include "level.h"
@@ -34,6 +32,7 @@
 #include <stdio.h>
 
 //#define topdown
+enum gameStates{menu, sideScroll, topDown, pause};
 
 class game
 {
@@ -47,7 +46,7 @@ private:
 	sound * soundMgr;
 	inputData * input;
 	Menu* mainMenu;
-	int m_currentgamestate; //keeps track of which state the game is in
+	gameStates gameState;
 	
 	// timer data
 	int now, then, passed, soon; // low resolution timers for keylag
@@ -68,7 +67,7 @@ private:
 	int m_charstate;	//keeps track of what state the Player is in
 	float objectX, objectY;
 	level* lvl1;
-	town* the_town;
+	town * the_town;
 			
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);

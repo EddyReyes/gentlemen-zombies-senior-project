@@ -128,5 +128,4 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 Menu::~Menu()
 {
 	imgMan->~imageManager();
-
 }

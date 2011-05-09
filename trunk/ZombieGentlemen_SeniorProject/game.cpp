@@ -11,8 +11,10 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	dxMgr = a_dxMgr;
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
-	m_currentgamestate = menu;
-	m_charstate = char_idle;
+	
+	// game states
+	gameState = menu;
+
 	//instantiate menu
 	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
 	mainMenu->setParam(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
@@ -129,8 +131,6 @@ void game::handleInput()
 	input->keystate = inputMgr->getKeyboardState();
 	inputMgr->updateMouseState();
 	input->mouseState = *(inputMgr->getMouseState());
- 	float cameraMove = 0.05f;
-	int cameraLag = 0;
 
 	// keyboard
 	//mainMenu->update(keystate,now,keyLag);
@@ -140,19 +140,22 @@ void game::handleInput()
 		PostQuitMessage(0);
 	}
 
-	if(m_currentgamestate == menu)
+	int check = 0;
+
+	switch(gameState)
 	{
+	case menu:
 		soundMgr->SetVolume(1, -2000);
 		soundMgr->playSound(1);
 
-		int check = mainMenu->update(input->keystate,now,input->keyLag);
+		check = mainMenu->update(input->keystate,now,input->keyLag);
 		if(check == 1)
 		{
-			 mainMenu->~Menu();
-			 m_currentgamestate = adventure_mode;
+			mainMenu->~Menu();
+			gameState = sideScroll;
 
-			 soundMgr->stopSound(1);
-			 soundMgr->playSound(0);
+			soundMgr->stopSound(1);
+			soundMgr->playSound(0);
 		}
 		if(check == 2)
 		{
@@ -160,10 +163,10 @@ void game::handleInput()
 			if(file.good())
 			{
 				mainMenu->~Menu();
-				m_currentgamestate = adventure_mode;
+				gameState = sideScroll;
 				lvl1->loadfromcheckpoint("checkpoint.txt");
 
-				 soundMgr->stopSound(1);
+				soundMgr->stopSound(1);
 				soundMgr->playSound(0);
 			}
 		}
@@ -171,46 +174,48 @@ void game::handleInput()
 		{
 			PostQuitMessage(0);
 		}
+		
+		break;
 
-	}
-	else
-	{
+	case sideScroll:
 		// when game is in level state, input is handled inside level
 		lvl1->handleInput(input, now);
+		break;
 	}
 }
+
 void game::draw()
 {
 	dxMgr->beginRender();
 
 	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
 	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
-	if(m_currentgamestate == menu)
+
+	switch(gameState)
+	{
+	case menu:
 		mainMenu->Draw();
-#ifdef topdown
-	else if(m_currentgamestate == adventure_mode)
-	{
+		break;
+	case topDown:
 		the_town->draw();
-	}
-#endif
-	else
-	{
+		break;
+	case sideScroll:
 		lvl1->draw();
-	
 		FPSText->draw();
 		physicsData->draw();
+		break;
 	}
-	camera->SetHudCamera();
-		
+	//camera->SetHudCamera();
 	dxMgr->endRender();
 }
 game::~game()
-{		
-	dxMgr->shutdown();
-	inputMgr->shutdownDirectInput();
-	soundMgr->~sound();
+{	
 	physicsData->~DXText();
 	FPSText->~DXText();
 	lvl1->~level();	
 	the_town->~town();
+
+	dxMgr->shutdown();
+	inputMgr->shutdownDirectInput();
+	soundMgr->~sound();
 }
