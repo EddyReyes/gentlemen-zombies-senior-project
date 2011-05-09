@@ -12,12 +12,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	inputMgr = a_inputMgr;
 	soundMgr = a_soundMgr;
 	
-	// game states
+	// set game initial state
 	gameState = menu;
-
-	//instantiate menu
-	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
-	mainMenu->setParam(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
 
 	// initialize timer data
 	now = clock();
@@ -26,33 +22,29 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	soon = now +100;
 
 	QueryPerformanceFrequency(&timerFreq);
-	Elapsed  = 0;
-	FPS = 0;
+	UpdateSpeed = 0;
 
-	// initialize FPS display data
-	FPSText = new DXText(dxMgr, "images/BlackTextBox.bmp");
-	FPSText->loadFromTxtFile("textParameters.txt");
-	FPSText->setDialog("Loading...");
-
-	physicsData = new DXText(dxMgr, "images/BlackTextBox.bmp");
-	physicsData->loadFromTxtFile("textParameters2.txt");
-	physicsData->setDialog("Loading...");
-
+	// initialize input data
 	input = new inputData;
 	input->init();
 
+	// initiailize camera
 	camera = new dxCamera(dxMgr);
-	cameraX = 0.0f;
-	cameraY = 0.0f;
-	cameraZ = -10.0f;
+	
+	//instantiate menu (TEST DATA)
+	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
+	mainMenu->setParam(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
 
+	// initialize town (TEST DATA)
+	the_town = new town();
+	the_town->init(dxMgr);
+
+	// initialize sound data (TEST DATA)
 	a_soundMgr->initSoundFiles("soundManager.txt");
 	lvl1 = new level();
 	lvl1->initLevel(dxMgr, camera , "testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
 
-	the_town = new town();
-	the_town->init(dxMgr);
 	setMusic();
 	return true;
 }
@@ -60,6 +52,7 @@ void game::setMusic()
 {
 	soundMgr->SetVolume(0, -2000);
 }
+
 void game::update()
 {
 	//update time
@@ -67,19 +60,25 @@ void game::update()
 	then = now;
 	passed = now-then;
 	soon = now +100;
-
 	QueryPerformanceCounter(&timeStart);
 	
 	// Handle Input using Direct Input
 	handleInput();
-	// handle collision & update physics
-	lvl1->update(UpdateSpeed);
-	if(lvl1->getobject())
+	// update according to game state
+	switch(gameState)
 	{
-		//float ycoord = lvl1->getobject()->getPosition()->y;
-		float xcoord = lvl1->getobject()->getPosition()->x;
-		cameraX = xcoord;
-		//cameraY = ycoord;
+	case menu:
+		// nothing here yet
+		break;
+	case sideScroll:
+			lvl1->update(UpdateSpeed);
+		break;
+	case topDown:
+		// nothing here yet
+		break;
+	case pause: 
+		// nothing here yet
+		break;
 	}
 
 	// draw to the screen using Direct3D
@@ -89,41 +88,8 @@ void game::update()
 	QueryPerformanceCounter(&timeEnd);
 	UpdateSpeed = ((float)timeEnd.QuadPart - (float)timeStart.QuadPart)/
 		timerFreq.QuadPart;
-
-	updateDebugData();
 }
-void game::updateDebugData()
-{
-	// display FPS
-	FPS++;
-	Elapsed += UpdateSpeed;
 
-	if(Elapsed >= 1)
-	{
-		char UpdateBuffer[256];
-		sprintf_s(UpdateBuffer, "FPS: %i", FPS);
-		FPSText->setDialog(UpdateBuffer);
-		Elapsed = 0;
-		FPS = 0;
-	}
-
-	// display phsics
-	if(Elapsed >= 0.0)
-	{
-		char PhysicsBuffer[256];
-		if(lvl1->getobject()->getPhysics())
-		{
-			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
-				lvl1->getobject()->getPhysics()->getXVelocity(), 
-				lvl1->getobject()->getPhysics()->getYVelocity());
-		}
-		else
-		{
-			sprintf_s(PhysicsBuffer, "Physics Disabled");
-		}
-		physicsData->setDialog(PhysicsBuffer);
-	}
-}
 void game::handleInput()
 {
 	inputMgr->reAcquireDevices();
@@ -132,13 +98,12 @@ void game::handleInput()
 	inputMgr->updateMouseState();
 	input->mouseState = *(inputMgr->getMouseState());
 
-	// keyboard
-	//mainMenu->update(keystate,now,keyLag);
-
+	// if esc is pressed Quit Game globally
 	if(input->keystate[DIK_ESCAPE] & 0x80)
 	{
 		PostQuitMessage(0);
 	}
+
 
 	int check = 0;
 
@@ -188,9 +153,6 @@ void game::draw()
 {
 	dxMgr->beginRender();
 
-	camera->SetupCamera2D(cameraX, cameraY, cameraZ);
-	//camera->updateCamera3D(D3DXVECTOR3(cameraX, cameraY, cameraZ), D3DXVECTOR3(0, 0, 0)); 
-
 	switch(gameState)
 	{
 	case menu:
@@ -201,20 +163,15 @@ void game::draw()
 		break;
 	case sideScroll:
 		lvl1->draw();
-		FPSText->draw();
-		physicsData->draw();
+		
 		break;
 	}
-	//camera->SetHudCamera();
 	dxMgr->endRender();
 }
 game::~game()
 {	
-	physicsData->~DXText();
-	FPSText->~DXText();
 	lvl1->~level();	
 	the_town->~town();
-
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
 	soundMgr->~sound();

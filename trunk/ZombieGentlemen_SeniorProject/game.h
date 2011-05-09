@@ -42,30 +42,22 @@ private:
 	HWND * m_wndHandle; //pointer to global variable to hold the window handle
 	dxManager * dxMgr;
 	directInput * inputMgr;
-	// input data
 	sound * soundMgr;
-	inputData * input;
-	Menu* mainMenu;
 	gameStates gameState;
 	
+	// input data
+	inputData * input;
+
 	// timer data
 	int now, then, passed, soon; // low resolution timers for keylag
 	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
-	float UpdateSpeed, Elapsed;
-	int FPS;
-
-	// FPS display data
-	DXText * FPSText;
-	DXText * physicsData; 
-	//DXText * objstate; 
+	float UpdateSpeed;
 
 	// camera data
 	dxCamera * camera;
-	float cameraX, cameraY, cameraZ;
 
-	// Unit test parameters
-	int m_charstate;	//keeps track of what state the Player is in
-	float objectX, objectY;
+	// Unit test parameters	
+	Menu* mainMenu;
 	level* lvl1;
 	town * the_town;
 			
@@ -75,7 +67,6 @@ public:
 	void setMusic();
 	void update();
 	void handleGamState();
-	void updateDebugData();
 	void handleInput();
 	void draw();
 	~game();
