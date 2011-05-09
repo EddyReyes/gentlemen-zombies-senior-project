@@ -10,6 +10,10 @@ struct FloatRect
 	float right, left, bottom, top;
 };
 
+
+// THE FOLLOWING DATA IS NOT PART OF THE DESIGN
+
+
 struct spriteMovement{
 	// holds the location of this sprite
 	RECT srcRect;		
