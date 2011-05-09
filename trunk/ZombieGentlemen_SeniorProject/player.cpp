@@ -47,7 +47,8 @@ void player::update(float timePassed)
 		{
 			state = idle;
 		}
-		if(!(m_object->getPhysics()->isOnGround()))
+		//if(!(m_object->getPhysics()->isOnGround()))
+		if(m_object->getPhysics()->getYVelocity() > 0)
 		{
 			state = jumping;
 		}
