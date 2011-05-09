@@ -25,7 +25,7 @@ protected:
 	bool collisionToggle;
 	D3DXVECTOR3 oldPos;
 	bool colliding;
-	int collData;
+	int collData, oldCollData;
 	physics * phys;
 
 public:
@@ -69,4 +69,5 @@ public:
 	XYPlane * getXYPlane();
 	dxCube * getDxCube();
 	bool isColliding();
+	int getCollData();
 };

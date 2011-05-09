@@ -49,7 +49,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	lvl1->initLevel(dxMgr, camera , "testfiles.txt");
 	a_soundMgr->initSoundFiles("soundManager.txt");
 
-	the_town = new town(dxMgr);
+	the_town = new town();
+	the_town->init(dxMgr);
 	setMusic();
 	return true;
 }

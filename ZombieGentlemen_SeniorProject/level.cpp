@@ -8,6 +8,7 @@ level::level()
 	m_map = NULL;
 	checkpointtxt = NULL;
 	camera = NULL;
+
 }
 /******************************************************************
 * initLevel
@@ -39,6 +40,10 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
 	checkpointtxt->setDialog("CHECKPOINT");
 	checkpoint = 20;
+
+	tempPlayer = new player;
+	tempPlayer->setObject(objMgr->getObject());
+	
 }
 /******************************************************************
 * update
@@ -50,6 +55,7 @@ void level::update(float updateTime)
 {
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
+	tempPlayer->update(0);
 	//will check if youur at a checkpoint
 
 
@@ -265,7 +271,6 @@ void level::loadfromcheckpoint(std::string a_file)
 	std::fstream temp;
 
 	temp.open(a_file.c_str(),std::fstream::out||std::fstream::app);
-	// .theirs	
 	float x,y;
 	temp>>x;
 	temp>>y;
