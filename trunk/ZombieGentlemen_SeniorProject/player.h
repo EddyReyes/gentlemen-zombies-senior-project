@@ -2,7 +2,7 @@
 
 #include "entity.h"
 
-enum playerState{idle, walking, jumping, dead};
+enum playerState{idle, walkingRight, walkingLeft, jumping, dead};
 
 class player: public entity
 {

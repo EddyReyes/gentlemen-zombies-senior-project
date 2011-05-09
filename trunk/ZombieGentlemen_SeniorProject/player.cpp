@@ -23,11 +23,14 @@ void player::animate()
 	case idle:
 		m_object->setSprite(0,0);
 		break;
-	case walking:
+	case walkingRight:
 		m_object->setSprite(0,1);
 		break;
-	case jumping:
+	case walkingLeft:
 		m_object->setSprite(0,2);
+		break;
+	case jumping:
+		m_object->setSprite(0,3);
 		break;
 	case dead:
 		m_object->setSprite(0,4);
@@ -41,7 +44,10 @@ void player::update(float timePassed)
 	{
 		if(m_object->getPhysics()->isWalking())
 		{
-			state = walking;
+			if(m_object->getPhysics()->getXVelocity() > 0)
+				state = walkingRight;
+			else
+				state = walkingLeft;
 		}
 		else
 		{
