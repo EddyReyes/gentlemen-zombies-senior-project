@@ -49,7 +49,7 @@ private:
 	inputData * input;
 
 	// timer data
-	int now, then, passed, soon; // low resolution timers for keylag
+	int now; // low resolution timer for keylag
 	LARGE_INTEGER timeStart, timeEnd, timerFreq; // high resolution timers for animation
 	float UpdateSpeed;
 
@@ -57,8 +57,8 @@ private:
 	dxCamera * camera;
 
 	// Unit test parameters	
-	Menu* mainMenu;
-	level* lvl1;
+	Menu * mainMenu;
+	level * lvl1;
 	town * the_town;
 			
 public: 
