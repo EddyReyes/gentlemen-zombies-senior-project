@@ -17,9 +17,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initialize timer data
 	now = clock();
-	then = now;
-	passed = now-then;
-	soon = now +100;
+	//then = now;
+	//passed = now-then;
 
 	QueryPerformanceFrequency(&timerFreq);
 	UpdateSpeed = 0;
@@ -57,9 +56,6 @@ void game::update()
 {
 	//update time
 	now = clock();
-	then = now;
-	passed = now-then;
-	soon = now +100;
 	QueryPerformanceCounter(&timeStart);
 	
 	// Handle Input using Direct Input
@@ -103,7 +99,6 @@ void game::handleInput()
 	{
 		PostQuitMessage(0);
 	}
-
 
 	int check = 0;
 
