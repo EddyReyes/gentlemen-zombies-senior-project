@@ -11,5 +11,7 @@ public:
 	obstacle();
 	~obstacle();
 
-	void loadTrap();
+	virtual void update(float) = 0;
+	
+	void loadTrap();// getting a imag and checking for collition
 };
