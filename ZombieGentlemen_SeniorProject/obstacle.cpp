@@ -7,6 +7,7 @@ sets m_object to NULL
 obstacle::obstacle()
 {
 	m_object = NULL;
+	time = 0;
 }
 
 /******************
@@ -16,11 +17,32 @@ and destruction of all objects is handle there
 ******************/
 obstacle::~obstacle()
 {
-	m_object->~object();
+	
 }
-void obstacle::loadTrap()
+void obstacle::update(float timePassed)
 {
-	m_object->setSprite(0, 0);
-	m_object->getCollData();
-	m_object->checkCollision();
+	time += timePassed;
+
+	if(time <= 0.3)
+	{
+		switch(state)
+		{
+		case sprite1:
+			m_object->setSprite(0, 0);
+			state = sprite2;
+			break;
+		case sprite2:
+			m_object->setSprite(0, 1);
+			state = sprite3;
+			break;
+		case sprite3:
+			m_object->setSprite(0, 2);
+			state = sprite1;
+			break;
+		}
+
+		time = 0;
+	}
+
+
 }

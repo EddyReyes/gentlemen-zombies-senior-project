@@ -1,17 +1,19 @@
 #pragma once
-#include "object.h"
+#include "entity.h"
 
-class obstacle
+enum obstacleStates{sprite1,sprite2,sprite3};
+
+class obstacle: public entity
 {
 private:
-	object * m_object;
+	obstacleStates state;
+	float time;
+
 public:
 
 	// constructor/desctructor
 	obstacle();
 	~obstacle();
 
-	virtual void update(float) = 0;
-	
-	void loadTrap();// getting a imag and checking for collition
+	void update(float timePassed);
 };
