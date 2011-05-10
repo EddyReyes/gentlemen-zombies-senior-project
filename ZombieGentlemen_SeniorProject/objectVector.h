@@ -162,4 +162,12 @@ public:
 	{
 		return size;
 	}
+	void setObjectIndexes()
+	{
+		for(int i = 0; i < size; i++)
+		{
+			if(list[i] != NULL)
+				list[i]->setObjectIndex(i);
+		}
+	}
 };

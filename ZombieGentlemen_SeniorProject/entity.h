@@ -2,10 +2,12 @@
 #include "object.h"
 
 
+enum entityType{playerEntity, enemyEntity};
 class entity
 {
 protected:
 	object * m_object;
+	entityType type;
 	bool alive, armor;
 	// entitys will also require a state
 

@@ -138,6 +138,7 @@ public:
 		}
 		updatePosiitonRecords();
 		clearObjects();
+		list->setObjectIndexes();
 	}
 
 	bool verifyData(int objectIndex, int imageIndex, char primitiveType, 
@@ -388,4 +389,39 @@ public:
 		list->~objectVector();
 		colMap->~collisionMap();
 	}
+
+	bool setIndex(int a_index)
+	{
+		if(a_index < list->endOfList()-1 && a_index > 0)
+		{
+			index = a_index;
+			return true;
+		}
+		else return false;
+	}
+	bool popObject(int a_index)
+	{
+		if(a_index < list->endOfList()-1 && a_index > 0)
+		{
+			// from the ouside of this class, an accurate method of removing
+			// any particular object, is to tell the object manager to remove it
+			// according to the index it recorded within itself
+			bool success; // keeps track of wether the remove was worked
+			success = list->remove(a_index); // removes an object by index
+			list->setObjectIndexes(); // updates each objects index
+			return success;
+		}
+		else return false;
+	}
+	int getIndex(){return index;}
+	object * getObjectByIndex(int a_index)
+	{
+		if(a_index < list->endOfList()-1 && a_index > 0)
+		{
+			return list->get(a_index);
+		}
+	}
+
+	void indexEnd(){index = list->endOfList()-1;}
+	void indexBegining(){index = 0;}
 };
