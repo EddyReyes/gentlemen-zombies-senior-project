@@ -3,6 +3,7 @@
 player::player()
 {
 	m_object = NULL;
+	type = playerEntity;
 }
 player::~player()
 {

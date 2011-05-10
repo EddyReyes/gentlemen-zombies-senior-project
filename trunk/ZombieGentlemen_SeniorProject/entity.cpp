@@ -4,6 +4,8 @@
 entity::entity()
 {
 	m_object = NULL;
+	alive = true;
+	armor = false;
 }
 entity::~entity()
 {

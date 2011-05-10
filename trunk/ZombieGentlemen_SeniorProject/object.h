@@ -25,7 +25,7 @@ protected:
 	bool collisionToggle;
 	D3DXVECTOR3 oldPos;
 	bool colliding;
-	int collData, oldCollData;
+	int collData, oldCollData, objectIndex;
 	physics * phys;
 
 public:
@@ -62,6 +62,7 @@ public:
 	void setPosition(D3DXVECTOR3);	
 	void setTargetCollision(collisionRect * a_collRect);
 	bool setSprite(int row, int column);
+	void setObjectIndex(int a_index);
 	
 	// accesors	
 	D3DXVECTOR3 * getPosition();
@@ -71,4 +72,5 @@ public:
 	dxCube * getDxCube();
 	bool isColliding();
 	int getCollData();
+	int getObjectIndex();
 };
