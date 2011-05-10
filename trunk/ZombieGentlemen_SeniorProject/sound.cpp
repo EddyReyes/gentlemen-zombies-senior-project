@@ -2,7 +2,6 @@
 * see sound.h for details
 */
 
-
 #pragma once
 #include "sound.h"
 

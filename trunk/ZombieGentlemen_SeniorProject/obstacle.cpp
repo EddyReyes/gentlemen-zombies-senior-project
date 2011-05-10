@@ -18,12 +18,9 @@ obstacle::~obstacle()
 {
 	m_object->~object();
 }
-
-/******************
-setOjbect
-takes in an ojbect pointer and sets it to m_object
-******************/
-void obstacle::setOjbect(int a_object)
+void obstacle::loadTrap()
 {
-	//m_object = a_object;
+	m_object->setSprite(0, 0);
+	m_object->getCollData();
+	m_object->checkCollision();
 }

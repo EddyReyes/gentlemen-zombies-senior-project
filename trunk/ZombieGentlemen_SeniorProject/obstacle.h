@@ -11,6 +11,5 @@ public:
 	obstacle();
 	~obstacle();
 
-	// mutators
-	void setOjbect(int a_object);
+	void loadTrap();
 };
