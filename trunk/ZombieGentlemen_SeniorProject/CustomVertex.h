@@ -9,18 +9,3 @@ struct FloatRect
 {
 	float right, left, bottom, top;
 };
-
-
-// THE FOLLOWING DATA IS NOT PART OF THE DESIGN
-
-
-struct spriteMovement{
-	// holds the location of this sprite
-	RECT srcRect;		
-	// x and y position of sprite
-	int posX;
-	int posY;
-	// x and y movement of sprite
-	int moveX;
-	int moveY;
-};
