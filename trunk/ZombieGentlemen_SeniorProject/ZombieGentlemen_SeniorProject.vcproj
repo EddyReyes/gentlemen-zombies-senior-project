@@ -282,6 +282,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Projectiels.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\stringArray.cpp"
 					>
 				</File>
@@ -449,6 +453,10 @@
 				</File>
 				<File
 					RelativePath=".\player.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Projectiles.h"
 					>
 				</File>
 				<File
