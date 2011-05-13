@@ -3,7 +3,10 @@
 /***********************************************************************
  * Makes the ziggy enemy(bird/fish) fly or swim in a wave like pattern * 
  ***********************************************************************/
+void ziggy::load()
+{
 
+}
 void ziggy::update(float timePassed)
 {
 	/***************************************************************** 
@@ -30,14 +33,9 @@ void ziggy::update(float timePassed)
 	D3DXVECTOR3 * pos;
 	pos = m_object->getPosition();
 	pos->x += 0.5f * timePassed;
-	//here I need physics to drop ziggy, then make him accelerate up
-	//?????????
-	//ziggy will accelerate up for a time, then fall a certain time
-	//repeat the process
 	//m_object->getPhysics()->getYVelocity();
 	m_object->getCollisionRect()->update();
 }
-
 void ziggy::animate()
 {
 
