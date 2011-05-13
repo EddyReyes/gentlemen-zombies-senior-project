@@ -12,4 +12,6 @@ public:
 	projectile();
 	~projectile();
 	void update();
+	/*Have three function that make the projectile move. */
+	
 };

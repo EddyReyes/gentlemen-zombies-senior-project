@@ -3,6 +3,7 @@
 turret::turret()
 {
 	time = 0;
+	state = fortyFiveRight;
 }
 turret::~turret()
 {
