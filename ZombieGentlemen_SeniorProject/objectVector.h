@@ -26,8 +26,11 @@ public:
 		for(int i = 0; i < size; i++)
 		{
 			if(list[i] != NULL)
+			{
 				list[i]->~object();
 				delete list[i];
+				list[i] = NULL;
+			}
 		}
 	}
 	bool destroyObject(int index)
@@ -38,6 +41,7 @@ public:
 		{
 			list[index]->~object();
 			delete list[index];
+			list[index] = NULL;
 			return true;
 		}
 		else return false;
@@ -125,7 +129,6 @@ public:
 	{
 		if(destroyObject(endOfList()-1))
 		{
-			list[(endOfList()-1)] = NULL;
 			return true;
 		}
 		else return false;

@@ -7,6 +7,7 @@ sets m_object to NULL
 obstacle::obstacle()
 {
 	m_object = NULL;
+	state = sprite1;
 	time = 0;
 }
 
@@ -23,7 +24,7 @@ void obstacle::update(float timePassed)
 {
 	time += timePassed;
 
-	if(time <= 0.3)
+	if(time >= 0.04f)
 	{
 		switch(state)
 		{
@@ -40,9 +41,9 @@ void obstacle::update(float timePassed)
 			state = sprite1;
 			break;
 		}
-
 		time = 0;
 	}
-
-
 }
+
+void obstacle::animate()
+{}

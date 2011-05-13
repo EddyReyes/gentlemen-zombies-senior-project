@@ -12,8 +12,11 @@ player::~player()
 
 void player::move(float x, float y)
 {
-	m_object->getPhysics()->setXVelocity(x);
-	m_object->getPhysics()->setYVelocity(y);
+	m_object->getPhysics()->walkingOn();
+	if(x)
+		m_object->getPhysics()->setXVelocity(x);
+	if(y)
+		m_object->getPhysics()->setYVelocity(y);
 }
 
 void player::animate()
@@ -65,4 +68,8 @@ void player::update(float timePassed)
 		}
 	}
 	animate();
+}
+void player::displayLoadError()
+{
+	MessageBox(NULL, "Player parameter file is empty", "Player Error", MB_OK);
 }

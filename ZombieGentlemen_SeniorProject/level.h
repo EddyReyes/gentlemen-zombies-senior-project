@@ -8,7 +8,7 @@
 #include "background.h"
 #include "dxCamera.h"
 #include "HUD.h"
-#include "player.h"
+#include "entityManager.h"
 
 class level
 {
@@ -21,7 +21,9 @@ private:
 	DXText* checkpointtxt;
 	dxCamera * camera;
 	int checkpoint;
-	player * tempPlayer;
+	entityManager * entityMgr;
+	player * m_player;
+
 
 	float Elapsed;
 	int FPS;

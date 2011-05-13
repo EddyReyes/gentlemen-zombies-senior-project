@@ -1,5 +1,6 @@
 #pragma once
 #include "object.h"
+#include "imageManager.h"
 
 
 enum entityType{playerEntity, enemyEntity};
@@ -16,11 +17,12 @@ public:
 	entity();
 	~entity();
 
-	// member functions
-	virtual void animate() = 0;
-
 	//virtual functions (for child classes)
 	virtual void update(float) = 0;
+	virtual void animate() = 0;
+	
+	// member functions
+	void setPosition(float, float);
 
 	// mutators
 	void setObject(object * a_object);

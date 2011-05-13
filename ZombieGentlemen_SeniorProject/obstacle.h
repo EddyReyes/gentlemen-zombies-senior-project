@@ -14,6 +14,6 @@ public:
 	// constructor/desctructor
 	obstacle();
 	~obstacle();
-
 	void update(float timePassed);
+	void animate();
 };

@@ -10,4 +10,5 @@ public:
 
 	//member functions
 	void update(float timePassed);
+	void animate();
 };

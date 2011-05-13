@@ -27,7 +27,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	objMgr->initObjectMgr(a_dxMgr);
 	objMgr->initColMap(files->getStringAt(2), m_map);
 	objMgr->initImages(files->getStringAt(3));
-	objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
+	//objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
 	p1HUD = new HUD();
@@ -41,8 +41,9 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	checkpointtxt->setDialog("CHECKPOINT");
 	checkpoint = 20;
 
-	tempPlayer = new player;
-	tempPlayer->setObject(objMgr->getObject());
+	entityMgr = new entityManager();
+	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt");
+	m_player = entityMgr->getPlayer(0);
 
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
@@ -66,7 +67,7 @@ void level::update(float updateTime)
 {
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
-	tempPlayer->update(updateTime);
+	entityMgr->update(updateTime);
 	updateDebugData(updateTime);
 	updateCamera();
 	//will check if youur at a checkpoint
@@ -74,8 +75,8 @@ void level::update(float updateTime)
 
 void level::updateCamera()
 {
-	float cameraY = tempPlayer->getObject()->getPosition()->y;
-	float cameraX = tempPlayer->getObject()->getPosition()->x;
+	float cameraY = m_player->getObject()->getPosition()->y;
+	float cameraX = m_player->getObject()->getPosition()->x;
 	//camera->SetupCamera2D(cameraX, cameraY, -10);
 	camera->SetupCamera2D(cameraX, 0, -10);
 }
@@ -98,11 +99,11 @@ void level::updateDebugData(float updateTime)
 	if(Elapsed >= 0.0)
 	{
 		char PhysicsBuffer[256];
-		if(tempPlayer->getObject()->getPhysics())
+		if(m_player->getObject()->getPhysics())
 		{
 			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
-				tempPlayer->getObject()->getPhysics()->getXVelocity(), 
-				tempPlayer->getObject()->getPhysics()->getYVelocity());
+				m_player->getObject()->getPhysics()->getXVelocity(), 
+				m_player->getObject()->getPhysics()->getYVelocity());
 		}
 		else
 		{
@@ -133,116 +134,110 @@ void level::draw()
 }
 void level::handleInput(inputData * input, int now)
 {
-	// down key
+	// up key
 	if ((input->keystate[DIK_UP] & 0x80) || (input->keystate[DIK_W] & 0x80))
 	{
-		if(objMgr->getObject()->getPhysics())
+		/*if(objMgr->getObject()->getPhysics())
 		{
 			objMgr->getObject()->getPhysics()->setYVelocity(12.0f);
 		}
 		else
-			objMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));
+			objMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));*/
+		m_player->move(0, 12.0f);
 	}
 
 	// down key
 	if ((input->keystate[DIK_DOWN] & 0x80)|| (input->keystate[DIK_S] & 0x80))
 	{
-		if(!objMgr->getObject()->getPhysics())
-			objMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));
+		/*if(!objMgr->getObject()->getPhysics())
+			objMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));*/
 	}
 	
 	// left key
 	if ((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 	{
-		if(objMgr->getObject()->getPhysics())
-		{
-			if(objMgr->getObject()->getPhysics()->canMoveLeft())
-			{
-				objMgr->getObject()->getPhysics()->walkingOn();
-				objMgr->getObject()->getPhysics()->setXVelocity(-6.0f);
-			}
-		}
-		else
-			objMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
+		//if(objMgr->getObject()->getPhysics())
+		//{
+		//	if(objMgr->getObject()->getPhysics()->canMoveLeft())
+		//	{
+		//		objMgr->getObject()->getPhysics()->walkingOn();
+		//		objMgr->getObject()->getPhysics()->setXVelocity(-6.0f);
+		//	}
+		//}
+		//else
+		//	objMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
+		m_player->move(-6.0f, 0);
 	}
 
 	// right key
 	if ((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))
 	{
-		if(objMgr->getObject()->getPhysics())
-		{
-			if(objMgr->getObject()->getPhysics()->canMoveRight())
-			{
-				objMgr->getObject()->getPhysics()->walkingOn();
-				objMgr->getObject()->getPhysics()->setXVelocity(6.0f);
-			}
-		}
-		else
-			objMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
+		//if(objMgr->getObject()->getPhysics())
+		//{
+		//	if(objMgr->getObject()->getPhysics()->canMoveRight())
+		//	{
+		//		objMgr->getObject()->getPhysics()->walkingOn();
+		//		objMgr->getObject()->getPhysics()->setXVelocity(6.0f);
+		//	}
+		//}
+		//else
+		//	objMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
+		m_player->move(6.0f, 0);
 	}
 
 	// if neither left or right key are active
 	if (!((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 		&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80)))
 	{
-		if(objMgr->getObject()->getPhysics())
+	/*	if(objMgr->getObject()->getPhysics())
 		{
 			objMgr->getObject()->getPhysics()->walkingOff();
-		}
+		}*/
+		m_player->getObject()->getPhysics()->walkingOff();
 	}
 
-	if ((input->keystate[DIK_B] & 0x80))
-	{
-		if(now - input->keyLag[DIK_B] > 200)
-		{
-			objMgr->getObject()->togglePhysics();
-			input->keyLag[DIK_B] = now;
-		}
-	}
+	//if ((input->keystate[DIK_B] & 0x80))
+	//{
+	//	if(now - input->keyLag[DIK_B] > 200)
+	//	{
+	//		objMgr->getObject()->togglePhysics();
+	//		input->keyLag[DIK_B] = now;
+	//	}
+	//}
 
-	if ((input->keystate[DIK_G] & 0x80))
-	{
-		if(now - input->keyLag[DIK_G] > 200)
-		{
-			objMgr->indexPrev();
-			input->keyLag[DIK_G] = now;
-		}
-	}
-	if ((input->keystate[DIK_H] & 0x80))
-	{
-		if(now - input->keyLag[DIK_H] > 200)
-		{
-			objMgr->indexNext();
-			input->keyLag[DIK_H] = now;
-		}
-	}
+	//if ((input->keystate[DIK_G] & 0x80))
+	//{
+	//	if(now - input->keyLag[DIK_G] > 200)
+	//	{
+	//		objMgr->indexPrev();
+	//		input->keyLag[DIK_G] = now;
+	//	}
+	//}
+	//if ((input->keystate[DIK_H] & 0x80))
+	//{
+	//	if(now - input->keyLag[DIK_H] > 200)
+	//	{
+	//		objMgr->indexNext();
+	//		input->keyLag[DIK_H] = now;
+	//	}
+	//}
 
 	if ((input->keystate[DIK_P] & 0x80))
 	{
 		if(now - input->keyLag[DIK_P] > 200)
 		{
+			entityMgr->removeEnemies();
 			input->keyLag[DIK_P] = now;
 		}
 	}
-
-
-			//if ((input->keystate[DIK_P] & 0x80))
-		//{
-		//	if(now - input->keyLag[DIK_P] > 200)
-		//	{
-		//		lvl1->getManager()->pop();
-		//		input->keyLag[DIK_P] = now;
-		//	}
-		//}
-		////test key
-		//if((input->keystate[DIK_E] & 0x80))
-		//{
-		//	if(now - input->keyLag[DIK_E] >200)
-		//	{
-		//		lvl1->~level();
-		//		lvl1->initLevel(dxMgr, "testfiles2.txt");
-		//	}
-		//}
+	if((input->keystate[DIK_E] & 0x80))
+	{
+		if(now - input->keyLag[DIK_E] >200)
+		{
+			entityMgr->loadEnemies(0);
+			input->keyLag[DIK_E] = now;
+		}
+	}
 
 
 
@@ -308,8 +303,8 @@ void level::moveObject(D3DXVECTOR3 go)
 }
 bool level::hitcheckpoint()
 {
-	if(objMgr->getObject()->getPosition()->x >= checkpoint && 
-		objMgr->getObject()->getPosition()->x < checkpoint + 2)
+	if(m_player->getObject()->getPosition()->x >= checkpoint && 
+		m_player->getObject()->getPosition()->x < checkpoint + 2)
 	{
 		std::ofstream file("checkpoint.txt");
 		file<<objMgr->getObject()->getPosition()->x<<'\n';
@@ -334,6 +329,7 @@ level::~level()
 	FPSText->~DXText();
 	physicsData->~DXText();
 	m_map->~cubeMap();
+	entityMgr->~entityManager();
 	objMgr->~objectManager();
 	files->~stringArray();
 	checkpointtxt->~DXText();

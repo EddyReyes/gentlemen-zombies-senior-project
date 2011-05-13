@@ -15,3 +15,7 @@ void goomba::update(float timePassed)
 {
 	// nothing here yet
 }
+void goomba::animate()
+{
+
+}

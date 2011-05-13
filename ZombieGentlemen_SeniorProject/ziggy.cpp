@@ -3,10 +3,7 @@
 /***********************************************************************
  * Makes the ziggy enemy(bird/fish) fly or swim in a wave like pattern * 
  ***********************************************************************/
-void ziggy::load()
-{
-	
-}
+
 void ziggy::update(float timePassed)
 {
 	/***************************************************************** 
@@ -39,4 +36,9 @@ void ziggy::update(float timePassed)
 	//repeat the process
 	//m_object->getPhysics()->getYVelocity();
 	m_object->getCollisionRect()->update();
+}
+
+void ziggy::animate()
+{
+
 }
