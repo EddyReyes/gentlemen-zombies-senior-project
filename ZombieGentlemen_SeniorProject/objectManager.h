@@ -352,10 +352,16 @@ public:
 				if(obj1->getCollisionRect()->collided(colMapRects[colMap->getSize()-1]->getRect())
 				   || (obj1->getPosition()->y < colMapRects[colMap->getSize()-1]->getYPosition()))
 				{
-					obj1->getPhysics()->setYVelocity(0);
+					bool flag = false;
+					if(obj1->getPhysics())
+					{
+						flag = true;
+						obj1->togglePhysics();
+					}
 					obj1->setPosition(obj1->getPosition()->x, obj1->getCollisionRect()->getHeight() * -1 + 0.1f, obj1->getPosition()->z);
 					obj1->getCollisionRect()->update();
-					
+					if(flag)
+						obj1->togglePhysics();
 				}
 				else if(obj1->isColliding())
 				{
