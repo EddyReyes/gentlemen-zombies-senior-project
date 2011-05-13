@@ -14,6 +14,8 @@ void player::move(float x, float y)
 {
 	m_object->getPhysics()->walkingOn();
 	if(x)
+		if((x < 0 && m_object->getPhysics()->canMoveLeft())
+			|| (x > 0 && m_object->getPhysics()->canMoveRight()))
 		m_object->getPhysics()->setXVelocity(x);
 	if(y)
 		m_object->getPhysics()->setYVelocity(y);
