@@ -29,7 +29,7 @@ public:
 
 	// constructors
 	XYPlane();
-	XYPlane(dxManager * a_dxMgr, std::string filename);
+	void init(dxManager * a_dxMgr, std::string filename);
 	XYPlane(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * a_image, D3DXIMAGE_INFO * a_imageInfo);
 	
 	// destructors

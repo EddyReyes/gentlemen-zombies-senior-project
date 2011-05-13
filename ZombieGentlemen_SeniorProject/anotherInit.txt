@@ -1,0 +1,2 @@
+images/cursor.bmp
+images/club.bmp
