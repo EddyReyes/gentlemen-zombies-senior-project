@@ -1,0 +1,6 @@
+o 3 1 5 u d
+o 4 0 5 u d
+o 5 0 5 u d
+o 6 0 5 u d
+o 7 0 5 u d
+o 8 0 5 u d

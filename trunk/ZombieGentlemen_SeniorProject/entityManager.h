@@ -4,6 +4,7 @@
 #include "goomba.h"
 #include "ziggy.h"
 #include "turret.h"
+#include "obstacle.h"
 #include "objectManager.h"
 #include "stringArray.h"
 
@@ -14,7 +15,10 @@
 * load entities
 * destroy entities
 * update entities
+
+status: BROKEN! WTF!
 ****************************************************************/
+
 
 class entityManager
 {
@@ -22,13 +26,12 @@ private:
 	entity ** players;
 	entity ** enemies;
 
-	stringArray objectFiles;
 	stringArray enemyFiles;
 	std::string playerFile;
 
 	int fileIndex;
 
-	int size;
+	int numPlayers, numEnemies;
 	objectManager * objMgr;
 
 
@@ -38,20 +41,19 @@ public:
 	~entityManager();
 
 	// member functions
-	void init(objectManager * a_objMgr, std::string a_objectFiles,
-		 std::string a_enemyFiles, std::string playerFile);
+	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile);
 	void update(float timePassed);
 
 	// load functions
-	void loadPlayers(int fileIndex);
+	void loadPlayers();
 	void loadEnemies(int fileIndex);
 
 	// remove entity
-	void removeEnemys();
+	void removeEnemies();
 	void removePlayers();
 	void removeAll();
 
 	//accesors
-	void getEntity(int index);
-	void getPlayer(int index);
+	entity * getEnemy(int index);
+	player * getPlayer(int index);
 };

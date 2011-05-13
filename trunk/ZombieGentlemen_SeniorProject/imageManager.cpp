@@ -94,3 +94,4 @@ D3DXIMAGE_INFO * imageManager::getImageInfo(int index)
 	else{return imageInfo[index];}
 }
 int imageManager::getSize(){return size;}
+dxManager * imageManager::getDxMgr(){return dxMgr;}

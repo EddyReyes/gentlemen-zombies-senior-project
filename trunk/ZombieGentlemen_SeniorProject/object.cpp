@@ -61,11 +61,15 @@ object::~object()
 	if(plane)
 	{
 		plane->~XYPlane();
+		delete plane;
+		plane = NULL;
 	}
 	// destroy cube
 	if(cube)
 	{
 		cube->~dxCube();
+		delete cube;
+		cube = NULL;
 	}
 	// destory the collision rect
 	collRect->~collisionRect();

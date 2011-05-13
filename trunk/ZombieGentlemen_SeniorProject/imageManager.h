@@ -28,4 +28,5 @@ public:
 	LPDIRECT3DTEXTURE9 * getImage(int index);
 	D3DXIMAGE_INFO * getImageInfo(int index);
 	int getSize();
+	dxManager * getDxMgr();
 };

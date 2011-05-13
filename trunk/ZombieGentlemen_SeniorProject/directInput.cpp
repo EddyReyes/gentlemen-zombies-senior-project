@@ -46,6 +46,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 	hr = g_lpDIMouse->SetDataFormat(&c_dfDIMouse); 
 	
 	if FAILED(hr) { 
+		MessageBox(NULL, "*** Unable to create mouse device", "Direct Input Error", MB_OK);
 		return FALSE; 
 	} 
 
@@ -54,6 +55,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 
 
 	if FAILED(hr) { 
+		MessageBox(NULL, "*** Unable to keyboard mouse device", "Direct Input Error", MB_OK);
 		return FALSE; 
 	} 
 
@@ -69,6 +71,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 #endif
 	
 	if FAILED(hr) { 
+		MessageBox(NULL, "*** Unable to set mouse cooperative level", "Direct Input Error", MB_OK);
 		return FALSE; 
 	} 
 
@@ -78,6 +81,7 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 
     if FAILED(hr) 
     { 
+		MessageBox(NULL, "*** Unable to keyboard cooperative level", "Direct Input Error", MB_OK);
         return FALSE; 
     } 
 
@@ -96,8 +100,11 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 	
     if FAILED(hr) 
     { 
+		MessageBox(NULL, "*** Unable to acquire devices", "Direct Input Error", MB_OK);
         return FALSE; 
-    } 
+    }
+	else
+		return TRUE;
 }
 
 bool directInput::updateMouseState()
@@ -106,7 +113,9 @@ bool directInput::updateMouseState()
 	 if FAILED(hr) 
     { 
         return FALSE; 
-    } 
+    }
+	 else
+		 return TRUE;
 }
 bool directInput::updateKeyboardState()
 {
@@ -114,7 +123,9 @@ bool directInput::updateKeyboardState()
 	if FAILED(hr) 
     { 
         return FALSE; 
-    } 
+    }
+	else
+		return TRUE;
 }
 
 BYTE * directInput::getKeyboardState()

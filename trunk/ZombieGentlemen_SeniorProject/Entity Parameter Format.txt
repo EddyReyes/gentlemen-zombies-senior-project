@@ -1,0 +1,3 @@
+width height 
+imageRows imageColumns 
+leftOffset topOffset rightOffset bottomOffset

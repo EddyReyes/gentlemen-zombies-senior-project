@@ -282,7 +282,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Projectiels.cpp"
+					RelativePath=".\projectile.cpp"
 					>
 				</File>
 				<File
@@ -456,7 +456,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Projectiles.h"
+					RelativePath=".\projectile.h"
 					>
 				</File>
 				<File
@@ -585,6 +585,50 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="defaultEntityParams"
+				>
+				<File
+					RelativePath=".\defaultGoomba.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\defaultObstacle.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\defaultPlayer.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\defaultTurret.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\defaultZiggy.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\Entity Parameter Format.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="entityManagerTest"
+				>
+				<File
+					RelativePath=".\enemyFiles.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\testEnemies.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\testPlayers.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File

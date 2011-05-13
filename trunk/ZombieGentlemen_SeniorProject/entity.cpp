@@ -9,8 +9,11 @@ entity::entity()
 }
 entity::~entity()
 {
-	// to destroy objects, tell the object manager to pop this object
+	// entity does not create or destry objects
 }
+
+// set the position of the entity
+void entity::setPosition(float x, float y){m_object->setPosition(x, y, 0);}
 
 // mutators
 void entity::setObject(object * a_object){m_object = a_object;}

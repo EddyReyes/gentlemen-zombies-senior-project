@@ -18,10 +18,10 @@ void turret::update(float timePassed)
 		{
 		case fortyFiveRight:
 			m_object->setSprite(0, 0);
-			state = nindy;
+			state = ninety;
 			break;
 
-		case nindy:
+		case ninety:
 			m_object->setSprite(0, 1);
 			state = fortyFiveLeft;
 			break;
@@ -34,4 +34,9 @@ void turret::update(float timePassed)
 	}
 
 	m_object->getCollisionRect()->update();
+}
+
+void turret::animate()
+{
+
 }

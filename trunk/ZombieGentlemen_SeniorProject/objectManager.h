@@ -34,6 +34,7 @@ public:
 	void initObjectMgr(dxManager * a_dxMgr)
 	{
 		dxMgr = a_dxMgr;
+
 	}
 
 	void initColMap(std::string filename, cubeMap * map)
@@ -79,9 +80,14 @@ public:
 		// set fstream get pointer back to the beginning
 		file.seekg(0, std::ios::beg);
 
-		// create a new object vector
-		list = new objectVector();
-		list->initList(size);
+		// check if there is no current list
+		if(!list)
+		{
+			// create a new object vector
+			list = new objectVector();
+			list->initList(size);
+		}
+
 		// loop until object vector is full
 		bool loadFail = false;
 		for(int i = 0; i < size && !loadFail; i++)
@@ -392,7 +398,7 @@ public:
 
 	bool setIndex(int a_index)
 	{
-		if(a_index < list->endOfList()-1 && a_index > 0)
+		if(a_index < list->endOfList() && a_index >= 0)
 		{
 			index = a_index;
 			return true;
@@ -401,7 +407,7 @@ public:
 	}
 	bool popObject(int a_index)
 	{
-		if(a_index < list->endOfList()-1 && a_index > 0)
+		if(a_index < list->endOfList() && a_index >= 0)
 		{
 			// from the ouside of this class, an accurate method of removing
 			// any particular object, is to tell the object manager to remove it
@@ -416,12 +422,21 @@ public:
 	int getIndex(){return index;}
 	object * getObjectByIndex(int a_index)
 	{
-		if(a_index < list->endOfList()-1 && a_index > 0)
+		if(a_index < list->endOfList() && a_index >= 0)
 		{
 			return list->get(a_index);
 		}
+		else return NULL;
 	}
 
 	void indexEnd(){index = list->endOfList()-1;}
 	void indexBegining(){index = 0;}
+	imageManager * getImages(){return images;}
+	void addObjectToList(object * a_object)
+	{
+		list->add(a_object);
+		list->setObjectIndexes();
+	}
+	objectVector * getList(){return list;}
+	imageManager * getImageManager(){return images;}
 };
