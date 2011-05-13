@@ -12,6 +12,7 @@ object::object()
 	oldCollData = 0;
 	objectIndex = 0;
 	phys = NULL;
+	collHistory = new intVector;
 }
 object::object(dxManager* a_dxMgr, std::string imgFile)
 {
@@ -26,6 +27,7 @@ object::object(dxManager* a_dxMgr, std::string imgFile)
 	oldCollData = 0;
 	objectIndex = 0;
 	phys = NULL;
+	collHistory = new intVector;
 }
 
 object::object(XYPlane * a_plane)
@@ -40,6 +42,7 @@ object::object(XYPlane * a_plane)
 	oldCollData = 0;
 	objectIndex = 0;
 	phys = NULL;
+	collHistory = new intVector;
 }
 object::object(dxCube * a_cube)
 {
@@ -53,6 +56,7 @@ object::object(dxCube * a_cube)
 	oldCollData = 0;
 	objectIndex = 0;
 	phys = NULL;
+	collHistory = new intVector;
 }
 
 object::~object()
@@ -83,6 +87,7 @@ object::~object()
 	plane = NULL;
 	cube = NULL;
 	phys = NULL;
+	collHistory->~intVector();
 }
 /********************************************************************************
 * loadParameters
@@ -154,7 +159,13 @@ void object::checkCollision()
 	}
 
 	if(collRect->collided(targetCollRect->getRect()))
+	{
 		collData |= collRect->classify(targetCollRect->getRect());
+		
+		// collect collision history
+		if(target)
+			collHistory->add(target->getObjectIndex());
+	}
 }
 
 void object::updatePhysics()
@@ -224,6 +235,7 @@ void object::clear()
 	
 	oldCollData = collData;
 	collData = 0;
+	target = NULL;
 }
 
 void object::recordPosition()
@@ -350,3 +362,10 @@ int object::getCollData(){return oldCollData;}
 
 void object::setObjectIndex(int a_index){objectIndex = a_index;}
 int object::getObjectIndex(){return objectIndex;}
+intVector * object::getCollHistory(){return collHistory;}
+void object::setTarget(object * a_target)
+{
+	target = a_target;
+	if(target)
+		setTargetCollision(target->getCollisionRect());
+}

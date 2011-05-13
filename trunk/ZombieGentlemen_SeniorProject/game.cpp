@@ -165,7 +165,6 @@ void game::draw()
 		break;
 	case sideScroll:
 		lvl1->draw();
-		
 		break;
 	}
 	dxMgr->endRender();

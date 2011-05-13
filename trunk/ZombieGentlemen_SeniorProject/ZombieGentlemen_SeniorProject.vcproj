@@ -420,6 +420,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\intVector.h"
+					>
+				</File>
+				<File
 					RelativePath=".\level.h"
 					>
 				</File>

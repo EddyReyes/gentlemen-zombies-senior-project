@@ -250,6 +250,13 @@ void XYPlane::toggleImageOn(){imageOn = true;}
 *************************************************************************/
 HRESULT XYPlane::SetupVB()
 {
+
+	if(g_pVB)
+	{
+		g_pVB->Release();
+		g_pVB = NULL;
+	}
+
 	HRESULT hr;
 
 	// Initialize three vertices for rendering a triangle

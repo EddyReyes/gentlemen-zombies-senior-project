@@ -270,6 +270,12 @@ HRESULT dxCube::SetupVB()
 {
 	HRESULT hr;
 
+	if(g_pVB)
+	{
+		g_pVB->Release();
+		g_pVB = NULL;
+	}
+
 	// Initialize three vertices for rendering a triangle
 	CUSTOMVERTEX g_Vertices[] =
 	{

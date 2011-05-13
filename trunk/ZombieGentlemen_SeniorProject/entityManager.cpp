@@ -45,12 +45,14 @@ void entityManager::update(float timePassed)
 	for(int i = 0; i < numPlayers; i++)
 	{
 		players[i]->update(timePassed);
+		players[i]->getObject()->getCollHistory()->resetList();
 	}
 	
 	// update all enemies
 	for(int i = 0; i < numEnemies; i++)
 	{
 		enemies[i]->update(timePassed);
+		enemies[i]->getObject()->getCollHistory()->resetList();
 	}
 
 	/**********************************************************
@@ -166,7 +168,6 @@ void entityManager::loadEnemies(int fileIndex)
 		* In the future direction and behavior type will change the behavior of the turrets
 		**********************************************************/
 		float x, y;
-		int imageIndex;
 
 		file >> enemyType >> x >> y >> direction >> behaviorType;
 

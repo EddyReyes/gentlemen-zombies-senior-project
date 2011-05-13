@@ -4,6 +4,7 @@
 #include "dxManager.h"
 #include "collisionRect.h"
 #include "physics.h"
+#include "intVector.h"
 #include <stdio.h>
 #include <fstream>
 #include <ctype.h>
@@ -22,10 +23,12 @@ protected:
 	dxCube * cube;
 	collisionRect * collRect;
 	collisionRect * targetCollRect;
+	object * target;
 	bool collisionToggle;
 	D3DXVECTOR3 oldPos;
 	bool colliding;
 	int collData, oldCollData, objectIndex;
+	intVector * collHistory;
 	physics * phys;
 
 public:
@@ -61,6 +64,7 @@ public:
 	void setPosition(float a_x, float a_y, float a_z);	
 	void setPosition(D3DXVECTOR3);	
 	void setTargetCollision(collisionRect * a_collRect);
+	void setTarget(object * a_target);
 	bool setSprite(int row, int column);
 	void setObjectIndex(int a_index);
 	
@@ -73,4 +77,5 @@ public:
 	bool isColliding();
 	int getCollData();
 	int getObjectIndex();
+	intVector * getCollHistory();
 };
