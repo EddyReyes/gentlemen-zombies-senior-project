@@ -13,7 +13,11 @@ entity::~entity()
 }
 
 // set the position of the entity
-void entity::setPosition(float x, float y){m_object->setPosition(x, y, 0);}
+void entity::setPosition(float x, float y)
+{
+	m_object->setPosition(x, y, 0);
+	m_object->recordPosition();
+}
 
 // mutators
 void entity::setObject(object * a_object){m_object = a_object;}

@@ -34,7 +34,6 @@ public:
 	void initObjectMgr(dxManager * a_dxMgr)
 	{
 		dxMgr = a_dxMgr;
-
 	}
 
 	void initColMap(std::string filename, cubeMap * map)
