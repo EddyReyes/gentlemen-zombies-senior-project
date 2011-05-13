@@ -36,7 +36,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initialize town (TEST DATA)
 	the_town = new town();
-	the_town->init(dxMgr);
+	the_town->init(dxMgr,"anotherInit.txt","coords.txt");
 
 	// initialize sound data (TEST DATA)
 	a_soundMgr->initSoundFiles("soundManager.txt");
@@ -112,8 +112,8 @@ void game::handleInput()
 		if(check == 1)
 		{
 			mainMenu->~Menu();
-			//gameState = sideScroll;
-			gameState = topDown;
+			gameState = sideScroll;
+			//gameState = topDown;
 			soundMgr->stopSound(1);
 			soundMgr->playSound(0);
 		}

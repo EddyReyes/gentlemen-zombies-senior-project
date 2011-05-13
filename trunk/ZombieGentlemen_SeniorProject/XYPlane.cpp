@@ -12,7 +12,7 @@ XYPlane::XYPlane(){};
 * sets up all the variables to a default value
 * This constructor creates a new image in memory for the passed in file
 *************************************************************************/
-XYPlane::XYPlane(dxManager * a_dxMgr, std::string filename)
+void XYPlane::init(dxManager * a_dxMgr, std::string filename)
 {
 	g_pVB = NULL;
 	dxMgr = a_dxMgr;

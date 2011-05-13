@@ -15,7 +15,8 @@ object::object()
 }
 object::object(dxManager* a_dxMgr, std::string imgFile)
 {
-	plane = new XYPlane(a_dxMgr, imgFile);
+	plane = new XYPlane();
+	plane->init(a_dxMgr, imgFile);
 	cube = NULL;
 	collRect = new collisionRect();
 	collRect->initRect(plane);
