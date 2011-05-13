@@ -168,7 +168,7 @@ void entityManager::loadEnemies(int fileIndex)
 		float x, y;
 		int imageIndex;
 
-		file >> enemyType >> x >> y >> imageIndex >> direction >> behaviorType;
+		file >> enemyType >> x >> y >> direction >> behaviorType;
 
 		if(enemyType == 't') // load turret
 		{
