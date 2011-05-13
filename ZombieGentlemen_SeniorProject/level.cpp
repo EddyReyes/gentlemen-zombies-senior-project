@@ -307,8 +307,8 @@ bool level::hitcheckpoint()
 		m_player->getObject()->getPosition()->x < checkpoint + 2)
 	{
 		std::ofstream file("checkpoint.txt");
-		file<<objMgr->getObject()->getPosition()->x<<'\n';
-		file<<objMgr->getObject()->getPosition()->y<<'\n';
+		file<<m_player->getObject()->getPosition()->x<<'\n';
+		file<<m_player->getObject()->getPosition()->y<<'\n';
 		return true;
 	}
 	else
