@@ -16,7 +16,8 @@
 * destroy entities
 * update entities
 
-status: BROKEN! WTF!
+bug: when loading second batches, the last object in the list isnt moved
+to its correct position
 ****************************************************************/
 
 

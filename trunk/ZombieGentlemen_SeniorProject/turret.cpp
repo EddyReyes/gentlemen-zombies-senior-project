@@ -33,7 +33,8 @@ void turret::update(float timePassed)
 		}
 	}
 
-	m_object->getCollisionRect()->update();
+	// the turrets do not move, so they dont really need up go through this extra step
+	// m_object->getCollisionRect()->update();
 }
 
 void turret::animate()
