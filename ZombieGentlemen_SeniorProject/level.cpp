@@ -44,6 +44,9 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	entityMgr = new entityManager();
 	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt");
 	m_player = entityMgr->getPlayer(0);
+	//m_player = new player;
+	//m_player->setObject(objMgr->getObject());	
+	//m_player->getObject()->togglePhysics();
 
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
@@ -68,6 +71,7 @@ void level::update(float updateTime)
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
 	entityMgr->update(updateTime);
+	//m_player->update(updateTime);
 	updateDebugData(updateTime);
 	updateCamera();
 	//will check if youur at a checkpoint
@@ -322,7 +326,7 @@ void level::loadfromcheckpoint(std::string a_file)
 	float x,y;
 	temp>>x;
 	temp>>y;
-	objMgr->getObject()->setPosition(x,y,0.0f);
+	m_player->getObject()->setPosition(x,y,0.0f);
 }
 level::~level()
 {

@@ -318,12 +318,13 @@ public:
 					obj2 = list->get(j);
 					if(obj2 != NULL)
 					{
-						obj1->setTargetCollision(obj2->getCollisionRect());
-						obj2->setTargetCollision(obj1->getCollisionRect());
+						obj1->setTarget(obj2);
+						obj2->setTarget(obj1);
 						obj1->checkCollision();
 						obj2->checkCollision();
 					}
 				}
+				obj1->setTarget(NULL);
 			}
 		}
 		//check map for collision
@@ -351,7 +352,10 @@ public:
 				if(obj1->getCollisionRect()->collided(colMapRects[colMap->getSize()-1]->getRect())
 				   || (obj1->getPosition()->y < colMapRects[colMap->getSize()-1]->getYPosition()))
 				{
-					obj1->setPosition(obj1->getPosition()->x, obj1->getCollisionRect()->getHeight() * -1 + 0.1f, obj1->getPosition()->z); 
+					obj1->getPhysics()->setYVelocity(0);
+					obj1->setPosition(obj1->getPosition()->x, obj1->getCollisionRect()->getHeight() * -1 + 0.1f, obj1->getPosition()->z);
+					obj1->getCollisionRect()->update();
+					
 				}
 				else if(obj1->isColliding())
 				{
