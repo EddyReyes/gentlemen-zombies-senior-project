@@ -71,8 +71,9 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 	//key allows you to scroll through the options
 	if(keystate[DIK_S] & 0x80||keystate[DIK_DOWN] & 0x80)
 	{
-		if(now - keylag[DIK_S] > 150||now - keylag[DIK_DOWN] > 150)
+		if(now - keylag[DIK_S] > 150)
 		{
+			keylag[DIK_S] = now;
 			if (selected == 0) 
 			{
 				selected++;
@@ -89,14 +90,14 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
 				selected = 0;
 			}
-			keylag[DIK_S] = keylag[DIK_DOWN] = now;
 		}
 		
 	}
 	if(keystate[DIK_W] & 0x80||keystate[DIK_UP] & 0x80)
 	{
-		if(now - keylag[DIK_W] > 150||now - keylag[DIK_UP] > 150)
+		if(now - keylag[DIK_W] > 150)
 		{
+			keylag[DIK_W] = now;
 			if (selected == 0) 
 			{
 				selected = option_txt->getSize();
@@ -114,14 +115,17 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 				options[selected-1]->getimg()->shareImage(imgMan->getImage(1),imgMan->getImageInfo(1));
 				selected = 0;
 			}
-			keylag[DIK_W] = keylag[DIK_UP] = now;
 		}
 		
 	}
 	//key that says that an option was hit
 	if(keystate[DIK_RETURN] & 0x80)
 	{
-		return selected;
+		if(now - keylag[DIK_RETURN] > 200)
+		{
+			keylag[DIK_RETURN] = now;
+			return selected;
+		}
 	}
 	return 0;
 }
