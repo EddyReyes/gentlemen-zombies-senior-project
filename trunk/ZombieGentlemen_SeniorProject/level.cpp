@@ -230,16 +230,16 @@ void level::handleInput(inputData * input, int now)
 	{
 		if(now - input->keyLag[DIK_P] > 200)
 		{
-			entityMgr->removeEnemies();
 			input->keyLag[DIK_P] = now;
+			entityMgr->removeEnemies();
 		}
 	}
 	if((input->keystate[DIK_E] & 0x80))
 	{
 		if(now - input->keyLag[DIK_E] >200)
 		{
-			entityMgr->loadEnemies(0);
 			input->keyLag[DIK_E] = now;
+			entityMgr->loadEnemies(0);
 		}
 	}
 
