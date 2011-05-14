@@ -3,16 +3,30 @@
 /***********************************************************************
  * Makes the ziggy enemy(bird/fish) fly or swim in a wave like pattern * 
  ***********************************************************************/
-void ziggy::load()
-{
-
-}
 void ziggy::update(float timePassed)
 {
 	/***************************************************************** 
 	 * Will update ziggy's position per frame and as soon            *
 	 * as the enemy flys or swims from one side to the other         *
 	 *****************************************************************/
+	
+
+	D3DXVECTOR3 * pos;
+	pos = m_object->getPosition();
+	pos->x += 0.5f * timePassed;
+	if (pos->x > 0)
+	{
+		m_object->getPhysics()->getYVelocity();
+		for (int i = 0; i < 30; i++)
+		{
+			m_object->getPhysics()->setYVelocity(2.0f);
+		}
+	}
+	m_object->getCollisionRect()->update();
+	animate();
+}
+void ziggy::animate()
+{
 	// the following animations are simplified versions
 	switch(state)
 	{
@@ -29,14 +43,5 @@ void ziggy::update(float timePassed)
 		m_object->setSprite(0,3);
 		break;
 	}
-
-	D3DXVECTOR3 * pos;
-	pos = m_object->getPosition();
-	pos->x += 0.5f * timePassed;
-	//m_object->getPhysics()->getYVelocity();
-	m_object->getCollisionRect()->update();
-}
-void ziggy::animate()
-{
-
+	
 }

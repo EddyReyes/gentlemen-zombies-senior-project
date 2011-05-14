@@ -1,1 +1,2 @@
 images/animation/armor.bmp
+images/animation/Armor_Mantle1.bmp
