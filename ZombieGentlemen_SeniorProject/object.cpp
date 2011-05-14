@@ -78,9 +78,11 @@ object::~object()
 	}
 	// destory the collision rect
 	collRect->~collisionRect();
+	delete collRect;
 
 	// destroy the physics data
 	phys->~physics();
+	delete phys;
 
 	// handle pointers
 	collRect = NULL;
@@ -333,6 +335,7 @@ void object::togglePhysics()
 	if(phys)
 	{
 		phys->~physics();
+		delete phys;
 		phys = NULL;
 	}
 	else

@@ -314,7 +314,7 @@ LPDIRECT3DVERTEXBUFFER9 XYPlane::createVertexBuffer(int size, DWORD usage)
 	// Create the vertex buffer.
 
 	hr = pd3dDevice->CreateVertexBuffer( size,
-		0, 
+		D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 
 		usage,
 		D3DPOOL_DEFAULT, 
 		&buffer, 
