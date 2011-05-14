@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "dxManager.h"
 #include "directInput.h"
 #include "inputData.h"
