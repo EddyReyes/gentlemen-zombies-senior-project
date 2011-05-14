@@ -51,47 +51,41 @@ void town::init(dxManager * a_dxMgr,char * file, char* file2)
 }
 int town::update(inputData * input,int now)
 {
-	//D3DXVECTOR3 temp(m_object->getPosition()->x,m_object->getPosition()->y,0.0f);
+	static int r=0;
 	if(input->keystate[DIK_A] & 0x80||input->keystate[DIK_LEFT])
 	{
-		if(now - input->keyLag[DIK_A] > 200||now - input->keyLag[DIK_LEFT] > 200)
+		input->keyLag[DIK_A] = now;
+		if(now - input->keyLag[DIK_A] > 150)
 		{
-			for(int r=0;r<max_positions;++r)
-				if(*m_object->getPosition() == *buildings[r].getPosition())
-				{
-					if(r!=0)
-						m_object->setPosition(*buildings[r-1].getPosition());
-				}
-		}
-	}
-	if(input->keystate[DIK_D] & 0x80||input->keystate[DIK_RIGHT])
-	{
-		if(now - input->keyLag[DIK_D] > 200||now - input->keyLag[DIK_RIGHT] > 200)
-		{
-			for(int r=0;r<max_positions;++r)
+			if(r!=0)
 			{
-				if(*m_object->getPosition() == *buildings[r].getPosition())
-				{
-					if(r!=max_positions-1)
-						m_object->setPosition(*buildings[r+1].getPosition());
-				}
+				r--;
+				m_object->setPosition(*buildings[r].getPosition());
 			}
 		}
 	}
-	//if(input->keystate[DIK_RETURN])
-	//{
-	//	if(now - input->keyLag[DIK_RETURN] > 200)
-	//	{
-	//		if(temp == m_points[0])
-	//			return 0;
-	//		if(temp == m_points[1])
-	//			return 1;
-	//		if(temp == m_points[2])
-	//			return 2;
-	//		if(temp == m_points[3])
-	//			return 3;
-	//	}
-	//}
+	if(input->keystate[DIK_D] & 0x80||input->keystate[DIK_RIGHT] & 0x80)
+	{
+		if(now - input->keyLag[DIK_D] > 150)
+		{
+			input->keyLag[DIK_D] = now;
+			if(r!= max_positions)
+			{
+				r++;
+				m_object->setPosition(*buildings[r].getPosition());
+			}
+		}
+
+	}
+	
+	if(input->keystate[DIK_RETURN])
+	{
+		if(now - input->keyLag[DIK_RETURN] > 150)
+		{
+			input->keyLag[DIK_RETURN] = now;
+			return r;
+		}
+	}
 	return -1;
 }
 void town::draw()

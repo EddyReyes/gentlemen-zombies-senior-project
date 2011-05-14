@@ -29,14 +29,15 @@ in making the side scrolling part of our game cooler
 
 	classes to create:
 
-		entityManager (1 week)
-			entity (2 days)
-			turret (3-4 days)
-			goomba (2 days)
-			ziggy (3 days)
+		entityManager (1 week) Eddy
+			entity (2 days) Eddy
+			turret (3-4 days) Leseamus
+			goomba (2 days) Michael
+			ziggy (3 days) William
+			projectile class (1 day) Leseamus,Eddy
 
-		teleporter (1-2 days)
-		obstacle (2-3 days)
+		teleporter (1-2 days) Eddy
+		obstacle (2-3 days) Leseamus
 
 		Future Possiblitities:
 
