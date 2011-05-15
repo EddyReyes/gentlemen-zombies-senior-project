@@ -7,16 +7,8 @@
 class HUD
 {
 	private:
-		//HudImage * hudBackground;
-		//HudImage * barHolder;
-		//HudImage * barHolder2;
-		HudImage * healthBar;
-		HudImage * armorBar;
-		//HudImage * weapon;
-		//HudImage * bagOfMoney;
-		//HudImage * PlayerID;
+		HudImage * armor;
 		entity * plyr;
-		DXText * PlayerMoney;
 		HudImage ** images;
 		imageManager * imgMgr;
 		dxManager * dxMgr;

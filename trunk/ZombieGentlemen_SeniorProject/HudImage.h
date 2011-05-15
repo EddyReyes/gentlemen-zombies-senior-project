@@ -51,6 +51,8 @@ public:
 	LPDIRECT3DTEXTURE9 * getTexture();
 	D3DXIMAGE_INFO * getImageInfo();
 	void toggleSprite();
+	void toggleSpriteOn();
+	void toggleSpriteOff();
 	void setSize(float a_width, float a_height);
 	void setParameters(float a_width, float a_height, float a_x, float a_y);
 	

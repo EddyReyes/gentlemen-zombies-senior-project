@@ -230,6 +230,8 @@ D3DXIMAGE_INFO * HudImage::getImageInfo(){return imageInfo;}
 * if the sprite is on it draws, if not it wont display when the draw function is called
 *************************************************************************/
 void HudImage::toggleSprite(){spriteOn = (spriteOn?false:true);}
+void HudImage::toggleSpriteOn(){spriteOn = true;}
+void HudImage::toggleSpriteOff(){spriteOn = false;}
 
 /*************************************************************************
 * initTrasform
