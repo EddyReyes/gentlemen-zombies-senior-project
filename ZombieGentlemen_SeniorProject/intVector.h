@@ -80,13 +80,25 @@ public:
 		}
 		return flag;
 	}
+	int get(int index)
+	{
+		return list[index];
+	}
+	int * getList()
+	{
+		return list;
+	}
 	int endOfList()
 	{
-		for(int i = 0; i < size; i++)
+		if(list)
 		{
-			if(list[i] == -1)
-				return i; // return the fist index with the value -1
+			for(int i = 0; i < size; i++)
+			{
+				if(list[i] == -1)
+					return i; // return the fist index with the value -1
+			}
+			return size-1; // if no index was returned, return the size of the list
 		}
-		return size-1; // if no index was returned, return the size of the list
+		else return 0;
 	}
 };

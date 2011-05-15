@@ -3,20 +3,13 @@
 HUD::HUD()
 {
 	dxMgr = NULL;
-	//hudBackground = NULL;
-	//barHolder = NULL;
-	//barHolder2 = NULL;
-	//healthBar = NULL;
-	//armorBar = NULL;
-	//weapon = NULL;
-	//bagOfMoney = NULL;
-	//PlayerID = NULL;
-	PlayerMoney = NULL;
+	armor = NULL;
 	images = NULL;
 	plyr = NULL;
 }
 HUD::~HUD()
 {
+	armor = NULL;
 	if(images)
 	{
 		for(int i = 0; i < imgMgr->getSize(); i++)
@@ -31,44 +24,12 @@ HUD::~HUD()
 	delete [] images;
 	images = NULL;
 
-	// destroy player money
-	if(PlayerMoney)
-		PlayerMoney->~DXText();
-	PlayerMoney = NULL;
-
 	// destroy image manager (also destroys all images)
 	imgMgr->~imageManager();
 	imgMgr = NULL;
-
-	//if(hudBackground)
-	//	hudBackground->~HudImage();
-	//hudBackground = NULL;
-	//if(barHolder)
-	//	barHolder->~HudImage();
-	//barHolder = NULL;
-	//if(barHolder2)
-	//	barHolder2->~HudImage();
-	//barHolder2 = NULL;
-	//if(healthBar)
-	//	healthBar->~HudImage();
-	//healthBar = NULL;
-	//if(armorBar)
-	//	armorBar->~HudImage();
-	//armorBar = NULL;
-	//if(weapon)
-	//	weapon->~HudImage();
-	//weapon = NULL;
-	//if(bagOfMoney)
-	//	bagOfMoney->~HudImage();
-	//bagOfMoney= NULL;
-	//if(PlayerID)
-	//	PlayerID->~HudImage();
-	//PlayerID = NULL;
-
 }
 void HUD::draw()
 {
-
 	// draw all hud images
 	if(images)
 	{
@@ -78,28 +39,6 @@ void HUD::draw()
 				images[i]->draw();
 		}
 	}
-
-	// draw player money
-	if(PlayerMoney)
-		PlayerMoney->draw();
-
-	//if(hudBackground)
-	//	hudBackground->draw();
-	//if(barHolder)
-	//	barHolder->draw();
-	//if(barHolder2)
-	//	barHolder2->draw();
-	//if(healthBar)
-	//	healthBar->draw();
-	//if(armorBar)
-	//	armorBar->draw();
-	//if(weapon)
-	//	weapon->draw();
-	//if(bagOfMoney)
-	//	bagOfMoney->draw();
-	//if(PlayerID)
-	//	PlayerID->draw();
-
 }
 /****************************************************************
 * loadFromFile
@@ -122,23 +61,9 @@ void HUD::loadFromFile(std::string filename, std::string textParam, dxManager * 
 	{
 		images[i] = new HudImage(dxMgr, imgMgr->getImage(i), imgMgr->getImageInfo(i));
 	}
-
-	PlayerMoney		= new DXText(dxMgr);//DXText(dxMgr, imgMgr->getImage(8), imgMgr->getImageInfo(8));
-	// after loading all the images, load text paramerts for all DXText objects
-	PlayerMoney->loadFromTxtFile(textParam);
-	PlayerMoney->setDialog("No Player");
-	healthBar = images[imgMgr->getSize()-2];
-	armorBar = images[imgMgr->getSize()-1];
-
-		//hudBackground	= new HudImage(dxMgr, imgMgr->getImage(0), imgMgr->getImageInfo(0));
-	//PlayerID		= new HudImage(dxMgr, imgMgr->getImage(1), imgMgr->getImageInfo(1));
-	//barHolder		= new HudImage(dxMgr, imgMgr->getImage(2), imgMgr->getImageInfo(2));
-	//healthBar		= new HudImage(dxMgr, imgMgr->getImage(3), imgMgr->getImageInfo(3));
-	//barHolder2		= new HudImage(dxMgr, imgMgr->getImage(4), imgMgr->getImageInfo(4));
-	//armorBar		= new HudImage(dxMgr, imgMgr->getImage(5), imgMgr->getImageInfo(5));
-	//weapon			= new HudImage(dxMgr, imgMgr->getImage(6), imgMgr->getImageInfo(6));
-	//bagOfMoney		= new HudImage(dxMgr, imgMgr->getImage(7), imgMgr->getImageInfo(7));
+	armor = images[imgMgr->getSize()-1];
 }
+
 /****************************************************************
 * update
 * updates entire hud
@@ -150,12 +75,14 @@ void HUD::update()
 {
 	if(plyr != NULL)
 	{
-		//healthBar->setParameters(plyr->getHealth(), healthBar->getHeight(), healthBar->getXPosition(), healthBar->getYPosition());
-		//armorBar->setParameters(plyr->getArmor()->getArmorHealth(),armorBar->getHeight(), armorBar->getXPosition(), armorBar->getYPosition());
-
-		//char updateBuffer[50];
-		//sprintf_s(updateBuffer, "Money %.00f\n", plyr->getMoney());
-		//PlayerMoney->setDialog(updateBuffer);
+		if(plyr->hasArmor())
+		{
+			armor->toggleSpriteOn();
+		}
+		else
+		{
+			armor->toggleSpriteOff();
+		}
 	}
 }
 

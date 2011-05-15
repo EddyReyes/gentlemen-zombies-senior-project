@@ -45,7 +45,19 @@ void entityManager::update(float timePassed)
 	for(int i = 0; i < numPlayers; i++)
 	{
 		players[i]->update(timePassed);
-		players[i]->getObject()->getCollHistory()->resetList();
+
+		if(players[i]->getObject()->getCollHistory()->getList() && players[i]->isAlive())
+		{
+			for(int j = 0; j < numEnemies; j++)
+			{
+				for(int g = 0; g < players[i]->getObject()->getCollHistory()->endOfList(); g++)
+				{
+					if(players[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
+						players[i]->entityDead();
+				}
+			}
+			players[i]->getObject()->getCollHistory()->resetList();
+		}
 	}
 	
 	// update all enemies
