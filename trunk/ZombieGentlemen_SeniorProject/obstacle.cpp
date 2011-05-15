@@ -26,24 +26,26 @@ void obstacle::update(float timePassed)
 
 	if(time >= 0.04f)
 	{
-		switch(state)
-		{
-		case sprite1:
-			m_object->setSprite(0, 0);
-			state = sprite2;
-			break;
-		case sprite2:
-			m_object->setSprite(0, 1);
-			state = sprite3;
-			break;
-		case sprite3:
-			m_object->setSprite(0, 2);
-			state = sprite1;
-			break;
-		}
+		animate();
 		time = 0;
 	}
 }
 
 void obstacle::animate()
-{}
+{
+	switch(state)
+	{
+	case sprite1:
+		m_object->setSprite(0, 0);
+		state = sprite2;
+		break;
+	case sprite2:
+		m_object->setSprite(0, 1);
+		state = sprite3;
+		break;
+	case sprite3:
+		m_object->setSprite(0, 2);
+		state = sprite1;
+		break;
+	}
+}

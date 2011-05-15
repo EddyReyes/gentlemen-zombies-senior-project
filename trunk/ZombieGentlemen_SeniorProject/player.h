@@ -19,5 +19,4 @@ public:
 	void animate();
 	void update(float timePassed);
 	void move(float x, float y);
-	void displayLoadError();
 };

@@ -54,6 +54,7 @@ void player::animate()
 
 void player::update(float timePassed)
 {
+	bool spriteChange = false;
 	if(!alive)
 	{
 		if(state != dead)
@@ -68,11 +69,19 @@ void player::update(float timePassed)
 					m_object->getPhysics()->setXVelocity(deathXVel * -2);
 					m_object->getPhysics()->setYVelocity(deathYVel * -2);
 				}
-				state = dying;
+				if(state != dying)
+				{
+					state = dying;
+					spriteChange = true;
+				}
 			}
 			else
 			{
-				state = dead;
+				if(state != dead)
+				{
+					state = dead;
+					spriteChange = true;
+				}
 				timer = 0;
 			}
 		}
@@ -82,23 +91,40 @@ void player::update(float timePassed)
 		if(m_object->getPhysics()->isWalking())
 		{
 			if(m_object->getPhysics()->getXVelocity() > 0)
-				state = walkingRight;
+			{
+				if(state != walkingRight)
+				{
+					state = walkingRight;
+					spriteChange = true;
+				}
+			}
 			else
-				state = walkingLeft;
+			{
+				if(state != walkingLeft)
+				{
+					state = walkingLeft;
+					spriteChange = true;
+				}
+			}
 		}
 		else
 		{
-			state = idle;
+			if(state != idle)
+			{
+				state = idle;
+				spriteChange = true;
+			}
 		}
 		//if(!(m_object->getPhysics()->isOnGround()))
 		if(m_object->getPhysics()->getYVelocity() > 0)
 		{
-			state = jumping;
+			if(state != jumping)
+			{
+				state = jumping;
+				spriteChange = true;
+			}
 		}
 	}
-	animate();
-}
-void player::displayLoadError()
-{
-	MessageBox(NULL, "Player parameter file is empty", "Player Error", MB_OK);
+	if(spriteChange)
+		animate();
 }
