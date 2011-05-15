@@ -206,6 +206,7 @@ void entityManager::loadEnemies(int fileIndex)
 
 		objMgr->indexEnd();
 		enemies[i]->setObject(objMgr->getObject());
+		enemies[i]->getObject()->setSprite(0,0);
 		if(enemyType == 'g' || enemyType == 'z') // turn on physics for goombas and ziggy
 		{
 			enemies[i]->getObject()->togglePhysics();

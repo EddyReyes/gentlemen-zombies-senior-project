@@ -72,7 +72,6 @@ void level::update(float updateTime)
 	objMgr->updatePhysics(updateTime);
 	objMgr->handleCollision();
 	entityMgr->update(updateTime);
-	//m_player->update(updateTime);
 	updateDebugData(updateTime);
 	updateCamera();
 	//will check if youur at a checkpoint
@@ -82,8 +81,9 @@ void level::update(float updateTime)
 		timer += updateTime;
 		if(timer >= 3)
 		{
-			// reload level
+			// remove all current entities
 			entityMgr->removeAll();
+			// reload all entity data
 			entityMgr->loadPlayers();
 			m_player = entityMgr->getPlayer(0);
 			entityMgr->loadEnemies(0);

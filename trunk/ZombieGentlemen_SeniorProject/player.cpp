@@ -66,8 +66,8 @@ void player::update(float timePassed)
 				{
 					float deathXVel = m_object->getPhysics()->getXVelocity();
 					float deathYVel = m_object->getPhysics()->getYVelocity();
-					m_object->getPhysics()->setXVelocity(deathXVel * -2);
-					m_object->getPhysics()->setYVelocity(deathYVel * -2);
+					m_object->getPhysics()->setXVelocity(deathXVel * -3);
+					m_object->getPhysics()->setYVelocity(10);
 				}
 				if(state != dying)
 				{
