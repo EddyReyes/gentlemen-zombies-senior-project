@@ -59,6 +59,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 
 	Elapsed = 0;
 	FPS = 0;
+	timer = 0;
 }
 /******************************************************************
 * update
@@ -75,6 +76,21 @@ void level::update(float updateTime)
 	updateDebugData(updateTime);
 	updateCamera();
 	//will check if youur at a checkpoint
+
+	if(!m_player->isAlive())
+	{
+		timer += updateTime;
+		if(timer >= 3)
+		{
+			// reload level
+			entityMgr->removeAll();
+			entityMgr->loadPlayers();
+			m_player = entityMgr->getPlayer(0);
+			entityMgr->loadEnemies(0);
+			// reset timer
+			timer  = 0;
+		}
+	}
 }
 
 void level::updateCamera()

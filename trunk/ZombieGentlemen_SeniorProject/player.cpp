@@ -60,7 +60,7 @@ void player::update(float timePassed)
 		if(state != dead)
 		{
 			timer += timePassed;
-			if(timer < 2)
+			if(timer < 1)
 			{
 				if(state != dying && state != dead)
 				{

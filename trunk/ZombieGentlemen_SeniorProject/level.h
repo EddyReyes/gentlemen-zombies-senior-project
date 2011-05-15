@@ -23,6 +23,7 @@ private:
 	int checkpoint;
 	entityManager * entityMgr;
 	player * m_player;
+	float timer;
 
 
 	float Elapsed;
