@@ -27,7 +27,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	objMgr->initObjectMgr(a_dxMgr);
 	objMgr->initColMap(files->getStringAt(2), m_map);
 	objMgr->initImages(files->getStringAt(3));
-	//objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
+	objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
 	p1HUD = new HUD();

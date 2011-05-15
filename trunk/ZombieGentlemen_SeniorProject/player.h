@@ -2,12 +2,13 @@
 
 #include "entity.h"
 
-enum playerState{idle, walkingRight, walkingLeft, jumping, dead};
+enum playerState{idle, walkingRight, walkingLeft, jumping, dying, dead};
 
 class player: public entity
 {
 private:
 	playerState state;
+	float timer;
 
 public:
 	// constructor/destructor
