@@ -54,9 +54,9 @@ int town::update(inputData * input,int now)
 	static int r=0;
 	if((input->keystate[DIK_A] & 0x80)||(input->keystate[DIK_LEFT] & 0x80))
 	{
-		input->keyLag[DIK_A] = now;
 		if(now - input->keyLag[DIK_LEFT] > 150)
 		{
+			input->keyLag[DIK_LEFT] = now;
 			if(r!=0)
 			{
 				r--;
@@ -69,7 +69,7 @@ int town::update(inputData * input,int now)
 		if(now - input->keyLag[DIK_D] > 150)
 		{
 			input->keyLag[DIK_D] = now;
-			if(r!= max_positions)
+			if(r!= max_positions-1)
 			{
 				r++;
 				m_object->setPosition(*buildings[r].getPosition());
