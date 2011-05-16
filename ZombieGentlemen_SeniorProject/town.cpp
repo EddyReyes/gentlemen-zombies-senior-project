@@ -52,10 +52,10 @@ void town::init(dxManager * a_dxMgr,char * file, char* file2)
 int town::update(inputData * input,int now)
 {
 	static int r=0;
-	if(input->keystate[DIK_A] & 0x80||input->keystate[DIK_LEFT])
+	if((input->keystate[DIK_A] & 0x80)||(input->keystate[DIK_LEFT] & 0x80))
 	{
 		input->keyLag[DIK_A] = now;
-		if(now - input->keyLag[DIK_A] > 150)
+		if(now - input->keyLag[DIK_LEFT] > 150)
 		{
 			if(r!=0)
 			{
@@ -78,7 +78,7 @@ int town::update(inputData * input,int now)
 
 	}
 	
-	if(input->keystate[DIK_RETURN])
+	if(input->keystate[DIK_RETURN] & 0x80)
 	{
 		if(now - input->keyLag[DIK_RETURN] > 150)
 		{
