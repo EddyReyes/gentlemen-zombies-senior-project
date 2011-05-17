@@ -26,13 +26,16 @@ class entityManager
 private:
 	entity ** players;
 	entity ** enemies;
+	entity ** stuff;
+
 
 	stringArray enemyFiles;
 	std::string playerFile;
+	std::string stuffFile;
 
 	int fileIndex;
 
-	int numPlayers, numEnemies;
+	int numPlayers, numEnemies, numStuff;
 	objectManager * objMgr;
 
 
@@ -42,16 +45,18 @@ public:
 	~entityManager();
 
 	// member functions
-	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile);
+	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile);
 	void update(float timePassed);
 
 	// load functions
 	void loadPlayers();
 	void loadEnemies(int fileIndex);
+	void loadStuff();
 
 	// remove entity
 	void removeEnemies();
 	void removePlayers();
+	void removeStuff();
 	void removeAll();
 
 	//accesors

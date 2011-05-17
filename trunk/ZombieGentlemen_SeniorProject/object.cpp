@@ -157,16 +157,27 @@ void object::checkCollision()
 {
 	if(!colliding)
 	{
-		colliding = collRect->collided(targetCollRect->getRect());
+		if(target)
+		{
+			if(target->isCollidable())
+				colliding = collRect->collided(targetCollRect->getRect());
+		}
+		else 
+			colliding = collRect->collided(targetCollRect->getRect());
 	}
 
 	if(collRect->collided(targetCollRect->getRect()))
 	{
-		collData |= collRect->classify(targetCollRect->getRect());
-		
 		// collect collision history
 		if(target)
+		{
 			collHistory->add(target->getObjectIndex());
+			if(target->isCollidable())
+				collData |= collRect->classify(targetCollRect->getRect());
+		}
+		else
+			collData |= collRect->classify(targetCollRect->getRect());
+		
 	}
 }
 
@@ -253,6 +264,7 @@ void object::recordPosition()
 }
 
 bool object::isColliding(){return colliding;}
+bool object::isCollidable(){return collisionToggle;}
 
 collisionRect * object::getCollisionRect(){return collRect;}
 XYPlane * object::getXYPlane(){return plane;}
@@ -288,16 +300,19 @@ void object::setPosition(D3DXVECTOR3 vec)
 ************************************************************************************/
 void object::handleCollision()
 {
-	// revert position
-	if(plane)
+	if(collisionToggle)
 	{
-		plane->setPosition(oldPos);
+		// revert position
+		if(plane)
+		{
+			plane->setPosition(oldPos);
+		}
+		if(cube)
+		{
+			cube->setPosition(oldPos);
+		}
+		collRect->update();
 	}
-	if(cube)
-	{
-		cube->setPosition(oldPos);
-	}
-	collRect->update();
 }
 void object::setTargetCollision(collisionRect * a_collRect)
 {

@@ -2,4 +2,4 @@ o 3 .5 u d
 o 4.5 1.5 u d
 o 6.5 1 u d
 o 8 -1 u d
-g 10 1 u d
+g 10 0 u d

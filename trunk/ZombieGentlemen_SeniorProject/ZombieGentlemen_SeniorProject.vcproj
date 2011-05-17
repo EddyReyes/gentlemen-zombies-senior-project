@@ -645,6 +645,10 @@
 					RelativePath=".\testPlayers.txt"
 					>
 				</File>
+				<File
+					RelativePath=".\testStuff.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File
