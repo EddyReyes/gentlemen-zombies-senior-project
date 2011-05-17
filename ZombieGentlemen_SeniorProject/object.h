@@ -75,6 +75,7 @@ public:
 	XYPlane * getXYPlane();
 	dxCube * getDxCube();
 	bool isColliding();
+	bool isCollidable();
 	int getCollData();
 	int getObjectIndex();
 	intVector * getCollHistory();

@@ -5,9 +5,11 @@ entityManager::entityManager()
 {
 	players = NULL;
 	enemies = NULL;
+	stuff = NULL;
 	fileIndex = 0;
 	numPlayers = 0;
 	numEnemies = 0;
+	numStuff = 0;
 }
 entityManager::~entityManager()
 {
@@ -18,7 +20,7 @@ entityManager::~entityManager()
 }
 
 // member functions
-bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile)
+bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile)
 {
 	// get pointer for the objectManager
 	objMgr = a_objMgr;
@@ -34,6 +36,7 @@ bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std
 	else
 	{
 		playerFile = a_playerFile;
+		stuffFile = a_stuffFile;
 		loadPlayers();
 		loadEnemies(0);
 		return true;
@@ -216,6 +219,88 @@ void entityManager::loadEnemies(int fileIndex)
 	numEnemies += size;
 }
 
+void entityManager::loadStuff()
+{
+	std::fstream file(stuffFile.c_str());
+
+	int size = 0;
+	// count the number of strings in the text file
+	file.peek();
+	while(!file.eof())
+	{
+		int c;
+		c = file.get();
+		if(c == '\n' || file.eof()) 
+		{size++;}
+	}
+
+	// clear fstream flags
+	file.clear();
+	// set fstream get pointer back to the beginning
+	file.seekg(0, std::ios::beg);
+
+	// check if there is already an existing array
+	if(!stuff)
+	{
+		// if not create a new list
+		stuff = new entity * [size];
+	}
+	else
+	{
+		// create a new array
+		entity ** tempArray;
+		tempArray = new entity * [numStuff + size];
+		// copy over array data
+		for(int i = 0; i < numStuff; i++)
+		{
+			tempArray[i] = stuff[i];
+		}
+		// delete old array and transfer new array into players
+		delete [] stuff;
+		stuff = tempArray;
+	}
+
+	for(int i = numStuff; i < numStuff + size; i++)
+	{
+		char stuffType;
+		float x, y;
+
+		file >> stuffType >> x >> y;
+
+		if(stuffType == 'a') // load armor
+		{
+			/*stuff[i] = new armor;
+			objMgr->loadObjectsFromTxtFile("defaultArmor.txt");*/
+		}
+		else if(stuffType == 'c') // load checkpoint
+		{
+			/*stuff[i] = new checkpoint;
+			objMgr->loadObjectsFromTxtFile("defaultCheckpoint.txt");*/
+		}
+		else if(stuffType == 'k') // load key
+		{
+			/*stuff[i] = new key;
+			objMgr->loadObjectsFromTxtFile("defaultKey.txt");*/
+		}
+		else if(stuffType = 'd') // load door
+		{
+			/*stuff[i] = new door;
+			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");*/
+		}
+
+		objMgr->indexEnd();
+		stuff[i]->setObject(objMgr->getObject());
+		stuff[i]->setPosition(x, y);
+		stuff[i]->getObject()->setSprite(0,0);
+		// toggle collision for some stuff
+		if(stuffType = 'c' || stuffType == 'a' || stuffType == 'k')
+		{
+			stuff[i]->getObject()->toggleCollision();
+		}
+	}
+	numStuff += size;
+}
+
 // remove entity
 void entityManager::removeEnemies()
 {
@@ -228,7 +313,6 @@ void entityManager::removeEnemies()
 			// tell object manager to pop that particular
 			objMgr->popObject(enemies[i]->getObject()->getObjectIndex());
 			enemies[i]->setObject(NULL);
-			enemies[i]->~entity();
 			delete enemies[i];
 			enemies[i] = NULL;
 		}
@@ -250,7 +334,6 @@ void entityManager::removePlayers()
 			// tell object manager to pop that particular
 			objMgr->popObject(players[i]->getObject()->getObjectIndex());
 			players[i]->setObject(NULL);
-			players[i]->~entity();
 			delete players[i];
 			players[i] = NULL;
 		}
@@ -262,11 +345,34 @@ void entityManager::removePlayers()
 	// reset count data
 	numPlayers = 0;
 }
+
+void entityManager::removeStuff()
+{
+	// delete all player entities
+	if(stuff)
+	{
+		for(int i = 0; i < numStuff; i++)
+		{
+			// tell object manager to pop that particular
+			objMgr->popObject(stuff[i]->getObject()->getObjectIndex());
+			stuff[i]->setObject(NULL);
+			delete stuff[i];
+			stuff[i] = NULL;
+		}
+		delete [] stuff;
+		stuff = NULL;
+		// contract object list to prevent it from growing out of control
+		objMgr->getList()->contractList();
+	}
+	// reset count data
+	numStuff = 0;
+}
 void entityManager::removeAll()
 {
 	// remove both enemies and players
 	removeEnemies();
 	removePlayers();
+	removeStuff();
 }
 
 //accesors
