@@ -258,6 +258,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\levelManager.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Menu.cpp"
 					>
 				</File>
@@ -428,6 +432,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\levelManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Menu.h"
 					>
 				</File>
@@ -504,6 +512,10 @@
 			</File>
 			<File
 				RelativePath=".\imageManagerTest.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\levels.txt"
 				>
 			</File>
 			<File

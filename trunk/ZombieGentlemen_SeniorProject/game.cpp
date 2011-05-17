@@ -36,12 +36,15 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initialize town (TEST DATA)
 	the_town = new town();
-	the_town->init(dxMgr,"anotherInit.txt","coords.txt");
+	the_town->init(dxMgr, camera, "anotherInit.txt","coords.txt");
 
 	// initialize sound data (TEST DATA)
 	a_soundMgr->initSoundFiles("soundManager.txt");
-	lvl1 = new level();
-	lvl1->initLevel(dxMgr, camera , "testfiles.txt");
+
+	lvlMgr = new levelManager;
+	lvlMgr->init("levels.txt", dxMgr, camera);
+	lvlMgr->setLevel(0); // for testing set to first level
+	lvl = lvlMgr->getLevel();
 	a_soundMgr->initSoundFiles("soundManager.txt");
 
 	setMusic();
@@ -67,7 +70,7 @@ void game::update()
 		// nothing here yet
 		break;
 	case sideScroll:
-			lvl1->update(UpdateSpeed);
+			lvl->update(UpdateSpeed);
 		break;
 	case topDown:
 		// nothing here yet
@@ -124,7 +127,7 @@ void game::handleInput()
 			{
 				mainMenu->~Menu();
 				gameState = sideScroll;
-				lvl1->loadfromcheckpoint("checkpoint.txt");
+				lvl->loadfromcheckpoint("checkpoint.txt");
 
 				soundMgr->stopSound(1);
 				soundMgr->playSound(0);
@@ -146,7 +149,7 @@ void game::handleInput()
 	case sideScroll:
 
 		// when game is in level state, input is handled inside level
-		lvl1->handleInput(input, now);
+		lvl->handleInput(input, now);
 		break;
 	}
 }
@@ -164,15 +167,20 @@ void game::draw()
 		the_town->draw();
 		break;
 	case sideScroll:
-		lvl1->draw();
+		lvl->draw();
 		break;
 	}
 	dxMgr->endRender();
 }
 game::~game()
 {	
-	lvl1->~level();	
-	the_town->~town();
+	//destroy the level
+	delete lvlMgr;
+	lvlMgr = NULL;
+	//destry the town
+	delete the_town;
+	the_town = NULL;
+
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();
 	soundMgr->~sound();

@@ -20,7 +20,7 @@ private:
 public:
 	town();
 	~town();
-	void init(dxManager * a_dxMgr,char *file, char*file2);
+	void init(dxManager * a_dxMgr, dxCamera *, char *file, char*file2);
 	int update(inputData * input,int now);
 	void draw();
 };

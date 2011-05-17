@@ -9,17 +9,33 @@ town::town()
 }
 town::~town()
 {
+	// destroy map
 	if(map)
+	{
 	map->~XYPlane();
+	map = NULL;
+	}
+
+	// destroy cursor
 	if(m_object)
-	m_object->~XYPlane();
+	{
+		m_object->~XYPlane();
+		m_object = NULL;
+	}
+
+	// camera does not get destroyed, it is borrowed from game
+	/*
 	if(camera)
-	camera->~dxCamera();
-	//if(initfiles)
-		//initfiles->~stringArray();
-	buildings->~XYPlane();
+	camera->~dxCamera();*/
+
+	// destroy buildings
+	if(buildings)
+	{
+		buildings->~XYPlane();
+		buildings = NULL;
+	}
 }
-void town::init(dxManager * a_dxMgr,char * file, char* file2)
+void town::init(dxManager * a_dxMgr, dxCamera * a_camera,char * file, char* file2)
 {
 	stringArray temp;
 	temp.loadFromTextFile(file);
@@ -27,7 +43,8 @@ void town::init(dxManager * a_dxMgr,char * file, char* file2)
 	std::fstream initfiles;
 	initfiles.open(file2,std::fstream::app|std::fstream::in|std::fstream::out);
 
-	camera = new dxCamera(a_dxMgr);
+	//camera = new dxCamera(a_dxMgr);
+	camera  = a_camera; // camera is borrowed from game class
 
 	map = new XYPlane();
 	map->init(a_dxMgr,"images/top_down1.bmp");
