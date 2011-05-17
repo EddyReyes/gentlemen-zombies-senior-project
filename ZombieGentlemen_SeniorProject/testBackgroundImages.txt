@@ -1,2 +1,2 @@
 images/grass.bmp
-images/chocolate hills.jpg
+images/sky_background1.jpg
