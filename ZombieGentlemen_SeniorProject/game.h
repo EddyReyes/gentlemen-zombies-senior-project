@@ -28,7 +28,9 @@ private:
 
 	// Unit test parameters	
 	Menu * mainMenu;
-	level * lvl1;
+
+	levelManager * lvlMgr;
+	level * lvl;
 	town * the_town;
 			
 public: 

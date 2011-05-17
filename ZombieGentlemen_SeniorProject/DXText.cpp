@@ -62,20 +62,32 @@ DXText::DXText(dxManager * a_dxMgr, LPDIRECT3DTEXTURE9 * img, D3DXIMAGE_INFO * i
 DXText::~DXText()
 {
 	// destroy strings
-	dialogText->~basic_string();
-	delete dialogText;
-	dialogText = 0;
-	fontName->~basic_string();
-	delete fontName;
-	fontName = 0;
+	if(dialogText)
+	{
+		dialogText->~basic_string();
+		delete dialogText;
+		dialogText = NULL;
+	}
+	if(fontName)
+	{
+		fontName->~basic_string();
+		delete fontName;
+		fontName = NULL;
+	}
 
 	// destroy font
-	font->Release();
-	font = NULL;
+	if(font)
+	{
+		font->Release();
+		font = NULL;
+	}
 
 	//destroy font color
-	delete fontColor;
-	fontColor = NULL;
+	if(fontColor)
+	{
+		delete fontColor;
+		fontColor = NULL;
+	}
 
 	// destroy text box image
 	if(box)
@@ -85,8 +97,11 @@ DXText::~DXText()
 	}
 
 	// destroy text rectangle
-	delete textBox;
-	textBox = 0;
+	if(textBox)
+	{
+		delete textBox;
+		textBox = NULL;
+	}
 }
 
 void DXText::setFont()
