@@ -115,8 +115,8 @@ void game::handleInput()
 		if(check == 1)
 		{
 			mainMenu->~Menu();
-			gameState = sideScroll;
-			//gameState = topDown;
+			//gameState = sideScroll;
+			gameState = topDown;
 			soundMgr->stopSound(1);
 			soundMgr->playSound(0);
 		}

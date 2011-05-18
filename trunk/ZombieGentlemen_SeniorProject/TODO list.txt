@@ -29,15 +29,23 @@ in making the side scrolling part of our game cooler
 
 	classes to create:
 
-		entityManager (1 week) Eddy
-			entity (2 days) Eddy
-			turret (3-4 days) Leseamus
-			goomba (2 days) Michael
-			ziggy (3 days) William
-			projectile class (1 day) Leseamus,Eddy
+		entityManager (1 week) Eddy //finished
+			entity (2 days) Eddy //finshed
+			turret (3-4 days) Leseamus //priority 1
+			goomba (2 days) Michael,Eddy //priority 1
+			ziggy (3 days) William //priority 1
+			projectile class (1 day) Leseamus,Eddy //priority 1
 
-		teleporter (1-2 days) Eddy
-		obstacle (2-3 days) Leseamus
+		teleporter (1-2 days) Michael//priority 1
+		obstacle (2-3 days) Leseamus //finished
+
+		checkpoint system (1 day) Eddy //priority 1
+		Bosses(1 week) Michael, Will //priority 3
+		Armor pickups (1 day) Leseamus //priority 3
+		art assest () everyone //priority 5
+		fluent camera(next weeks) Eddy //priority 5
+		win conditions (everyone) //priority 1
+		
 
 		Future Possiblitities:
 
@@ -45,6 +53,7 @@ in making the side scrolling part of our game cooler
 		freezing (2-3 days)
 		button door (3-4 days)
 		timer door (3-4 days)
+		keys/doors (3-4 days)
   
 
 3/31 William
