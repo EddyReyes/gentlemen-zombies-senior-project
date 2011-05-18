@@ -294,6 +294,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\stuff.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\teleporter.cpp"
 					>
 				</File>
@@ -473,6 +477,10 @@
 				</File>
 				<File
 					RelativePath=".\stringArray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stuff.h"
 					>
 				</File>
 				<File

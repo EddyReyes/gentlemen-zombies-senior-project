@@ -1,5 +1,6 @@
 #pragma once
 #include "entity.h"
+#include "stuff.h"
 #include "player.h"
 #include "goomba.h"
 #include "ziggy.h"
@@ -26,7 +27,7 @@ class entityManager
 private:
 	entity ** players;
 	entity ** enemies;
-	entity ** stuff;
+	stuff ** m_stuff;
 
 
 	stringArray enemyFiles;

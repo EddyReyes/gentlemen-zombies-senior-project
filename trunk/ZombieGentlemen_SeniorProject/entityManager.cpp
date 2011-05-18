@@ -5,7 +5,7 @@ entityManager::entityManager()
 {
 	players = NULL;
 	enemies = NULL;
-	stuff = NULL;
+	m_stuff = NULL;
 	fileIndex = 0;
 	numPlayers = 0;
 	numEnemies = 0;
@@ -57,6 +57,20 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
 						players[i]->entityDead();
+				}
+			}
+			for(int j = 0; j < numStuff; j++)
+			{
+				for(int g = 0; g < players[i]->getObject()->getCollHistory()->endOfList(); g++)
+				{
+					if(players[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())
+					{
+						//if(players[i]->getType() == teleporter)
+							//players[i]->setPosition(m_stuff[j]->getData());
+						//if(players[i]->getType() == armor)
+
+						//if(players[i]->getType() == key)
+					}
 				}
 			}
 			players[i]->getObject()->getCollHistory()->resetList();
@@ -240,24 +254,24 @@ void entityManager::loadStuff()
 	file.seekg(0, std::ios::beg);
 
 	// check if there is already an existing array
-	if(!stuff)
+	if(!m_stuff)
 	{
 		// if not create a new list
-		stuff = new entity * [size];
+		m_stuff = new stuff * [size];
 	}
 	else
 	{
 		// create a new array
-		entity ** tempArray;
-		tempArray = new entity * [numStuff + size];
+		stuff ** tempArray;
+		tempArray = new stuff * [numStuff + size];
 		// copy over array data
 		for(int i = 0; i < numStuff; i++)
 		{
-			tempArray[i] = stuff[i];
+			tempArray[i] = m_stuff[i];
 		}
 		// delete old array and transfer new array into players
-		delete [] stuff;
-		stuff = tempArray;
+		delete [] m_stuff;
+		m_stuff = tempArray;
 	}
 
 	for(int i = numStuff; i < numStuff + size; i++)
@@ -269,33 +283,38 @@ void entityManager::loadStuff()
 
 		if(stuffType == 'a') // load armor
 		{
-			/*stuff[i] = new armor;
+			/*m_stuff[i] = new armor;
 			objMgr->loadObjectsFromTxtFile("defaultArmor.txt");*/
 		}
 		else if(stuffType == 'c') // load checkpoint
 		{
-			/*stuff[i] = new checkpoint;
+			/*m_stuff[i] = new checkpoint;
 			objMgr->loadObjectsFromTxtFile("defaultCheckpoint.txt");*/
 		}
 		else if(stuffType == 'k') // load key
 		{
-			/*stuff[i] = new key;
+			/*m_stuff[i] = new key;
 			objMgr->loadObjectsFromTxtFile("defaultKey.txt");*/
 		}
 		else if(stuffType = 'd') // load door
 		{
-			/*stuff[i] = new door;
+			/*m_stuff[i] = new door;
 			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");*/
+		}
+		else if(stuffType = 't')
+		{/*
+			m_stuff[i] = new teleporter;
+			objMgr->loadObjectsFromTxtFile("defaultTeleporter.txt");*/
 		}
 
 		objMgr->indexEnd();
-		stuff[i]->setObject(objMgr->getObject());
-		stuff[i]->setPosition(x, y);
-		stuff[i]->getObject()->setSprite(0,0);
-		// toggle collision for some stuff
+		m_stuff[i]->setObject(objMgr->getObject());
+		m_stuff[i]->setPosition(x, y);
+		m_stuff[i]->getObject()->setSprite(0,0);
+		// toggle collision for some m_stuff
 		if(stuffType = 'c' || stuffType == 'a' || stuffType == 'k')
 		{
-			stuff[i]->getObject()->toggleCollision();
+			m_stuff[i]->getObject()->toggleCollision();
 		}
 	}
 	numStuff += size;
@@ -349,18 +368,18 @@ void entityManager::removePlayers()
 void entityManager::removeStuff()
 {
 	// delete all player entities
-	if(stuff)
+	if(m_stuff)
 	{
 		for(int i = 0; i < numStuff; i++)
 		{
 			// tell object manager to pop that particular
-			objMgr->popObject(stuff[i]->getObject()->getObjectIndex());
-			stuff[i]->setObject(NULL);
-			delete stuff[i];
-			stuff[i] = NULL;
+			objMgr->popObject(m_stuff[i]->getObject()->getObjectIndex());
+			m_stuff[i]->setObject(NULL);
+			delete m_stuff[i];
+			m_stuff[i] = NULL;
 		}
-		delete [] stuff;
-		stuff = NULL;
+		delete [] m_stuff;
+		m_stuff = NULL;
 		// contract object list to prevent it from growing out of control
 		objMgr->getList()->contractList();
 	}
