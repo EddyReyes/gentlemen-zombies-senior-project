@@ -47,7 +47,7 @@ void turret::animate()
 			}
 		break;
 	case faceDown:
-
+		
 		switch(state)
 			{
 			case fortyFiveRight:
@@ -107,5 +107,24 @@ void turret::animate()
 			}
 		break;
 		
+	}
+}
+void turret::setWall(char side)
+{
+	if(side == 't')
+	{
+
+	}
+	if(side == 'b')
+	{
+
+	}
+	if(side == 'l')
+	{
+
+	}
+	if(side == 'r')
+	{
+
 	}
 }

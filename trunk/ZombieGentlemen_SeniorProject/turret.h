@@ -18,4 +18,5 @@ public:
 	~turret();
 	void update(float timePassed);
 	void animate();
+	void setWall(char side);
 };
