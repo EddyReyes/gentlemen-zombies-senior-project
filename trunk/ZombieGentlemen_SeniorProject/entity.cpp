@@ -18,6 +18,23 @@ void entity::setPosition(float x, float y)
 	m_object->setPosition(x, y, 0);
 	m_object->recordPosition();
 }
+void entity::setDefaultPos(D3DXVECTOR3 * pos)
+{
+	defaultPos.x = pos->x;
+	defaultPos.y = pos->y;
+	defaultPos.z = 0; // z is always zero, no matter what
+}
+void entity::setDefaultPos(float x, float y)
+{
+	defaultPos.x = x;
+	defaultPos.y = y;
+	defaultPos.z = 0; // z is always zero, no matter what
+}
+void entity::moveToDefaultPos()
+{
+	m_object->setPosition(defaultPos);
+	m_object->recordPosition();
+}
 
 // mutators
 void entity::setObject(object * a_object){m_object = a_object;}

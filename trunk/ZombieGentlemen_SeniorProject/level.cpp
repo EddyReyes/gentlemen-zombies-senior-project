@@ -81,11 +81,12 @@ void level::update(float updateTime)
 		timer += updateTime;
 		if(timer >= 3)
 		{
-			// remove all current entities
-			entityMgr->removeAllExceptCheckPoints();
 			// reload all entity data
-			entityMgr->loadPlayers();
-			m_player = entityMgr->getPlayer(0);
+			entityMgr->resetPlayers();
+			// remove all enemies and stuff
+			entityMgr->removeEnemies();
+			entityMgr->removeStuff();
+			// reload all enemies
 			entityMgr->loadEnemies(0);
 			// reset timer
 			timer  = 0;

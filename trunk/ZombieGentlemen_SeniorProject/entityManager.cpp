@@ -7,7 +7,7 @@ entityManager::entityManager()
 	enemies = NULL;
 	m_stuff = NULL;
 	m_checkPoints = NULL;
-	fileIndex = 0;
+	checkPnt = 0;
 	numPlayers = 0;
 	numEnemies = 0;
 	numStuff = 0;
@@ -91,7 +91,11 @@ void entityManager::update(float timePassed)
 					if(players[i]->getObject()->getCollHistory()->get(g) == m_checkPoints[j]->getObject()->getObjectIndex())
 					{
 						if(!m_checkPoints[j]->isPickedUp())
+						{
 							m_checkPoints[j]->pickUp();
+							D3DXVECTOR3 * pos = m_checkPoints[j]->getObject()->getPosition();
+							players[i]->setDefaultPos(pos);
+						}
 					}
 				}
 			}
@@ -181,6 +185,8 @@ void entityManager::loadPlayers()
 		objMgr->getObject()->togglePhysics();
 		players[i]->setObject(objMgr->getObject());
 		players[i]->setPosition(x, y);
+		// also set default position for re-spawing
+		players[i]->setDefaultPos(x, y);
 	}
 	numPlayers += size;
 }
@@ -517,9 +523,9 @@ void entityManager::removeAllExceptCheckPoints()
 
 void entityManager::resetPlayers()
 {
-	for(int i =0; i < numPlayers; i++)
+	for(int i = 0; i < numPlayers; i++)
 	{
-		//players[i]->setPosition();
+		players[i]->moveToDefaultPos();
 		players[i]->reset();
 	}
 }
