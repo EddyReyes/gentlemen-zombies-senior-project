@@ -39,7 +39,7 @@ private:
 	std::string stuffFile;
 	std::string checkPointFile;
 
-	int fileIndex;
+	int checkPnt;
 
 	int numPlayers, numEnemies, numStuff, numCheckPoints;
 	objectManager * objMgr;

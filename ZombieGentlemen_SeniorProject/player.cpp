@@ -133,6 +133,8 @@ void player::reset()
 {
 	timer = 0;
 	state = idle;
+	m_object->setSprite(0,0);
+	m_object->getCollHistory()->resetList();
 	alive = true;
 	armor = false;
 }

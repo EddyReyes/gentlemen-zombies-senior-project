@@ -10,6 +10,7 @@ protected:
 	object * m_object;
 	entityType type;
 	bool alive, armor;
+	D3DXVECTOR3 defaultPos;
 	// entitys will also require a state
 
 public:
@@ -23,7 +24,10 @@ public:
 	virtual void reset() = 0;
 	
 	// member functions
-	void setPosition(float, float);
+	void setPosition(float x, float y);
+	void setDefaultPos(D3DXVECTOR3 * pos);
+	void setDefaultPos(float x, float y);
+	void moveToDefaultPos();
 
 	// mutators
 	void setObject(object * a_object);
