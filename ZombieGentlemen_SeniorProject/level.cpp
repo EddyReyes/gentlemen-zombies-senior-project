@@ -214,13 +214,13 @@ void level::handleInput(inputData * input, int now)
 	// left key
 	if ((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 	{
-		m_player->move(-6.0f, 0);
+		m_player->move(-5.0f, 0);
 	}
 
 	// right key
 	if ((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))
 	{
-		m_player->move(6.0f, 0);
+		m_player->move(5.0f, 0);
 	}
 
 	// if neither left or right key are active
