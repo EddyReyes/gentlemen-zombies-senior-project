@@ -2,6 +2,7 @@
 
 teleporter::teleporter()
 {
+	type = stuff_teleporter;
 	m_object = NULL;
 	animate_state=0;
 }

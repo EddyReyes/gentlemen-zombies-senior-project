@@ -45,3 +45,7 @@ void projectile::animate()
 		}
 
 }
+void projectile::reset()
+{
+	
+}
