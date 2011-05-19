@@ -34,7 +34,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	p1HUD->loadFromFile(files->getStringAt(6), files->getStringAt(7), a_dxMgr);
 	p1HUD->initPositions(files->getStringAt(8));
 
-	camera = a_camera;
+	
 
 	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
@@ -57,6 +57,17 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	physicsData->loadFromTxtFile("textParameters2.txt");
 	physicsData->setDialog("Loading...");
 
+
+	// init camera data
+	camera = a_camera;
+	float playerY = m_player->getObject()->getPosition()->y;
+	float playerX = m_player->getObject()->getPosition()->x;
+	camera->updateCamera3D(D3DXVECTOR3(playerX, 0, -10), D3DXVECTOR3(10, 10, 0));
+	camData.point = D3DXVECTOR3(0, 0, 0);
+	camData.pos = D3DXVECTOR3(0, 0, -10);
+
+	
+
 	Elapsed = 0;
 	FPS = 0;
 	timer = 0;
@@ -73,7 +84,7 @@ void level::update(float updateTime)
 	objMgr->handleCollision();
 	entityMgr->update(updateTime);
 	updateDebugData(updateTime);
-	updateCamera();
+	updateCamera(updateTime);
 	//will check if youur at a checkpoint
 
 	if(!m_player->isAlive())
@@ -94,12 +105,52 @@ void level::update(float updateTime)
 	}
 }
 
-void level::updateCamera()
+void level::updateCamera(float updateTime)
 {
-	float cameraY = m_player->getObject()->getPosition()->y;
-	float cameraX = m_player->getObject()->getPosition()->x;
-	//camera->SetupCamera2D(cameraX, cameraY, -10);
-	camera->SetupCamera2D(cameraX, 0, -10);
+	camData.playerData = m_player->getObject()->getPosition();
+	// find the distance between the player and the camera point
+	camData.displacement.x = camData.playerData->x - camera->getCameraLook()->x;
+	camData.displacement.y = camData.playerData->y - camera->getCameraLook()->y;
+
+
+	// calculate camera point
+
+	// if the displacement is too small, ignore it
+	if(!(camData.displacement.x > 0.001 || camData.displacement.x < -0.001))
+		camData.displacement.x = 0;
+	if(!(camData.displacement.y > 0.001 || camData.displacement.y < -0.001))
+		camData.displacement.y = 0;
+
+
+	// move camera by a fraction of that distance
+	camData.point.x = camData.displacement.x * 0.1f;
+	camData.point.y = camData.displacement.y * 0.1f;
+
+	camData.point.x += camera->getCameraLook()->x;
+	camData.point.y += camera->getCameraLook()->y;
+
+
+	// calculate camera position
+
+	// find the distance between the player and the camera point
+	camData.displacement.x = camData.playerData->x - camera->getCameraPosition()->x;
+	camData.displacement.y = camData.playerData->y - camera->getCameraPosition()->y;
+
+	// if the displacement is too small, ignore it
+	if(!(camData.displacement.x > 0.001 || camData.displacement.x < -0.001))
+		camData.displacement.x = 0;
+	if(!(camData.displacement.y > 0.001 || camData.displacement.y < -0.001))
+		camData.displacement.y = 0;
+
+	camData.pos.x = camData.displacement.x * 0.05f;
+	camData.pos.y = camData.displacement.y * 0.05f;
+
+	camData.pos.x += camera->getCameraPosition()->x;
+	camData.pos.y += camera->getCameraPosition()->y;
+
+	// update camaera
+	camera->updateCamera3D(camData.pos, camData.point);
+
 }
 void level::updateDebugData(float updateTime)
 {
@@ -145,64 +196,30 @@ void level::draw()
 	p1HUD->draw();
 	FPSText->draw();
 	physicsData->draw();
-	//checks if checkpoint was hit draws indication 
-	//also checks if the player is way past it to stop drawing indication
-	if(hitcheckpoint())
-	{
-		checkpointtxt->draw();
-		//checkpointtxt->~DXText();
-	}
 }
 void level::handleInput(inputData * input, int now)
 {
 	// up key
 	if ((input->keystate[DIK_UP] & 0x80) || (input->keystate[DIK_W] & 0x80))
 	{
-		/*if(objMgr->getObject()->getPhysics())
-		{
-			objMgr->getObject()->getPhysics()->setYVelocity(12.0f);
-		}
-		else
-			objMgr->moveObject(D3DXVECTOR3(0.0f, 0.05f, 0.0f));*/
 		m_player->move(0, 12.0f);
 	}
 
 	// down key
 	if ((input->keystate[DIK_DOWN] & 0x80)|| (input->keystate[DIK_S] & 0x80))
 	{
-		/*if(!objMgr->getObject()->getPhysics())
-			objMgr->moveObject(D3DXVECTOR3(0.0f, -0.05f, 0.0f));*/
+		// down key does NOTHING
 	}
 	
 	// left key
 	if ((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 	{
-		//if(objMgr->getObject()->getPhysics())
-		//{
-		//	if(objMgr->getObject()->getPhysics()->canMoveLeft())
-		//	{
-		//		objMgr->getObject()->getPhysics()->walkingOn();
-		//		objMgr->getObject()->getPhysics()->setXVelocity(-6.0f);
-		//	}
-		//}
-		//else
-		//	objMgr->moveObject(D3DXVECTOR3(-0.05f, 0.0f, 0.0f));
 		m_player->move(-6.0f, 0);
 	}
 
 	// right key
 	if ((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))
 	{
-		//if(objMgr->getObject()->getPhysics())
-		//{
-		//	if(objMgr->getObject()->getPhysics()->canMoveRight())
-		//	{
-		//		objMgr->getObject()->getPhysics()->walkingOn();
-		//		objMgr->getObject()->getPhysics()->setXVelocity(6.0f);
-		//	}
-		//}
-		//else
-		//	objMgr->moveObject(D3DXVECTOR3(0.05f, 0.0f, 0.0f));
 		m_player->move(6.0f, 0);
 	}
 
@@ -210,10 +227,6 @@ void level::handleInput(inputData * input, int now)
 	if (!((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 		&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80)))
 	{
-	/*	if(objMgr->getObject()->getPhysics())
-		{
-			objMgr->getObject()->getPhysics()->walkingOff();
-		}*/
 		m_player->getObject()->getPhysics()->walkingOff();
 	}
 
@@ -259,82 +272,8 @@ void level::handleInput(inputData * input, int now)
 			entityMgr->loadEnemies(0);
 		}
 	}
-
-
-
-
-			//// camera movement
-		///*if ((keystate[DIK_NUMPAD4] & 0x80) || (keystate[DIK_J] & 0x80))
-		//{
-		//	if(now - keyLag[DIK_NUMPAD4] > cameraLag)
-		//	{
-		//		cameraX-= cameraMove;
-		//		keyLag[DIK_NUMPAD4] = now;
-		//	}
-		//}
-		//if ((keystate[DIK_NUMPAD6] & 0x80) || (keystate[DIK_L] & 0x80))
-		//{
-		//	if(now - keyLag[DIK_NUMPAD6] > cameraLag)
-		//	{
-		//		cameraX += cameraMove;
-		//		keyLag[DIK_NUMPAD6] = now;
-		//	}
-		//}
-		//if ((keystate[DIK_NUMPAD2] & 0x80) || (keystate[DIK_K] & 0x80))
-		//{
-		//	if(now - keyLag[DIK_NUMPAD2] > cameraLag)
-		//	{
-		//		cameraY -= cameraMove;
-		//		keyLag[DIK_NUMPAD2] = now;
-		//	}
-		//}
-		//if ((keystate[DIK_NUMPAD8] & 0x80) || (keystate[DIK_I] & 0x80))
-		//{
-		//	if(now - keyLag[DIK_NUMPAD8] > cameraLag)
-		//	{
-		//		cameraY+= cameraMove;
-		//		keyLag[DIK_NUMPAD8] = now;
-		//	}
-		//}*/
-		//
-		//if ((input->keystate[DIK_NUMPAD7] & 0x80) || (input->keystate[DIK_U] & 0x80))
-		//{
-		//	if(now - input->keyLag[DIK_NUMPAD7] > cameraLag)
-		//	{
-		//		if(cameraZ < -1.1)
-		//		{
-		//			cameraZ += cameraMove;
-		//			input->keyLag[DIK_NUMPAD7] = now;
-		//		}
-		//	}
-		//}
-		//if ((input->keystate[DIK_NUMPAD9] & 0x80) || (input->keystate[DIK_O] & 0x80))
-		//{
-		//	if(now - input->keyLag[DIK_NUMPAD9] > cameraLag)
-		//	{
-		//		cameraZ -= cameraMove;
-		//		input->keyLag[DIK_NUMPAD9] = now;
-		//	}
-		//}
 }
 
-void level::moveObject(D3DXVECTOR3 go)
-{
-	objMgr->moveObject(go);
-}
-bool level::hitcheckpoint()
-{
-	if(m_player->getObject()->getPosition()->x >= checkpoint && 
-		m_player->getObject()->getPosition()->x < checkpoint + 2)
-	{
-		std::ofstream file("checkpoint.txt");
-		file<<m_player->getObject()->getPosition()->x<<'\n';
-		file<<m_player->getObject()->getPosition()->y<<'\n';
-		return true;
-	}
-	else
-		return false;
-}
 void level::loadfromcheckpoint(std::string a_file)
 {
 	std::fstream temp;
