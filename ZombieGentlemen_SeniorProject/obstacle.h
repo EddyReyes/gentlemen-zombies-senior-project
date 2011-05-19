@@ -16,4 +16,5 @@ public:
 	~obstacle();
 	void update(float timePassed);
 	void animate();
+	void reset();
 };

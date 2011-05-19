@@ -43,5 +43,10 @@ void ziggy::animate()
 		m_object->setSprite(0,3);
 		break;
 	}
-	
+}
+void ziggy::reset()
+{
+	state = fly1;
+	alive = true;
+	armor = false;
 }

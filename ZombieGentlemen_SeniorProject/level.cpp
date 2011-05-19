@@ -42,7 +42,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	checkpoint = 20;
 
 	entityMgr = new entityManager();
-	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt", "testStuff.txt");
+	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt", "testStuff.txt", "testCheckPoints.txt");
 	m_player = entityMgr->getPlayer(0);
 	//m_player = new player;
 	//m_player->setObject(objMgr->getObject());	
@@ -82,7 +82,7 @@ void level::update(float updateTime)
 		if(timer >= 3)
 		{
 			// remove all current entities
-			entityMgr->removeAll();
+			entityMgr->removeAllExceptCheckPoints();
 			// reload all entity data
 			entityMgr->loadPlayers();
 			m_player = entityMgr->getPlayer(0);

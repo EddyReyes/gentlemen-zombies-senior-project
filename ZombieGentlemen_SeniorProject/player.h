@@ -17,6 +17,7 @@ public:
 
 	// member functions
 	void animate();
+	void reset();
 	void update(float timePassed);
 	void move(float x, float y);
 };

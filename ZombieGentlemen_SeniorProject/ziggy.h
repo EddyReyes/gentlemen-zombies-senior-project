@@ -10,4 +10,5 @@ private:
 public:
 	void update(float timePassed);
 	void animate();
+	void reset();
 };
