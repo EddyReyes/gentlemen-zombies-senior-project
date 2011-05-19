@@ -28,7 +28,7 @@ private:
 	dxCubePointer ** cubes;
 	dxManager * dxMgr;
 	int width, height;
-	bool toggle;
+	bool toggle, backFaceCulling;
 
 public:
 	cubeMap(){}
@@ -93,6 +93,7 @@ public:
 		initCubePositions();
 		initMapTextures();
 		initCubeScales();
+		checkBackFaceCulling();
 	}
 	void initCubes()
 	{
@@ -123,7 +124,7 @@ public:
 	{
 		std::fstream file(filename.c_str());
 		// the size of the data we are going to create
-		file >> height >> width >> textureRows >> textureColumns >> scale;
+		file >> height >> width >> textureRows >> textureColumns >> scale >> backFaceCulling;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		m_map = new char * [height];
 		for(int c = 0; c < height; c++){
@@ -238,6 +239,22 @@ public:
 				if(cubes[y][x].cube != NULL)
 				{
 					cubes[y][x].cube->setScale(scale);
+				}
+			}
+		}
+	}
+	void checkBackFaceCulling()
+	{
+		if(!backFaceCulling)
+		{
+			for(int y = 0; y < height; y++)
+			{
+				for(int x = 0; x < width; x++)
+				{
+					if(cubes[y][x].cube != NULL)
+					{
+						cubes[y][x].cube->toggleTransparencyCulling();
+					}
 				}
 			}
 		}

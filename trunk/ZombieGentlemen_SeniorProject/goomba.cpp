@@ -58,3 +58,9 @@ void goomba::animate()
 {
 
 }
+void goomba::reset()
+{
+	state = goombaWalkLeft;
+	alive = true;
+	armor = false;
+}

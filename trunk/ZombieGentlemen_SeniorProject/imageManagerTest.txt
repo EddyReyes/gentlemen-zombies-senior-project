@@ -4,4 +4,4 @@ images/glass tile.bmp
 images/character.bmp
 images/animation/playerStates.bmp
 images/animation/saws.bmp
-images/Goomba2.jpg
+images/animation/checkpointSpriteSheet.bmp

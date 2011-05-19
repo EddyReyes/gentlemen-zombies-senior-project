@@ -47,7 +47,6 @@ void turret::animate()
 			}
 		break;
 	case faceDown:
-		
 		switch(state)
 			{
 			case fortyFiveRight:
@@ -108,6 +107,11 @@ void turret::animate()
 		break;
 		
 	}
+}
+void turret::reset()
+{
+	alive = true;
+	armor = false;
 }
 void turret::setWall(char side)
 {

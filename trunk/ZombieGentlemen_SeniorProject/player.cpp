@@ -128,3 +128,11 @@ void player::update(float timePassed)
 	if(spriteChange)
 		animate();
 }
+
+void player::reset()
+{
+	timer = 0;
+	state = idle;
+	alive = true;
+	armor = false;
+}

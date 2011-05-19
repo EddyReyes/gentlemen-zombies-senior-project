@@ -226,6 +226,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\checkpoint.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\cubeMap.cpp"
 					>
 				</File>
@@ -389,6 +393,10 @@
 				>
 				<File
 					RelativePath=".\background.h"
+					>
+				</File>
+				<File
+					RelativePath=".\checkpoint.h"
 					>
 				</File>
 				<File
@@ -646,6 +654,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\testCheckPoints.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\testEnemies.txt"
 					>
 				</File>
@@ -655,6 +667,14 @@
 				</File>
 				<File
 					RelativePath=".\testStuff.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="defaultStuff"
+				>
+				<File
+					RelativePath=".\defaultCheckpoint.txt"
 					>
 				</File>
 			</Filter>

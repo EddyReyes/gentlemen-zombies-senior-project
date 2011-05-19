@@ -49,3 +49,9 @@ void obstacle::animate()
 		break;
 	}
 }
+void obstacle::reset()
+{
+	state = sprite1;
+	alive = true;
+	armor = false;
+}
