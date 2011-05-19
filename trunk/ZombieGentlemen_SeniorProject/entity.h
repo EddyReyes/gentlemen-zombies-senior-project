@@ -25,6 +25,7 @@ public:
 	
 	// member functions
 	void setPosition(float x, float y);
+	void setPosition(D3DXVECTOR3);
 	void setDefaultPos(D3DXVECTOR3 * pos);
 	void setDefaultPos(float x, float y);
 	void moveToDefaultPos();

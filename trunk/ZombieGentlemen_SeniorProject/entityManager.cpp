@@ -72,12 +72,12 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())
 					{
-						//if(players[i]->getType() == teleporter)
-						//{
-							// teleporter * tel;
-							// tel = m_stuff[j];
-							//players[i]->setPosition(tel->getData());
-						//}
+						if(m_stuff[i]->getType() == stuff_teleporter)
+						{
+							teleporter * tel;
+							tel = (teleporter*)m_stuff[j];
+							players[i]->setPosition(tel->getData());
+						}
 						//if(players[i]->getType() == armor)
 
 						//if(players[i]->getType() == key)
@@ -340,9 +340,9 @@ void entityManager::loadStuff()
 			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");*/
 		}
 		else if(stuffType = 't')
-		{/*
+		{
 			m_stuff[i] = new teleporter;
-			objMgr->loadObjectsFromTxtFile("defaultTeleporter.txt");*/
+			objMgr->loadObjectsFromTxtFile("defaultTeleporter.txt");
 		}
 
 		objMgr->indexEnd();
