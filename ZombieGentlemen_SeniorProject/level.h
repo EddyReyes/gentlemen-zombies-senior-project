@@ -38,7 +38,7 @@ private:
 	int FPS;
 	// debug data
 	DXText * FPSText;
-	DXText * physicsData; 
+	//DXText * physicsData; 
 
 public:
 	level();

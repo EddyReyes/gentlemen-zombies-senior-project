@@ -53,20 +53,19 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
 
-	physicsData = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	// physics data is now going to be removed
+	/*physicsData = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	physicsData->loadFromTxtFile("textParameters2.txt");
-	physicsData->setDialog("Loading...");
+	physicsData->setDialog("Loading...");*/
 
 
 	// init camera data
 	camera = a_camera;
-	float playerY = m_player->getObject()->getPosition()->y;
-	float playerX = m_player->getObject()->getPosition()->x;
-	camera->updateCamera3D(D3DXVECTOR3(playerX, 0, -10), D3DXVECTOR3(10, 10, 0));
-	camData.point = D3DXVECTOR3(0, 0, 0);
-	camData.pos = D3DXVECTOR3(0, 0, -10);
-
 	
+	//  make a cool intro, camare moves in from the side
+	camData.point = D3DXVECTOR3(-100, 50, 0);
+	camData.pos = D3DXVECTOR3(-100, 50, -12);
+	camera->updateCamera3D(camData.pos, camData.point);
 
 	Elapsed = 0;
 	FPS = 0;
@@ -150,7 +149,6 @@ void level::updateCamera(float updateTime)
 
 	// update camaera
 	camera->updateCamera3D(camData.pos, camData.point);
-
 }
 void level::updateDebugData(float updateTime)
 {
@@ -168,7 +166,7 @@ void level::updateDebugData(float updateTime)
 	}
 
 	// display phsics
-	if(Elapsed >= 0.0)
+	/*if(Elapsed >= 0.0)
 	{
 		char PhysicsBuffer[256];
 		if(m_player->getObject()->getPhysics())
@@ -182,7 +180,7 @@ void level::updateDebugData(float updateTime)
 			sprintf_s(PhysicsBuffer, "Physics Disabled");
 		}
 		physicsData->setDialog(PhysicsBuffer);
-	}
+	}*/
 }
 void level::setMusic(char* sound)
 {
@@ -195,7 +193,7 @@ void level::draw()
 	objMgr->draw();
 	p1HUD->draw();
 	FPSText->draw();
-	physicsData->draw();
+	//physicsData->draw();
 }
 void level::handleInput(inputData * input, int now)
 {
@@ -287,7 +285,7 @@ void level::loadfromcheckpoint(std::string a_file)
 level::~level()
 {
 	FPSText->~DXText();
-	physicsData->~DXText();
+	//physicsData->~DXText();
 	m_map->~cubeMap();
 	entityMgr->~entityManager();
 	objMgr->~objectManager();
