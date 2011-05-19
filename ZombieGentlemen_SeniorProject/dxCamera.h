@@ -72,7 +72,7 @@ public:
 	*************************************************************************/
 	void updateCamera()
 	{
-		createCamera(1.0f, 750.0f);
+		//createCamera(1.0f, 750.0f); // no need to create camera again
 		moveCamera(cameraPosition);
 		pointCamera(cameraLook);
 		pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
@@ -173,4 +173,6 @@ public:
 		moveCameraPosZ(move);
 		moveCameraPointZ(move);
 	}
+	D3DXVECTOR3 * getCameraLook(){return &cameraLook;}
+	D3DXVECTOR3 * getCameraPosition(){return &cameraPosition;}
 };
