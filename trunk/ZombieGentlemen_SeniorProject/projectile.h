@@ -16,6 +16,7 @@ public:
 	void update(float timePassed);
 	void returnTurret();
 	void animate();
+	void reset();
 	/*Have three function that make the projectile move. */
 	
 };

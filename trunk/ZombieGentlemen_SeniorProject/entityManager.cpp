@@ -72,7 +72,7 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())
 					{
-						if(m_stuff[i]->getType() == stuff_teleporter)
+						if(m_stuff[j]->getType() == stuff_teleporter)
 						{
 							teleporter * tel;
 							tel = (teleporter*)m_stuff[j];
@@ -320,7 +320,7 @@ void entityManager::loadStuff()
 	for(int i = numStuff; i < numStuff + size; i++)
 	{
 		char stuffType;
-		float x, y;
+		float x, y, data1, data2;
 
 		file >> stuffType >> x >> y;
 
@@ -334,14 +334,19 @@ void entityManager::loadStuff()
 			/*m_stuff[i] = new key;
 			objMgr->loadObjectsFromTxtFile("defaultKey.txt");*/
 		}
-		else if(stuffType = 'd') // load door
+		else if(stuffType == 'd') // load door
 		{
 			/*m_stuff[i] = new door;
 			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");*/
 		}
-		else if(stuffType = 't')
+		else if(stuffType == 't')
 		{
-			m_stuff[i] = new teleporter;
+			// also extract two more pieces of data for teleporter
+			file >> data1 >> data2;
+
+			teleporter * tel = new teleporter;
+			m_stuff[i] = tel;
+			tel->setData(data1, data2);
 			objMgr->loadObjectsFromTxtFile("defaultTeleporter.txt");
 		}
 
@@ -350,7 +355,7 @@ void entityManager::loadStuff()
 		m_stuff[i]->setPosition(x, y);
 		m_stuff[i]->getObject()->setSprite(0,0);
 		// toggle collision for some m_stuff
-		if(stuffType == 'a' || stuffType == 'k')
+		if(stuffType == 'a' || stuffType == 'k' || stuffType == 't')
 		{
 			m_stuff[i]->getObject()->toggleCollision();
 		}

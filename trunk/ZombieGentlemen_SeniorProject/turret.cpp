@@ -4,6 +4,7 @@ turret::turret()
 {
 	time = 0;
 	state = fortyFiveRight;
+	bullets = NULL;
 }
 turret::~turret()
 {
@@ -17,9 +18,6 @@ void turret::update(float timePassed)
 	{
 		animate();
 	}
-
-	// the turrets do not move, so they dont really need up go through this extra step
-	// m_object->getCollisionRect()->update();
 }
 
 void turret::animate()
@@ -115,20 +113,16 @@ void turret::reset()
 }
 void turret::setWall(char side)
 {
-	if(side == 't')
-	{
+	// if turret is on a top wall it is facing down
+	if(side == 't'){wallState = faceDown;}
+	// if turret is on a bottom wall then it is facing up
+	if(side == 'b'){wallState = faceUP;}
+	// if turret is on a left wall then it is facing right
+	if(side == 'l'){wallState = faceRight;}
+	// if turret is on a right wall then it is facing left
+	if(side == 'r'){wallState  = faceLeft;}
+}
+void setProjectiles(object * proj1, object * proj2, object * proj3, object * proj4, object * proj5)
+{
 
-	}
-	if(side == 'b')
-	{
-
-	}
-	if(side == 'l')
-	{
-
-	}
-	if(side == 'r')
-	{
-
-	}
 }

@@ -677,6 +677,10 @@
 					RelativePath=".\defaultCheckpoint.txt"
 					>
 				</File>
+				<File
+					RelativePath=".\defaultTeleporter.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File

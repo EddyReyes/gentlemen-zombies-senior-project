@@ -115,9 +115,9 @@ void level::updateCamera(float updateTime)
 	// calculate camera point
 
 	// if the displacement is too small, ignore it
-	if(!(camData.displacement.x > 0.001 || camData.displacement.x < -0.001))
+	if(!(camData.displacement.x > 0.00001 || camData.displacement.x < -0.00001))
 		camData.displacement.x = 0;
-	if(!(camData.displacement.y > 0.001 || camData.displacement.y < -0.001))
+	if(!(camData.displacement.y > 0.00001 || camData.displacement.y < -0.00001))
 		camData.displacement.y = 0;
 
 
