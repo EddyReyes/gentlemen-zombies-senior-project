@@ -3,11 +3,20 @@
 teleporter::teleporter()
 {
 	m_object = NULL;
-	to_port = NULL;
 	animate_state=0;
 }
 teleporter::~teleporter()
 {
+}
+D3DXVECTOR3 teleporter::getData()
+{
+	return tele_vec;
+}
+void teleporter::setData(float x,float y)
+{
+	tele_vec.x = x;
+	tele_vec.y =y;
+	tele_vec.z = 0.0f;
 }
 void teleporter::update(float timePassed)
 {

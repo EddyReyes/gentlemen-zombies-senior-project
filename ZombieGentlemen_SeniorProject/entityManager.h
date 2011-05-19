@@ -12,6 +12,7 @@
 // stuff
 #include "stuff.h"
 #include "checkpoint.h"
+#include "teleporter.h"
 
 /****************************************************************
 * entityManager

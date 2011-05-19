@@ -18,6 +18,11 @@ void entity::setPosition(float x, float y)
 	m_object->setPosition(x, y, 0);
 	m_object->recordPosition();
 }
+void entity::setPosition(D3DXVECTOR3 vec)
+{
+	m_object->setPosition(vec);
+	m_object->recordPosition();
+}
 void entity::setDefaultPos(D3DXVECTOR3 * pos)
 {
 	defaultPos.x = pos->x;
