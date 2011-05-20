@@ -34,6 +34,7 @@ public:
 	void setObject(object * a_object);
 	void entityDead();
 	void entityAlive();
+	void setArmor(bool);
 
 	//accessors
 	object * getObject();
