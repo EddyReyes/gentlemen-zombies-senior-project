@@ -113,15 +113,24 @@ void level::updateCamera(float updateTime)
 	// calculate camera point
 
 	// if the displacement is too small, ignore it
-	if(!(camData.displacement.x > 0.00001 || camData.displacement.x < -0.00001))
+	if(!(camData.displacement.x > 0.000001 || camData.displacement.x < -0.000001))
 		camData.displacement.x = 0;
-	if(!(camData.displacement.y > 0.00001 || camData.displacement.y < -0.00001))
+	if(!(camData.displacement.y > 0.000001 || camData.displacement.y < -0.000001))
 		camData.displacement.y = 0;
 
 
 	// move camera by a fraction of that distance
-	camData.point.x = camData.displacement.x * 0.1f;
-	camData.point.y = camData.displacement.y * 0.1f;
+	if(!(camData.displacement.x > 0.1 || camData.displacement.x < -0.1))
+		camData.point.x = camData.displacement.x * updateTime * (1.0f/0.1f);
+	else
+		camData.point.x = camData.displacement.x * 0.1f;
+	if(!(camData.displacement.y > 0.1 || camData.displacement.y < -0.1))
+		camData.point.y = camData.displacement.y * updateTime * (1.0f/0.1f);
+	else
+		camData.point.y = camData.displacement.y * 0.1f;
+
+
+
 
 	camData.point.x += camera->getCameraLook()->x;
 	camData.point.y += camera->getCameraLook()->y;
@@ -129,21 +138,31 @@ void level::updateCamera(float updateTime)
 
 	// calculate camera position
 
+	// optional: offset position over player slightly
+	float offset = 0.06f;
+
 	// find the distance between the player and the camera point
 	camData.displacement.x = camData.playerData->x - camera->getCameraPosition()->x;
 	camData.displacement.y = camData.playerData->y - camera->getCameraPosition()->y;
 
 	// if the displacement is too small, ignore it
-	if(!(camData.displacement.x > 0.001 || camData.displacement.x < -0.001))
+	if(!(camData.displacement.x > 0.000001 || camData.displacement.x < -0.000001))
 		camData.displacement.x = 0;
-	if(!(camData.displacement.y > 0.001 || camData.displacement.y < -0.001))
+	if(!(camData.displacement.y > 0.000001 || camData.displacement.y < -0.000001))
 		camData.displacement.y = 0;
 
-	camData.pos.x = camData.displacement.x * 0.05f;
-	camData.pos.y = camData.displacement.y * 0.05f;
+		// move camera by a fraction of that distance
+	if(!(camData.displacement.x > 0.1 || camData.displacement.x < -0.1))
+		camData.pos.x = camData.displacement.x * updateTime * (1.0f/0.05f);
+	else
+		camData.pos.x = camData.displacement.x * 0.05f;
+	if(!(camData.displacement.y > 0.1 || camData.displacement.y < -0.1))
+		camData.pos.y = camData.displacement.y * updateTime * (1.0f/0.05f);
+	else
+		camData.pos.y = camData.displacement.y * 0.05f;
 
 	camData.pos.x += camera->getCameraPosition()->x;
-	camData.pos.y += camera->getCameraPosition()->y;
+	camData.pos.y += camera->getCameraPosition()->y + offset;
 
 	// update camaera
 	camera->updateCamera3D(camData.pos, camData.point);
