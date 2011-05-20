@@ -108,7 +108,27 @@ void entityManager::update(float timePassed)
 	for(int i = 0; i < numEnemies; i++)
 	{
 		enemies[i]->update(timePassed);
-		enemies[i]->getObject()->getCollHistory()->resetList();
+		if(enemies[i]->getObject()->getCollHistory()->getList() && enemies[i]->isAlive())
+		{
+			//check for collision with enemies
+			for(int j = 0; j < numStuff; j++)
+			{
+				for(int g = 0; g < enemies[i]->getObject()->getCollHistory()->endOfList(); g++)
+				{
+					if(enemies[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())	
+					{
+						if(m_stuff[j]->getType() == stuff_teleporter)
+						{
+							teleporter * tel;
+							tel = (teleporter*)m_stuff[j];
+							enemies[i]->setPosition(tel->getData());
+						}
+					}
+				}
+			}
+			enemies[i]->getObject()->getCollHistory()->resetList();
+		}
+		
 	}
 
 	// update all stuff
