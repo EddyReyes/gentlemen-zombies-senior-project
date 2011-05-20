@@ -21,15 +21,34 @@ void ziggy::update(float timePassed)
 	 *****************************************************************/
 	D3DXVECTOR3 * pos;
 	pos = m_object->getPosition();
-	m_object->getPhysics()->onGroundOn();
+	
 	pos->x -= 0.5f * timePassed;
-
+	
 	//figure out y movement when time passes with x
-	if (pos->y > 0)
-	{
+	//if (pos->y > 0)
+	/*{
 		m_object->getPhysics()->onGroundOn();
 		pos->y -= 0.2f * timePassed; 
+	}*/
+	if (m_object->getPosition()->y <= defaultPos.y)
+	{
+		m_object->getPhysics()->onGroundOn();
+		m_object->getPhysics()->setYVelocity(12.0f);
 	}
+	if (m_object->getPhysics()->getYVelocity() > 0)
+	{
+		state = fly3;
+	}
+	else if (m_object->getPhysics()->getYVelocity() < 0)
+	{
+		state = fly1;	
+	}
+	else if (m_object->getPhysics()->getYVelocity() == 0)
+	{
+		state = fly2;
+	}
+
+
 	m_object->getCollisionRect()->update();	
 	animate();
 	
