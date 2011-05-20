@@ -18,6 +18,7 @@ void turret::update(float timePassed)
 	if(time <= 1.0f)
 	{
 		animate();
+		time = 0;
 	}
 }
 

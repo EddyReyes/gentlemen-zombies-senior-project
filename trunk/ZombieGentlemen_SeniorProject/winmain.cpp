@@ -82,6 +82,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	dxMgr = NULL;
 	inputMgr = NULL;
 	soundMgr = NULL;
+	return 0;
 }
 
 /*********************************************************************
