@@ -2,7 +2,7 @@
 #include "entity.h"
 #include "projectile.h"
 
-enum turretPosition {faceRight, faceDown, faceUP, faceLeft};
+enum turretPosition {faceRight, faceDown, faceUp, faceLeft};
 enum turretState {fortyFiveRight, ninety, fortyFiveLeft};
 
 class turret: public entity
@@ -11,6 +11,7 @@ private:
 	turretState state;
 	turretPosition wallState;
 	projectile * bullets;
+	int numProjectiles;
 	float time;
 
 public:
@@ -20,6 +21,10 @@ public:
 	void update(float timePassed);
 	void animate();
 	void reset();
+	void hideProjectiles();
 	void setWall(char side);
-	void setProjectiles(object * proj1, object * proj2, object * proj3, object * proj4, object * proj5);
+	void setProjectiles(object ** a_projectiles, int a_numProjectiles);
+	int getNumProjectiles();
+	projectile * getProjectile(int index);
+	void destroyProjectiles();
 };

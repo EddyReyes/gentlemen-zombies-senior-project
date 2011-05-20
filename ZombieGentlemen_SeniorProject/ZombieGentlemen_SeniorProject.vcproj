@@ -634,6 +634,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\defaultProjectile.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\defaultTurret.txt"
 					>
 				</File>

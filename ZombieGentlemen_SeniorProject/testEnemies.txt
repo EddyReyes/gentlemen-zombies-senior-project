@@ -6,4 +6,4 @@ g 10 -1 u d
 g 14 0 u d
 g 9 -1 u d
 g 17 1 u d
-o 20 1 u d
+t 20 1 u d

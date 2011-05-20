@@ -2,7 +2,7 @@
 
 goomba::goomba()
 {
-	type = enemyEntity;
+	type = entityGoomba;
 	m_object = NULL;
 	state = goombaWalkLeft;
 }

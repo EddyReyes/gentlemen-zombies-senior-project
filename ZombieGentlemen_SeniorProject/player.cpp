@@ -3,7 +3,7 @@
 player::player()
 {
 	m_object = NULL;
-	type = playerEntity;
+	type = entityPlayer;
 	timer = 0;
 }
 player::~player()

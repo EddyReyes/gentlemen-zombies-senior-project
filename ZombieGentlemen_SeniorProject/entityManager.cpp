@@ -245,7 +245,22 @@ void entityManager::loadEnemies(int fileIndex)
 
 		if(enemyType == 't') // load turret
 		{
-			enemies[i] = new turret();
+			turret * turr = new turret();
+			enemies[i] = turr;
+
+			turr->setWall(direction);
+			
+			// create 5 objects for projectiles, and send them into the turret
+			object ** turrProjectiles = new object *[5];
+			for(int i = 0; i < 5; i++)
+			{
+				turrProjectiles[i] = NULL;
+				objMgr->loadObjectsFromTxtFile("defaultProjectile.txt");
+				objMgr->indexEnd();
+				turrProjectiles[i] = objMgr->getObject();
+			}
+			turr->setProjectiles(turrProjectiles, 5);
+
 			objMgr->loadObjectsFromTxtFile("defaultTurret.txt");
 		}
 		else if(enemyType == 'z') // load ziggy
@@ -267,11 +282,18 @@ void entityManager::loadEnemies(int fileIndex)
 		objMgr->indexEnd();
 		enemies[i]->setObject(objMgr->getObject());
 		enemies[i]->getObject()->setSprite(0,0);
+		enemies[i]->setPosition(x, y);
 		if(enemyType == 'g' || enemyType == 'z') // turn on physics for goombas and ziggy
 		{
 			enemies[i]->getObject()->togglePhysics();
 		}
-		enemies[i]->setPosition(x, y);
+
+		if(enemyType == 't')
+		{
+			turret * turr = (turret*)enemies[i];
+			// hide the projectiles behind the turret
+			turr->hideProjectiles();
+		}
 	}
 	numEnemies += size;
 }
@@ -432,6 +454,18 @@ void entityManager::removeEnemies()
 	{
 		for(int i = 0; i < numEnemies; i++)
 		{
+			// check if it is a turret, turrets have more objects in thier projectiles
+			if(enemies[i]->getType() == entityTurret)
+			{
+				turret *  turr = (turret*)enemies[i];
+				// must remove all projectile objects first
+				for(int i = 0; i < turr->getNumProjectiles(); i++)
+				{
+					projectile * proj = turr->getProjectile(i);
+					objMgr->popObject(proj->getObject()->getObjectIndex());
+				}
+				turr->destroyProjectiles();
+			}
 			// tell object manager to pop that particular
 			objMgr->popObject(enemies[i]->getObject()->getObjectIndex());
 			enemies[i]->setObject(NULL);
