@@ -3,7 +3,7 @@
 #include "imageManager.h"
 
 
-enum entityType{playerEntity, enemyEntity};
+enum entityType{none, entityPlayer, entityTurret, entityGoomba, entityZiggy, entityObstacle};
 class entity
 {
 protected:
@@ -39,4 +39,5 @@ public:
 	object * getObject();
 	bool isAlive();
 	bool hasArmor();
+	int getType();
 };

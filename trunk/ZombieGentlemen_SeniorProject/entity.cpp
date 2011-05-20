@@ -50,3 +50,4 @@ void entity::entityAlive(){alive = true;}
 object * entity::getObject(){return m_object;}
 bool entity::isAlive(){return alive;}
 bool entity::hasArmor(){return armor;}
+int entity::getType(){return type;}

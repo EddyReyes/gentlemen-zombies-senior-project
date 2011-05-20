@@ -6,6 +6,7 @@ sets m_object to NULL
 ******************/
 obstacle::obstacle()
 {
+	type = entityObstacle;
 	m_object = NULL;
 	state = sprite1;
 	time = 0;
