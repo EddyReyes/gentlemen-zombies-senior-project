@@ -44,9 +44,6 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	entityMgr = new entityManager();
 	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt", "testStuff.txt", "testCheckPoints.txt");
 	m_player = entityMgr->getPlayer(0);
-	//m_player = new player;
-	//m_player->setObject(objMgr->getObject());	
-	//m_player->getObject()->togglePhysics();
 
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
@@ -98,6 +95,7 @@ void level::update(float updateTime)
 			entityMgr->removeStuff();
 			// reload all enemies
 			entityMgr->loadEnemies(0);
+			entityMgr->loadStuff();
 			// reset timer
 			timer  = 0;
 		}
