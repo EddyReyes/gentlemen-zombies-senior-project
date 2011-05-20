@@ -5,4 +5,6 @@ images/character.bmp
 images/animation/playerStates.bmp
 images/animation/saws.bmp
 images/animation/checkpointSpriteSheet.bmp
+images/animation/ziggybird sprite sheet.bmp
+images/animation/checkpointSpriteSheet.bmp
 images/animation/trollfaces.bmp
