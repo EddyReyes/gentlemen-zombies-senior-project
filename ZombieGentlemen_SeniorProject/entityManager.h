@@ -9,6 +9,7 @@
 #include "ziggy.h"
 #include "turret.h"
 #include "obstacle.h"
+#include "troll.h"
 // stuff
 #include "stuff.h"
 #include "checkpoint.h"

@@ -278,12 +278,17 @@ void entityManager::loadEnemies(int fileIndex)
 			enemies[i] = new obstacle();
 			objMgr->loadObjectsFromTxtFile("defaultObstacle.txt");
 		}
+		else if(enemyType == 'r') // load troll
+		{
+			enemies[i] = new troll();
+			objMgr->loadObjectsFromTxtFile("defaultTroll.txt");
+		}
 
 		objMgr->indexEnd();
 		enemies[i]->setObject(objMgr->getObject());
 		enemies[i]->getObject()->setSprite(0,0);
 		enemies[i]->setPosition(x, y);
-		if(enemyType == 'g' || enemyType == 'z') // turn on physics for goombas and ziggy
+		if(enemyType == 'g' || enemyType == 'z' || enemyType == 'r') // turn on physics for goombas and ziggy, and trolls
 		{
 			enemies[i]->getObject()->togglePhysics();
 		}
