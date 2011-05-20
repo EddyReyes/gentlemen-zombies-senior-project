@@ -45,6 +45,7 @@ void entity::moveToDefaultPos()
 void entity::setObject(object * a_object){m_object = a_object;}
 void entity::entityDead(){alive = false;}
 void entity::entityAlive(){alive = true;}
+void entity::setArmor(bool a_armor){armor = a_armor;}
 
 //accessors
 object * entity::getObject(){return m_object;}

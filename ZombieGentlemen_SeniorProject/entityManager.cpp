@@ -78,9 +78,18 @@ void entityManager::update(float timePassed)
 							tel = (teleporter*)m_stuff[j];
 							players[i]->setPosition(tel->getData());
 						}
-						//if(players[i]->getType() == armor)
+						if(m_stuff[j]->getType() == stuff_armor)
+						{
+							if(!players[i]->hasArmor())
+							{
+								// if player does not already have armor, give him armor, and remove it from the game world
+								players[i]->setArmor(true);
+								objMgr->popObject(m_stuff[i]->getObject()->getObjectIndex());
+								m_stuff[i]->setObject(NULL);
+							}
+						}
 
-						//if(players[i]->getType() == key)
+						//if(m_stuff[j]->getType() == stuff_key)
 					}
 				}
 			}
@@ -308,6 +317,7 @@ void entityManager::loadEnemies(int fileIndex)
 		enemies[i]->setObject(objMgr->getObject());
 		enemies[i]->getObject()->setSprite(0,0);
 		enemies[i]->setPosition(x, y);
+		enemies[i]->setDefaultPos(x, y);
 		if(enemyType == 'g' || enemyType == 'z' || enemyType == 'r') // turn on physics for goombas and ziggy, and trolls
 		{
 			enemies[i]->getObject()->togglePhysics();
@@ -373,8 +383,8 @@ void entityManager::loadStuff()
 
 		if(stuffType == 'a') // load armor
 		{
-			/*m_stuff[i] = new armor;
-			objMgr->loadObjectsFromTxtFile("defaultArmor.txt");*/
+			m_stuff[i] = new armor;
+			objMgr->loadObjectsFromTxtFile("defaultArmor.txt");
 		}
 		else if(stuffType == 'k') // load key
 		{

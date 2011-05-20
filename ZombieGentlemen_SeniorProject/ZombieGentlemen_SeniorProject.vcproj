@@ -167,10 +167,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\troll.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\winmain.cpp"
 				>
 			</File>
@@ -226,101 +222,125 @@
 				Name="Game Assets"
 				>
 				<File
-					RelativePath=".\background.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\checkpoint.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\cubeMap.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\entity.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\entityManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\game.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\goomba.cpp"
+				<Filter
+					Name="entities"
 					>
-				</File>
-				<File
-					RelativePath=".\grid.cpp"
+					<File
+						RelativePath=".\entity.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\entityManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\goomba.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\obstacle.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\player.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\projectile.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\troll.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\turret.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ziggy.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="stuff"
 					>
-				</File>
-				<File
-					RelativePath=".\HUD.cpp"
+					<File
+						RelativePath=".\armor.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\checkpoint.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\stuff.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\teleporter.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="other"
 					>
-				</File>
-				<File
-					RelativePath=".\level.cpp"
+					<File
+						RelativePath=".\HUD.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Menu.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\physics.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\stringArray.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="world"
 					>
-				</File>
-				<File
-					RelativePath=".\levelManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Menu.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\object.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\obstacle.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\physics.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\planeMap.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\player.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\projectile.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\stringArray.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\stuff.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\teleporter.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\town.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\turret.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ziggy.cpp"
-					>
-				</File>
+					<File
+						RelativePath=".\background.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\cubeMap.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\grid.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\level.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\levelManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\object.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\planeMap.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\town.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -328,10 +348,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\troll.h"
-				>
-			</File>
 			<Filter
 				Name="DirectX"
 				>
@@ -400,121 +416,145 @@
 				Name="Game Assets"
 				>
 				<File
-					RelativePath=".\background.h"
-					>
-				</File>
-				<File
-					RelativePath=".\checkpoint.h"
-					>
-				</File>
-				<File
-					RelativePath=".\collisionMap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\cubeMap.h"
-					>
-				</File>
-				<File
 					RelativePath=".\defines.h"
-					>
-				</File>
-				<File
-					RelativePath=".\entity.h"
-					>
-				</File>
-				<File
-					RelativePath=".\entityManager.h"
 					>
 				</File>
 				<File
 					RelativePath=".\game.h"
 					>
 				</File>
-				<File
-					RelativePath=".\goomba.h"
+				<Filter
+					Name="other"
 					>
-				</File>
-				<File
-					RelativePath=".\grid.h"
+					<File
+						RelativePath=".\HUD.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intVector.h"
+						>
+					</File>
+					<File
+						RelativePath=".\levelManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Menu.h"
+						>
+					</File>
+					<File
+						RelativePath=".\physics.h"
+						>
+					</File>
+					<File
+						RelativePath=".\stringArray.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="stuff"
 					>
-				</File>
-				<File
-					RelativePath=".\HUD.h"
+					<File
+						RelativePath=".\armor.h"
+						>
+					</File>
+					<File
+						RelativePath=".\checkpoint.h"
+						>
+					</File>
+					<File
+						RelativePath=".\stuff.h"
+						>
+					</File>
+					<File
+						RelativePath=".\teleporter.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="world"
 					>
-				</File>
-				<File
-					RelativePath=".\intVector.h"
+					<File
+						RelativePath=".\background.h"
+						>
+					</File>
+					<File
+						RelativePath=".\collisionMap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\cubeMap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\grid.h"
+						>
+					</File>
+					<File
+						RelativePath=".\level.h"
+						>
+					</File>
+					<File
+						RelativePath=".\object.h"
+						>
+					</File>
+					<File
+						RelativePath=".\objectManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\objectVector.h"
+						>
+					</File>
+					<File
+						RelativePath=".\planeMap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\town.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="entities"
 					>
-				</File>
-				<File
-					RelativePath=".\level.h"
-					>
-				</File>
-				<File
-					RelativePath=".\levelManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Menu.h"
-					>
-				</File>
-				<File
-					RelativePath=".\object.h"
-					>
-				</File>
-				<File
-					RelativePath=".\objectManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\objectVector.h"
-					>
-				</File>
-				<File
-					RelativePath=".\obstacle.h"
-					>
-				</File>
-				<File
-					RelativePath=".\physics.h"
-					>
-				</File>
-				<File
-					RelativePath=".\planeMap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\player.h"
-					>
-				</File>
-				<File
-					RelativePath=".\projectile.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stringArray.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stuff.h"
-					>
-				</File>
-				<File
-					RelativePath=".\teleporter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\town.h"
-					>
-				</File>
-				<File
-					RelativePath=".\turret.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ziggy.h"
-					>
-				</File>
+					<File
+						RelativePath=".\entity.h"
+						>
+					</File>
+					<File
+						RelativePath=".\entityManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\goomba.h"
+						>
+					</File>
+					<File
+						RelativePath=".\obstacle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\player.h"
+						>
+					</File>
+					<File
+						RelativePath=".\projectile.h"
+						>
+					</File>
+					<File
+						RelativePath=".\troll.h"
+						>
+					</File>
+					<File
+						RelativePath=".\turret.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ziggy.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -689,6 +729,10 @@
 			<Filter
 				Name="defaultStuff"
 				>
+				<File
+					RelativePath=".\defaultArmor.txt"
+					>
+				</File>
 				<File
 					RelativePath=".\defaultCheckpoint.txt"
 					>
