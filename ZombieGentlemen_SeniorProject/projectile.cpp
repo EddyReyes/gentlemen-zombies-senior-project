@@ -13,10 +13,13 @@ projectile::~projectile()
 
 void projectile::update(float timePassed)
 {
-	
 	time += timePassed;
-	animate();
-	
+	if(time <= 3.0f)
+	{
+		state = fire;
+		animate();
+		time = 0;
+	}
 
 }
 //face Down function
