@@ -2,6 +2,9 @@
 
 physics::physics()
 {
+	gravity =  -50.0f;
+	groundFriction = 0.8f;
+
 	xVelocity = NULL;
 	yVelocity = NULL;
 	friction = false;
@@ -79,7 +82,7 @@ void physics::killXVel()
 	if(xVelocity > 0)
 		rightMove = false;
 	if(!hitTop)
-		xVelocity = xVelocity * -0.1 ;
+		xVelocity = xVelocity * -0.1f;
 	else
 	{
 		xVelocity = 0;
@@ -91,6 +94,10 @@ void physics::killYVel()
 		hitTop = true;
 	yVelocity = 0;
 }
+
+void physics::setGravity(float a_gravity){gravity = a_gravity;}
+void physics::setGroundFriction(float a_friction){groundFriction = a_friction;}
+
 void physics::frictionOn(){friction = true;}
 void physics::frictionOff(){friction = false;}
 void physics::jumpingOn(){jumpingAllowed = true;}
