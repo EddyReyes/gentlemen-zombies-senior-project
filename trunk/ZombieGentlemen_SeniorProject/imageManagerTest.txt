@@ -7,3 +7,4 @@ images/animation/saws.bmp
 images/animation/checkpointSpriteSheet.bmp
 images/animation/ziggybird sprite sheet.bmp
 images/animation/trollfaces.bmp
+images/animation/Goomba sprite sheet.bmp
