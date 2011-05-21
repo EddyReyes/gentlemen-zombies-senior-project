@@ -19,18 +19,8 @@ void ziggy::update(float timePassed)
 	 * Will update ziggy's position per frame and as soon            *
 	 * as the enemy flys or swims from one side to the other         *
 	 *****************************************************************/
-	/*D3DXVECTOR3 * pos;
-	pos = m_object->getPosition();
-	
-	pos->x -= 0.5f * timePassed;*/
-	
-	//figure out y movement when time passes with x
-	//if (pos->y > 0)
-	/*{
-		m_object->getPhysics()->onGroundOn();
-		pos->y -= 0.2f * timePassed; 
-	}*/
 
+	time += timePassed;
 
 	// accelerate to the left
 	m_object->getPhysics()->setXVelocity(-3.0f);
@@ -39,7 +29,7 @@ void ziggy::update(float timePassed)
 	if (m_object->getPosition()->y <= defaultPos.y)
 	{
 		m_object->getPhysics()->jumpingOn();
-		m_object->getPhysics()->setYVelocity(12.0f);
+		m_object->getPhysics()->setYVelocity(7.0f);
 	}
 
 	if (m_object->getPhysics()->getYVelocity() > 0)
@@ -48,12 +38,20 @@ void ziggy::update(float timePassed)
 	}
 	else if (m_object->getPhysics()->getYVelocity() < 0)
 	{
-		state = fly1;	
+		state = fly1;
+		time = 0;
 	}
 	else if (m_object->getPhysics()->getYVelocity() == 0)
 	{
 		state = fly2;
 	}
+
+	if(time >= 0.3)
+	{
+		if(state == fly3)
+			state = fly2;
+	}
+
 	animate();
 }
 void ziggy::animate()

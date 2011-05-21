@@ -322,6 +322,10 @@ void entityManager::loadEnemies(int fileIndex)
 		{
 			enemies[i]->getObject()->togglePhysics();
 		}
+		if(enemyType == 'z') // lower gravity for ziggy's
+		{
+			enemies[i]->getObject()->getPhysics()->setGravity(-10.0f);
+		}
 
 		if(enemyType == 't')
 		{

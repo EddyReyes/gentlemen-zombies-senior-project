@@ -1,9 +1,9 @@
 #pragma once
 #include "dxManager.h"
 
-#define gravity -50.0f
-#define groundFriction 0.8f
-
+// standard gravity and ground friction
+//#define gravity -50.0f
+//#define groundFriction 0.8f
 
 class physics
 {
@@ -12,6 +12,7 @@ private:
 	bool friction, hitTop;
 	bool jumpingAllowed, walking, onGround, rightMove, leftMove;
 	float jumpLag;
+	float gravity, groundFriction;
 
 public:
 	// constructors
@@ -29,10 +30,14 @@ public:
 	// mutators
 	void setXVelocity(float a_xVelocity);
 	void setYVelocity(float a_yVelocity);
+	void setGravity(float a_gravity);
+	void setGroundFriction(float a_friction);
 
 	// accesors
 	float getXVelocity(){return xVelocity;}
 	float getYVelocity(){return yVelocity;}
+	float getGravity(){return gravity;}
+	float getGroundFriction(){return groundFriction;}
 
 	// flag accessors
 	bool hasGravity();
