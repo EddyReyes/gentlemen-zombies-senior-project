@@ -23,27 +23,35 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	//initialize the data with it
 	m_map = new cubeMap(files->getStringAt(0),files->getStringAt(1),a_dxMgr);
 
+	// init object manager
 	objMgr = new objectManager();
 	objMgr->initObjectMgr(a_dxMgr);
 	objMgr->initColMap(files->getStringAt(2), m_map);
 	objMgr->initImages(files->getStringAt(3));
 	objMgr->loadObjectsFromTxtFile(files->getStringAt(4));
-	backGrnd = new background();
-	backGrnd->initBackground(a_dxMgr, files->getStringAt(5));
-	p1HUD = new HUD();
-	p1HUD->loadFromFile(files->getStringAt(6), files->getStringAt(7), a_dxMgr);
-	p1HUD->initPositions(files->getStringAt(8));
 
-	
+	// init entity manager
+	entityMgr = new entityManager();
+	entityMgr->init(objMgr, files->getStringAt(5), files->getStringAt(6), files->getStringAt(7), files->getStringAt(8));
+	// set player pointer
+	m_player = entityMgr->getPlayer(0);
+
+
+	// init backgrounds
+	backGrnd = new background();
+	backGrnd->initBackground(a_dxMgr, files->getStringAt(9));
+
+	// init HUD
+	p1HUD = new HUD();
+	p1HUD->loadFromFile(files->getStringAt(10), files->getStringAt(11), a_dxMgr);
+	p1HUD->initPositions(files->getStringAt(12));
+
+
 
 	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
 	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
 	checkpointtxt->setDialog("CHECKPOINT");
 	checkpoint = 20;
-
-	entityMgr = new entityManager();
-	entityMgr->init(objMgr, "enemyFiles.txt", "testPlayers.txt", "testStuff.txt", "testCheckPoints.txt");
-	m_player = entityMgr->getPlayer(0);
 
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");

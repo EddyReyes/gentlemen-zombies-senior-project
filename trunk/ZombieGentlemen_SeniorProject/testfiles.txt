@@ -3,6 +3,10 @@ images/glassPanes2.bmp
 colMapTest.txt
 imageManagerTest.txt
 testObject.txt
+enemyFiles.txt
+testPlayers.txt
+testStuff.txt
+testCheckPoints.txt
 testBackground.txt
 imageHUDTest.txt
 HUDMoney.txt
