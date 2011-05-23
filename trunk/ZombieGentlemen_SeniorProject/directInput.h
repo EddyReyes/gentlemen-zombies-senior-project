@@ -8,6 +8,10 @@
 #define DIRECTINPUT_VERSION 0x0800
 
 #include <dinput.h>
+#include "XboxController.h"
+
+#define MAX_CONTROLLERS 1
+
 
 class directInput
 {
@@ -21,6 +25,12 @@ public:
 	DIMOUSESTATE * getMouseState();
 	void shutdownDirectInput(void);
 	void reAcquireDevices();
+	XboxController * getXboxController();
+
+	// XINPUT
+	BOOL IsXInputDevice( const GUID* pGuidProductFromDirectInput );
+	BOOL CALLBACK EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidInstance,
+                                     VOID* pContext );
 
 private:
 	LPDIRECTINPUT8        g_lpDI;	// the pointer to our DirectInput interface
@@ -29,6 +39,7 @@ private:
 	HRESULT hr;
 	BYTE keyState[256]; // the storage for the key-information
 	DIMOUSESTATE mouseState; // the storage for the mouse-information
+	XboxController * xcont;
 };
 
 /*******************************************************************

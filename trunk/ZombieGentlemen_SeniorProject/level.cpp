@@ -58,10 +58,9 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
 
-	// physics data is now going to be removed
-	/*physicsData = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
-	physicsData->loadFromTxtFile("textParameters2.txt");
-	physicsData->setDialog("Loading...");*/
+	controllerDebug = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	controllerDebug->loadFromTxtFile("textParameters2.txt");
+	controllerDebug->setDialog("Loading...");
 
 
 	// init camera data
@@ -190,22 +189,9 @@ void level::updateDebugData(float updateTime)
 		FPS = 0;
 	}
 
-	// display phsics
-	/*if(Elapsed >= 0.0)
-	{
-		char PhysicsBuffer[256];
-		if(m_player->getObject()->getPhysics())
-		{
-			sprintf_s(PhysicsBuffer, "Physics x: %f\nPhysics y: %f", 
-				m_player->getObject()->getPhysics()->getXVelocity(), 
-				m_player->getObject()->getPhysics()->getYVelocity());
-		}
-		else
-		{
-			sprintf_s(PhysicsBuffer, "Physics Disabled");
-		}
-		physicsData->setDialog(PhysicsBuffer);
-	}*/
+
+
+
 }
 void level::setMusic(char* sound)
 {
@@ -218,10 +204,27 @@ void level::draw()
 	objMgr->draw();
 	p1HUD->draw();
 	FPSText->draw();
-	//physicsData->draw();
+	controllerDebug->draw();
 }
 void level::handleInput(inputData * input, int now)
 {
+
+	// controller debuging
+
+	char Buffer[256];
+	if(input->xcont->IsConnected())
+	{
+		sprintf_s(Buffer, "Controller Connected");
+	}
+	else
+	{
+		sprintf_s(Buffer, "Controller Disconnected");
+	}
+	controllerDebug->setDialog(Buffer);
+
+
+	// keyboard input
+
 	// up key
 	if ((input->keystate[DIK_UP] & 0x80) || (input->keystate[DIK_W] & 0x80))
 	{
@@ -251,6 +254,53 @@ void level::handleInput(inputData * input, int now)
 		&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80)))
 	{
 		m_player->getObject()->getPhysics()->walkingOff();
+	}
+
+
+	// xbox controller input
+
+	if(input->xcont->IsConnected())
+	{
+		// up
+		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A)
+		{
+			m_player->move(0, 12.0f);
+		}
+
+		// down
+		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
+		{
+			// down key does NOTHING
+		}
+
+		// left
+		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+		{
+			m_player->move(-5.0f, 0);
+		}
+
+		// right
+		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
+		{
+			m_player->move(5.0f, 0);
+		}
+
+		// if neither left or right are active
+
+		if (!(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+			&& !(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT))
+		{
+			m_player->getObject()->getPhysics()->walkingOff();
+		}
+
+		if(!m_player->isAlive())
+		{
+			input->xcont->Vibrate(65535,65535);
+		}
+		else
+		{
+			input->xcont->Vibrate();
+		}
 	}
 
 	//if ((input->keystate[DIK_B] & 0x80))
@@ -310,7 +360,7 @@ void level::loadfromcheckpoint(std::string a_file)
 level::~level()
 {
 	FPSText->~DXText();
-	//physicsData->~DXText();
+	controllerDebug->~DXText();
 	m_map->~cubeMap();
 	entityMgr->~entityManager();
 	objMgr->~objectManager();
