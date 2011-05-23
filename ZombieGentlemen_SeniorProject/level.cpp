@@ -303,32 +303,6 @@ void level::handleInput(inputData * input, int now)
 		}
 	}
 
-	//if ((input->keystate[DIK_B] & 0x80))
-	//{
-	//	if(now - input->keyLag[DIK_B] > 200)
-	//	{
-	//		objMgr->getObject()->togglePhysics();
-	//		input->keyLag[DIK_B] = now;
-	//	}
-	//}
-
-	//if ((input->keystate[DIK_G] & 0x80))
-	//{
-	//	if(now - input->keyLag[DIK_G] > 200)
-	//	{
-	//		objMgr->indexPrev();
-	//		input->keyLag[DIK_G] = now;
-	//	}
-	//}
-	//if ((input->keystate[DIK_H] & 0x80))
-	//{
-	//	if(now - input->keyLag[DIK_H] > 200)
-	//	{
-	//		objMgr->indexNext();
-	//		input->keyLag[DIK_H] = now;
-	//	}
-	//}
-
 	if ((input->keystate[DIK_P] & 0x80))
 	{
 		if(now - input->keyLag[DIK_P] > 200)
