@@ -59,6 +59,9 @@ bool directInput::initDirectInput(HWND * wndHandle, HINSTANCE * hInst)
 		return FALSE; 
 	} 
 
+	// xbox controller
+	xcont = new XboxController(1);
+
 
 #ifdef MOUSE_EXCLUSIVE
 	// Set the cooperative level 
@@ -135,6 +138,10 @@ BYTE * directInput::getKeyboardState()
 DIMOUSESTATE * directInput::getMouseState()
 {
 	return &mouseState;
+}
+XboxController * directInput::getXboxController()
+{
+	return xcont;
 }
 
 void directInput::reAcquireDevices()

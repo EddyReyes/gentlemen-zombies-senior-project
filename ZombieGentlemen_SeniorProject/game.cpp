@@ -25,7 +25,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initialize input data
 	input = new inputData;
-	input->init();
+	input->init(inputMgr->getXboxController());
 
 	// initiailize camera
 	camera = new dxCamera(dxMgr);
