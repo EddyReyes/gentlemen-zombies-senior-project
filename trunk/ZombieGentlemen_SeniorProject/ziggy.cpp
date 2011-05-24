@@ -34,7 +34,7 @@ void ziggy::update(float timePassed)
 	}
 	if(collidingRight || collidingLeft)
 	{
-		// if goomba was previously walking left switch to right, and vise versa
+		// if ziggy was previously flying left switch to right, and vise versa
 		if(direction == ziggyRight)
 			direction = ziggyLeft;
 		else if(direction == ziggyLeft)
