@@ -9,15 +9,17 @@ turret::turret()
 }
 turret::~turret()
 {
-
+	destroyProjectiles();
 }
 
 void turret::update(float timePassed)
 {
+	
 	time += timePassed;
 	if(time <= 1.0f)
 	{
 		animate();
+		bullets->update(time);
 		time = 0;
 	}
 }
@@ -165,6 +167,7 @@ void turret::hideProjectiles()
 		// the projectiles must be hiden behind the turret
 		D3DXVECTOR3 * pos = this->getObject()->getPosition();
 		bullets[i].setPosition(pos->x + offset, pos->y + offset);
+
 	}
 }
 int turret::getNumProjectiles(){return numProjectiles;}

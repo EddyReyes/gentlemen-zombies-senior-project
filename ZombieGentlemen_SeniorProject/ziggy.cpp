@@ -55,6 +55,7 @@ void ziggy::update(float timePassed)
 		break;
 	}
 
+
 	
 	// fly up wen it hits its spawn points Y coord
 	if (m_object->getPosition()->y <= defaultPos.y)
