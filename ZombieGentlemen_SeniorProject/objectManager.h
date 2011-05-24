@@ -303,7 +303,6 @@ public:
 	}
 	void handleCollision()
 	{
-		//clearObjects();
 		object * obj1;
 		object * obj2;
 
