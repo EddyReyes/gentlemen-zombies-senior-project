@@ -4,8 +4,10 @@
 class armor: public stuff
 {
 public:
-	armor(void);
+	armor();
 	~armor(void);
 	void update(float timePassed);
 	void animate();
+private:
+	float time;
 };
