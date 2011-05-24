@@ -9,7 +9,7 @@ turret::turret()
 }
 turret::~turret()
 {
-	destroyProjectiles();
+	
 }
 
 void turret::update(float timePassed)
