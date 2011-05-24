@@ -625,6 +625,10 @@
 					Name="level 1"
 					>
 					<File
+						RelativePath=".\cloudMap1.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\defautHUDPositions.txt"
 						>
 					</File>

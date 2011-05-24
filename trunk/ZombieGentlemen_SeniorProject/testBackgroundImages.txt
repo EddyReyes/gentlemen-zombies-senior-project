@@ -1,2 +1,3 @@
 images/grass.bmp
 images/sky_background1.jpg
+images/cloudSprites.bmp
