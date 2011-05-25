@@ -1,3 +1,4 @@
 testBackgroundMap.txt
 testBackgroundMap2.txt
 cloudMap1.txt
+forestMap1.txt

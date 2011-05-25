@@ -633,6 +633,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\forestMap1.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\HUDMoney.txt"
 						>
 					</File>
