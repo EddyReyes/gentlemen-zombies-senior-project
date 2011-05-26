@@ -3,7 +3,7 @@
 #include "imageManager.h"
 
 
-enum entityType{none, entityPlayer, entityTurret, entityGoomba, entityZiggy, entityObstacle, entityTroll};
+enum entityType{none, entityPlayer, entityTurret, entityGoomba, entityZiggy, entityObstacle, entityTroll, entityProjectile};
 class entity
 {
 protected:

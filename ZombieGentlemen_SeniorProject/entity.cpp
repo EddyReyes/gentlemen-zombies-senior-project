@@ -15,7 +15,7 @@ entity::~entity()
 // set the position of the entity
 void entity::setPosition(float x, float y)
 {
-	m_object->setPosition(x, y, 0);
+	m_object->setPosition(x, y, m_object->getPosition()->z);
 	m_object->recordPosition();
 }
 void entity::setPosition(D3DXVECTOR3 vec)

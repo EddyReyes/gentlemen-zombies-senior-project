@@ -12,7 +12,8 @@ private:
 	turretPosition wallState;
 	projectile * bullets;
 	int numProjectiles;
-	float time;
+	float turretTimer;
+	int bulletIterator;
 
 public:
 
