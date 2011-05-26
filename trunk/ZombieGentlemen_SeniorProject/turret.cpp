@@ -3,24 +3,46 @@
 turret::turret()
 {
 	type = entityTurret;
-	time = 0;
+	turretTimer = 5;
 	state = fortyFiveRight;
+	wallState = faceUp;
 	bullets = NULL;
+	bulletIterator = 0;
 }
 turret::~turret()
 {
-	
+	if(bullets)
+	{
+		destroyProjectiles();
+	}
 }
 
 void turret::update(float timePassed)
 {
 	
-	time += timePassed;
-	if(time <= 1.0f)
+	turretTimer += timePassed;
+	if(turretTimer >= 5.0f)
 	{
 		animate();
-		bullets->update(time);
-		time = 0;
+		for(int i = 0; i< numProjectiles; i++)
+		{
+			bullets[i].setDirection(int(wallState), int(state));
+			bullets[i].reset();
+		}
+		turretTimer = 0;
+		bulletIterator = 0;
+	}
+	else
+	{
+		if((turretTimer >= 0.5f * bulletIterator) && (bulletIterator < numProjectiles))
+		{
+			bullets[bulletIterator].fire();
+			bulletIterator++;
+		}
+		for(int i = 0; i< numProjectiles; i++)
+		{
+			bullets[i].update(timePassed);
+		}
 	}
 }
 
@@ -29,21 +51,20 @@ void turret::animate()
 	switch(wallState)
 	{
 	case faceRight:
-
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(0, 0);
+				m_object->setSprite(2, 2);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(0, 1);
+				m_object->setSprite(2, 1);
 				state = fortyFiveLeft;
 				break;
 
 			case fortyFiveLeft:
-				m_object->setSprite(0, 2);
+				m_object->setSprite(2, 0);
 				state = fortyFiveRight;
 				break;
 			}
@@ -72,17 +93,17 @@ void turret::animate()
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(0, 0);
+				m_object->setSprite(1, 1);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(0, 1);
+				m_object->setSprite(1, 0);
 				state = fortyFiveLeft;
 				break;
 
 			case fortyFiveLeft:
-				m_object->setSprite(0, 2);
+				m_object->setSprite(1, 2);
 				state = fortyFiveRight;
 				break;
 			}
@@ -92,22 +113,21 @@ void turret::animate()
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(0, 0);
+				m_object->setSprite(3, 0);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(0, 1);
+				m_object->setSprite(3, 1);
 				state = fortyFiveLeft;
 				break;
 
 			case fortyFiveLeft:
-				m_object->setSprite(0, 2);
+				m_object->setSprite(3, 2);
 				state = fortyFiveRight;
 				break;
 			}
 		break;
-		
 	}
 }
 void turret::reset()
@@ -118,13 +138,13 @@ void turret::reset()
 void turret::setWall(char side)
 {
 	// if turret is on a top wall it is facing down
-	if(side == 't'){wallState = faceDown;}
+	if(side == 'd'){wallState = faceDown;}
 	// if turret is on a bottom wall then it is facing up
-	if(side == 'b'){wallState = faceUp;}
+	if(side == 'u'){wallState = faceUp;}
 	// if turret is on a left wall then it is facing right
-	if(side == 'l'){wallState = faceRight;}
+	if(side == 'r'){wallState = faceRight;}
 	// if turret is on a right wall then it is facing left
-	if(side == 'r'){wallState  = faceLeft;}
+	if(side == 'l'){wallState  = faceLeft;}
 }
 void turret::setProjectiles(object ** a_projectiles, int a_numProjectiles)
 {
@@ -148,26 +168,37 @@ void turret::setProjectiles(object ** a_projectiles, int a_numProjectiles)
 }
 void turret::hideProjectiles()
 {
-	float offset; // this will hide the projectiles behind the turret
+	float xOffset, yOffset; // this will hide the projectiles behind the turret
 	switch(wallState)
 	{
-	case faceDown: offset = 0.2f; // these values could change
+	case faceDown: 
+		xOffset = 0.5f; // these values could change
+		yOffset = -0.4f;
 		break;
-	case faceUp: offset = 0.2f;
+	case faceUp: 
+		xOffset = 0.35f; // these values could change
+		yOffset = -0.7f;
 		break;
-	case faceLeft: offset = 0.2f;
+	case faceLeft:
+		xOffset = 0.2f; // these values could change
+		yOffset = -0.5f;
 		break;
-	case faceRight: offset = 0.2f;
+	case faceRight:
+		xOffset = 0.2f; // these values could change
+		yOffset = -0.5f;
 		break;
-	default:  offset = 0.2f;
+	default: 
+		xOffset = 0; // these values could change
+		yOffset = 0;
 		break;
 	}
 	for(int i = 0; i < numProjectiles; i++)
 	{
 		// the projectiles must be hiden behind the turret
 		D3DXVECTOR3 * pos = this->getObject()->getPosition();
-		bullets[i].setPosition(pos->x + offset, pos->y + offset);
-
+		bullets[i].setPosition(pos->x + xOffset, pos->y + yOffset);
+		bullets[i].init(D3DXVECTOR3(pos->x + xOffset, pos->y + yOffset, 0), 2);
+		bullets[i].setDirection(int(wallState), int(state));
 	}
 }
 int turret::getNumProjectiles(){return numProjectiles;}
@@ -175,4 +206,5 @@ projectile * turret::getProjectile(int index){return &(bullets[index]);}
 void turret::destroyProjectiles()
 {
 	delete [] bullets;
+	bullets = NULL;
 }

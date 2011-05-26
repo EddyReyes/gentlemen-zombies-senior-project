@@ -63,6 +63,15 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
 						players[i]->entityDead();
+					if(enemies[j]->getType() == entityTurret)
+					{
+						turret * turr = (turret *)enemies[j];
+						for(int x =0; x < turr->getNumProjectiles();x++)
+						{
+							if(players[i]->getObject()->getCollHistory()->get(g) == turr->getProjectile(x)->getObject()->getObjectIndex())
+								players[i]->entityDead();
+						}
+					}
 				}
 			}
 			//check for collision with stuff
