@@ -19,7 +19,7 @@ class planeMap
 {
 private:
 	grid * m_grid;
-	float scale, depth, xOffset, yOffset;
+	float scale, depth, xOffset, yOffset, gridScale;
 	int textureRows, textureColumns;
 	std::string mapTexture;
 	LPDIRECT3DTEXTURE9 * texture;	// map texture
@@ -39,7 +39,7 @@ public:
 		imageInfo = new D3DXIMAGE_INFO;
 		mapTexture = a_textureFile;
 		loadMap(textFile);
-		m_grid = new grid(height, width, scale);
+		m_grid = new grid(height, width, gridScale);
 		initMap();
 	}
 	~planeMap()
@@ -124,7 +124,7 @@ public:
 		std::fstream file(filename.c_str());
 		// the size of the data we are going to create
 		file >> height >> width >> textureRows >> textureColumns >> scale >> 
-			 xOffset >> yOffset >> depth;
+			 xOffset >> yOffset >> depth >> gridScale;
 		/*printf("file size %dx%d\n", m_width, m_height);*/
 		m_map = new char * [height];
 		for(int c = 0; c < height; c++){
