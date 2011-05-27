@@ -223,6 +223,7 @@ void entityManager::loadPlayers()
 		objMgr->getObject()->togglePhysics();
 		players[i]->setObject(objMgr->getObject());
 		players[i]->setPosition(x, y);
+		players[i]->getObject()->setSprite(0,0);
 		// also set default position for re-spawing
 		players[i]->setDefaultPos(x, y);
 	}

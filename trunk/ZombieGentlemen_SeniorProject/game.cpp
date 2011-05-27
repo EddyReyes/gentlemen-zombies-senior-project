@@ -29,6 +29,12 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initiailize camera
 	camera = new dxCamera(dxMgr);
+
+	// initialize loading screen
+	loadingScreen = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	loadingScreen->loadFromTxtFile("loadingScreen.txt");
+	loadingScreen->setDialog("  Loading...");
+	loadingScreen->draw();
 	
 	//instantiate menu (TEST DATA)
 	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
@@ -116,8 +122,7 @@ void game::handleInput()
 		{
 			mainMenu->~Menu();
 			//gameState = sideScroll;
-			lvlMgr->setLevel(0); // for testing set to first level
-			lvl = lvlMgr->getLevel();
+
 			gameState = topDown;
 			soundMgr->stopSound(1);
 			soundMgr->playSound(0);
@@ -146,7 +151,13 @@ void game::handleInput()
 	case topDown:
 		{
 			if(the_town->update(input,now)== 0)
+			{
+				gameState = loading;
+				draw();
+				lvlMgr->setLevel(0); // for testing set to first level
+				lvl = lvlMgr->getLevel();
 				gameState = sideScroll;
+			}
 		}
 		break;
 
@@ -171,7 +182,10 @@ void game::draw()
 		the_town->draw();
 		break;
 	case sideScroll:
-		lvl->draw();
+			lvl->draw();
+		break;
+	case loading:
+		loadingScreen->draw();
 		break;
 	}
 	dxMgr->endRender();

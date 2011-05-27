@@ -17,6 +17,9 @@ struct cameraUpdateData
 	D3DXVECTOR3 displacement;
 	D3DXVECTOR3 * playerData;
 };
+
+enum levelState{levelLoading, levelPaused, levelPlay};
+
 class level
 {
 private:
@@ -32,6 +35,10 @@ private:
 	player * m_player;
 	float timer;
 	cameraUpdateData camData;
+
+	levelState state;
+
+	HudImage * pauseScreen;
 
 
 	float Elapsed;
@@ -52,4 +59,5 @@ public:
 	~level();//deconstructor
 	void loadfromcheckpoint(std::string);
 	objectManager* getManager(){return objMgr;}
+	int getState();
 };
