@@ -591,6 +591,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\loadingScreen.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\soundManager.txt"
 				>
 			</File>

@@ -8,7 +8,8 @@ level::level()
 	m_map = NULL;
 	checkpointtxt = NULL;
 	camera = NULL;
-
+	state = levelLoading;
+	pauseScreen = NULL;
 }
 /******************************************************************
 * initLevel
@@ -47,33 +48,33 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	p1HUD->initPositions(files->getStringAt(12));
 
 
-
-	checkpointtxt = new DXText(a_dxMgr,"images/blackTextBox.bmp");
-	checkpointtxt->setTextBoxParameters(200,50,600,500,10);
-	checkpointtxt->setDialog("CHECKPOINT");
-	checkpoint = 20;
-
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
 
+	// init controller debug data
 	controllerDebug = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	controllerDebug->loadFromTxtFile("textParameters2.txt");
 	controllerDebug->setDialog("Loading...");
 
+	// init pause screen
+	pauseScreen = new HudImage(a_dxMgr, "images/paused.bmp");
+	pauseScreen->setParameters(800, 600, 0, 0);
 
 	// init camera data
 	camera = a_camera;
 	
 	//  make a cool intro, camare moves in from the side
-	camData.point = D3DXVECTOR3(-100, 50, 0);
-	camData.pos = D3DXVECTOR3(-100, 50, -12);
+	camData.point = D3DXVECTOR3(50, 50, 0);
+	camData.pos = D3DXVECTOR3(50, 50, -12);
 	camera->updateCamera3D(camData.pos, camData.point);
 
 	Elapsed = 0;
 	FPS = 0;
 	timer = 0;
+
+	
 }
 /******************************************************************
 * update
@@ -83,28 +84,48 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 ******************************************************************/
 void level::update(float updateTime)
 {
-	objMgr->updatePhysics(updateTime);
-	objMgr->handleCollision();
-	entityMgr->update(updateTime);
-	updateDebugData(updateTime);
-	updateCamera(updateTime);
-	//will check if youur at a checkpoint
 
-	if(!m_player->isAlive())
+	if(state == levelPlay)
+	{
+		objMgr->updatePhysics(updateTime);
+		objMgr->handleCollision();
+		entityMgr->update(updateTime);
+
+		// if player dies respawn
+		if(!m_player->isAlive())
+		{
+			timer += updateTime;
+			if(timer >= 3)
+			{
+				// reload all entity data
+				entityMgr->resetPlayers();
+				// remove all enemies and stuff
+				entityMgr->removeEnemies();
+				entityMgr->removeStuff();
+				// reload all enemies
+				entityMgr->loadEnemies(0);
+				entityMgr->loadStuff();
+				// reset timer
+				timer  = 0;
+			}
+		}
+	}
+	if(state == levelPlay || state == levelPaused)
+	{
+		updateDebugData(updateTime);
+		updateCamera(updateTime);
+	}
+
+	// start level after 3 seconds second
+	if(state == levelLoading)
 	{
 		timer += updateTime;
 		if(timer >= 3)
 		{
+			state = levelPlay;
 			// reload all entity data
 			entityMgr->resetPlayers();
-			// remove all enemies and stuff
-			entityMgr->removeEnemies();
-			entityMgr->removeStuff();
-			// reload all enemies
-			entityMgr->loadEnemies(0);
-			entityMgr->loadStuff();
-			// reset timer
-			timer  = 0;
+			timer = 0;
 		}
 	}
 }
@@ -135,8 +156,6 @@ void level::updateCamera(float updateTime)
 		camData.point.y = camData.displacement.y * updateTime * 3.8f;
 	else
 		camData.point.y = camData.displacement.y * 0.1f;
-
-
 
 
 	camData.point.x += camera->getCameraLook()->x;
@@ -188,10 +207,6 @@ void level::updateDebugData(float updateTime)
 		Elapsed = 0;
 		FPS = 0;
 	}
-
-
-
-
 }
 void level::setMusic(char* sound)
 {
@@ -205,6 +220,9 @@ void level::draw()
 	p1HUD->draw();
 	FPSText->draw();
 	controllerDebug->draw();
+	// check if game is paused
+	if(state == levelPaused)
+		pauseScreen->draw();
 }
 void level::handleInput(inputData * input, int now)
 {
@@ -303,11 +321,29 @@ void level::handleInput(inputData * input, int now)
 		}
 	}
 
+	// pause
 	if ((input->keystate[DIK_P] & 0x80))
 	{
 		if(now - input->keyLag[DIK_P] > 200)
 		{
+			switch(state)
+			{
+			case levelPlay:
+				state = levelPaused;
+				break;
+			case levelPaused:
+				state = levelPlay;
+				break;
+			}
 			input->keyLag[DIK_P] = now;
+		}
+	}
+
+	if ((input->keystate[DIK_R] & 0x80))
+	{
+		if(now - input->keyLag[DIK_R] > 200)
+		{
+			input->keyLag[DIK_R] = now;
 			entityMgr->removeEnemies();
 		}
 	}
@@ -333,11 +369,13 @@ void level::loadfromcheckpoint(std::string a_file)
 }
 level::~level()
 {
-	FPSText->~DXText();
-	controllerDebug->~DXText();
-	m_map->~cubeMap();
-	entityMgr->~entityManager();
-	objMgr->~objectManager();
-	files->~stringArray();
-	checkpointtxt->~DXText();
+	delete FPSText;
+	delete controllerDebug;
+	delete m_map;
+	delete entityMgr;
+	delete objMgr;
+	delete files;
+	delete checkpointtxt;
+	delete pauseScreen;
 }
+int level::getState(){return int(state);}

@@ -2,7 +2,7 @@
 #include "defines.h"
 
 //#define topdown
-enum gameStates{menu, sideScroll, topDown, pause};
+enum gameStates{menu, sideScroll, topDown, pause, loading};
 
 class game
 {
@@ -29,6 +29,7 @@ private:
 	// Unit test parameters	
 	Menu * mainMenu;
 
+	DXText * loadingScreen;
 	levelManager * lvlMgr;
 	level * lvl;
 	town * the_town;
