@@ -46,6 +46,8 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	p1HUD = new HUD();
 	p1HUD->loadFromFile(files->getStringAt(10), a_dxMgr);
 	p1HUD->initPositions(files->getStringAt(11));
+	p1HUD->setPlayer(m_player);
+	p1HUD->update(0);
 
 
 	// initialize FPS display data
@@ -90,6 +92,7 @@ void level::update(float updateTime)
 		objMgr->updatePhysics(updateTime);
 		objMgr->handleCollision();
 		entityMgr->update(updateTime);
+		p1HUD->update(updateTime);
 
 		// if player dies respawn
 		if(!m_player->isAlive())

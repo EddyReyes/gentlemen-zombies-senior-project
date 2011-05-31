@@ -1,23 +1,24 @@
 #pragma once
 #include "DXText.h"
 #include "HudImage.h"
-#include "entity.h"
+#include "player.h"
 #include "imageManager.h"
 
 class HUD
 {
 	private:
 		HudImage * armor;
-		entity * plyr;
+		player * plyr;
 		HudImage ** images;
 		imageManager * imgMgr;
 		dxManager * dxMgr;
+		float timer;
 	public:
 		HUD();
 		~HUD();
 		void draw();
 		void loadFromFile(std::string filename, dxManager * a_dxMgr);
-		void update();
+		void update(float updateTime);
 		void initPositions(std::string filename);
-		void setPlayer(entity * a_Player);
+		void setPlayer(player * a_Player);
 };

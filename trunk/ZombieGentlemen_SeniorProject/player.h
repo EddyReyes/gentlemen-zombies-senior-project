@@ -8,7 +8,8 @@ class player: public entity
 {
 private:
 	playerState state;
-	float timer;
+	float timer, armorTimeout;
+	bool armorBlink;
 
 public:
 	// constructor/destructor
@@ -20,4 +21,8 @@ public:
 	void reset();
 	void update(float timePassed);
 	void move(float x, float y);
+	void bounce();
+	void removeArmor();
+	bool getAmorBlink();
+	void armorPickup();
 };

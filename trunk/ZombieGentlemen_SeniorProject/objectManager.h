@@ -422,7 +422,6 @@ public:
 			// according to the index it recorded within itself
 			bool success; // keeps track of wether the remove was worked
 			success = list->remove(a_index); // removes an object by index
-			list->setObjectIndexes(); // updates each objects index
 			return success;
 		}
 		else return false;

@@ -71,6 +71,8 @@ public:
 	void removeAll();
 	void removeAllExceptCheckPoints();
 
+	void removeFromStuff(int index);
+
 	// reset
 	void resetPlayers();
 

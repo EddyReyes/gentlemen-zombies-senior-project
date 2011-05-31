@@ -6,6 +6,7 @@ HUD::HUD()
 	armor = NULL;
 	images = NULL;
 	plyr = NULL;
+	timer = 0;
 }
 HUD::~HUD()
 {
@@ -70,11 +71,32 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 * armor bar is updated to illustrate Players current health
 * money is updated to illustrate Players current funds
 ****************************************************************/
-void HUD::update()
+void HUD::update(float updateTime)
 {
+	//if(plyr != NULL)
+	//{
+	//	if(plyr->hasArmor())
+	//	{
+	//		armor->toggleSpriteOn();
+	//	}
+	//	else
+	//	{
+	//		armor->toggleSpriteOff();
+	//	}
+	//}
+
 	if(plyr != NULL)
 	{
-		if(plyr->hasArmor())
+		if(plyr->getAmorBlink())
+		{
+			timer += updateTime;
+			if(timer >= 0.2f)
+			{
+				armor->toggleSprite();
+				timer = 0;
+			}
+		}
+		else if(plyr->hasArmor())
 		{
 			armor->toggleSpriteOn();
 		}
@@ -131,4 +153,4 @@ void HUD::initPositions(std::string filename)
 * must be called in order for the updates to take effect
 ****************************************************************/
 
-void HUD::setPlayer(entity * a_Player){plyr = a_Player;}
+void HUD::setPlayer(player * a_Player){plyr = a_Player;}
