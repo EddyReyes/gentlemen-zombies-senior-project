@@ -64,12 +64,16 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	pauseScreen = new HudImage(a_dxMgr, "images/paused.bmp");
 	pauseScreen->setParameters(800, 600, 0, 0);
 
+	// init win screen
+	winScreen = new HudImage(a_dxMgr, "images/victoryCondition.bmp");
+	winScreen ->setParameters(800, 600, 0, 0);
+
 	// init camera data
 	camera = a_camera;
 	
 	//  make a cool intro, camare moves in from the side
-	camData.point = D3DXVECTOR3(50, 50, 0);
-	camData.pos = D3DXVECTOR3(50, 50, -12);
+	camData.point = D3DXVECTOR3(-50, -30, 0);
+	camData.pos = D3DXVECTOR3(-50, -30, -12);
 	camera->updateCamera3D(camData.pos, camData.point);
 
 	Elapsed = 0;
@@ -86,8 +90,21 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 ******************************************************************/
 void level::update(float updateTime)
 {
-	if(state == levelPlay)
+	switch(state)
 	{
+	case levelLoading:
+		// start level after 3 seconds second
+		timer += updateTime;
+		if(timer >= 3)
+		{
+			state = levelPlay;
+			// reload all entity data
+			entityMgr->resetPlayers();
+			timer = 0;
+		}
+		break;
+
+	case levelPlay:
 		objMgr->updatePhysics(updateTime);
 		objMgr->handleCollision();
 		entityMgr->update(updateTime);
@@ -111,24 +128,21 @@ void level::update(float updateTime)
 				timer  = 0;
 			}
 		}
+		// check for victory condition
+		if(entityMgr->getVictoryCondition())
+		{
+			state = levelWin;
+		}
+		break;
+
+	case levelWin:
+		break;
 	}
-	if(state == levelPlay || state == levelPaused)
+	// update camera and debug data
+	if(state != levelLoading)
 	{
 		updateDebugData(updateTime);
 		updateCamera(updateTime);
-	}
-
-	// start level after 3 seconds second
-	if(state == levelLoading)
-	{
-		timer += updateTime;
-		if(timer >= 3)
-		{
-			state = levelPlay;
-			// reload all entity data
-			entityMgr->resetPlayers();
-			timer = 0;
-		}
 	}
 }
 
@@ -222,9 +236,18 @@ void level::draw()
 	p1HUD->draw();
 	FPSText->draw();
 	controllerDebug->draw();
-	// check if game is paused
-	if(state == levelPaused)
+	
+	switch(state)
+	{
+	case levelPaused:// check if game is paused
 		pauseScreen->draw();
+		break;
+	case levelWin: // check if game level is over
+		winScreen->draw();
+		break;
+	default:
+		break;
+	}
 }
 void level::handleInput(inputData * input, int now)
 {
@@ -243,101 +266,107 @@ void level::handleInput(inputData * input, int now)
 	controllerDebug->setDialog(Buffer);
 
 
-	// keyboard input
-
-	// up key
-	if ((input->keystate[DIK_UP] & 0x80) || (input->keystate[DIK_W] & 0x80))
+	if(state == levelPlay) // only allow movement if game is in play mode
 	{
-		m_player->move(0, 12.0f);
-	}
+		// keyboard input
 
-	// down key
-	if ((input->keystate[DIK_DOWN] & 0x80)|| (input->keystate[DIK_S] & 0x80))
-	{
-		// down key does NOTHING
-	}
-	
-	// left key
-	if ((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
-	{
-		m_player->move(-5.0f, 0);
-	}
-
-	// right key
-	if ((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))
-	{
-		m_player->move(5.0f, 0);
-	}
-
-	// if neither left or right key are active
-	if (!((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
-		&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80)))
-	{
-		m_player->getObject()->getPhysics()->walkingOff();
-	}
-
-
-	// xbox controller input
-
-	if(input->xcont->IsConnected())
-	{
-		// up
-		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A)
+		// up key
+		if ((input->keystate[DIK_UP] & 0x80) || (input->keystate[DIK_W] & 0x80))
 		{
 			m_player->move(0, 12.0f);
 		}
 
-		// down
-		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
+		// down key
+		if ((input->keystate[DIK_DOWN] & 0x80)|| (input->keystate[DIK_S] & 0x80))
 		{
 			// down key does NOTHING
 		}
 
-		// left
-		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+		// left key
+		if ((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
 		{
 			m_player->move(-5.0f, 0);
 		}
 
-		// right
-		if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
+		// right key
+		if ((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))
 		{
 			m_player->move(5.0f, 0);
 		}
 
-		// if neither left or right are active
-
-		if (!(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
-			&& !(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT))
+		// if neither left or right key are active
+		if (!((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
+			&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80)))
 		{
 			m_player->getObject()->getPhysics()->walkingOff();
 		}
 
-		if(!m_player->isAlive())
+
+		// xbox controller input
+
+		if(input->xcont->IsConnected())
 		{
-			input->xcont->Vibrate(65535,65535);
-		}
-		else
-		{
-			input->xcont->Vibrate();
+			// up
+			if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A)
+			{
+				m_player->move(0, 12.0f);
+			}
+
+			// down
+			if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
+			{
+				// down key does NOTHING
+			}
+
+			// left
+			if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+			{
+				m_player->move(-5.0f, 0);
+			}
+
+			// right
+			if (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
+			{
+				m_player->move(5.0f, 0);
+			}
+
+			// if neither left or right are active
+
+			if (!(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+				&& !(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT))
+			{
+				m_player->getObject()->getPhysics()->walkingOff();
+			}
+
+			if(!m_player->isAlive())
+			{
+				input->xcont->Vibrate(65535,65535);
+			}
+			else
+			{
+				input->xcont->Vibrate();
+			}
 		}
 	}
 
-	// pause
-	if ((input->keystate[DIK_P] & 0x80) || (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_START))
+	// pause (any state except win)
+	if(state != levelWin)
 	{
-		if(now - input->keyLag[DIK_P] > 400)
+		if ((input->keystate[DIK_P] & 0x80) || (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_START))
 		{
-			switch(state)
+			if(now - input->keyLag[DIK_P] > 400)
 			{
-			case levelPlay:
-				state = levelPaused;
-				break;
-			case levelPaused:
-				state = levelPlay;
-				break;
+				switch(state)
+				{
+				case levelPlay:
+					state = levelPaused;
+					break;
+				case levelPaused:
+					state = levelPlay;
+					break;
+				}
+				input->keyLag[DIK_P] = now;
 			}
-			input->keyLag[DIK_P] = now;
 		}
 	}
 
@@ -379,5 +408,6 @@ level::~level()
 	delete files;
 	delete checkpointtxt;
 	delete pauseScreen;
+	delete winScreen;
 }
 int level::getState(){return int(state);}
