@@ -9,5 +9,4 @@ testStuff.txt
 testCheckPoints.txt
 testBackground.txt
 imageHUDTest.txt
-HUDMoney.txt
 defautHUDPositions.txt

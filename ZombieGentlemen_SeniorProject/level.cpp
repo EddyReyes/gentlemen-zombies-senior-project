@@ -44,8 +44,8 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 
 	// init HUD
 	p1HUD = new HUD();
-	p1HUD->loadFromFile(files->getStringAt(10), files->getStringAt(11), a_dxMgr);
-	p1HUD->initPositions(files->getStringAt(12));
+	p1HUD->loadFromFile(files->getStringAt(10), a_dxMgr);
+	p1HUD->initPositions(files->getStringAt(11));
 
 
 	// initialize FPS display data
@@ -322,9 +322,9 @@ void level::handleInput(inputData * input, int now)
 	}
 
 	// pause
-	if ((input->keystate[DIK_P] & 0x80))
+	if ((input->keystate[DIK_P] & 0x80) || (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_START))
 	{
-		if(now - input->keyLag[DIK_P] > 200)
+		if(now - input->keyLag[DIK_P] > 400)
 		{
 			switch(state)
 			{

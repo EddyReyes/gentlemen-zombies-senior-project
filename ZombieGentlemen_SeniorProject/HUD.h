@@ -16,7 +16,7 @@ class HUD
 		HUD();
 		~HUD();
 		void draw();
-		void loadFromFile(std::string filename, std::string textParam, dxManager * a_dxMgr);
+		void loadFromFile(std::string filename, dxManager * a_dxMgr);
 		void update();
 		void initPositions(std::string filename);
 		void setPlayer(entity * a_Player);

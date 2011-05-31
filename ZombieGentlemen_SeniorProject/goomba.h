@@ -2,11 +2,14 @@
 #include "entity.h"
 #include <assert.h>
 
-enum goombaStates{goombaWalkLeft,goombaWalkRight,goombaDying,goombaDead};
+enum goombaStates{goombaWalkLeft, goombaWalkRight};
+
 class goomba: public entity
 {
 private:
 	goombaStates state;
+	int sprite;
+	float timer;
 public:
 	// constructor/destructor
 	goomba();

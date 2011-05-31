@@ -9,3 +9,4 @@ images/animation/ziggybird sprite sheet 2.bmp
 images/animation/trollfaces.bmp
 images/animation/goomba_sprite_sheet.bmp
 images/animation/turret sprite sheet.bmp
+images/projectile.bmp
