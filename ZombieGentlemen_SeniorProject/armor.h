@@ -8,6 +8,4 @@ public:
 	~armor(void);
 	void update(float timePassed);
 	void animate();
-private:
-	float time;
 };

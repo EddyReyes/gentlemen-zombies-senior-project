@@ -2,7 +2,7 @@
 
 armor::armor()
 {
-	time = 0;
+	type = stuff_armor;
 	m_object = NULL;
 }
 
@@ -13,12 +13,7 @@ armor::~armor(void)
 
 void armor::update(float timePassed)
 {
-	time += timePassed;
 
-	animate();
-
-	
-	
 }
 
 void armor::animate()

@@ -62,14 +62,32 @@ void entityManager::update(float timePassed)
 				for(int g = 0; g < players[i]->getObject()->getCollHistory()->endOfList(); g++)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
-						players[i]->entityDead();
+					{
+						if(players[i]->hasArmor())
+						{
+							player * plr = (player*)players[i];
+							plr->bounce();
+							plr->removeArmor();
+						}
+						else
+							players[i]->entityDead();
+					}
 					if(enemies[j]->getType() == entityTurret)
 					{
 						turret * turr = (turret *)enemies[j];
 						for(int x =0; x < turr->getNumProjectiles();x++)
 						{
 							if(players[i]->getObject()->getCollHistory()->get(g) == turr->getProjectile(x)->getObject()->getObjectIndex())
-								players[i]->entityDead();
+							{
+								if(players[i]->hasArmor())
+								{
+									player * plr = (player*)players[i];
+									plr->bounce();
+									plr->removeArmor();
+								}
+								else
+									players[i]->entityDead();
+							}
 						}
 					}
 				}
@@ -92,9 +110,9 @@ void entityManager::update(float timePassed)
 							if(!players[i]->hasArmor())
 							{
 								// if player does not already have armor, give him armor, and remove it from the game world
-								players[i]->setArmor(true);
-								objMgr->popObject(m_stuff[i]->getObject()->getObjectIndex());
-								m_stuff[i]->setObject(NULL);
+								player * plr = (player*)players[i];
+								plr->armorPickup();
+								removeFromStuff(j);
 							}
 						}
 
@@ -162,10 +180,6 @@ void entityManager::update(float timePassed)
 		m_checkPoints[i]->update(timePassed);
 		m_checkPoints[i]->getObject()->getCollHistory()->resetList();
 	}
-
-	/**********************************************************
-	* In the future function ality for removing and loading new enemies will be added here
-	**********************************************************/
 }
 
 // load functions
@@ -512,11 +526,15 @@ void entityManager::removeEnemies()
 				{
 					projectile * proj = turr->getProjectile(i);
 					objMgr->popObject(proj->getObject()->getObjectIndex());
+					// udpate object indexes
+					objMgr->getList()->setObjectIndexes();
 				}
 				turr->destroyProjectiles();
 			}
 			// tell object manager to pop that particular
 			objMgr->popObject(enemies[i]->getObject()->getObjectIndex());
+			// udpate object indexes
+			objMgr->getList()->setObjectIndexes();
 			enemies[i]->setObject(NULL);
 			delete enemies[i];
 			enemies[i] = NULL;
@@ -538,6 +556,8 @@ void entityManager::removePlayers()
 		{
 			// tell object manager to pop that particular
 			objMgr->popObject(players[i]->getObject()->getObjectIndex());
+			// udpate object indexes
+			objMgr->getList()->setObjectIndexes();
 			players[i]->setObject(NULL);
 			delete players[i];
 			players[i] = NULL;
@@ -560,6 +580,8 @@ void entityManager::removeStuff()
 		{
 			// tell object manager to pop that particular
 			objMgr->popObject(m_stuff[i]->getObject()->getObjectIndex());
+			// udpate object indexes
+			objMgr->getList()->setObjectIndexes();
 			m_stuff[i]->setObject(NULL);
 			delete m_stuff[i];
 			m_stuff[i] = NULL;
@@ -581,6 +603,8 @@ void entityManager::removeCheckPoints()
 		{
 			// tell object manager to pop that particular
 			objMgr->popObject(m_checkPoints[i]->getObject()->getObjectIndex());
+			// udpate object indexes
+			objMgr->getList()->setObjectIndexes();
 			m_checkPoints[i]->setObject(NULL);
 			delete m_checkPoints[i];
 			m_checkPoints[i] = NULL;
@@ -616,6 +640,28 @@ void entityManager::resetPlayers()
 		players[i]->moveToDefaultPos();
 		players[i]->reset();
 	}
+}
+
+void entityManager::removeFromStuff(int index)
+{
+	if(m_stuff)
+	{
+		// move stuff to the end of the list
+		for(int i = index; i < numStuff-1; i++)
+		{
+			stuff * temp = m_stuff[i];
+			m_stuff[i] = m_stuff[i+1];
+			m_stuff[i+1] = temp;
+		}
+
+		// after its at the end of the list, destroy it
+		objMgr->popObject(m_stuff[numStuff-1]->getObject()->getObjectIndex());
+		m_stuff[numStuff-1]->setObject(NULL);
+		// contract object list to prevent it from growing out of control
+		objMgr->getList()->contractList();
+	}
+	// decriment stuff by 1
+	numStuff -= 1;
 }
 
 //accesors

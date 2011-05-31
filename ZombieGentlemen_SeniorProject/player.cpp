@@ -5,6 +5,7 @@ player::player()
 	m_object = NULL;
 	type = entityPlayer;
 	timer = 0;
+	armorBlink = false;
 }
 player::~player()
 {
@@ -64,10 +65,7 @@ void player::update(float timePassed)
 			{
 				if(state != dying && state != dead)
 				{
-					float deathXVel = m_object->getPhysics()->getXVelocity();
-					float deathYVel = m_object->getPhysics()->getYVelocity();
-					m_object->getPhysics()->setXVelocity(deathXVel * -3);
-					m_object->getPhysics()->setYVelocity(10);
+					bounce();
 				}
 				if(state != dying)
 				{
@@ -127,6 +125,17 @@ void player::update(float timePassed)
 	}
 	if(spriteChange)
 		animate();
+
+	if(armorBlink)
+	{
+		armorTimeout -= timePassed;
+		if(armorTimeout < 0) // armorTimeout has expired
+		{
+			armor = !armor;
+			armorBlink = false;
+			armorTimeout = 0;
+		}
+	}
 }
 
 void player::reset()
@@ -138,3 +147,34 @@ void player::reset()
 	alive = true;
 	armor = false;
 }
+void player::bounce()
+{
+	float deathXVel = m_object->getPhysics()->getXVelocity();
+	float deathYVel = m_object->getPhysics()->getYVelocity();
+	m_object->getPhysics()->setXVelocity(deathXVel * -3);
+	m_object->getPhysics()->setYVelocity(10);
+}
+
+void player::removeArmor()
+{
+	if(armor)
+	{
+		if(!armorBlink)
+		{
+			armorBlink = true;
+			armorTimeout = 2.0f;
+		}
+	}
+}
+void player::armorPickup()
+{
+	if(!armor)
+	{
+		if(!armorBlink)
+		{
+			armorBlink = true;
+			armorTimeout = 2.0f;
+		}
+	}
+}
+bool player::getAmorBlink(){return armorBlink;}
