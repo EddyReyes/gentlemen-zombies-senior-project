@@ -10,3 +10,4 @@ images/animation/trollfaces.bmp
 images/animation/goomba_sprite_sheet.bmp
 images/animation/turret sprite sheet.bmp
 images/projectile.bmp
+images/victory.bmp

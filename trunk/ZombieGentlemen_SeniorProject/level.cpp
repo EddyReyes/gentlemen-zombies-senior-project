@@ -86,7 +86,6 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 ******************************************************************/
 void level::update(float updateTime)
 {
-
 	if(state == levelPlay)
 	{
 		objMgr->updatePhysics(updateTime);
@@ -106,7 +105,7 @@ void level::update(float updateTime)
 				entityMgr->removeEnemies();
 				entityMgr->removeStuff();
 				// reload all enemies
-				entityMgr->loadEnemies(0);
+				entityMgr->loadEnemies(entityMgr->getCheckPoint()+1);
 				entityMgr->loadStuff();
 				// reset timer
 				timer  = 0;
