@@ -288,6 +288,10 @@
 						RelativePath=".\teleporter.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\victory.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="other"
@@ -476,6 +480,10 @@
 					</File>
 					<File
 						RelativePath=".\teleporter.h"
+						>
+					</File>
+					<File
+						RelativePath=".\victory.h"
 						>
 					</File>
 				</Filter>
@@ -763,6 +771,10 @@
 				</File>
 				<File
 					RelativePath=".\defaultTeleporter.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\defaultVictory.txt"
 					>
 				</File>
 			</Filter>

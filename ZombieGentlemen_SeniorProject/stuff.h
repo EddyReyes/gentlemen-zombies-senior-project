@@ -1,7 +1,7 @@
 #pragma once
 #include "object.h"
 
-enum stuffType{stuff_none, stuff_checkpoint, stuff_armor, stuff_key, stuff_teleporter, stuff_door};
+enum stuffType{stuff_none, stuff_checkpoint, stuff_armor, stuff_key, stuff_teleporter, stuff_door, stuff_victory};
 class stuff
 {
 protected:

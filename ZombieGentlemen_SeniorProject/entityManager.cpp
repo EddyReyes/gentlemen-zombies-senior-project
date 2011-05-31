@@ -7,11 +7,12 @@ entityManager::entityManager()
 	enemies = NULL;
 	m_stuff = NULL;
 	m_checkPoints = NULL;
-	checkPnt = 0;
+	checkPnt = -1;
 	numPlayers = 0;
 	numEnemies = 0;
 	numStuff = 0;
 	numCheckPoints = 0;
+	victoryCondition = false;
 }
 entityManager::~entityManager()
 {
@@ -99,14 +100,14 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())
 					{
-						if(m_stuff[j]->getType() == stuff_teleporter)
+						switch(m_stuff[j]->getType())
 						{
+						case stuff_teleporter:
 							teleporter * tel;
 							tel = (teleporter*)m_stuff[j];
 							players[i]->setPosition(tel->getData());
-						}
-						if(m_stuff[j]->getType() == stuff_armor)
-						{
+							break;
+						case stuff_armor:
 							if(!players[i]->hasArmor())
 							{
 								// if player does not already have armor, give him armor, and remove it from the game world
@@ -114,12 +115,22 @@ void entityManager::update(float timePassed)
 								plr->armorPickup();
 								removeFromStuff(j);
 							}
+							break;
+						case stuff_victory:
+							m_stuff[j]->pickUp();
+							victoryCondition = true;
+							break;
+						case stuff_key:
+							break;
+						case stuff_door:
+							break;
+						default:
+							break;
 						}
-
-						//if(m_stuff[j]->getType() == stuff_key)
 					}
 				}
 			}
+			// check for collision with checkpoints
 			for(int j = 0; j < numCheckPoints; j++)
 			{
 				for(int g = 0; g < players[i]->getObject()->getCollHistory()->endOfList(); g++)
@@ -131,6 +142,13 @@ void entityManager::update(float timePassed)
 							m_checkPoints[j]->pickUp();
 							D3DXVECTOR3 * pos = m_checkPoints[j]->getObject()->getPosition();
 							players[i]->setDefaultPos(pos);
+							if((checkPnt + 1) == j) // check if checkpoint is consecutive
+								checkPnt = j;
+							else
+							{
+								checkPnt = j;
+								checkOldCheckpoints(); // if not check old checkpoints
+							}
 						}
 					}
 				}
@@ -245,120 +263,123 @@ void entityManager::loadPlayers()
 }
 void entityManager::loadEnemies(int fileIndex)
 {
-	std::string * fileName = enemyFiles.getStringPtrAt(fileIndex);
-	std::fstream file(fileName->c_str());
+	if(fileIndex < enemyFiles.getSize()) // check if index is greater than size
+	{
+		std::string * fileName = enemyFiles.getStringPtrAt(fileIndex);
+		std::fstream file(fileName->c_str());
 
-	int size = 0;
-	// count the number of strings in the text file
-	file.peek();
-	while(!file.eof())
-	{
-		int c;
-		c = file.get();
-		if(c == '\n' || file.eof()) 
-		{size++;}
-	}
-	
-	// clear fstream flags
-	file.clear();
-	// set fstream get pointer back to the beginning
-	file.seekg(0, std::ios::beg);
-	
-	// make the corresponding amount of entity pointers
-	// check if there is already an existing array
-	if(!enemies)
-	{
-		// if new create a new list
-		enemies = new entity * [size];
-	}
-	else
-	{
-		// create a new array
-		entity ** tempArray;
-		tempArray = new entity * [numEnemies + size];
-		// copy over array data
-		for(int i = 0; i < numEnemies; i++)
+		int size = 0;
+		// count the number of strings in the text file
+		file.peek();
+		while(!file.eof())
 		{
-			tempArray[i] = enemies[i];
+			int c;
+			c = file.get();
+			if(c == '\n' || file.eof()) 
+			{size++;}
 		}
-		// delete old array and transfer new array into players
-		delete [] enemies;
-		enemies = tempArray;
-	}
 
-	for(int i = numEnemies; i < numEnemies + size; i++)
-	{
-		char enemyType, direction, behaviorType;
-		/**********************************************************
-		* In the future direction and behavior type will change the behavior of the turrets
-		**********************************************************/
-		float x, y;
+		// clear fstream flags
+		file.clear();
+		// set fstream get pointer back to the beginning
+		file.seekg(0, std::ios::beg);
 
-		file >> enemyType >> x >> y >> direction >> behaviorType;
-
-		if(enemyType == 't') // load turret
+		// make the corresponding amount of entity pointers
+		// check if there is already an existing array
+		if(!enemies)
 		{
-			turret * turr = new turret();
-			enemies[i] = turr;
-
-			turr->setWall(direction);
-			
-			// create 5 objects for projectiles, and send them into the turret
-			object ** turrProjectiles = new object *[5];
-			for(int i = 0; i < 5; i++)
+			// if new create a new list
+			enemies = new entity * [size];
+		}
+		else
+		{
+			// create a new array
+			entity ** tempArray;
+			tempArray = new entity * [numEnemies + size];
+			// copy over array data
+			for(int i = 0; i < numEnemies; i++)
 			{
-				turrProjectiles[i] = NULL;
-				objMgr->loadObjectsFromTxtFile("defaultProjectile.txt");
-				objMgr->indexEnd();
-				turrProjectiles[i] = objMgr->getObject();
+				tempArray[i] = enemies[i];
 			}
-			turr->setProjectiles(turrProjectiles, 5);
-
-			objMgr->loadObjectsFromTxtFile("defaultTurret.txt");
-		}
-		else if(enemyType == 'z') // load ziggy
-		{
-			enemies[i] = new ziggy();
-			objMgr->loadObjectsFromTxtFile("defaultZiggy.txt");
-		}
-		else if(enemyType == 'g') // load goomba
-		{
-			enemies[i] = new goomba();
-			objMgr->loadObjectsFromTxtFile("defaultGoomba.txt");
-		}
-		else if(enemyType == 'o') // load obstacle
-		{
-			enemies[i] = new obstacle();
-			objMgr->loadObjectsFromTxtFile("defaultObstacle.txt");
-		}
-		else if(enemyType == 'r') // load troll
-		{
-			enemies[i] = new troll();
-			objMgr->loadObjectsFromTxtFile("defaultTroll.txt");
+			// delete old array and transfer new array into players
+			delete [] enemies;
+			enemies = tempArray;
 		}
 
-		objMgr->indexEnd();
-		enemies[i]->setObject(objMgr->getObject());
-		enemies[i]->getObject()->setSprite(0,0);
-		enemies[i]->setPosition(x, y);
-		enemies[i]->setDefaultPos(x, y);
-		if(enemyType == 'g' || enemyType == 'z' || enemyType == 'r') // turn on physics for goombas and ziggy, and trolls
+		for(int i = numEnemies; i < numEnemies + size; i++)
 		{
-			enemies[i]->getObject()->togglePhysics();
-		}
-		if(enemyType == 'z') // lower gravity for ziggy's
-		{
-			enemies[i]->getObject()->getPhysics()->setGravity(-10.0f);
-		}
+			char enemyType, direction, behaviorType;
+			/**********************************************************
+			* In the future direction and behavior type will change the behavior of the turrets
+			**********************************************************/
+			float x, y;
 
-		if(enemyType == 't')
-		{
-			turret * turr = (turret*)enemies[i];
-			// hide the projectiles behind the turret
-			turr->hideProjectiles();
+			file >> enemyType >> x >> y >> direction >> behaviorType;
+
+			if(enemyType == 't') // load turret
+			{
+				turret * turr = new turret();
+				enemies[i] = turr;
+
+				turr->setWall(direction);
+
+				// create 5 objects for projectiles, and send them into the turret
+				object ** turrProjectiles = new object *[5];
+				for(int i = 0; i < 5; i++)
+				{
+					turrProjectiles[i] = NULL;
+					objMgr->loadObjectsFromTxtFile("defaultProjectile.txt");
+					objMgr->indexEnd();
+					turrProjectiles[i] = objMgr->getObject();
+				}
+				turr->setProjectiles(turrProjectiles, 5);
+
+				objMgr->loadObjectsFromTxtFile("defaultTurret.txt");
+			}
+			else if(enemyType == 'z') // load ziggy
+			{
+				enemies[i] = new ziggy();
+				objMgr->loadObjectsFromTxtFile("defaultZiggy.txt");
+			}
+			else if(enemyType == 'g') // load goomba
+			{
+				enemies[i] = new goomba();
+				objMgr->loadObjectsFromTxtFile("defaultGoomba.txt");
+			}
+			else if(enemyType == 'o') // load obstacle
+			{
+				enemies[i] = new obstacle();
+				objMgr->loadObjectsFromTxtFile("defaultObstacle.txt");
+			}
+			else if(enemyType == 'r') // load troll
+			{
+				enemies[i] = new troll();
+				objMgr->loadObjectsFromTxtFile("defaultTroll.txt");
+			}
+
+			objMgr->indexEnd();
+			enemies[i]->setObject(objMgr->getObject());
+			enemies[i]->getObject()->setSprite(0,0);
+			enemies[i]->setPosition(x, y);
+			enemies[i]->setDefaultPos(x, y);
+			if(enemyType == 'g' || enemyType == 'z' || enemyType == 'r') // turn on physics for goombas and ziggy, and trolls
+			{
+				enemies[i]->getObject()->togglePhysics();
+			}
+			if(enemyType == 'z') // lower gravity for ziggy's
+			{
+				enemies[i]->getObject()->getPhysics()->setGravity(-10.0f);
+			}
+
+			if(enemyType == 't')
+			{
+				turret * turr = (turret*)enemies[i];
+				// hide the projectiles behind the turret
+				turr->hideProjectiles();
+			}
 		}
+		numEnemies += size;
 	}
-	numEnemies += size;
 }
 
 void entityManager::loadStuff()
@@ -433,6 +454,11 @@ void entityManager::loadStuff()
 			m_stuff[i] = tel;
 			tel->setData(data1, data2);
 			objMgr->loadObjectsFromTxtFile("defaultTeleporter.txt");
+		}
+		else if(stuffType == 'v')
+		{
+			m_stuff[i] = new victory();
+			objMgr->loadObjectsFromTxtFile("defaultVictory.txt");
 		}
 
 		objMgr->indexEnd();
@@ -664,6 +690,17 @@ void entityManager::removeFromStuff(int index)
 	numStuff -= 1;
 }
 
+void entityManager::checkOldCheckpoints()
+{
+	for(int i = 0; i < checkPnt; i++)
+	{
+		if(!m_checkPoints[i]->isPickedUp())
+		{
+			m_checkPoints[i]->pickUp();
+		}
+	}
+}
+
 //accesors
 entity * entityManager::getEnemy(int index)
 {
@@ -683,3 +720,5 @@ stuff * entityManager::getStuff(int index)
 		return (stuff*)m_stuff[index];
 	else return NULL;
 }
+int entityManager::getCheckPoint(){return checkPnt;}
+bool entityManager::getVictoryCondition(){return victoryCondition;}

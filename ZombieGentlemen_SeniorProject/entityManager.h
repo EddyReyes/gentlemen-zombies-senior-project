@@ -15,6 +15,7 @@
 #include "checkpoint.h"
 #include "teleporter.h"
 #include "armor.h"
+#include "victory.h"
 
 /****************************************************************
 * entityManager
@@ -47,6 +48,8 @@ private:
 	int numPlayers, numEnemies, numStuff, numCheckPoints;
 	objectManager * objMgr;
 
+	bool victoryCondition;
+
 
 public:
 	// constructor/destructor
@@ -56,6 +59,9 @@ public:
 	// member functions
 	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std:: string a_checkPointFile);
 	void update(float timePassed);
+	
+	void removeFromStuff(int index);
+	void checkOldCheckpoints();
 
 	// load functions
 	void loadPlayers();
@@ -71,7 +77,7 @@ public:
 	void removeAll();
 	void removeAllExceptCheckPoints();
 
-	void removeFromStuff(int index);
+	
 
 	// reset
 	void resetPlayers();
@@ -80,4 +86,6 @@ public:
 	entity * getEnemy(int index);
 	player * getPlayer(int index);
 	stuff * getStuff(int index);
+	int getCheckPoint();
+	bool getVictoryCondition();
 };
