@@ -18,7 +18,7 @@ struct cameraUpdateData
 	D3DXVECTOR3 * playerData;
 };
 
-enum levelState{levelLoading, levelPaused, levelPlay};
+enum levelState{levelLoading, levelPaused, levelPlay, levelWin};
 
 class level
 {
@@ -39,6 +39,7 @@ private:
 	levelState state;
 
 	HudImage * pauseScreen;
+	HudImage * winScreen;
 
 
 	float Elapsed;
