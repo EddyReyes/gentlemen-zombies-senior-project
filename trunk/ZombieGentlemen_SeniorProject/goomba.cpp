@@ -5,6 +5,8 @@ goomba::goomba()
 	type = entityGoomba;
 	m_object = NULL;
 	state = goombaWalkLeft;
+	sprite = 0;
+	timer = 0;
 }
 
 goomba::~goomba()
@@ -17,6 +19,8 @@ goomba::~goomba()
 **/
 void goomba::update(float timePassed)
 {
+	timer += timePassed;
+	bool animateFlag = false;
 	if(m_object->getPhysics())
 	{
 
@@ -26,20 +30,28 @@ void goomba::update(float timePassed)
 		if(collidingLeft && !(collidingRight) && collidingBottom)
 		{
 			state = goombaWalkLeft;
+			animateFlag = true;
 		}
 		// if goomba reaches left side of ledge turn around
 		if(collidingRight && !(collidingLeft) && collidingBottom)
 		{
 			state = goombaWalkRight;
+			animateFlag = true;
 		}
 		// if goomba hits a wall
 		if(collidingRight && collidingLeft && collidingTop && collidingBottom)
 		{
 			// if goomba was previously walking left switch to right, and vise versa
 			if(state == goombaWalkRight)
+			{
 				state = goombaWalkLeft;
+				animateFlag = true;
+			}
 			else if(state == goombaWalkLeft)
+			{
 				state = goombaWalkRight;
+				animateFlag = true;
+			}
 		}
 
 		// apply movement
@@ -49,14 +61,39 @@ void goomba::update(float timePassed)
 			break;
 		case goombaWalkRight: m_object->getPhysics()->setXVelocity(3.0f);
 			break;
-		case goombaDead: m_object->getPhysics()->setXVelocity(0);
-			break;
 		}
+	}
+	if(timer >= 0.3f || animateFlag)
+	{
+		animate();
+		timer = 0;
 	}
 }
 void goomba::animate()
 {
-
+	switch(state)
+	{
+	case goombaWalkLeft:
+		m_object->setSprite(0, sprite);
+		switch(sprite)
+		{
+		case 0: sprite = 1;
+			break;
+		case 1: sprite = 0;
+			break;
+		}
+		break;
+	case goombaWalkRight:
+		m_object->setSprite(1, sprite);
+		switch(sprite)
+		{
+		case 0: sprite = 1;
+			break;
+		case 1: sprite = 0;
+			break;
+		}
+		break;
+	}
 }
 void goomba::reset()
 {

@@ -46,12 +46,11 @@ void HUD::draw()
 * from the image manager all HudImages are insansiated with image
 * data
 ****************************************************************/
-void HUD::loadFromFile(std::string filename, std::string textParam, dxManager * a_dxMgr)
+void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 {
 	dxMgr = a_dxMgr;
 	imgMgr = new imageManager();
 	imgMgr->initImageManager(filename, dxMgr);
-
 
 	// create as many HudImages as the number of images in the image manager
 	images = new HudImage * [imgMgr->getSize()];
@@ -124,15 +123,6 @@ void HUD::initPositions(std::string filename)
 		file >> width >> height >> x >> y;
 		images[i]->setParameters(width, height, x, y);
 	}
-	
-	//hudBackground->setParameters(220.0f, 220.0f, 2.0f + a_x, 2.0f + a_y);
-	//PlayerID->setParameters(70.0f, 70.0f, 19.0f + a_x, 27.0f + a_y);
-	//barHolder->setParameters(124.0f, 100.0f, 82.0f + a_x, 9.0f + a_y);
-	//healthBar->setParameters(100.0f, 12.0f, 95.0f + a_x, 43.0f + a_y);
-	//barHolder2->setParameters(95.0f, 100.0f, 90.0f + a_x, 37.0f + a_y);
-	//armorBar->setParameters(80.0f, 12.0f, 95.0f + a_x, 71.0f + a_y);	
-	//weapon->setParameters(80.0f, 80.0f, 95.0f + a_x, 97.0f + a_y);
-	//bagOfMoney->setParameters(75.0f, 75.0f, 22.0f + a_x, 95.0f + a_y);
 }
 
 /****************************************************************

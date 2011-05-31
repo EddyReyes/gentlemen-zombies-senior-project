@@ -19,7 +19,14 @@ wish list: mute toggle method for each indidual channel
 #include "stringArray.h"
 using namespace std;
 
-
+enum soundList{ // this is the list of in game sounds
+	soundMenu, 
+	soundLevel, 
+	soundWalk,
+	soundJump,
+	soundJump2,
+	soundCheckPoint,
+	soundDeath};
 class sound
 {
 private:
