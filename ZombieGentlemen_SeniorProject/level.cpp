@@ -60,6 +60,11 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	controllerDebug->loadFromTxtFile("textParameters2.txt");
 	controllerDebug->setDialog("Loading...");
 
+	// init stats display data
+	statsDisplay= new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	statsDisplay->loadFromTxtFile("statsDisplayParameters.txt");
+	statsDisplay->setDialog("Loading...");
+
 	// init pause screen
 	pauseScreen = new HudImage(a_dxMgr, "images/paused.bmp");
 	pauseScreen->setParameters(800, 600, 0, 0);
@@ -105,6 +110,7 @@ void level::update(float updateTime)
 		break;
 
 	case levelPlay:
+		stats.timer += updateTime; // update the game play timer
 		objMgr->updatePhysics(updateTime);
 		objMgr->handleCollision();
 		entityMgr->update(updateTime);
@@ -118,6 +124,7 @@ void level::update(float updateTime)
 			{
 				// reload all entity data
 				entityMgr->resetPlayers();
+				stats.numDeaths++; // update number of deaths
 				// remove all enemies and stuff
 				entityMgr->removeEnemies();
 				entityMgr->removeStuff();
@@ -132,6 +139,17 @@ void level::update(float updateTime)
 		if(entityMgr->getVictoryCondition())
 		{
 			state = levelWin;
+			char statsBuffer[256];
+			if(stats.timer <= 60)
+				sprintf_s(statsBuffer, "Stats:\nTime: %4.2f sec\nDeaths: %i", stats.timer, stats.numDeaths);
+			else
+			{
+				double minutes, seconds, temp;
+				seconds = modf(stats.timer/60.0, &minutes);
+				sprintf_s(statsBuffer, "Stats:\nTime: %imin %4.2fsec \nDeaths: %i", (int)minutes, seconds, stats.numDeaths);
+				statsDisplay->setFontSize(19);
+			}
+			statsDisplay->setDialog(statsBuffer);
 		}
 		break;
 
@@ -244,6 +262,7 @@ void level::draw()
 		break;
 	case levelWin: // check if game level is over
 		winScreen->draw();
+		statsDisplay->draw();
 		break;
 	default:
 		break;
@@ -409,5 +428,6 @@ level::~level()
 	delete checkpointtxt;
 	delete pauseScreen;
 	delete winScreen;
+	delete statsDisplay;
 }
 int level::getState(){return int(state);}
