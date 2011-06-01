@@ -49,10 +49,178 @@ void player::animate()
 	case dead:
 		m_object->setSprite(0,5);
 		break;
-
 	}
-}
 
+	/*switch(state)
+	{
+	case walkingRight:
+		switch(sprites)
+		{
+		case playerSprite1:
+			if(armor)
+				m_object->setSprite(0, 0);
+			else
+				m_object->setSprite(2, 0);
+
+			sprites = playerSprite2;
+			break;
+		case playerSprite2:
+			if(armor)
+				m_object->setSprite(0, 1);
+			else
+				m_object->setSprite(2, 1);
+
+			sprites = playerSprite3;
+			break;
+		case playerSprite3:
+			if(armor)
+				m_object->setSprite(0, 2);
+			else
+				m_object->setSprite(2, 2);
+
+			sprites = playerSprite4;
+			break;
+		case playerSprite4:
+			if(armor)
+				m_object->setSprite(0, 3);
+			else
+				m_object->setSprite(2, 3);
+
+			sprites = playerSprite1;
+			break;
+		}
+	case jumping:
+		if(m_object->getPhysics()->getXVelocity() > 0)
+		{
+			if(armor)
+				m_object->setSprite(0,4);
+			else
+				m_object->setSprite(2,4);
+		}
+		else if(m_object->getPhysics()->getXVelocity() < 0)
+		{
+			if(armor)
+				m_object->setSprite(1,4);
+			else
+				m_object->setSprite(3,4);
+		}
+		break;
+	
+	case walkingLeft:
+		switch(sprites)
+		{
+		case playerSprite1:
+			if(armor)
+				m_object->setSprite(1, 0);
+			else
+				m_object->setSprite(3, 0);
+
+			sprites = playerSprite2;
+			break;
+		case playerSprite2:
+			if(armor)
+				m_object->setSprite(1, 1);
+			else
+				m_object->setSprite(3, 1);
+
+			sprites = playerSprite3;
+			break;
+		case playerSprite3:
+			if(armor)
+				m_object->setSprite(1, 2);
+			else
+				m_object->setSprite(3, 2);
+
+			sprites = playerSprite4;
+			break;
+		case playerSprite4:
+			if(armor)
+				m_object->setSprite(1, 3);
+			else
+				m_object->setSprite(3, 3);
+
+			sprites = playerSprite1;
+			break;
+		}
+		break;
+	case idle:
+		switch(sprites)
+		{
+		case playerSprite1:
+			if(armor)
+				m_object->setSprite(4, 0);
+			else
+				m_object->setSprite(5, 0);
+
+			sprites = playerSprite2;
+			break;
+		case playerSprite2:
+			if(armor)
+				m_object->setSprite(4, 1);
+			else
+				m_object->setSprite(5, 1);
+
+			sprites = playerSprite3;
+			break;
+		case playerSprite3:
+			if(armor)
+				m_object->setSprite(4, 2);
+			else
+				m_object->setSprite(5, 2);
+
+			sprites = playerSprite4;
+			break;
+		case playerSprite4:
+			if(armor)
+				m_object->setSprite(4, 3);
+			else
+				m_object->setSprite(5, 3);
+
+			sprites = playerSprite5;
+			break;
+		case playerSprite5:
+			if(armor)
+				m_object->setSprite(4, 4);
+			else
+				m_object->setSprite(5, 4);
+
+			sprites = playerSprite1;
+			break;
+		}
+		break;
+
+	case dying:
+		switch(sprites)
+		{
+		case playerSprite1:
+			m_object->setSprite(6, 0);
+			sprites = playerSprite2;
+			break;
+		case playerSprite2:
+			m_object->setSprite(6, 1);
+			sprites = playerSprite3;
+			break;
+		case playerSprite3:
+			m_object->setSprite(6, 2);
+			sprites = playerSprite4;
+			break;
+		case playerSprite4:
+			m_object->setSprite(6, 3);
+			sprites = playerSprite1;
+			break;
+		}
+		break;
+	case dead:
+		switch(sprites)
+		{
+		case playerSprite1:
+			m_object->setSprite(6, 4);
+			sprites = playerSprite1;
+			break;
+		}
+		break;
+	}*/
+}
 void player::update(float timePassed)
 {
 	bool spriteChange = false;
