@@ -50,6 +50,7 @@ bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std
 }
 void entityManager::update(float timePassed)
 {
+	bool updateIndexes = false;
 	// update all players
 	for(int i = 0; i < numPlayers; i++)
 	{
@@ -114,6 +115,7 @@ void entityManager::update(float timePassed)
 								player * plr = (player*)players[i];
 								plr->armorPickup();
 								removeFromStuff(j);
+								updateIndexes = true;
 							}
 							break;
 						case stuff_victory:
@@ -197,6 +199,10 @@ void entityManager::update(float timePassed)
 	{
 		m_checkPoints[i]->update(timePassed);
 		m_checkPoints[i]->getObject()->getCollHistory()->resetList();
+	}
+	if(updateIndexes)
+	{
+		objMgr->getList()->setObjectIndexes();
 	}
 }
 

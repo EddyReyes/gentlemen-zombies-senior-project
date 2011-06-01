@@ -10,6 +10,8 @@
 #include "HUD.h"
 #include "entityManager.h"
 
+#include "math.h"
+
 struct cameraUpdateData
 {
 	D3DXVECTOR3 point;
@@ -19,6 +21,18 @@ struct cameraUpdateData
 };
 
 enum levelState{levelLoading, levelPaused, levelPlay, levelWin};
+
+struct levelStats
+{
+	float timer;
+	int numDeaths;
+
+	levelStats()
+	{
+		timer = 0;
+		numDeaths = 0;
+	}
+};
 
 class level
 {
@@ -41,12 +55,13 @@ private:
 	HudImage * pauseScreen;
 	HudImage * winScreen;
 
-
+	levelStats stats;
 	float Elapsed;
 	int FPS;
 	// debug data
 	DXText * FPSText;
 	DXText * controllerDebug; 
+	DXText * statsDisplay;
 
 public:
 	level();
