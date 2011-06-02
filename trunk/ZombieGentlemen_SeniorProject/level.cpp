@@ -144,10 +144,10 @@ void level::update(float updateTime)
 				sprintf_s(statsBuffer, "Stats:\nTime: %4.2f sec\nDeaths: %i", stats.timer, stats.numDeaths);
 			else
 			{
-				double minutes, seconds, temp;
+				double minutes, seconds;
 				seconds = modf(stats.timer/60.0, &minutes);
-				sprintf_s(statsBuffer, "Stats:\nTime: %imin %4.2fsec \nDeaths: %i", (int)minutes, seconds, stats.numDeaths);
-				statsDisplay->setFontSize(19);
+				sprintf_s(statsBuffer, "Stats:\nTime: %imin %2.0fsec \nDeaths: %i", (int)minutes, 100*seconds, stats.numDeaths);
+				statsDisplay->setFontSize(20);
 			}
 			statsDisplay->setDialog(statsBuffer);
 		}

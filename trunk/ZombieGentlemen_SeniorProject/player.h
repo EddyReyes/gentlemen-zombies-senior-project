@@ -10,7 +10,7 @@ class player: public entity
 private:
 	playerState state;
 	playerSprite sprites;
-	float timer, armorTimeout;
+	float timer, armorTimeout, randomIdle;
 	bool armorBlink;
 
 public:
