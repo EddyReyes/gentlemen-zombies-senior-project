@@ -5,6 +5,7 @@ player::player()
 	m_object = NULL;
 	type = entityPlayer;
 	timer = 0;
+	randomIdle = 0;
 	armorBlink = false;
 }
 player::~player()
@@ -28,36 +29,13 @@ void player::move(float x, float y)
 
 void player::animate()
 {
-	// the following animations are simplified versions
 	switch(state)
-	{
-	case idle:
-		m_object->setSprite(0,0);
-		break;
-	case walkingRight:
-		m_object->setSprite(0,1);
-		break;
-	case walkingLeft:
-		m_object->setSprite(0,2);
-		break;
-	case jumping:
-		m_object->setSprite(0,3);
-		break;
-	case dying:
-		m_object->setSprite(0,4);
-		break;
-	case dead:
-		m_object->setSprite(0,5);
-		break;
-	}
-
-	/*switch(state)
 	{
 	case walkingRight:
 		switch(sprites)
 		{
 		case playerSprite1:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(0, 0);
 			else
 				m_object->setSprite(2, 0);
@@ -65,7 +43,7 @@ void player::animate()
 			sprites = playerSprite2;
 			break;
 		case playerSprite2:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(0, 1);
 			else
 				m_object->setSprite(2, 1);
@@ -73,7 +51,7 @@ void player::animate()
 			sprites = playerSprite3;
 			break;
 		case playerSprite3:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(0, 2);
 			else
 				m_object->setSprite(2, 2);
@@ -81,7 +59,7 @@ void player::animate()
 			sprites = playerSprite4;
 			break;
 		case playerSprite4:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(0, 3);
 			else
 				m_object->setSprite(2, 3);
@@ -89,28 +67,14 @@ void player::animate()
 			sprites = playerSprite1;
 			break;
 		}
-	case jumping:
-		if(m_object->getPhysics()->getXVelocity() > 0)
-		{
-			if(armor)
-				m_object->setSprite(0,4);
-			else
-				m_object->setSprite(2,4);
-		}
-		else if(m_object->getPhysics()->getXVelocity() < 0)
-		{
-			if(armor)
-				m_object->setSprite(1,4);
-			else
-				m_object->setSprite(3,4);
-		}
 		break;
-	
+
+
 	case walkingLeft:
 		switch(sprites)
 		{
 		case playerSprite1:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(1, 0);
 			else
 				m_object->setSprite(3, 0);
@@ -118,7 +82,7 @@ void player::animate()
 			sprites = playerSprite2;
 			break;
 		case playerSprite2:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(1, 1);
 			else
 				m_object->setSprite(3, 1);
@@ -126,7 +90,7 @@ void player::animate()
 			sprites = playerSprite3;
 			break;
 		case playerSprite3:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(1, 2);
 			else
 				m_object->setSprite(3, 2);
@@ -134,7 +98,7 @@ void player::animate()
 			sprites = playerSprite4;
 			break;
 		case playerSprite4:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(1, 3);
 			else
 				m_object->setSprite(3, 3);
@@ -143,83 +107,95 @@ void player::animate()
 			break;
 		}
 		break;
+
+	case jumping:
+		if(m_object->getPhysics()->getXVelocity() > 0)
+		{
+			if(!armor)
+				m_object->setSprite(0,4);
+			else
+				m_object->setSprite(2,4);
+		}
+		else if(m_object->getPhysics()->getXVelocity() < 0)
+		{
+			if(!armor)
+				m_object->setSprite(1,4);
+			else
+				m_object->setSprite(3,4);
+		}
+		break;
+
 	case idle:
+		if(randomIdle <= 0)
+		{
+			randomIdle = 1 + ( (float)rand( ) / (float)RAND_MAX ) * 3;
+			sprites = (enum playerSprite)(rand() % 5);
+		}
 		switch(sprites)
 		{
 		case playerSprite1:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(4, 0);
 			else
 				m_object->setSprite(5, 0);
-
-			sprites = playerSprite2;
 			break;
 		case playerSprite2:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(4, 1);
 			else
 				m_object->setSprite(5, 1);
-
-			sprites = playerSprite3;
 			break;
 		case playerSprite3:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(4, 2);
 			else
 				m_object->setSprite(5, 2);
-
-			sprites = playerSprite4;
 			break;
 		case playerSprite4:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(4, 3);
 			else
 				m_object->setSprite(5, 3);
-
-			sprites = playerSprite5;
 			break;
 		case playerSprite5:
-			if(armor)
+			if(!armor)
 				m_object->setSprite(4, 4);
 			else
 				m_object->setSprite(5, 4);
-
-			sprites = playerSprite1;
 			break;
 		}
 		break;
 
 	case dying:
+		if(timer < 0.1f)
+			sprites = playerSprite1;
+		else if(timer < 0.2f)
+			sprites = playerSprite2;
+		else if(timer < 0.5f)
+			sprites = playerSprite3;
+		else sprites = playerSprite4;
+
 		switch(sprites)
 		{
 		case playerSprite1:
 			m_object->setSprite(6, 0);
-			sprites = playerSprite2;
 			break;
 		case playerSprite2:
 			m_object->setSprite(6, 1);
-			sprites = playerSprite3;
 			break;
 		case playerSprite3:
 			m_object->setSprite(6, 2);
-			sprites = playerSprite4;
 			break;
 		case playerSprite4:
 			m_object->setSprite(6, 3);
-			sprites = playerSprite1;
 			break;
 		}
 		break;
+
 	case dead:
-		switch(sprites)
-		{
-		case playerSprite1:
-			m_object->setSprite(6, 4);
-			sprites = playerSprite1;
-			break;
-		}
+		m_object->setSprite(6, 4);
 		break;
-	}*/
+	}
 }
 void player::update(float timePassed)
 {
@@ -229,7 +205,7 @@ void player::update(float timePassed)
 		if(state != dead)
 		{
 			timer += timePassed;
-			if(timer < 1)
+			if(timer < 1.2f)
 			{
 				if(state != dying && state != dead)
 				{
@@ -252,8 +228,13 @@ void player::update(float timePassed)
 			}
 		}
 	}
-	else if(m_object->getPhysics())
+	else
 	{
+		timer += timePassed;
+		if(randomIdle > 0)
+		{
+			randomIdle -= timePassed;
+		}
 		if(m_object->getPhysics()->isWalking())
 		{
 			if(m_object->getPhysics()->getXVelocity() > 0)
@@ -281,7 +262,6 @@ void player::update(float timePassed)
 				spriteChange = true;
 			}
 		}
-		//if(!(m_object->getPhysics()->isOnGround()))
 		if(m_object->getPhysics()->getYVelocity() > 0)
 		{
 			if(state != jumping)
@@ -291,8 +271,14 @@ void player::update(float timePassed)
 			}
 		}
 	}
-	if(spriteChange)
+	if(spriteChange || timer >= 0.15f)
+	{
+		if(spriteChange)
+			sprites = playerSprite1;
 		animate();
+		if(state != dying)
+			timer = 0;
+	}
 
 	if(armorBlink)
 	{
