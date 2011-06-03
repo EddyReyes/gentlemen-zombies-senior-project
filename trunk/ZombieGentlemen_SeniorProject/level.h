@@ -69,7 +69,7 @@ public:
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void handleInput(inputData * input, int now);
-	void update(float timePassed);
+	bool update(float timePassed);
 	void updateCamera(float updateTime);
 	void updateDebugData(float updateTime);
 	~level();//deconstructor

@@ -76,7 +76,8 @@ void game::update()
 		// nothing here yet
 		break;
 	case sideScroll:
-			lvl->update(UpdateSpeed);
+			if(!lvl->update(UpdateSpeed))
+				gameState = topDown;
 		break;
 	case topDown:
 		// nothing here yet
