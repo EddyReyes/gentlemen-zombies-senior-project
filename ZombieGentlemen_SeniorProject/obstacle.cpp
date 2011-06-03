@@ -56,3 +56,5 @@ void obstacle::reset()
 	alive = true;
 	armor = false;
 }
+void obstacle::flip(){ // flip does nothing in obstacle 
+}

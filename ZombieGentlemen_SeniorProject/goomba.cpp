@@ -95,6 +95,20 @@ void goomba::animate()
 		break;
 	}
 }
+
+void goomba::flip()
+{
+	switch(state)
+	{
+	case goombaWalkLeft:
+		state = goombaWalkRight;
+		break;
+	case goombaWalkRight:
+		state = goombaWalkLeft;
+		break;
+	}
+	animate();
+}
 void goomba::reset()
 {
 	state = goombaWalkLeft;

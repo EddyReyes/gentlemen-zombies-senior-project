@@ -166,7 +166,7 @@ void entityManager::update(float timePassed)
 		enemies[i]->update(timePassed);
 		if(enemies[i]->getObject()->getCollHistory()->getList() && enemies[i]->isAlive())
 		{
-			//check for collision with enemies
+			//check for collision with stuff
 			for(int j = 0; j < numStuff; j++)
 			{
 				for(int g = 0; g < enemies[i]->getObject()->getCollHistory()->endOfList(); g++)
@@ -179,6 +179,21 @@ void entityManager::update(float timePassed)
 							tel = (teleporter*)m_stuff[j];
 							enemies[i]->setPosition(tel->getData());
 						}
+					}
+				}
+			}
+
+
+			//check for collision with enemies
+			for(int j = 0; j < numEnemies; j++)
+			{
+				for(int g = 0; g < enemies[i]->getObject()->getCollHistory()->endOfList(); g++)
+				{
+					if(enemies[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
+					{
+						// if enemies collide with each other turn around
+						enemies[j]->flip();
+						enemies[i]->flip();
 					}
 				}
 			}

@@ -28,4 +28,5 @@ public:
 	int getNumProjectiles();
 	projectile * getProjectile(int index);
 	void destroyProjectiles();
+	void flip();
 };

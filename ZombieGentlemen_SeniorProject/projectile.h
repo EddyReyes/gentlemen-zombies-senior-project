@@ -27,4 +27,5 @@ public:
 	void setSpeed(float a_speed);
 	void hit();
 	void fire();
+	void flip();
 };

@@ -27,4 +27,5 @@ public:
 	void removeArmor();
 	bool getAmorBlink();
 	void armorPickup();
+	void flip();
 };

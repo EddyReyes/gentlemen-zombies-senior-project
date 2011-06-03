@@ -30,6 +30,7 @@ void ziggy::update(float timePassed)
 	{
 		// if ziggy crashes into somthing jump away from it
 		m_object->getPhysics()->jumpingOn();
+		m_object->getPhysics()->onGroundOff();
 		m_object->getPhysics()->setYVelocity(5.0f);
 	}
 	if(collidingRight || collidingLeft)
@@ -134,4 +135,8 @@ void ziggy::reset()
 	state = fly1;
 	alive = true;
 	armor = false;
+}
+void ziggy::flip()
+{
+	// ziggys flip automajically 
 }
