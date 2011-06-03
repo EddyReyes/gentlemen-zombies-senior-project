@@ -1,0 +1,13 @@
+images/animation/armor.bmp
+images/blackTextBox.bmp
+images/glass tile.bmp
+images/character.bmp
+images/animation/player sprite sheet.bmp
+images/animation/saws.bmp
+images/animation/checkpointSpriteSheet.bmp
+images/animation/ziggybird sprite sheet 2.bmp
+images/animation/trollfaces.bmp
+images/animation/goomba_sprite_sheet.bmp
+images/animation/turret sprite sheet.bmp
+images/projectile.bmp
+images/victory.bmp
