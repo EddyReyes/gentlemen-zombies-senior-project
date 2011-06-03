@@ -12,14 +12,14 @@ town::~town()
 	// destroy map
 	if(map)
 	{
-	map->~XYPlane();
+	delete map;
 	map = NULL;
 	}
 
 	// destroy cursor
 	if(m_object)
 	{
-		m_object->~XYPlane();
+		delete m_object;
 		m_object = NULL;
 	}
 

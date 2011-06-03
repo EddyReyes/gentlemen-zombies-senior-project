@@ -93,7 +93,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 * and updates the physics with it, as well as checks for collision
 * between all objects
 ******************************************************************/
-void level::update(float updateTime)
+bool level::update(float updateTime)
 {
 	switch(state)
 	{
@@ -154,6 +154,9 @@ void level::update(float updateTime)
 		break;
 
 	case levelWin:
+		timer += updateTime;
+		if(timer >= 10)
+			return false;
 		break;
 	}
 	// update camera and debug data
@@ -162,6 +165,7 @@ void level::update(float updateTime)
 		updateDebugData(updateTime);
 		updateCamera(updateTime);
 	}
+	return true;
 }
 
 void level::updateCamera(float updateTime)
