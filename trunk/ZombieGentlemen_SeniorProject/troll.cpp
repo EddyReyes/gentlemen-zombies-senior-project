@@ -58,3 +58,13 @@ void troll::reset()
 	alive = true;
 	armor = false;
 }
+void troll::flip()
+{
+	switch(state)
+	{
+	case trollWalkingLeft: state = trollWalkingRight;
+		break;
+	case trollWalkingRight: state = trollWalkingLeft;
+		break;
+	}
+}

@@ -332,3 +332,15 @@ void player::armorPickup()
 	}
 }
 bool player::getAmorBlink(){return armorBlink;}
+void player::flip()
+{
+	switch(state)
+	{
+	case walkingRight:
+		state = walkingLeft;
+		break;
+	case walkingLeft:
+		state = walkingRight;
+		break;
+	}
+}

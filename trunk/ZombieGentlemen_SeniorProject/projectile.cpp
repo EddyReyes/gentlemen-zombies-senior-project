@@ -202,3 +202,5 @@ void projectile::setDirection(int wallState, int state)
 void projectile::setSpeed(float a_speed){speed = a_speed;}
 void projectile::hit(){state = projectileHit;}
 void projectile::fire(){state = projectileFire;}
+void projectile::flip(){ // projectiles do not flip
+}

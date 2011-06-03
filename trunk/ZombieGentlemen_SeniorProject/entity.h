@@ -22,6 +22,7 @@ public:
 	virtual void update(float) = 0;
 	virtual void animate() = 0;
 	virtual void reset() = 0;
+	virtual void flip() = 0;
 	
 	// member functions
 	void setPosition(float x, float y);

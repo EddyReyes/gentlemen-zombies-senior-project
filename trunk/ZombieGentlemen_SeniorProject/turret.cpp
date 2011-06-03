@@ -208,3 +208,7 @@ void turret::destroyProjectiles()
 	delete [] bullets;
 	bullets = NULL;
 }
+void turret::flip()
+{
+	// turrets do not flip
+}
