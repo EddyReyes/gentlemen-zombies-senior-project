@@ -117,17 +117,17 @@ bool initWindow( HINSTANCE hInstance )
 
 	// Create the window
 	wndHandle = CreateWindow(
-				"GSP Senior Project",		// the window class to use
-				"GSP Senior Project",		// the title bar text
-				WS_OVERLAPPEDWINDOW,	// the window style
-				CW_USEDEFAULT,			// the starting x coordinate
-				CW_USEDEFAULT,			// the startying y coordinate
+				"GSP Senior Project",			// the window class to use
+				"Tiny Steve Missing An Eye",	// the title bar text
+				WS_OVERLAPPEDWINDOW,			// the window style
+				CW_USEDEFAULT,					// the starting x coordinate
+				CW_USEDEFAULT,					// the startying y coordinate
 				WINDOW_WIDTH,					// the pixel width of the window
 				WINODW_HEIGHT,					// the pixel height of the window
-				NULL,					// the parent window NULL for desktop
-				NULL,					// The menu for the application; NULL for none
-				hInstance,				// the handle to the applicatilon instance
-				NULL);					// no values passed to the window
+				NULL,							// the parent window NULL for desktop
+				NULL,							// The menu for the application; NULL for none
+				hInstance,						// the handle to the applicatilon instance
+				NULL);							// no values passed to the window
 
 	// make sure that the window handle that is created is valid
 	if(!wndHandle)

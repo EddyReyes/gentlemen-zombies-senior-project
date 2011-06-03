@@ -53,7 +53,8 @@ void Menu::setParam(float w, float h, float a_x, float a_y)
 	for(int q=0;q<option_txt->getSize();++q)
 	{
 		//offset seemingly random
-		options[q]->setTextBoxParameters(w/2,h/4,a_x,a_y+(q*(h/4)),10);
+		//options[q]->setTextBoxParameters(w/2,h/4,a_x,a_y+(q*(h/4)),10);
+		options[q]->setTextBoxParameters(150.0f, 50.0f, 400.0f, 200.0f +(q*(h/12)), 10);
 		options[q]->setFontColor(0xff,0x00,0x00,0x00);//sets the color to black in hex
 	}
 }
