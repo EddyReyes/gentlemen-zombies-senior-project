@@ -7,25 +7,9 @@
 
 sound::sound()
 {
-	// initialize array of 10 buffers
-	SoundChannel = new LPDIRECTSOUNDBUFFER[10];
-	ChannelVolume = new int [10];
-	ChannelPan = new int [10];
-	initializeChannelVolume(-5000, 10);
-	initializeChannelPan(0, 10);
-};
-
-// Create a sound object with a custom number of channels
-sound::sound(std::string file, int numChannels)
-{
-	// initialize array of 10 buffers
-	SoundChannel = new LPDIRECTSOUNDBUFFER[numChannels];
-	ChannelVolume = new int [numChannels];
-	ChannelPan = new int [numChannels];
-	initSoundFiles(file);
-	initializeChannelVolume(-5000, numChannels);
-	initializeChannelPan(0, numChannels);
-
+	SoundChannel = NULL;
+	ChannelVolume = NULL;
+	ChannelPan = NULL;
 };
 sound::~sound()
 {
@@ -137,7 +121,7 @@ LPDIRECTSOUNDBUFFER sound::LoadWaveToSoundBuffer(std::string wavFilename)
 bool sound::LoadSound(std::string wavFilename, int bufferID)
 {
 	// Check if bufferID is a valid (between 0 and 10)
-	if(bufferID >= 10 || bufferID < 0) return false;
+	if(bufferID >= soundFiles->getSize() || bufferID < 0) return false;
 
 	SoundChannel[bufferID] = LoadWaveToSoundBuffer(wavFilename);
 	return true;
@@ -230,9 +214,10 @@ void sound::decrimentPan(int bufferID)
 bool sound::playSound(int bufferID)
 {
 	// Check if bufferID is a valid (between 0 and 10)
-	if(bufferID >= 10 || bufferID < 0) return false;
+	if(bufferID >= soundFiles->getSize() || bufferID < 0) return false;
 
-	SoundChannel[bufferID]->Play( 0, 0, 0);
+	if(SoundChannel[bufferID])
+		SoundChannel[bufferID]->Play( 0, 0, 0);
 	return true;
 }
 
@@ -243,9 +228,10 @@ bool sound::playSound(int bufferID)
 bool sound::playSoundLoop(int bufferID)
 {
 	// Check if bufferID is a valid (between 0 and 10)
-	if(bufferID >= 10 || bufferID < 0) return false;
+	if(bufferID >= soundFiles->getSize() || bufferID < 0) return false;
 
-	SoundChannel[bufferID]->Play( 0, 0, DSBPLAY_LOOPING);
+	if(SoundChannel[bufferID])
+		SoundChannel[bufferID]->Play( 0, 0, DSBPLAY_LOOPING);
 	return true;
 }
 
@@ -256,9 +242,10 @@ bool sound::playSoundLoop(int bufferID)
 bool sound::stopSound(int bufferID)
 {
 	// Check if bufferID is a valid (between 0 and 10)
-	if(bufferID >= 10 || bufferID < 0) return false;
+	if(bufferID >= soundFiles->getSize() || bufferID < 0) return false;
 
-	SoundChannel[bufferID]->Stop();
+	if(SoundChannel[bufferID])
+		SoundChannel[bufferID]->Stop();
 	return true;
 }
 /*******************************************************************
@@ -300,10 +287,27 @@ void sound::shutdownDirectSound(void)
 }
 void sound::initSoundFiles(std::string initFiles)
 {
+	// create a new string array
 	soundFiles = new stringArray();
+	// init string array
 	soundFiles->loadFromTextFile(initFiles);
-	for(int sound = 0; sound < soundFiles->getSize();sound++)
+	// create sound channels based on string array size
+	SoundChannel = new LPDIRECTSOUNDBUFFER[soundFiles->getSize()];
+	for(int i = 0; i < soundFiles->getSize(); i ++)
 	{
-		LoadSound(soundFiles->getStringAt(sound), sound);
+		SoundChannel[i] = NULL;
+	}
+	// set default volume for all channels
+	ChannelVolume = new int [soundFiles->getSize()];
+	// set pan value for all channels
+	ChannelPan = new int [soundFiles->getSize()];
+
+	initializeChannelVolume(-5000, soundFiles->getSize());
+	initializeChannelPan(0, soundFiles->getSize());
+
+	// load sounds into all sound channels
+	for(int i = 0; i< soundFiles->getSize();i++)
+	{
+		LoadSound(soundFiles->getStringAt(i), i);
 	}
 }

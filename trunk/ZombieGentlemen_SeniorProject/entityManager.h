@@ -1,6 +1,7 @@
 #pragma once
 #include "objectManager.h"
 #include "stringArray.h"
+#include "sound.h"
 
 // entities
 #include "entity.h"
@@ -58,6 +59,7 @@ public:
 
 	// member functions
 	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std:: string a_checkPointFile);
+	void initPlayerSound(sound * a_sound);
 	void update(float timePassed);
 	
 	void removeFromStuff(int index);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity.h"
+#include "sound.h"
 
 enum playerState{idle, walkingRight, walkingLeft, jumping, dying, dead};
 enum playerSprite{playerSprite1, playerSprite2, playerSprite3, playerSprite4, playerSprite5};
@@ -12,6 +13,8 @@ private:
 	playerSprite sprites;
 	float timer, armorTimeout, randomIdle;
 	bool armorBlink;
+	sound * soundMgr;
+	int jumpCounter, jumpInterval;
 
 public:
 	// constructor/destructor
@@ -28,4 +31,6 @@ public:
 	bool getAmorBlink();
 	void armorPickup();
 	void flip();
+
+	void setSound(sound * a_soundMgr);
 };

@@ -192,7 +192,6 @@ void entityManager::update(float timePassed)
 					if(enemies[i]->getObject()->getCollHistory()->get(g) == enemies[j]->getObject()->getObjectIndex())
 					{
 						// if enemies collide with each other turn around
-						enemies[j]->flip();
 						enemies[i]->flip();
 					}
 				}
@@ -743,3 +742,11 @@ stuff * entityManager::getStuff(int index)
 }
 int entityManager::getCheckPoint(){return checkPnt;}
 bool entityManager::getVictoryCondition(){return victoryCondition;}
+void entityManager::initPlayerSound(sound * a_sound)
+{
+	for(int i = 0; i < numPlayers; i++)
+	{
+		player * plr = (player*)players[i];
+		plr->setSound(a_sound);
+	}
+}

@@ -21,7 +21,7 @@ levelManager::~levelManager(void)
 
 	numLevels = 0;
 }
-void levelManager::init(std::string filename, dxManager * a_dxMgr, dxCamera * a_camera)
+void levelManager::init(std::string filename, dxManager * a_dxMgr, dxCamera * a_camera, sound * a_soundMgr)
 {
 
 	// initialize file names
@@ -34,6 +34,7 @@ void levelManager::init(std::string filename, dxManager * a_dxMgr, dxCamera * a_
 	// set dxManager and dxCamera pointers
 	dxMgr = a_dxMgr;
 	camera = a_camera;
+	soundMgr = a_soundMgr;
 }
 bool levelManager::setLevel(int lvlIndex)
 {
@@ -47,7 +48,7 @@ bool levelManager::setLevel(int lvlIndex)
 		}
 		// initialize lvel pointer
 		m_level = new level;
-		m_level->initLevel(dxMgr, camera, fileNames->getStringAt(lvlIndex));
+		m_level->initLevel(dxMgr, camera, soundMgr, fileNames->getStringAt(lvlIndex));
 		return true;
 	}
 	else

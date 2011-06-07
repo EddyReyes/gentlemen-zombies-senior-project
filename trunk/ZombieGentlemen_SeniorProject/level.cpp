@@ -10,13 +10,20 @@ level::level()
 	camera = NULL;
 	state = levelLoading;
 	pauseScreen = NULL;
+	soundMgr = NULL;
 }
 /******************************************************************
 * initLevel
 * takes in a  text file, and loads all level assets from it
 ******************************************************************/
-void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initFiles)
+void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMgr, std::string initFiles)
 {
+	// init camera data
+	camera = a_camera;
+
+	// init sound data
+	soundMgr = a_soundMgr;
+
 	//puts the files into a string array
 	files = new stringArray();
 	files->loadFromTextFile(initFiles);
@@ -34,6 +41,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	// init entity manager
 	entityMgr = new entityManager();
 	entityMgr->init(objMgr, files->getStringAt(5), files->getStringAt(6), files->getStringAt(7), files->getStringAt(8));
+	entityMgr->initPlayerSound(soundMgr);
 	// set player pointer
 	m_player = entityMgr->getPlayer(0);
 
@@ -72,9 +80,6 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	// init win screen
 	winScreen = new HudImage(a_dxMgr, "images/victoryCondition.bmp");
 	winScreen ->setParameters(800, 600, 0, 0);
-
-	// init camera data
-	camera = a_camera;
 	
 	//  make a cool intro, camare moves in from the side
 	camData.point = D3DXVECTOR3(-50, -30, 0);
@@ -84,8 +89,9 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 	Elapsed = 0;
 	FPS = 0;
 	timer = 0;
-
 	
+	soundMgr->stopSound(soundMenu);
+	soundMgr->playSoundLoop(soundLevel);
 }
 /******************************************************************
 * update
@@ -95,6 +101,12 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string initF
 ******************************************************************/
 bool level::update(float updateTime)
 {
+	// check if update time is too large
+	if(updateTime > 0.05) // FPS is less than 20
+	{
+		updateTime *= 0.5;
+	}
+
 	switch(state)
 	{
 	case levelLoading:
@@ -150,6 +162,7 @@ bool level::update(float updateTime)
 				statsDisplay->setFontSize(20);
 			}
 			statsDisplay->setDialog(statsBuffer);
+			soundMgr->playSound(soundQuote1 + rand() % 5);
 		}
 		break;
 

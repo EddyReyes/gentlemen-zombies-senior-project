@@ -7,6 +7,7 @@ goomba::goomba()
 	state = goombaWalkLeft;
 	sprite = 0;
 	timer = 0;
+	flipTimer = 0;
 }
 
 goomba::~goomba()
@@ -20,6 +21,8 @@ goomba::~goomba()
 void goomba::update(float timePassed)
 {
 	timer += timePassed;
+	if(flipTimer > 0)
+		flipTimer -= timePassed;
 	bool animateFlag = false;
 	if(m_object->getPhysics())
 	{
@@ -98,16 +101,20 @@ void goomba::animate()
 
 void goomba::flip()
 {
-	switch(state)
+	if(flipTimer <= 0)
 	{
-	case goombaWalkLeft:
-		state = goombaWalkRight;
-		break;
-	case goombaWalkRight:
-		state = goombaWalkLeft;
-		break;
+		switch(state)
+		{
+		case goombaWalkLeft:
+			state = goombaWalkRight;
+			break;
+		case goombaWalkRight:
+			state = goombaWalkLeft;
+			break;
+		}
+		animate();
+		flipTimer = 0.1f;
 	}
-	animate();
 }
 void goomba::reset()
 {
