@@ -49,10 +49,9 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	a_soundMgr->initSoundFiles("soundManager.txt");
 
 	lvlMgr = new levelManager;
-	lvlMgr->init("levels.txt", dxMgr, camera);
+	lvlMgr->init("levels.txt", dxMgr, camera, soundMgr);
 	//lvlMgr->setLevel(0); // for testing set to first level
 	//lvl = lvlMgr->getLevel();
-	a_soundMgr->initSoundFiles("soundManager.txt");
 
 	setMusic();
 	return true;
@@ -117,7 +116,7 @@ void game::handleInput()
 	{
 	case menu:
 		soundMgr->SetVolume(1, -2000);
-		soundMgr->playSound(1);
+		soundMgr->playSound(soundMenu);
 
 		check = mainMenu->update(input->keystate,now,input->keyLag);
 		if(check == 1)
@@ -126,8 +125,8 @@ void game::handleInput()
 			//gameState = sideScroll;
 
 			gameState = topDown;
-			soundMgr->stopSound(1);
-			soundMgr->playSound(0);
+			soundMgr->stopSound(soundLevel);
+			soundMgr->playSound(soundMenu);
 		}
 		if(check == 2)
 		{
@@ -139,9 +138,6 @@ void game::handleInput()
 				lvlMgr->setLevel(0); // for testing set to first level
 				lvl = lvlMgr->getLevel();
 				lvl->loadfromcheckpoint("checkpoint.txt");
-
-				soundMgr->stopSound(1);
-				soundMgr->playSound(0);
 			}
 		}
 		if(check == 3)

@@ -3,9 +3,11 @@
 player::player()
 {
 	m_object = NULL;
+	soundMgr = NULL;
 	type = entityPlayer;
 	timer = 0;
 	randomIdle = 0;
+	jumpCounter = 0;
 	armorBlink = false;
 }
 player::~player()
@@ -21,9 +23,34 @@ void player::move(float x, float y)
 		if(x)
 			if((x < 0 && m_object->getPhysics()->canMoveLeft())
 				|| (x > 0 && m_object->getPhysics()->canMoveRight()))
+			{
 				m_object->getPhysics()->setXVelocity(x);
+				soundMgr->playSound(soundWalk);
+			}
 		if(y)
+		{
 			m_object->getPhysics()->setYVelocity(y);
+			if(m_object->getPhysics()->isjumpingAllowed())
+			{
+				jumpCounter++;
+				if(jumpCounter >= jumpInterval)
+				{
+					if(armor)
+						soundMgr->playSound(soundArmorJump2);
+					else
+						soundMgr->playSound(soundJump2);
+					jumpCounter = 0;
+					jumpInterval = 4 + rand()%4;
+				}
+				else
+				{
+					if(armor)
+						soundMgr->playSound(soundArmorJump1);
+					else
+						soundMgr->playSound(soundJump1);
+				}
+			}
+		}
 	}
 }
 
@@ -214,6 +241,7 @@ void player::update(float timePassed)
 				if(state != dying)
 				{
 					state = dying;
+					soundMgr->playSound(soundDeath1 + (rand()%3));
 					spriteChange = true;
 				}
 			}
@@ -300,6 +328,7 @@ void player::reset()
 	m_object->getCollHistory()->resetList();
 	alive = true;
 	armor = false;
+	jumpCounter = 0;
 }
 void player::bounce()
 {
@@ -317,6 +346,7 @@ void player::removeArmor()
 		{
 			armorBlink = true;
 			armorTimeout = 2.0f;
+			soundMgr->playSound(soundArmorLose1);
 		}
 	}
 }
@@ -328,6 +358,7 @@ void player::armorPickup()
 		{
 			armorBlink = true;
 			armorTimeout = 2.0f;
+			soundMgr->playSound(soundArmorPickup1 + (rand()%2));
 		}
 	}
 }
@@ -344,3 +375,5 @@ void player::flip()
 		break;
 	}
 }
+
+void player::setSound(sound * a_soundMgr){soundMgr = a_soundMgr;}

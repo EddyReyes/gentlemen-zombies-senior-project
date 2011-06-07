@@ -20,13 +20,26 @@ wish list: mute toggle method for each indidual channel
 using namespace std;
 
 enum soundList{ // this is the list of in game sounds
-	soundMenu, 
+	soundMenu,
 	soundLevel, 
 	soundWalk,
-	soundJump,
+	soundJump1,
 	soundJump2,
-	soundCheckPoint,
-	soundDeath};
+	soundArmorJump1,
+	soundArmorJump2,
+	soundArmorLose1,
+	soundArmorPickup1,
+	soundArmorPickup2,
+	soundDeath1,
+	soundDeath2,
+	soundDeath3,
+	soundQuote1,
+	soundQuote2,
+	soundQuote3,
+	soundQuote4,
+	soundQuote5,
+	soundCheckPoint
+};
 class sound
 {
 private:
@@ -44,7 +57,6 @@ private:
 public:
 
 	sound();
-	sound(std::string file, int numChannels);
 	~sound();
 	LPDIRECTSOUNDBUFFER LoadWaveToSoundBuffer(std::string wavFilename);
 	bool LoadSound(std::string wavFilename, int bufferID);

@@ -9,7 +9,7 @@ class goomba: public entity
 private:
 	goombaStates state;
 	int sprite;
-	float timer;
+	float timer, flipTimer;
 public:
 	// constructor/destructor
 	goomba();

@@ -23,11 +23,6 @@ town::~town()
 		m_object = NULL;
 	}
 
-	// camera does not get destroyed, it is borrowed from game
-	/*
-	if(camera)
-	camera->~dxCamera();*/
-
 	// destroy buildings
 	if(buildings)
 	{
@@ -43,7 +38,6 @@ void town::init(dxManager * a_dxMgr, dxCamera * a_camera,char * file, char* file
 	std::fstream initfiles;
 	initfiles.open(file2,std::fstream::app|std::fstream::in|std::fstream::out);
 
-	//camera = new dxCamera(a_dxMgr);
 	camera  = a_camera; // camera is borrowed from game class
 
 	map = new XYPlane();

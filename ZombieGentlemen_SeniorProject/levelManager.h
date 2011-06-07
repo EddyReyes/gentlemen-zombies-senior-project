@@ -11,12 +11,13 @@ private:
 	stringArray * fileNames;
 	dxManager * dxMgr;
 	dxCamera * camera;
+	sound * soundMgr;
 	int numLevels;
 
 public:
 	levelManager(void);
 	~levelManager(void);
-	void init(std::string filename, dxManager * a_dxMgr, dxCamera * a_camera);
+	void init(std::string filename, dxManager * a_dxMgr, dxCamera * a_camera, sound * a_soundMgr);
 	bool setLevel(int);
 	level * getLevel();
 };

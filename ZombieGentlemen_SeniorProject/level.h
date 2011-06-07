@@ -9,6 +9,7 @@
 #include "dxCamera.h"
 #include "HUD.h"
 #include "entityManager.h"
+#include "sound.h"
 
 #include "math.h"
 
@@ -49,6 +50,7 @@ private:
 	player * m_player;
 	float timer;
 	cameraUpdateData camData;
+	sound * soundMgr;
 
 	levelState state;
 
@@ -65,7 +67,7 @@ private:
 
 public:
 	level();
-	void initLevel(dxManager* a_dxMgr, dxCamera * a_camera, std::string filename);
+	void initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMgr, std::string filename);
 	void setMusic(char*);//sets the music for the level
 	void draw();
 	void handleInput(inputData * input, int now);
