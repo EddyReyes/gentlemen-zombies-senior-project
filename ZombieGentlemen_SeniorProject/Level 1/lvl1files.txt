@@ -1,5 +1,5 @@
 Level 1/lvl1map.txt
-images/glassPanes2.bmp
+images/green_plane2.bmp
 Level 1/lvl1Cmap.txt
 Level 1/imageManagerTest.txt
 Level 1/lvl1Obj.txt
