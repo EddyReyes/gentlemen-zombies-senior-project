@@ -45,37 +45,29 @@ private:
 	HUD * p1HUD;
 	DXText* checkpointtxt;
 	dxCamera * camera;
-	int checkpoint;
 	entityManager * entityMgr;
 	player * m_player;
 	float timer;
 	cameraUpdateData camData;
 	sound * soundMgr;
-
 	levelState state;
-
 	HudImage * pauseScreen;
 	HudImage * winScreen;
-
 	levelStats stats;
 	float Elapsed;
 	int FPS;
 	// debug data
 	DXText * FPSText;
-	DXText * controllerDebug; 
 	DXText * statsDisplay;
 
 public:
 	level();
+	~level();//deconstructor
 	void initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMgr, std::string filename);
-	void setMusic(char*);//sets the music for the level
 	void draw();
 	void handleInput(inputData * input, int now);
 	bool update(float timePassed);
 	void updateCamera(float updateTime);
 	void updateDebugData(float updateTime);
-	~level();//deconstructor
-	void loadfromcheckpoint(std::string);
-	objectManager* getManager(){return objMgr;}
 	int getState();
 };

@@ -2,7 +2,7 @@
 #include "defines.h"
 
 //#define topdown
-enum gameStates{menu, sideScroll, topDown, pause, loading};
+enum gameStates{menu, sideScroll, topDown, loading};
 
 class game
 {
@@ -30,6 +30,7 @@ private:
 	Menu * mainMenu;
 
 	DXText * loadingScreen;
+	DXText * controllerDebug;
 	levelManager * lvlMgr;
 	level * lvl;
 	town * the_town;
@@ -37,7 +38,6 @@ private:
 public: 
 	game(HWND * a_wndHandle, HINSTANCE * a_hInstance);
 	bool initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_soundMgr);
-	void setMusic();
 	void update();
 	void handleGamState();
 	void handleInput();
