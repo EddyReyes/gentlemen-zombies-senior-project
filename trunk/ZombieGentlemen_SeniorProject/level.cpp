@@ -63,11 +63,6 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
 
-	// init controller debug data
-	controllerDebug = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
-	controllerDebug->loadFromTxtFile("textParameters2.txt");
-	controllerDebug->setDialog("Loading...");
-
 	// init stats display data
 	statsDisplay= new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	statsDisplay->loadFromTxtFile("statsDisplayParameters.txt");
@@ -91,6 +86,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 	timer = 0;
 	
 	soundMgr->stopSound(soundMenu);
+	soundMgr->SetVolume(soundLevel, -1400);
 	soundMgr->playSoundLoop(soundLevel);
 }
 /******************************************************************
@@ -169,7 +165,11 @@ bool level::update(float updateTime)
 	case levelWin:
 		timer += updateTime;
 		if(timer >= 10)
+		{
+			soundMgr->stopSound(soundLevel);
+			soundMgr->playSoundLoop(soundMenu);
 			return false;
+		}
 		break;
 	}
 	// update camera and debug data
@@ -259,10 +259,6 @@ void level::updateDebugData(float updateTime)
 		FPS = 0;
 	}
 }
-void level::setMusic(char* sound)
-{
-
-}
 void level::draw()
 {
 	m_map->draw();
@@ -270,7 +266,6 @@ void level::draw()
 	objMgr->draw();
 	p1HUD->draw();
 	FPSText->draw();
-	controllerDebug->draw();
 	
 	switch(state)
 	{
@@ -287,21 +282,6 @@ void level::draw()
 }
 void level::handleInput(inputData * input, int now)
 {
-
-	// controller debuging
-
-	char Buffer[256];
-	if(input->xcont->IsConnected())
-	{
-		sprintf_s(Buffer, "Controller Connected");
-	}
-	else
-	{
-		sprintf_s(Buffer, "Controller Disconnected");
-	}
-	controllerDebug->setDialog(Buffer);
-
-
 	if(state == levelPlay) // only allow movement if game is in play mode
 	{
 		// keyboard input
@@ -368,8 +348,10 @@ void level::handleInput(inputData * input, int now)
 
 			// if neither left or right are active
 
-			if (!(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+			if ((!(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
 				&& !(input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT))
+				&& (!((input->keystate[DIK_LEFT] & 0x80) || (input->keystate[DIK_A] & 0x80))
+			&& !((input->keystate[DIK_RIGHT] & 0x80) || (input->keystate[DIK_D] & 0x80))))
 			{
 				m_player->getObject()->getPhysics()->walkingOff();
 			}
@@ -423,21 +405,9 @@ void level::handleInput(inputData * input, int now)
 		}
 	}
 }
-
-void level::loadfromcheckpoint(std::string a_file)
-{
-	std::fstream temp;
-
-	temp.open(a_file.c_str(),std::fstream::out||std::fstream::app);
-	float x,y;
-	temp>>x;
-	temp>>y;
-	m_player->getObject()->setPosition(x,y,0.0f);
-}
 level::~level()
 {
 	delete FPSText;
-	delete controllerDebug;
 	delete m_map;
 	delete entityMgr;
 	delete objMgr;

@@ -245,7 +245,10 @@ bool sound::stopSound(int bufferID)
 	if(bufferID >= soundFiles->getSize() || bufferID < 0) return false;
 
 	if(SoundChannel[bufferID])
+	{
 		SoundChannel[bufferID]->Stop();
+		SoundChannel[bufferID]->SetCurrentPosition(0);
+	}
 	return true;
 }
 /*******************************************************************

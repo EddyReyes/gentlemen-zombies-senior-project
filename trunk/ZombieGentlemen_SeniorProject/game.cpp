@@ -35,6 +35,11 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	loadingScreen->loadFromTxtFile("loadingScreen.txt");
 	loadingScreen->setDialog("  Loading...");
 	loadingScreen->draw();
+
+	// init controller debug data
+	controllerDebug = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
+	controllerDebug->loadFromTxtFile("textParameters2.txt");
+	controllerDebug->setDialog("Loading...");
 	
 	//instantiate menu (TEST DATA)
 	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
@@ -50,15 +55,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	lvlMgr = new levelManager;
 	lvlMgr->init("levels.txt", dxMgr, camera, soundMgr);
-	//lvlMgr->setLevel(0); // for testing set to first level
-	//lvl = lvlMgr->getLevel();
-
-	setMusic();
 	return true;
-}
-void game::setMusic()
-{
-	soundMgr->SetVolume(0, -2000);
 }
 
 void game::update()
@@ -73,7 +70,7 @@ void game::update()
 	switch(gameState)
 	{
 	case menu:
-		// nothing here yet
+		soundMgr->playSoundLoop(soundMenu);
 		break;
 	case sideScroll:
 			if(!lvl->update(UpdateSpeed))
@@ -82,10 +79,10 @@ void game::update()
 	case topDown:
 		// nothing here yet
 		break;
-	case pause: 
-		// nothing here yet
-		break;
 	}
+
+	if(input->xConnectTimer < xControllerTimout)
+		input->xConnectTimer += UpdateSpeed;
 
 	// draw to the screen using Direct3D
 	draw();
@@ -104,6 +101,32 @@ void game::handleInput()
 	inputMgr->updateMouseState();
 	input->mouseState = *(inputMgr->getMouseState());
 
+
+	// update controller prompt
+	if(input->xcont->IsConnected())
+	{
+		if(!input->xConnected)
+		{
+			char Buffer[256];
+			sprintf_s(Buffer, "Controller Connected");
+			controllerDebug->setDialog(Buffer);
+			input->xConnected = true;
+			input->xConnectTimer = 0;	
+		}
+	}
+	else
+	{
+		if(input->xConnected)
+		{
+			char Buffer[256];
+			sprintf_s(Buffer, "Controller Disconnected");
+			controllerDebug->setDialog(Buffer);
+			input->xConnected = false;
+			input->xConnectTimer = 0;	
+		}
+	}
+
+
 	// if esc is pressed Quit Game globally
 	if(input->keystate[DIK_ESCAPE] & 0x80)
 	{
@@ -115,9 +138,6 @@ void game::handleInput()
 	switch(gameState)
 	{
 	case menu:
-		soundMgr->SetVolume(1, -2000);
-		soundMgr->playSound(soundMenu);
-
 		check = mainMenu->update(input->keystate,now,input->keyLag);
 		if(check == 1)
 		{
@@ -130,15 +150,8 @@ void game::handleInput()
 		}
 		if(check == 2)
 		{
-			fstream file("checkpoint.txt",fstream::in||fstream::app);
-			if(file.good())
-			{
-				mainMenu->~Menu();
-				gameState = sideScroll;
-				lvlMgr->setLevel(0); // for testing set to first level
-				lvl = lvlMgr->getLevel();
-				lvl->loadfromcheckpoint("checkpoint.txt");
-			}
+			// load game will go here
+			PostQuitMessage(0);
 		}
 		if(check == 3)
 		{
@@ -186,16 +199,25 @@ void game::draw()
 		loadingScreen->draw();
 		break;
 	}
+
+	// draw controller debug data
+	if(input->xConnectTimer <= xControllerTimout && gameState != loading)
+		controllerDebug->draw();
+
 	dxMgr->endRender();
 }
 game::~game()
 {	
 	//destroy the level
 	delete lvlMgr;
+
 	lvlMgr = NULL;
 	//destry the town
 	delete the_town;
 	the_town = NULL;
+
+	// destroy controller debug
+	delete controllerDebug;
 
 	dxMgr->shutdown();
 	inputMgr->shutdownDirectInput();

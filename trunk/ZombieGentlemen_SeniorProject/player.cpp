@@ -313,7 +313,8 @@ void player::update(float timePassed)
 		armorTimeout -= timePassed;
 		if(armorTimeout < 0) // armorTimeout has expired
 		{
-			armor = !armor;
+			if(armorLoss)
+				armor = false;
 			armorBlink = false;
 			armorTimeout = 0;
 		}
@@ -345,8 +346,10 @@ void player::removeArmor()
 		if(!armorBlink)
 		{
 			armorBlink = true;
+			armorLoss = true;
 			armorTimeout = 2.0f;
 			soundMgr->playSound(soundArmorLose1);
+			jumpCounter = 0;
 		}
 	}
 }
@@ -357,8 +360,11 @@ void player::armorPickup()
 		if(!armorBlink)
 		{
 			armorBlink = true;
+			armorLoss = false;
+			armor = true;
 			armorTimeout = 2.0f;
 			soundMgr->playSound(soundArmorPickup1 + (rand()%2));
+			jumpCounter = 0;
 		}
 	}
 }

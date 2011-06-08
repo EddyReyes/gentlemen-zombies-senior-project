@@ -12,7 +12,7 @@ private:
 	playerState state;
 	playerSprite sprites;
 	float timer, armorTimeout, randomIdle;
-	bool armorBlink;
+	bool armorBlink, armorLoss;
 	sound * soundMgr;
 	int jumpCounter, jumpInterval;
 
