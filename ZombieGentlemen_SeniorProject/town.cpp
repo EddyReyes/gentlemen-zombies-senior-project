@@ -41,8 +41,8 @@ void town::init(dxManager * a_dxMgr, dxCamera * a_camera,char * file, char* file
 	camera  = a_camera; // camera is borrowed from game class
 
 	map = new XYPlane();
-	map->init(a_dxMgr,"images/top_down1.bmp");
-	map->setParam(D3DXVECTOR3(-10.0f,10.0f,0.0f),20,20);
+	map->init(a_dxMgr,"images/top_down2.bmp");
+	map->setParam(D3DXVECTOR3(-10.38f,10.4f,0.0f),20.72,21.2);
 
 	m_object = new XYPlane();
 	m_object->init(a_dxMgr,temp.getStringAt(0));
