@@ -161,11 +161,13 @@ void game::handleInput()
 		break;
 	case topDown:
 		{
-			if(the_town->update(input,now)== 2)
+			int the_level = the_town->update(input,now);
+			const int no_level = -1;
+			if(the_level != no_level)
 			{
 				gameState = loading;
 				draw();
-				lvlMgr->setLevel(0); // for testing set to first level
+				lvlMgr->setLevel(the_level); 
 				lvl = lvlMgr->getLevel();
 				gameState = sideScroll;
 			}

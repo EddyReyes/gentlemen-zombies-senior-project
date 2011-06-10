@@ -32,14 +32,14 @@ in making the side scrolling part of our game cooler
 		entityManager (1 week) Eddy //finished
 			entity (2 days) Eddy //finshed
 			turret (3-4 days) Leseamus //priority 1
-			goomba (2 days) Michael,Eddy //priority 1
+			goomba (2 days) Michael,Eddy //finished
 			ziggy (3 days) William //priority 1
 			projectile class (1 day) Leseamus,Eddy //priority 1
 
 		teleporter (1-2 days) Michael//priority 1
 		obstacle (2-3 days) Leseamus //finished
 
-		checkpoint system (1 day) Eddy //priority 1
+		checkpoint system (1 day) Eddy //finished
 		Bosses(1 week) Michael, Will //priority 3
 		Armor pickups (1 day) Leseamus //priority 3
 		art assest () everyone //priority 5
