@@ -8,11 +8,12 @@ class HUD
 {
 	private:
 		HudImage * armor;
+		HudImage * key;
 		player * plyr;
 		HudImage ** images;
 		imageManager * imgMgr;
 		dxManager * dxMgr;
-		float timer;
+		float armorTimer, keyTimer;
 	public:
 		HUD();
 		~HUD();

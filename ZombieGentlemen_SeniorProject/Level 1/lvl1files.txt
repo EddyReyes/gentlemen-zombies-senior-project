@@ -8,5 +8,5 @@ Level 1/testPlayers.txt
 Level 1/lvl1stuff.txt
 Level 1/lvl1CheckPoints.txt
 Level 1/lvl1background.txt
-Level 1/imageHUDTest.txt
-Level 1/defautHUDPositions.txt
+imageHUDTest.txt
+defautHUDPositions.txt

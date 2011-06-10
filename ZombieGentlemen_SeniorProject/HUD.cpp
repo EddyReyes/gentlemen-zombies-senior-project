@@ -6,7 +6,8 @@ HUD::HUD()
 	armor = NULL;
 	images = NULL;
 	plyr = NULL;
-	timer = 0;
+	armorTimer = 0;
+	keyTimer = 0;
 }
 HUD::~HUD()
 {
@@ -62,6 +63,7 @@ void HUD::loadFromFile(std::string filename, dxManager * a_dxMgr)
 		images[i] = new HudImage(dxMgr, imgMgr->getImage(i), imgMgr->getImageInfo(i));
 	}
 	armor = images[imgMgr->getSize()-1];
+	key = images[imgMgr->getSize()-2];
 }
 
 /****************************************************************
@@ -87,13 +89,14 @@ void HUD::update(float updateTime)
 
 	if(plyr != NULL)
 	{
+		// armor
 		if(plyr->getAmorBlink())
 		{
-			timer += updateTime;
-			if(timer >= 0.2f)
+			armorTimer += updateTime;
+			if(armorTimer >= 0.2f)
 			{
 				armor->toggleSprite();
-				timer = 0;
+				armorTimer = 0;
 			}
 		}
 		else if(plyr->hasArmor())
@@ -103,6 +106,25 @@ void HUD::update(float updateTime)
 		else
 		{
 			armor->toggleSpriteOff();
+		}
+
+		// key
+		if(plyr->getKeyBlink())
+		{
+			keyTimer += updateTime;
+			if(keyTimer >= 0.2f)
+			{
+				key->toggleSprite();
+				keyTimer = 0;
+			}
+		}
+		else if(plyr->playerHasKey())
+		{
+			key->toggleSpriteOn();
+		}
+		else
+		{
+			key->toggleSpriteOff();
 		}
 	}
 }

@@ -6,8 +6,8 @@
 #pragma once
 
 #define DIRECTINPUT_VERSION 0x0800
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 
 #include <d3d9.h>
 #include <d3dx9tex.h>

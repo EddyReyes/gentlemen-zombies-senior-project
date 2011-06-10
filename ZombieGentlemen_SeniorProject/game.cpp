@@ -208,18 +208,31 @@ void game::draw()
 }
 game::~game()
 {	
+	// destroy the loading screen
+	delete loadingScreen;
+	loadingScreen = NULL;
 	//destroy the level
 	delete lvlMgr;
-
 	lvlMgr = NULL;
 	//destry the town
 	delete the_town;
 	the_town = NULL;
-
 	// destroy controller debug
 	delete controllerDebug;
-
-	dxMgr->shutdown();
-	inputMgr->shutdownDirectInput();
-	soundMgr->~sound();
+	controllerDebug = NULL;
+	//destroy input data
+	delete input;
+	input = NULL;
+	// destroy the camera
+	delete camera;
+	camera = NULL;
+	// destroy direct3D data
+	delete dxMgr;
+	dxMgr = NULL;
+	// destroy direct input data
+	delete inputMgr;
+	inputMgr = NULL;
+	// desyroy direct sound data
+	delete soundMgr;
+	soundMgr = NULL;
 }

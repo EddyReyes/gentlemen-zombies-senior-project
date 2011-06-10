@@ -9,6 +9,8 @@ player::player()
 	randomIdle = 0;
 	jumpCounter = 0;
 	armorBlink = false;
+	keyBlink =false;
+	hasKey = false;
 }
 player::~player()
 {
@@ -319,6 +321,15 @@ void player::update(float timePassed)
 			armorTimeout = 0;
 		}
 	}
+	if(keyBlink)
+	{
+		keyTimeout -= timePassed;
+		if(keyTimeout < 0) // armorTimeout has expired
+		{
+			keyBlink = false;
+			keyTimeout = 0;
+		}
+	}
 }
 
 void player::reset()
@@ -383,3 +394,34 @@ void player::flip()
 }
 
 void player::setSound(sound * a_soundMgr){soundMgr = a_soundMgr;}
+
+void player::keyPickup()
+{
+	if(!hasKey)
+	{
+		if(!keyBlink)
+		{
+			keyBlink = true;
+			hasKey = true;
+			keyTimeout = 2.0f;
+			// TODO: play key pickup sound
+			//soundMgr->playSound(soundArmorPickup1 + (rand()%2));
+		}
+	}
+}
+void player::removeKey()
+{
+	if(hasKey)
+	{
+		if(!keyBlink)
+		{
+			keyBlink = true;
+			hasKey = false;
+			keyTimeout = 2.0f;
+			// TODO: play door open sound
+			//soundMgr->playSound(soundArmorLose1);
+		}
+	}
+}
+bool player::getKeyBlink(){return keyBlink;}
+bool player::playerHasKey(){return hasKey;}

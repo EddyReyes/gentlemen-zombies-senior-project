@@ -78,7 +78,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			g->update();
 		}
 	}
-	g->~game();
+	delete g;
 	dxMgr = NULL;
 	inputMgr = NULL;
 	soundMgr = NULL;

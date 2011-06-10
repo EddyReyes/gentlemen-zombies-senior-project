@@ -11,8 +11,8 @@ class player: public entity
 private:
 	playerState state;
 	playerSprite sprites;
-	float timer, armorTimeout, randomIdle;
-	bool armorBlink, armorLoss;
+	float timer, armorTimeout, keyTimeout, randomIdle;
+	bool armorBlink, armorLoss, keyBlink, hasKey;
 	sound * soundMgr;
 	int jumpCounter, jumpInterval;
 
@@ -27,9 +27,19 @@ public:
 	void update(float timePassed);
 	void move(float x, float y);
 	void bounce();
+	
+	// armor
 	void removeArmor();
 	bool getAmorBlink();
 	void armorPickup();
+	
+	// key
+	void keyPickup();
+	void removeKey();
+	bool getKeyBlink();
+	bool playerHasKey();
+
+
 	void flip();
 
 	void setSound(sound * a_soundMgr);
