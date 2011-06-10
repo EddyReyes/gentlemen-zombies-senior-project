@@ -134,8 +134,11 @@ void entityManager::update(float timePassed)
 							if(ply->playerHasKey())
 							{
 								door * dr = (door*)m_stuff[j];
-								ply->removeKey();
-								dr->open();
+								if(!dr->isOpen())
+								{
+									dr->open();
+									ply->removeKey();
+								}
 							}
 							break;
 						default:

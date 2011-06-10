@@ -340,6 +340,7 @@ void player::reset()
 	m_object->getCollHistory()->resetList();
 	alive = true;
 	armor = false;
+	hasKey = false;
 	jumpCounter = 0;
 }
 void player::bounce()
@@ -399,10 +400,10 @@ void player::keyPickup()
 {
 	if(!hasKey)
 	{
+		hasKey = true;
 		if(!keyBlink)
 		{
-			keyBlink = true;
-			hasKey = true;
+			keyBlink = true;	
 			keyTimeout = 2.0f;
 			// TODO: play key pickup sound
 			//soundMgr->playSound(soundArmorPickup1 + (rand()%2));
@@ -413,10 +414,10 @@ void player::removeKey()
 {
 	if(hasKey)
 	{
+		hasKey = false;
 		if(!keyBlink)
 		{
 			keyBlink = true;
-			hasKey = false;
 			keyTimeout = 2.0f;
 			// TODO: play door open sound
 			//soundMgr->playSound(soundArmorLose1);
