@@ -161,7 +161,7 @@ void game::handleInput()
 		break;
 	case topDown:
 		{
-			if(the_town->update(input,now)== 0)
+			if(the_town->update(input,now)== 2)
 			{
 				gameState = loading;
 				draw();
