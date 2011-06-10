@@ -1,2 +1,2 @@
-images/cursor.bmp
+images/tiny steve1.bmp
 images/club.bmp
