@@ -17,6 +17,8 @@
 #include "teleporter.h"
 #include "armor.h"
 #include "victory.h"
+#include "key.h"
+#include "door.h"
 
 /****************************************************************
 * entityManager

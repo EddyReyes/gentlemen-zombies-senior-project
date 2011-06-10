@@ -70,11 +70,11 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 
 	// init pause screen
 	pauseScreen = new HudImage(a_dxMgr, "images/paused.bmp");
-	pauseScreen->setParameters(800, 600, 0, 0);
+	pauseScreen->setParameters(1920, 1080, 0, 0);
 
 	// init win screen
 	winScreen = new HudImage(a_dxMgr, "images/victoryCondition.bmp");
-	winScreen ->setParameters(800, 600, 0, 0);
+	winScreen ->setParameters(1920, 1080, 0, 0);
 	
 	//  make a cool intro, camare moves in from the side
 	camData.point = D3DXVECTOR3(-50, -30, 0);
@@ -155,7 +155,7 @@ bool level::update(float updateTime)
 				double minutes, seconds;
 				seconds = modf(stats.timer/60.0, &minutes);
 				sprintf_s(statsBuffer, "Stats:\nTime: %imin %2.0fsec \nDeaths: %i", (int)minutes, 100*seconds, stats.numDeaths);
-				statsDisplay->setFontSize(20);
+				statsDisplay->setFontSize(40);
 			}
 			statsDisplay->setDialog(statsBuffer);
 			soundMgr->playSound(soundQuote1 + rand() % 5);

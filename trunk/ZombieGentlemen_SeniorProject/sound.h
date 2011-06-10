@@ -45,7 +45,7 @@ class sound
 private:
 	LPDIRECTSOUND8        g_pDS;	// The DirectSound Device
 	HWND * wndHandle;   // a pointer to the windows handle
-	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to an array of ten buffers for sound.
+	LPDIRECTSOUNDBUFFER * SoundChannel; // pointer to an array of buffers for sound.
 	int * ChannelVolume; // pointer to an array of 10 volume values
 	int * ChannelPan; // pointer to an array of 10 Pan Values
 	stringArray * soundFiles;

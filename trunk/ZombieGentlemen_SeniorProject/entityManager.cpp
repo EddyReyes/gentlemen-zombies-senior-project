@@ -101,6 +101,7 @@ void entityManager::update(float timePassed)
 				{
 					if(players[i]->getObject()->getCollHistory()->get(g) == m_stuff[j]->getObject()->getObjectIndex())
 					{
+						player * ply = (player*)players[i];
 						switch(m_stuff[j]->getType())
 						{
 						case stuff_teleporter:
@@ -112,8 +113,7 @@ void entityManager::update(float timePassed)
 							if(!players[i]->hasArmor())
 							{
 								// if player does not already have armor, give him armor, and remove it from the game world
-								player * plr = (player*)players[i];
-								plr->armorPickup();
+								ply->armorPickup();
 								removeFromStuff(j);
 								updateIndexes = true;
 							}
@@ -123,8 +123,20 @@ void entityManager::update(float timePassed)
 							victoryCondition = true;
 							break;
 						case stuff_key:
+							if(!ply->playerHasKey())
+							{
+								ply->keyPickup();
+								removeFromStuff(j);
+								updateIndexes = true;
+							}
 							break;
 						case stuff_door:
+							if(ply->playerHasKey())
+							{
+								door * dr = (door*)m_stuff[j];
+								ply->removeKey();
+								dr->open();
+							}
 							break;
 						default:
 							break;
@@ -457,13 +469,13 @@ void entityManager::loadStuff()
 		}
 		else if(stuffType == 'k') // load key
 		{
-			/*m_stuff[i] = new key;
-			objMgr->loadObjectsFromTxtFile("defaultKey.txt");*/
+			m_stuff[i] = new key;
+			objMgr->loadObjectsFromTxtFile("defaultKey.txt");
 		}
 		else if(stuffType == 'd') // load door
 		{
-			/*m_stuff[i] = new door;
-			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");*/
+			m_stuff[i] = new door;
+			objMgr->loadObjectsFromTxtFile("defaultDoor.txt");
 		}
 		else if(stuffType == 't')
 		{

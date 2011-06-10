@@ -279,11 +279,19 @@ bool sound::initDirectSound(HWND * a_wndHandle)
 
 void sound::shutdownDirectSound(void)
 {
+	// realease all sound buffers
+	for(int i = 0; i < soundFiles->getSize(); i++)
+	{
+		SoundChannel[i]->Stop();
+		SoundChannel[i]->Release();
+	}
+	// release direct sound
 	if (g_pDS)
 	{
 		g_pDS->Release();
 		g_pDS = NULL;
 	}
+
 	delete [] SoundChannel; // delete channels
 	delete [] ChannelVolume; // delete all volume variables
 	delete [] ChannelPan; // delete all pan vairables

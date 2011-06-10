@@ -14,6 +14,7 @@ dxManager::dxManager(void)
 
 dxManager::~dxManager(void)
 {
+	shutdown();
 }
 
 
