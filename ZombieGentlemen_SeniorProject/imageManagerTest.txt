@@ -3,7 +3,7 @@ images/blackTextBox.bmp
 images/glass tile.bmp
 images/character.bmp
 images/animation/player_sprite_sheet.bmp
-images/animation/saw sprite sheet.bmp
+images/animation/saw sprite sheet1.bmp
 images/animation/checkpointSpriteSheet.bmp
 images/animation/ziggybird sprite sheet 2.bmp
 images/animation/trollfaces.bmp
