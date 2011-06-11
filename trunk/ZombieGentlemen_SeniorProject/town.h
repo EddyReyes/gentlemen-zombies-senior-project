@@ -7,7 +7,7 @@
 #include "inputData.h"
 #include "stringArray.h"
 
-#define max_positions 9
+#define max_positions 2
 
 // this class will contain the towns map, objects, and characters
 class town
