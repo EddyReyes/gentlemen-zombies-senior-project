@@ -1,0 +1,12 @@
+Level 2/lvl2map.txt
+images/glassPanes2.bmp
+Level 2/lvl2Cmap.txt
+Level 2/imageManagerTest.txt
+Level 2/lvl2Obj.txt
+Level 2/enemyFiles.txt
+Level 2/testPlayers.txt
+Level 2/lvl2stuff.txt
+Level 2/lvl2CheckPoints.txt
+Level 2/lvl2background.txt
+imageHUDTest.txt
+defautHUDPositions.txt
