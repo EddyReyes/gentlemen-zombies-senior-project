@@ -31,6 +31,8 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	camera = new dxCamera(dxMgr);
 
 	// initialize loading screen
+	loadingScreenImage = new HudImage(a_dxMgr, "images/loadingscreen.bmp");
+	loadingScreenImage->setSize(1920.0, 1100.0);
 	loadingScreen = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	loadingScreen->loadFromTxtFile("loadingScreen.txt");
 	loadingScreen->setDialog("  Loading...");
@@ -77,7 +79,7 @@ void game::update()
 				gameState = topDown;
 		break;
 	case topDown:
-		// nothing here yet
+		// top down level one message
 		break;
 	}
 
@@ -198,6 +200,7 @@ void game::draw()
 			lvl->draw();
 		break;
 	case loading:
+		loadingScreenImage->draw();
 		loadingScreen->draw();
 		break;
 	}
@@ -213,12 +216,15 @@ game::~game()
 	// destroy the loading screen
 	delete loadingScreen;
 	loadingScreen = NULL;
+	loadingScreenImage->~HudImage();
+
 	//destroy the level
 	delete lvlMgr;
 	lvlMgr = NULL;
 	//destry the town
 	delete the_town;
 	the_town = NULL;
+
 	// destroy controller debug
 	delete controllerDebug;
 	controllerDebug = NULL;

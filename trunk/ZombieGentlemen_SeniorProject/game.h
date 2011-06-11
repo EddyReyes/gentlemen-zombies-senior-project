@@ -28,8 +28,8 @@ private:
 
 	// Unit test parameters	
 	Menu * mainMenu;
-
 	DXText * loadingScreen;
+	HudImage * loadingScreenImage;
 	DXText * controllerDebug;
 	levelManager * lvlMgr;
 	level * lvl;
