@@ -50,7 +50,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 
 	// initialize town (TEST DATA)
 	the_town = new town();
-	the_town->init(dxMgr, camera, "anotherInit.txt","coords.txt");
+	the_town->init(dxMgr, camera, "anotherInit.txt","coords2.txt");
 
 	// initialize sound data (TEST DATA)
 	a_soundMgr->initSoundFiles("soundManager.txt");
