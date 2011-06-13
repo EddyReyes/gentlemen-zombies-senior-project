@@ -48,7 +48,7 @@ void town::init(dxManager * a_dxMgr, dxCamera * a_camera,char * file, char* file
 	m_object->init(a_dxMgr,temp.getStringAt(0));
 	if(initfiles.good())
 	{
-		buildings = new XYPlane[9];
+		buildings = new XYPlane[5];
 		float x,y,z;
 		for(int b=0;b<max_positions;++b)
 		{

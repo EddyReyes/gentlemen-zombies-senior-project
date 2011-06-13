@@ -1,0 +1,3 @@
+images/animation/cameraShadow.bmp
+images/animation/Armor_Mantle1.bmp
+images/animation/armor.bmp
