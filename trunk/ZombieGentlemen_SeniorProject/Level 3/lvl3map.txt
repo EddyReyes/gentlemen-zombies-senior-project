@@ -1,7 +1,7 @@
 6 50 1 4 1 0
-..........aaaaa...................................
+..........aaaaaa..................................
 aa.......................................aaaaa....
-aaa...............aaa.................aaaaaaaaaa.a
+aaa..............aaaa.................aaaaaaaaaa.a
 a...............aa........aaaaa......aaaaaaaa....a
-a....aaa..aaaaaaaaaaa.....aaaaa...aaaaaaaaaaa....a
-aaaa.aaaaaaaaaaaaaaaaaa..........a...aaaaaaaaaaaaa
+a....aaa...aaaaaaa....aa..........aaaaaaaaaaa....a
+aaaa.aaaaaaaaaaaaaaaaaa..........aaaaaaaaaaaaaaaaa
