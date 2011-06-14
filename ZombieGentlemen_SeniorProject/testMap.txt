@@ -1,6 +1,0 @@
-5 50 1 4 1 0
-cccc...............ccc...cccc...............ccc...
-cccc............ccccccccccccc............ccccccccc
-cccccccc.....cccccccccccccccccccc.....cccccccccccc
-cccccccc..ccccccccccccccccccccccc..ccccccccccccccc
-cccccccccccccccccccccccccccccccccccccccccccccccccc

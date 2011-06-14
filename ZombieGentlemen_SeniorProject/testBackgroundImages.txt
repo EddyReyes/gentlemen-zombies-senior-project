@@ -1,5 +1,0 @@
-images/animation/GRass sprite sheet1.bmp
-images/sky_background1.jpg
-images/cloudSprites.bmp
-images/Forest.bmp
-images/Forest.bmp

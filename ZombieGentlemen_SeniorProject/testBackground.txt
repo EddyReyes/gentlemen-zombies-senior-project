@@ -1,2 +1,0 @@
-testBackgroundMaps.txt
-testBackgroundImages.txt
