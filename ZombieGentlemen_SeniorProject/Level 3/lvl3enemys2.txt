@@ -1,5 +1,4 @@
 o 4 -5 u d
-o 5 -5 u d
 z 30 2 u d
 o 24 -4 u d
 o 25 -4 u d

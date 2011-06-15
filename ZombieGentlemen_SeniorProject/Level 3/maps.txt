@@ -1,3 +1,5 @@
-Level 3/BG_map3.txt
-testBackgroundMap2.txt
+Level 3/lvl3grass_map.txt
+Level 3/lvl3sky_map.txt
 cloudMap1.txt
+forestMap1.txt
+forestMap2.txt
