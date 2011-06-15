@@ -7,6 +7,7 @@ entityManager::entityManager()
 	enemies = NULL;
 	m_stuff = NULL;
 	m_checkPoints = NULL;
+	dxSound = NULL;
 	checkPnt = -1;
 	numPlayers = 0;
 	numEnemies = 0;
@@ -23,10 +24,11 @@ entityManager::~entityManager()
 }
 
 // member functions
-bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std::string a_checkPointFile)
+bool entityManager::init(objectManager * a_objMgr, sound * a_sound, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std::string a_checkPointFile)
 {
 	// get pointer for the objectManager
 	objMgr = a_objMgr;
+	dxSound = a_sound;
 	
 	enemyFiles.loadFromTextFile(a_enemyFiles);
 	
@@ -45,6 +47,7 @@ bool entityManager::init(objectManager * a_objMgr, std::string a_enemyFiles, std
 		loadEnemies(0);
 		loadStuff();
 		loadCheckPoints();
+		initPlayerSound();
 		return true;
 	}
 }
@@ -108,6 +111,7 @@ void entityManager::update(float timePassed)
 							teleporter * tel;
 							tel = (teleporter*)m_stuff[j];
 							players[i]->setPosition(tel->getData());
+							dxSound->playSound(soundTeleport);
 							break;
 						case stuff_armor:
 							if(!players[i]->hasArmor())
@@ -159,6 +163,7 @@ void entityManager::update(float timePassed)
 							m_checkPoints[j]->pickUp();
 							D3DXVECTOR3 * pos = m_checkPoints[j]->getObject()->getPosition();
 							players[i]->setDefaultPos(pos);
+							dxSound->playSound(soundCheckPoint);
 							if((checkPnt + 1) == j) // check if checkpoint is consecutive
 								checkPnt = j;
 							else
@@ -758,11 +763,11 @@ stuff * entityManager::getStuff(int index)
 }
 int entityManager::getCheckPoint(){return checkPnt;}
 bool entityManager::getVictoryCondition(){return victoryCondition;}
-void entityManager::initPlayerSound(sound * a_sound)
+void entityManager::initPlayerSound()
 {
 	for(int i = 0; i < numPlayers; i++)
 	{
 		player * plr = (player*)players[i];
-		plr->setSound(a_sound);
+		plr->setSound(dxSound);
 	}
 }

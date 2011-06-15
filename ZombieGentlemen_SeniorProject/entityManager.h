@@ -53,6 +53,8 @@ private:
 
 	bool victoryCondition;
 
+	sound * dxSound;
+
 
 public:
 	// constructor/destructor
@@ -60,8 +62,8 @@ public:
 	~entityManager();
 
 	// member functions
-	bool init(objectManager * a_objMgr, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std:: string a_checkPointFile);
-	void initPlayerSound(sound * a_sound);
+	bool init(objectManager * a_objMgr, sound * a_sound, std::string a_enemyFiles, std::string a_playerFile, std::string a_stuffFile, std:: string a_checkPointFile);
+	void initPlayerSound();
 	void update(float timePassed);
 	
 	void removeFromStuff(int index);

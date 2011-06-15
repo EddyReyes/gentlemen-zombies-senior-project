@@ -16,3 +16,5 @@ sound/quotes/quote2.WAV
 sound/quotes/quote3.WAV
 sound/quotes/quote4.WAV
 sound/quotes/quote5.WAV
+sound/checkpoint.wav
+sound/teleport.wav
