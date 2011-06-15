@@ -39,7 +39,7 @@ enum soundList{ // this is the list of in game sounds
 	soundQuote4,
 	soundQuote5,
 	soundCheckPoint,
-	soundTeleporter
+	soundTeleport
 };
 class sound
 {

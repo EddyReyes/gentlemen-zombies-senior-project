@@ -40,8 +40,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 
 	// init entity manager
 	entityMgr = new entityManager();
-	entityMgr->init(objMgr, files->getStringAt(5), files->getStringAt(6), files->getStringAt(7), files->getStringAt(8));
-	entityMgr->initPlayerSound(soundMgr);
+	entityMgr->init(objMgr, a_soundMgr, files->getStringAt(5), files->getStringAt(6), files->getStringAt(7), files->getStringAt(8));
 	// set player pointer
 	m_player = entityMgr->getPlayer(0);
 
