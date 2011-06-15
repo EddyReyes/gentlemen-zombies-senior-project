@@ -426,3 +426,16 @@ void player::removeKey()
 }
 bool player::getKeyBlink(){return keyBlink;}
 bool player::playerHasKey(){return hasKey;}
+
+void player::setDirection(char dir)
+{
+	switch(dir)
+	{
+	case 'l': state = walkingLeft;
+		break;
+	case'r': state = walkingRight;
+		break;
+	default:
+		break;
+	}
+}

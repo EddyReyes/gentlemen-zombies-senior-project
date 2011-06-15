@@ -41,6 +41,7 @@ public:
 
 
 	void flip();
+	void setDirection(char dir);
 
 	void setSound(sound * a_soundMgr);
 };

@@ -709,11 +709,71 @@
 					Name="level 2"
 					>
 					<File
-						RelativePath=".\testfiles2.txt"
+						RelativePath=".\Level 2\background1.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testMap2.txt"
+						RelativePath=".\Level 2\backGroundFiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\backgroundImages.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\backgroundMaps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\checkPoints.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\collisionMap.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\enemies1.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\enemies2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\enemies3.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\enemies4.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\enemyFiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\imageManager.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\level2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\objects.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\player.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\stuff.txt"
 						>
 					</File>
 				</Filter>

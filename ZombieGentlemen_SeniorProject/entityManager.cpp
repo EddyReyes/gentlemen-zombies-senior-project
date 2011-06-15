@@ -343,13 +343,13 @@ void entityManager::loadEnemies(int fileIndex)
 
 		for(int i = numEnemies; i < numEnemies + size; i++)
 		{
-			char enemyType, direction, behaviorType;
+			char enemyType, direction;
 			/**********************************************************
 			* In the future direction and behavior type will change the behavior of the turrets
 			**********************************************************/
 			float x, y;
 
-			file >> enemyType >> x >> y >> direction >> behaviorType;
+			file >> enemyType >> x >> y >> direction;
 
 			if(enemyType == 't') // load turret
 			{
@@ -397,6 +397,7 @@ void entityManager::loadEnemies(int fileIndex)
 			enemies[i]->getObject()->setSprite(0,0);
 			enemies[i]->setPosition(x, y);
 			enemies[i]->setDefaultPos(x, y);
+			enemies[i]->setDirection(direction);
 			if(enemyType == 'g' || enemyType == 'z' || enemyType == 'r') // turn on physics for goombas and ziggy, and trolls
 			{
 				enemies[i]->getObject()->togglePhysics();

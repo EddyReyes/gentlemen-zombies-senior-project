@@ -54,17 +54,17 @@ void turret::animate()
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(2, 2);
+				m_object->setSprite(2, 1);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(2, 1);
+				m_object->setSprite(2, 0);
 				state = fortyFiveLeft;
 				break;
 
 			case fortyFiveLeft:
-				m_object->setSprite(2, 0);
+				m_object->setSprite(2, 2);
 				state = fortyFiveRight;
 				break;
 			}
@@ -73,17 +73,17 @@ void turret::animate()
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(0, 0);
+				m_object->setSprite(0, 1);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(0, 1);
+				m_object->setSprite(0, 2);
 				state = fortyFiveLeft;
 				break;
 
 			case fortyFiveLeft:
-				m_object->setSprite(0, 2);
+				m_object->setSprite(0, 0);
 				state = fortyFiveRight;
 				break;
 			}
@@ -113,12 +113,12 @@ void turret::animate()
 		switch(state)
 			{
 			case fortyFiveRight:
-				m_object->setSprite(3, 0);
+				m_object->setSprite(3, 1);
 				state = ninety;
 				break;
 
 			case ninety:
-				m_object->setSprite(3, 1);
+				m_object->setSprite(3, 0);
 				state = fortyFiveLeft;
 				break;
 
@@ -173,19 +173,19 @@ void turret::hideProjectiles()
 	{
 	case faceDown: 
 		xOffset = 0.5f; // these values could change
-		yOffset = -0.4f;
+		yOffset = -0.1f;
 		break;
 	case faceUp: 
 		xOffset = 0.35f; // these values could change
 		yOffset = -0.7f;
 		break;
 	case faceLeft:
-		xOffset = 0.2f; // these values could change
-		yOffset = -0.5f;
+		xOffset = 0.7f; // these values could change
+		yOffset = -0.45f;
 		break;
 	case faceRight:
 		xOffset = 0.2f; // these values could change
-		yOffset = -0.5f;
+		yOffset = -0.45f;
 		break;
 	default: 
 		xOffset = 0; // these values could change
@@ -211,4 +211,8 @@ void turret::destroyProjectiles()
 void turret::flip()
 {
 	// turrets do not flip
+}
+void turret::setDirection(char dir)
+{
+
 }

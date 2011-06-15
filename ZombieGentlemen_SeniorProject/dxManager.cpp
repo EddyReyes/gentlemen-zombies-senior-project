@@ -35,8 +35,8 @@ bool dxManager::initDirect3D(HWND * wndHandle, HINSTANCE * hInst)
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp.BackBufferCount  = 1;
-	d3dpp.BackBufferHeight = WINDOW_HEIGHT;
-	d3dpp.BackBufferWidth  = WINDOW_WIDTH;
+	d3dpp.BackBufferHeight = RES_HEIGHT;
+	d3dpp.BackBufferWidth  = RES_WIDTH;
 	d3dpp.hDeviceWindow    = *wndHandle;
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;

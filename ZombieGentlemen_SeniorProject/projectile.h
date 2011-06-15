@@ -28,4 +28,5 @@ public:
 	void hit();
 	void fire();
 	void flip();
+	void setDirection(char dir);
 };

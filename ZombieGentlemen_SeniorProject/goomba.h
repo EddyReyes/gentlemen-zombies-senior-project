@@ -20,4 +20,5 @@ public:
 	void animate();
 	void flip();
 	void reset();
+	void setDirection(char dir);
 };

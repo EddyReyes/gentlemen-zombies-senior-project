@@ -45,7 +45,7 @@ bool game::initGame(dxManager * a_dxMgr, directInput * a_inputMgr, sound * a_sou
 	
 	//instantiate menu (TEST DATA)
 	mainMenu = new Menu(dxMgr,"MenuArt.txt","options.txt");
-	mainMenu->setParam(WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0);
+	mainMenu->setParam(RES_WIDTH, RES_HEIGHT, 0, 0);
 	//mainMenu->setParam(WINDOW_WIDTH/2,WINDOW_HEIGHT/2,WINDOW_WIDTH/4,WINDOW_HEIGHT/4);
 
 	// initialize town (TEST DATA)

@@ -140,3 +140,16 @@ void ziggy::flip()
 {
 	// ziggys flip automajically 
 }
+
+void ziggy::setDirection(char dir)
+{
+	switch(dir)
+	{
+	case 'l': direction = ziggyLeft;
+		break;
+	case 'r': direction = ziggyRight;
+		break;
+	default:
+		break;
+	}
+}
