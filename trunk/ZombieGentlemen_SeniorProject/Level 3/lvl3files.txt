@@ -8,5 +8,5 @@ Level 3/player_spawn.txt
 Level 3/lvl3stuff.txt
 Level 3/lvl3CheckPoints.txt
 Level 3/lvl3background.txt
-Level 3/defautHUDPositions.txt
 Level 3/HUDimages.txt
+Level 3/defaultHUDPositions.txt

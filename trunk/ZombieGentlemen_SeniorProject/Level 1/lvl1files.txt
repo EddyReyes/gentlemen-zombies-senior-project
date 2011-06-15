@@ -1,12 +1,12 @@
 Level 1/lvl1map.txt
 images/green_plane2.bmp
 Level 1/lvl1Cmap.txt
-Level 1/imageManagerTest.txt
+Level 1/lvl1images.txt
 Level 1/lvl1Obj.txt
-Level 1/enemyFiles.txt
-Level 1/testPlayers.txt
+Level 1/lvl1enemyFiles.txt
+Level 1/lvl1player.txt
 Level 1/lvl1stuff.txt
 Level 1/lvl1CheckPoints.txt
 Level 1/lvl1background.txt
-imageHUDTest.txt
-defautHUDPositions.txt
+Level 1/lvl1HUDimages.txt
+Level 1/lvl1defaultHUDPositions.txt

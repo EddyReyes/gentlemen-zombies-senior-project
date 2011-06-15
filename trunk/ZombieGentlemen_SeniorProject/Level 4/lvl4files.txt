@@ -8,5 +8,5 @@ Level 4/player.txt
 Level 4/stuff.txt
 Level 4/checkPoints.txt
 Level 4/backGroundFiles.txt
-imageHUDTest.txt
-defautHUDPositions.txt
+Level 4/HUDimages.txt
+Level 4/lvl4defaultHUDPositions.txt
