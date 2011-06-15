@@ -1,0 +1,7 @@
+6 50 1 4 1 0
+..........aaaaaa..................................
+aa.......................................aaaaa....
+aaa..............aaaa.................aaaaaaaaaa.a
+a...............aa........aaaaa......aaaaaaaa....a
+a....aaa...aaaaaaa....aa..........aaaaaaaaaaa....a
+aaaaaaaaaaaaaaaaaaaaaaa..........aaaaaaaaaaaaaaaaa
