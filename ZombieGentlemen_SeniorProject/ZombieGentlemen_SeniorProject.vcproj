@@ -657,51 +657,75 @@
 					Name="level 1"
 					>
 					<File
-						RelativePath=".\cloudMap1.txt"
+						RelativePath=".\Level 1\BG_img1.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\defautHUDPositions.txt"
+						RelativePath=".\Level 1\BG_map1.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\forestMap1.txt"
+						RelativePath=".\Level 1\defautHUDPositions.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\forestMap2.txt"
+						RelativePath=".\Level 1\enemyFiles.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\HUDMoney.txt"
+						RelativePath=".\Level 1\imageHUDTest.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testBackground.txt"
+						RelativePath=".\Level 1\imageManagerTest.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testBackgroundImages.txt"
+						RelativePath=".\Level 1\lvl1background.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testBackgroundMap.txt"
+						RelativePath=".\Level 1\lvl1CheckPoints.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testBackgroundMap2.txt"
+						RelativePath=".\Level 1\lvl1Cmap.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testBackgroundMaps.txt"
+						RelativePath=".\Level 1\lvl1Enemys.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testfiles.txt"
+						RelativePath=".\Level 1\lvl1enemys2.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\testMap.txt"
+						RelativePath=".\Level 1\lvl1files.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\lvl1map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\lvl1Obj.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\lvl1stuff.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\maps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\testBackgroundMaps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 1\testPlayers.txt"
 						>
 					</File>
 				</Filter>
@@ -709,43 +733,11 @@
 					Name="level 2"
 					>
 					<File
-						RelativePath=".\Level 2\background1.txt"
+						RelativePath=".\Level 2\BG_img2.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\backGroundFiles.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\backgroundImages.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\backgroundMaps.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\checkPoints.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\collisionMap.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\enemies1.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\enemies2.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\enemies3.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\Level 2\enemies4.txt"
+						RelativePath=".\Level 2\BG_map2.txt"
 						>
 					</File>
 					<File
@@ -753,29 +745,205 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\imageManager.txt"
+						RelativePath=".\Level 2\imageManagerTest.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\level2.txt"
+						RelativePath=".\Level 2\lvl2background.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\map.txt"
+						RelativePath=".\Level 2\lvl2CheckPoints.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\objects.txt"
+						RelativePath=".\Level 2\lvl2Cmap.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\player.txt"
+						RelativePath=".\Level 2\lvl2Enemys.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\Level 2\stuff.txt"
+						RelativePath=".\Level 2\lvl2files.txt"
 						>
 					</File>
+					<File
+						RelativePath=".\Level 2\lvl2map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\lvl2Obj.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\lvl2stuff.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\maps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 2\testPlayers.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="level 3"
+					>
+					<File
+						RelativePath=".\Level 3\defautHUDPositions.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\HUDimages.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3background.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3background_images.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3CheckPoints.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3Cmap.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3enemyFiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3Enemys.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3enemys2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3files.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3grass_map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3images.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3Obj.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3sky_map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\lvl3stuff.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\maps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 3\player_spawn.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="level 4"
+					>
+					<File
+						RelativePath=".\Level 4\background1.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\backGroundFiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\backgroundImages.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\backgroundMaps.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\checkPoints.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\collisionMap.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\enemies1.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\enemies2.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\enemies3.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\enemies4.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\enemyFiles.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\imageManager.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\lvl4files.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\map.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\objects.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\player.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\skyBackground.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\Level 4\stuff.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="level 5"
+					>
 				</Filter>
 			</Filter>
 			<Filter

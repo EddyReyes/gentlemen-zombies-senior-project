@@ -170,7 +170,7 @@ bool level::update(float updateTime)
 
 	case levelWin:
 		timer += updateTime;
-		if(timer >= 10)
+		if(timer >= 5)
 		{
 			soundMgr->stopSound(soundLevel);
 			soundMgr->playSoundLoop(soundMenu);

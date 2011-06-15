@@ -63,9 +63,11 @@ void town::init(dxManager * a_dxMgr, dxCamera * a_camera,char * file, char* file
 int town::update(inputData * input,int now)
 {
 	static int r=0;
-	if((input->keystate[DIK_A] & 0x80)||(input->keystate[DIK_LEFT] & 0x80))
+	if((input->keystate[DIK_A] & 0x80)||(input->keystate[DIK_LEFT] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN))
 	{
-		if(now - input->keyLag[DIK_LEFT] > 150)
+		if(now - input->keyLag[DIK_LEFT] > 200)
 		{
 			input->keyLag[DIK_LEFT] = now;
 			if(r!=0)
@@ -75,9 +77,11 @@ int town::update(inputData * input,int now)
 			}
 		}
 	}
-	if(input->keystate[DIK_D] & 0x80||input->keystate[DIK_RIGHT] & 0x80)
+	if((input->keystate[DIK_D] & 0x80||input->keystate[DIK_RIGHT] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP))
 	{
-		if(now - input->keyLag[DIK_D] > 150)
+		if(now - input->keyLag[DIK_D] > 200)
 		{
 			input->keyLag[DIK_D] = now;
 			if(r!= max_positions-1)
@@ -89,9 +93,10 @@ int town::update(inputData * input,int now)
 
 	}
 	
-	if(input->keystate[DIK_RETURN] & 0x80)
+	if((input->keystate[DIK_RETURN] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A))
 	{
-		if(now - input->keyLag[DIK_RETURN] > 150)
+		if(now - input->keyLag[DIK_RETURN] > 200)
 		{
 			input->keyLag[DIK_RETURN] = now;
 			return r;
@@ -104,8 +109,4 @@ void town::draw()
 	camera->SetupCamera2D(0.0f,0.0f,-25.0f);
 	map->draw();
 	m_object->draw();
-	//for(int p=0;p<5;++p)
-	//{
-		//buildings[p].draw();
-	//}
 }
