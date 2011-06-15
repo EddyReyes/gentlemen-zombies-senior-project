@@ -3,6 +3,8 @@
 #include "HudImage.h"
 #include "imageManager.h"
 #include "stringArray.h"
+#include "inputData.h"
+
 
 /*the menu class will be responsible for the title screen
 as well as the in game stores*/
@@ -20,7 +22,7 @@ class Menu
 		~Menu();
 		void setParam(float width,float height,float a_x, float a_y);
 		void Draw();
-		int update(BYTE*,int,int *);
+		int update(inputData * input, int now);
 		void dialogueBox();
 		void questDialogue(std::string filename);
 		void storeMenu(std::string filename);

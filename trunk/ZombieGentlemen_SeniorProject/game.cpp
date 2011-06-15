@@ -140,7 +140,7 @@ void game::handleInput()
 	switch(gameState)
 	{
 	case menu:
-		check = mainMenu->update(input->keystate,now,input->keyLag);
+		check = mainMenu->update(input, now);
 		if(check == 1)
 		{
 			mainMenu->~Menu();

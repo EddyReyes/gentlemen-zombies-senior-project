@@ -66,15 +66,16 @@ void Menu::storeMenu(std::string filename)
 {
 
 }
-int Menu::update(BYTE* keystate,int now,int * keylag)
+int Menu::update(inputData * input,int now)
 {
 	
 	//key allows you to scroll through the options
-	if(keystate[DIK_S] & 0x80||keystate[DIK_DOWN] & 0x80)
+	if((input->keystate[DIK_S] & 0x80||input->keystate[DIK_DOWN] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN))
 	{
-		if(now - keylag[DIK_S] > 150)
+		if(now - input->keyLag[DIK_S] > 150)
 		{
-			keylag[DIK_S] = now;
+			input->keyLag[DIK_S] = now;
 			if (selected == 0) 
 			{
 				selected++;
@@ -94,11 +95,12 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 		}
 		
 	}
-	if(keystate[DIK_W] & 0x80||keystate[DIK_UP] & 0x80)
+	if((input->keystate[DIK_W] & 0x80||input->keystate[DIK_UP] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP))
 	{
-		if(now - keylag[DIK_W] > 150)
+		if(now - input->keyLag[DIK_W] > 150)
 		{
-			keylag[DIK_W] = now;
+			input->keyLag[DIK_W] = now;
 			if (selected == 0) 
 			{
 				selected = option_txt->getSize();
@@ -120,11 +122,12 @@ int Menu::update(BYTE* keystate,int now,int * keylag)
 		
 	}
 	//key that says that an option was hit
-	if(keystate[DIK_RETURN] & 0x80)
+	if((input->keystate[DIK_RETURN] & 0x80)
+		|| (input->xcont->GetState().Gamepad.wButtons & XINPUT_GAMEPAD_A))
 	{
-		if(now - keylag[DIK_RETURN] > 200)
+		if(now - input->keyLag[DIK_RETURN] > 200)
 		{
-			keylag[DIK_RETURN] = now;
+			input->keyLag[DIK_RETURN] = now;
 			return selected;
 		}
 	}
