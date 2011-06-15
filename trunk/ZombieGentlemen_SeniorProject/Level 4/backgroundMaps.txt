@@ -1,1 +1,4 @@
 Level 4/skyBackground.txt
+Level 4/background1.txt
+Level 4/background2.txt
+Level 4/background3.txt
