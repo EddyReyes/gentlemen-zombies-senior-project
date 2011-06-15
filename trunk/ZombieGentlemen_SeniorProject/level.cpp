@@ -49,6 +49,7 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 	// init backgrounds
 	backGrnd = new background();
 	backGrnd->initBackground(a_dxMgr, files->getStringAt(9));
+	
 
 	// init HUD
 	p1HUD = new HUD();
@@ -56,7 +57,6 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 	p1HUD->initPositions(files->getStringAt(11));
 	p1HUD->setPlayer(m_player);
 	p1HUD->update(0);
-
 
 	// initialize FPS display data
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");

@@ -1,0 +1,12 @@
+Level 5/lvl5map.txt
+images/green_plane2.bmp
+Level 5/lvl5Cmap.txt
+Level 5/lvl5images.txt
+Level 5/lvl5Obj.txt
+Level 5/lvl5enemyFiles.txt
+Level 5/player_spawn.txt
+Level 5/lvl5stuff.txt
+Level 5/lvl5CheckPoints.txt
+Level 5/lvl5background.txt
+Level 5/HUDimages.txt
+Level 5/defaultHUDPositions.txt
