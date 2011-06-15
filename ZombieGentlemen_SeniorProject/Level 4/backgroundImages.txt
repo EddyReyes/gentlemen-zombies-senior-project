@@ -1,1 +1,4 @@
 images/sky_background1.jpg
+images/animation/GRass sprite sheet1.bmp
+images/cloudSprites.bmp
+images/sun.bmp
