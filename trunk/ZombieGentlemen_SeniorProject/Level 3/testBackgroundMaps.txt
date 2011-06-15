@@ -1,5 +1,0 @@
-Level 3/BG_map3.txt
-testBackgroundMap2.txt
-cloudMap1.txt
-forestMap1.txt
-forestMap2.txt

@@ -1,12 +1,12 @@
 Level 3/lvl3map.txt
 images/green_plane2.bmp
 Level 3/lvl3Cmap.txt
-Level 3/imageManagerTest.txt
+Level 3/lvl3images.txt
 Level 3/lvl3Obj.txt
-Level 3/enemyFiles.txt
-Level 3/testPlayers.txt
+Level 3/lvl3enemyFiles.txt
+Level 3/player_spawn.txt
 Level 3/lvl3stuff.txt
 Level 3/lvl3CheckPoints.txt
 Level 3/lvl3background.txt
-imageHUDTest.txt
-defautHUDPositions.txt
+Level 3/defautHUDPositions.txt
+Level 3/HUDimages.txt

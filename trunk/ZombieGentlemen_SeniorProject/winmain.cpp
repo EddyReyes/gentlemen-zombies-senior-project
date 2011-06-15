@@ -12,7 +12,7 @@ HINSTANCE hInstance; // global handle to hold the application instance
 HWND wndHandle; //global variable to hold the window handle
 
 #define WINDOW_WIDTH 800
-#define WINODW_HEIGHT 600
+#define WINDOW_HEIGHT 600
 
 // forward declarations
 bool initWindow( HINSTANCE hInstance);
@@ -123,7 +123,7 @@ bool initWindow( HINSTANCE hInstance )
 				CW_USEDEFAULT,					// the starting x coordinate
 				CW_USEDEFAULT,					// the startying y coordinate
 				WINDOW_WIDTH,					// the pixel width of the window
-				WINODW_HEIGHT,					// the pixel height of the window
+				WINDOW_HEIGHT,					// the pixel height of the window
 				NULL,							// the parent window NULL for desktop
 				NULL,							// The menu for the application; NULL for none
 				hInstance,						// the handle to the applicatilon instance
@@ -131,7 +131,11 @@ bool initWindow( HINSTANCE hInstance )
 
 	// make sure that the window handle that is created is valid
 	if(!wndHandle)
+	{
+		MessageBox(NULL, "DEBUG initWindow, wndHandle  failed", "Windows Error", MB_OK);
+
 		return false;
+	}
 
 	// Display the window on the screen
 	ShowWindow(wndHandle, SW_SHOW);

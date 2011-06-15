@@ -1,2 +1,2 @@
 Level 3/maps.txt
-Level 3/BG_img3.txt
+Level 3/lvl3background_images.txt
