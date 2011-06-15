@@ -152,9 +152,15 @@ bool level::update(float updateTime)
 				sprintf_s(statsBuffer, "Stats:\nTime: %4.2f sec\nDeaths: %i", stats.timer, stats.numDeaths);
 			else
 			{
-				double minutes, seconds;
+				/*double minutes, seconds;
 				seconds = modf(stats.timer/60.0, &minutes);
 				sprintf_s(statsBuffer, "Stats:\nTime: %imin %2.0fsec \nDeaths: %i", (int)minutes, 100*seconds, stats.numDeaths);
+				statsDisplay->setFontSize(40);*/
+
+				int minutes, seconds;
+				minutes = stats.timer/60000;
+				seconds = (int)stats.timer/1000 % 60;
+				sprintf_s(statsBuffer, "Stats:\nTime: %imin %isec \nDeaths: %i", minutes, seconds, stats.numDeaths);
 				statsDisplay->setFontSize(40);
 			}
 			statsDisplay->setDialog(statsBuffer);
@@ -404,6 +410,30 @@ void level::handleInput(inputData * input, int now)
 			entityMgr->loadEnemies(0);
 		}
 	}
+
+	// debugging
+	if ((input->keystate[DIK_C] & 0x80))
+	{
+		if(now - input->keyLag[DIK_C] > 200)
+		{
+			input->keyLag[DIK_C] = now;
+			if(camData.pos.z == -12.0f)
+			{
+				camData.pos.z = -25.0f;
+			}
+			else
+				camData.pos.z = -12.0f;
+		}
+	}
+	if((input->keystate[DIK_K] & 0x80))
+	{
+		if(now - input->keyLag[DIK_K] >200)
+		{
+			input->keyLag[DIK_K] = now;
+			m_player->keyPickup();
+		}
+	}
+
 }
 level::~level()
 {

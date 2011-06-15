@@ -122,3 +122,15 @@ void goomba::reset()
 	alive = true;
 	armor = false;
 }
+void goomba::setDirection(char dir)
+{
+	switch(dir)
+	{
+	case 'l': state = goombaWalkLeft;
+		break;
+	case 'r': state = goombaWalkRight;
+		break;
+	default: 
+		break;
+	}
+}

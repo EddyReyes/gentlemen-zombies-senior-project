@@ -68,3 +68,16 @@ void troll::flip()
 		break;
 	}
 }
+
+void troll::setDirection(char dir)
+{
+	switch(dir)
+	{
+	case 'l': state = trollWalkingLeft;
+		break;
+	case 'r': state = trollWalkingRight;
+		break;
+	default:
+		break;
+	}
+}

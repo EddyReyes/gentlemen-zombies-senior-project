@@ -1,8 +1,6 @@
 // includeFiles.h holds all other include headers nessary for this game
 #include <Windows.h>
 #include "game.h"
-
-
 /*******************************************************************************************************
 * Windows
 * The following code creates a window
@@ -92,6 +90,7 @@ int WINAPI WinMain ( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 bool initWindow( HINSTANCE hInstance )
 {
 	WNDCLASSEX wcex;
+	memset(&wcex, 0, sizeof(wcex));
 
 	// this code loads the icon into a SHFILEINFO
 	string icon = "gameIcon.ico";
@@ -106,14 +105,25 @@ bool initWindow( HINSTANCE hInstance )
 	wcex.cbClsExtra		= 0;						// extra bytes to allocate for this class
 	wcex.cbWndExtra		= 0;						// extra bytes to allocate for this instance
 	wcex.hInstance		= hInstance;				// handle to the application instance
-	wcex.hIcon			= shfi.hIcon;				// the large icon image data is possed into the window
-	wcex.hIconSm	    = shfi.hIcon;				// the small icon image data is possed into the window
-	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW); // the default cursor
+	//wcex.hIcon		= shfi.hIcon;				// the large icon image data is possed into the window
+	//wcex.hIconSm	    = shfi.hIcon;				// the small icon image data is possed into the window
+	wcex.hIcon			= ::LoadIcon( NULL, IDI_APPLICATION );		// the large icon image data is possed into the window
+	wcex.hIconSm	    = NULL;				// the small icon image data is possed into the window
+	wcex.hCursor		= ::LoadCursor(NULL, IDC_ARROW); // the default cursor
 	wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1); // the background color
 	wcex.lpszMenuName	= NULL;						// the resource name for the menu
-	wcex.lpszClassName	= "GSP Senior Project";			// the class name being created
-	wcex.hIconSm		= 0;						// the handle to the small icon
-	RegisterClassEx(&wcex);
+	wcex.lpszClassName	= "GSP Senior Project";		// the class name being created
+
+
+	if(!RegisterClassEx(&wcex))
+	{
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s(buffer, "RegisterClassEx() failed, error number: %i", GetLastError());
+
+		MessageBox(NULL, buffer, "Windows Error", MB_OK);
+		return false;
+	}
 
 	// Create the window
 	wndHandle = CreateWindow(
@@ -132,13 +142,17 @@ bool initWindow( HINSTANCE hInstance )
 	// make sure that the window handle that is created is valid
 	if(!wndHandle)
 	{
-		MessageBox(NULL, "DEBUG initWindow, wndHandle  failed", "Windows Error", MB_OK);
+		char buffer[256];
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s(buffer, "CreateWindow() failed, error number: %i", GetLastError());
 
+		MessageBox(NULL, buffer, "Windows Error", MB_OK);
 		return false;
 	}
 
 	// Display the window on the screen
 	ShowWindow(wndHandle, SW_SHOW);
+
 	UpdateWindow(wndHandle);
 	return true;
 }

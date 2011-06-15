@@ -38,7 +38,7 @@ public:
 	void createCamera(float nearClip, float farClip)
 	{
 		//Here we specify the field of view, aspect ratio and near and far clipping planes.
-		D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, WINDOW_WIDTH/WINDOW_HEIGHT, nearClip, farClip);
+		D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, RES_WIDTH/RES_HEIGHT, nearClip, farClip);
 		pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 	}
 
@@ -106,7 +106,7 @@ public:
 		D3DXMATRIX Ortho2D;
 		D3DXMATRIX Identity;
 
-		D3DXMatrixOrthoLH(&Ortho2D, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 1.0f);
+		D3DXMatrixOrthoLH(&Ortho2D, RES_WIDTH, RES_HEIGHT, 0.0f, 1.0f);
 		D3DXMatrixIdentity(&Identity);
 
 		pd3dDevice->SetTransform(D3DTS_PROJECTION, &Ortho2D);

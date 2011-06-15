@@ -204,3 +204,5 @@ void projectile::hit(){state = projectileHit;}
 void projectile::fire(){state = projectileFire;}
 void projectile::flip(){ // projectiles do not flip
 }
+void projectile::setDirection(char dir)
+{}

@@ -23,6 +23,7 @@ public:
 	virtual void animate() = 0;
 	virtual void reset() = 0;
 	virtual void flip() = 0;
+	virtual void setDirection(char) = 0;
 	
 	// member functions
 	void setPosition(float x, float y);

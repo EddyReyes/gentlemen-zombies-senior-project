@@ -1,0 +1,9 @@
+8 50 1 4 2 0
+..........a...aa......a.........a.............a...
+..........a...a.......a.........aaaaa.a.a.a...a..a
+..........aaa.aaa.....a....a....a.............a...
+..............a....aaaa..aaaaa..a...aaaaaaaaaaaaa.
+..................aaaaaa...a...aa.............a...
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

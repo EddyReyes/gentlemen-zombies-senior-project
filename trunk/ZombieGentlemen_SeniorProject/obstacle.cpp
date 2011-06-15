@@ -58,3 +58,8 @@ void obstacle::reset()
 }
 void obstacle::flip(){ // flip does nothing in obstacle 
 }
+
+void obstacle::setDirection(char dir)
+{
+	
+}

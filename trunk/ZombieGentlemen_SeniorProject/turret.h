@@ -29,4 +29,5 @@ public:
 	projectile * getProjectile(int index);
 	void destroyProjectiles();
 	void flip();
+	void setDirection(char dir);
 };
