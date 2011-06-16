@@ -1,5 +1,7 @@
 Level 5/lvl5grass_map.txt
 Level 5/lvl5sky_map.txt
 cloudMap1.txt
-forestMap1.txt
-forestMap2.txt
+Level 5/lvl5forestMap1.txt
+Level 5/lvl5forestMap2.txt
+Level 5/lvl5forestMap3.txt
+Level 5/lvl5sunMap.txt
