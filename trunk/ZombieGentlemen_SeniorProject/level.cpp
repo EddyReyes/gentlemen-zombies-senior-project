@@ -61,6 +61,9 @@ void level::initLevel(dxManager* a_dxMgr, dxCamera * a_camera, sound * a_soundMg
 	FPSText = new DXText(a_dxMgr, "images/BlackTextBox.bmp");
 	FPSText->loadFromTxtFile("textParameters.txt");
 	FPSText->setDialog("Loading...");
+	// initially toggle FPS as off
+	FPSText->toggleImage();
+	FPSText->toggleText();
 
 	// init stats display data
 	statsDisplay= new DXText(a_dxMgr, "images/BlackTextBox.bmp");
@@ -151,14 +154,9 @@ bool level::update(float updateTime)
 				sprintf_s(statsBuffer, "Stats:\nTime: %4.2f sec\nDeaths: %i", stats.timer, stats.numDeaths);
 			else
 			{
-				/*double minutes, seconds;
-				seconds = modf(stats.timer/60.0, &minutes);
-				sprintf_s(statsBuffer, "Stats:\nTime: %imin %2.0fsec \nDeaths: %i", (int)minutes, 100*seconds, stats.numDeaths);
-				statsDisplay->setFontSize(40);*/
-
 				int minutes, seconds;
-				minutes = stats.timer/60000;
-				seconds = (int)stats.timer/1000 % 60;
+				minutes = (int)stats.timer/60;
+				seconds = (int)stats.timer % 60;
 				sprintf_s(statsBuffer, "Stats:\nTime: %imin %isec \nDeaths: %i", minutes, seconds, stats.numDeaths);
 				statsDisplay->setFontSize(40);
 			}
@@ -430,6 +428,15 @@ void level::handleInput(inputData * input, int now)
 		{
 			input->keyLag[DIK_K] = now;
 			m_player->keyPickup();
+		}
+	}
+	if((input->keystate[DIK_F] & 0x80))
+	{
+		if(now - input->keyLag[DIK_F] >200)
+		{
+			input->keyLag[DIK_F] = now;
+			FPSText->toggleImage();
+			FPSText->toggleText();
 		}
 	}
 

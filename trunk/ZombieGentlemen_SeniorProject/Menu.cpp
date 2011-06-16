@@ -54,8 +54,9 @@ void Menu::setParam(float w, float h, float a_x, float a_y)
 	{
 		//offset seemingly random
 		//options[q]->setTextBoxParameters(w/2,h/4,a_x,a_y+(q*(h/4)),10);
-		options[q]->setTextBoxParameters(350.0f, 80.0f, 950.0f, 400.0f +(q*(h/12)), 10);
-		options[q]->setFontColor(0xff,0x00,0x00,0x00);//sets the color to black in hex
+		options[q]->setTextBoxParameters(350.0f, 80.0f, 950.0f, 400.0f +(q*(h/12)), 20);
+		options[q]->setFontColor(255,255,255,255);//sets the color to black in hex
+		options[q]->setFontSize(40);
 	}
 }
 void Menu::questDialogue(std::string filename)
