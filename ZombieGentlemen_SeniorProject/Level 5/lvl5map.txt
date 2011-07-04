@@ -1,5 +1,5 @@
 17 72 1 4 1 0
-aaaaaaa........a........a...................aaaaaaaaaaaa......a...aaaaaa
+aaaaaa.........a........a...................aaaaaaaaaaaa......a...aaaaaa
 aaaaaaa........a........a..................a...........a......a...aaaaaa
 aaaaaaa........a.a......a......a...........a...........a......aaa.aaaaaa
 aaaaaaaaaaaa...a.a.aa...aaaaaaaa.........aaaaaaaaaaaaa.a........a.aaaaaa
