@@ -1,0 +1,1 @@
+This is our Senior Project main SVN repository. We'll be using this to keep track of our game and better to merge our code in the same direction.
